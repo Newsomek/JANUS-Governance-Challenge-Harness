@@ -1,4 +1,4 @@
-# JANUS Governance Challenge Harness v0.3.1
+# JANUS Governance Challenge Harness v0.3.2
 
 A dependency-free external architectural challenge harness for examining governance claims described in the **JANUS Orientation Edition 2026**.
 
@@ -72,17 +72,19 @@ Replay is intentionally narrow. It is a **re-derivation from the static authored
 - encoded disposition;
 - scenario-contract SHA-256;
 - expected vs observed source-document SHA-256;
+- bound code identity and served `app.js` SHA-256;
 - the stored evidence-core SHA-256;
+- the stored full-record snapshot SHA-256;
 - a freshly re-derived authored evidence core.
 
 A replay divergence disables ordinary evidence export until a new clean run is performed.
-
 ## Evidence export
 
-Exports include run and export timestamps, harness version/build ID, the bound application code commit recorded in the deployed `build-info.json`, with GitHub `main` used only as optional corroboration, absolute source URL, expected and observed source hashes, contract hash, authored compatibility set/reason, scenario fields, event log, replay result, attributions, restrictions, and an explicit integrity-check map.
+Exports include run and export timestamps, harness version/build ID, the bound application code commit recorded in the deployed `build-info.json`, absolute source URL, expected and observed source hashes, contract hash, authored compatibility set/reason, scenario fields, event log, a freshly re-derived replay result, attributions, restrictions, and an explicit integrity-check map. GitHub `main` is optional corroboration only.
 
-Before export the harness recomputes and checks: valid prediction membership, prediction/disposition labels, comparison code/label, current contract hash, live source-document bytes and hash, source consistency with the run, event-log content, stored evidence-core hash, fresh authored-state hash, and replay status. A failed check refuses ordinary export. Client-side JSON remains unsigned and is not claimed to be tamper-proof.
+Before export the harness recomputes and checks: valid prediction membership, prediction/disposition labels, comparison code/label, current contract hash, live source-document bytes and hash, source consistency with the run, bound build identity and served `app.js`, event-log content, stored evidence-core hash, full stored-record snapshot hash, fresh authored-state hash, and a freshly re-derived replay result. A failed check refuses ordinary export. The mutable on-screen replay record is never trusted as export evidence. Client-side JSON remains unsigned and is not claimed to be tamper-proof.
 
+The build manifest records hashes for release artifacts so a reviewer can independently compare them. At runtime the harness directly enforces the manifest version/build ID and the served `app.js` hash; it separately verifies the JANUS source-document hash. Other manifest file hashes are release provenance metadata, not claims that every listed file is re-hashed by the browser on each Run.
 ## Independent v0.1 test record
 
 The v0.1 harness at commit `f8b2eb6284575d1670c748bee1868835bf7242eb` was independently exercised across all **36 scenario × prediction permutations** on the live public site. The test also covered replay, export, determinism, state isolation, source conformance, and tamper/edge behavior.
@@ -104,6 +106,14 @@ Preserved artifacts:
 - `testing/claude/v0.2/JANUS_Harness_v0.2_Independent_Regression_Test_Report.md`
 - `testing/claude/v0.2/JANUS_Harness_v0.2_raw_results.json`
 
+## Independent v0.3 regression record
+
+The v0.3 harness at commit `d79b0385c5b041772580121deaaf1531c8d4a845` underwent an independent regression and integrity test. The test found the architectural content source-conformant but identified a release-blocking evidence-core timestamp defect plus additional provenance/observability findings. Version 0.3.1 corrected that integrity architecture and preserved the complete v0.3 test evidence.
+
+Preserved artifacts:
+
+- `testing/claude/v0.3/JANUS_Harness_v0.3_Independent_Regression_Integrity_Test_Report.md`
+- `testing/claude/v0.3/JANUS_Harness_v0.3_raw_results.json`
 ## Source document
 
 The repository copy used for this review is:
@@ -204,4 +214,21 @@ Independent test evidence:
 `testing/claude/v0.3.1/JANUS_Harness_v0.3.1_raw_results.json`
 
 The remaining findings are Low-severity hardening and usability items tracked for a later release. The test evidence does not make this harness an official JANUS implementation or a validation of unpublished JANUS runtime behavior.
+
+## v0.3.2 zero-known-defect hardening candidate
+
+Version 0.3.2 closes every known Low/Observation finding from the independent v0.3.1 review before any Version 1.0 promotion:
+
+- strict scenario-contract enum, non-empty, and compatibility validation;
+- null-safe scenario selection and guarded structural hashing;
+- retry-safe Run refusal handling;
+- no false stale-state notice before evidence exists;
+- replay evidence is freshly re-derived at Export rather than copied from mutable UI state;
+- build manifest version/build ID are checked against the running app;
+- the declared bound commit is corroborated against its own `app.js` when the external raw source is available, while GitHub `main` remains optional corroboration;
+- Export refusals are persistent in the page and fetch errors identify the affected resource;
+- automated local regression coverage is included under `tests/v0.3.2-regression.mjs`;
+- the build manifest lists hashes for independent release verification, while runtime enforcement is explicit about which resources are re-hashed (`app.js` and the JANUS source document).
+
+Promotion rule: v0.3.2 must undergo a new independent adversarial regression with **zero open findings** before a separate Version 1.0 artifact is created. Version 1.0 itself must then be deployed and tested before its final tag is created.
 

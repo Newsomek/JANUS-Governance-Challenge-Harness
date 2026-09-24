@@ -1,4 +1,17 @@
 # Changelog
+## v0.3.2 — Zero-known-defect hardening candidate
+
+Based on the independent v0.3.1 release-candidate test:
+
+- closes V031-NEW-01 with strict scenario schema and enum validation plus null-safe lookup;
+- closes V031-NEW-02 by restoring runnable state after transient refusals;
+- closes V031-NEW-03 by suppressing invalidation notices when no evidence existed;
+- closes V031-NEW-04 by freshly re-deriving the replay block at Export;
+- closes V031-NEW-05 by validating manifest version/build ID and corroborating the declared bound commit when available;
+- closes V031-NEW-06 by routing structural hash failures through guarded refusal paths;
+- closes V031-NEW-07 by persisting Export refusal reasons and naming failed fetch resources;
+- closes V031-NEW-08 through README, changelog, integrity-scope, and provenance documentation cleanup;
+- adds automated regression coverage and a zero-open-finding gate before Version 1.0 promotion.
 
 ## v0.3.1 — Stable integrity baseline correction
 
@@ -15,6 +28,25 @@ Based on the independent v0.3 regression at commit `d79b0385c5b041772580121deaaf
 - explains S05/S06 `BLOCK + REAUTHORIZE` exclusions in compatibility rationale;
 - preserves Claude v0.3 regression evidence under `testing/claude/v0.3/`;
 - requires a deployed six-scenario Run → Replay → Export smoke test and full independent regression before a reviewed tag.
+
+## v0.3 — Evidence-integrity hardening candidate
+
+Built from independently regression-tested v0.2 commit `ba7b6e5b9335f395499f569f0df091962c69bb8f`.
+
+### Remediations from the v0.2 regression
+
+- **DEF-02 / NEW-02:** source-document integrity now hashes the actual served DOCX bytes with `crypto.subtle` at Run, Replay, and Export.
+- **DEF-03:** exports record the absolute source URL, expected/observed source hashes, run/export timestamps, and the full GitHub `main` SHA observed at run time when available.
+- **NEW-03:** export rechecks contract, source, event log, labels/comparison, stored evidence-core hash, fresh authored-state hash, and replay status; ordinary export is refused on failure/divergence.
+- **DEF-10 / NEW-06:** S02 #2, S03 #1, and S05 #2 are `REASONABLE INFERENCE`; support terms are defined and visually distinct; §26 is identified in S03 as an analogy source.
+- **NEW-05:** compatible predictions and their authored rationale are visible and exported. ESCALATE is treated as compatible for S01/S03/S04; S06 CONTINUE remains DIFFERENT with an explicit reason tied to the glossary definition.
+- **NEW-01:** generation-token guards discard stale async completions and replay null-checks after awaits.
+- **NEW-04:** prediction validation uses an explicit allow-list / own-key check.
+- **NEW-07:** fresh-page selection changes no longer claim prior evidence was invalidated; exports distinguish `generated_at` and `exported_at`.
+
+### Evidence preservation
+
+The complete v0.2 regression report and raw results are preserved under `testing/claude/v0.2/`.
 
 ## v0.2
 
@@ -39,22 +71,3 @@ Hardening release based on the independent v0.1 full-matrix test.
 
 The complete v0.1 test report and raw results remain under `testing/claude/v0.1/`.
 
-
-## v0.3 — Evidence-integrity hardening candidate
-
-Built from independently regression-tested v0.2 commit `ba7b6e5b9335f395499f569f0df091962c69bb8f`.
-
-### Remediations from the v0.2 regression
-
-- **DEF-02 / NEW-02:** source-document integrity now hashes the actual served DOCX bytes with `crypto.subtle` at Run, Replay, and Export.
-- **DEF-03:** exports record the absolute source URL, expected/observed source hashes, run/export timestamps, and the full GitHub `main` SHA observed at run time when available.
-- **NEW-03:** export rechecks contract, source, event log, labels/comparison, stored evidence-core hash, fresh authored-state hash, and replay status; ordinary export is refused on failure/divergence.
-- **DEF-10 / NEW-06:** S02 #2, S03 #1, and S05 #2 are `REASONABLE INFERENCE`; support terms are defined and visually distinct; §26 is identified in S03 as an analogy source.
-- **NEW-05:** compatible predictions and their authored rationale are visible and exported. ESCALATE is treated as compatible for S01/S03/S04; S06 CONTINUE remains DIFFERENT with an explicit reason tied to the glossary definition.
-- **NEW-01:** generation-token guards discard stale async completions and replay null-checks after awaits.
-- **NEW-04:** prediction validation uses an explicit allow-list / own-key check.
-- **NEW-07:** fresh-page selection changes no longer claim prior evidence was invalidated; exports distinguish `generated_at` and `exported_at`.
-
-### Evidence preservation
-
-The complete v0.2 regression report and raw results are preserved under `testing/claude/v0.2/`.

@@ -1,22 +1,25 @@
 JANUS Governance Challenge Harness
 
-Version: 0.3.1
-Status: Integrity correction candidate — requires independent regression before reviewed tag
+Version: 0.3.2
+Status: Zero-known-defect hardening candidate — requires independent adversarial regression before Version 1.0 promotion
 
-Base tested release:
-v0.3 commit d79b0385c5b041772580121deaaf1531c8d4a845
+Base reviewed release:
+v0.3.1-reviewed commit dc621ffe20b78443e1a0ce0dd2ad76e5127e81c0
 
-Primary v0.3.1 corrections:
-- remove volatile source checked_at metadata from the stable authored evidence core;
-- split stable evidence-core integrity from full stored-record snapshot integrity;
-- bind served app.js to build-info.json and a code commit created by the governed updater;
-- use GitHub main only as optional corroboration, not as the bound code identity;
-- surface refusal reasons and provenance status;
-- schema-check scenario contracts and catch evidence-build failures;
-- clear hidden result DOM on invalidation;
-- preserve v0.3 independent regression evidence.
+Primary v0.3.2 corrections:
+- complete scenario-contract schema validation, including enum and emptiness checks;
+- null-safe scenario lookup and fail-closed structural handling;
+- re-enable Run after transient refusal when the current selection remains valid;
+- suppress false stale-state notices before any evidence exists;
+- freshly re-derive the replay block at export instead of trusting mutable replay state;
+- validate build-info version/build ID and corroborate the declared bound commit when available;
+- preserve bound code identity when GitHub main corroboration is unavailable or moves;
+- make export refusals persistent and resource-specific;
+- clarify integrity scope and runtime provenance behavior;
+- add automated regression coverage for the six canonical scenarios, malformed contracts, replay/export integrity, and structural tampering.
 
 JANUS source expected SHA-256:
 21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
 
-Do not tag v0.3.1-reviewed until the deployed six-scenario smoke test and independent regression pass.
+Promotion rule:
+Do not promote to Version 1.0 until the deployed v0.3.2 release has no known open findings after independent Claude adversarial testing. Then create and test the actual Version 1.0 artifact separately.

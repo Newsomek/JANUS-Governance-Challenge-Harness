@@ -1,7 +1,7 @@
 "use strict";
 
-const HARNESS_VERSION = "0.3.1";
-const BUILD_ID = "janus-governance-challenge-harness-v0.3.1";
+const HARNESS_VERSION = "0.3.2";
+const BUILD_ID = "janus-governance-challenge-harness-v0.3.2";
 const BUILD_INFO_URL = "build-info.json";
 const REPOSITORY = "https://github.com/Newsomek/JANUS-Governance-Challenge-Harness";
 const GITHUB_HEAD_API = "https://api.github.com/repos/Newsomek/JANUS-Governance-Challenge-Harness/commits/main";
@@ -21,6 +21,7 @@ const labels = Object.freeze({
   INSUFFICIENT_SPECIFICATION: "INSUFFICIENT SPECIFICATION"
 });
 const VALID_PREDICTIONS = new Set(Object.keys(labels));
+const VALID_SUPPORT_STATUSES = new Set(["DIRECTLY SUPPORTED", "REASONABLE INFERENCE", "EXTENDED / BY ANALOGY", "OPEN"]);
 
 const scenarios = [
   {
@@ -212,7 +213,7 @@ let lastReplay = null;
 let stateGeneration = 0;
 
 function selectedScenario() {
-  return scenarios.find((item) => item.id === scenarioSelect.value) || null;
+  return scenarios.find((item) => item && item.id === scenarioSelect.value) || null;
 }
 
 function validPrediction(value) {
@@ -309,7 +310,12 @@ async function sha256Text(text) {
 }
 
 async function observeSourceDocument() {
-  const response = await fetch(SOURCE_DOCUMENT.url, {cache: "no-store"});
+  let response;
+  try {
+    response = await fetch(SOURCE_DOCUMENT.url, {cache: "no-store"});
+  } catch (error) {
+    throw new Error(`Source document fetch failed: ${error.message}`);
+  }
   if (!response.ok) throw new Error(`Source document fetch failed: HTTP ${response.status}`);
   const bytes = await response.arrayBuffer();
   const observed = await sha256Buffer(bytes);
@@ -328,9 +334,16 @@ async function observeSourceDocument() {
 
 async function observeHarnessProvenance() {
   const buildUrl = new URL(BUILD_INFO_URL, window.location.href).href;
-  const buildResponse = await fetch(buildUrl, {cache: "no-store"});
+  let buildResponse;
+  try {
+    buildResponse = await fetch(buildUrl, {cache: "no-store"});
+  } catch (error) {
+    throw new Error(`Build provenance fetch failed: ${error.message}`);
+  }
   if (!buildResponse.ok) throw new Error(`Build provenance fetch failed: HTTP ${buildResponse.status}`);
   const build = await buildResponse.json();
+  if (build.version !== HARNESS_VERSION) throw new Error(`Build provenance version mismatch: expected ${HARNESS_VERSION}, observed ${build.version ?? "missing"}.`);
+  if (build.build_id !== BUILD_ID) throw new Error(`Build provenance ID mismatch: expected ${BUILD_ID}, observed ${build.build_id ?? "missing"}.`);
   const codeCommit = typeof build.code_commit === "string" && /^[0-9a-f]{40}$/i.test(build.code_commit)
     ? build.code_commit.toLowerCase()
     : null;
@@ -340,12 +353,32 @@ async function observeHarnessProvenance() {
   }
 
   const appUrl = new URL("app.js", window.location.href).href;
-  const appResponse = await fetch(appUrl, {cache: "no-store"});
+  let appResponse;
+  try {
+    appResponse = await fetch(appUrl, {cache: "no-store"});
+  } catch (error) {
+    throw new Error(`Harness code fetch failed: ${error.message}`);
+  }
   if (!appResponse.ok) throw new Error(`Harness code fetch failed: HTTP ${appResponse.status}`);
   const appBytes = await appResponse.arrayBuffer();
   const observedAppHash = await sha256Buffer(appBytes);
   if (observedAppHash !== expectedAppHash) {
     throw new Error("Served app.js SHA-256 does not match build provenance.");
+  }
+
+  let boundCommitVerification = "UNAVAILABLE";
+  let boundCommitNote = "Bound commit corroboration unavailable.";
+  try {
+    const boundRawUrl = `https://raw.githubusercontent.com/Newsomek/JANUS-Governance-Challenge-Harness/${codeCommit}/app.js`;
+    const boundRawResponse = await fetch(boundRawUrl, {cache: "no-store"});
+    if (!boundRawResponse.ok) throw new Error(`HTTP ${boundRawResponse.status}`);
+    const boundRawHash = await sha256Buffer(await boundRawResponse.arrayBuffer());
+    if (boundRawHash !== expectedAppHash) throw new Error("Bound commit app.js differs from the build manifest hash.");
+    boundCommitVerification = "MATCH";
+    boundCommitNote = "The declared bound commit serves the same app.js bytes as the build manifest.";
+  } catch (error) {
+    if (/differs from the build manifest hash/.test(error.message)) throw error;
+    boundCommitNote = `Bound commit corroboration unavailable: ${error.message}`;
   }
 
   let deploymentHead = null;
@@ -384,6 +417,8 @@ async function observeHarnessProvenance() {
     app_js_expected_sha256: expectedAppHash,
     app_js_observed_sha256: observedAppHash,
     app_js_hash_match: observedAppHash === expectedAppHash,
+    bound_commit_verification: boundCommitVerification,
+    bound_commit_note: boundCommitNote,
     deployment_head_observed: deploymentHead,
     deployment_parent_shas: deploymentParents,
     commit_verification: commitVerification,
@@ -492,11 +527,14 @@ function validateScenarioContract(scenario) {
   if (!scenario || typeof scenario !== "object") return "Scenario contract is missing.";
   const requiredStrings = ["id","name","summary","perturbation","disposition","compatibilityReason","changed","valid","invalid","execute","rationale","openQuestion","evidenceRequired"];
   for (const key of requiredStrings) {
-    if (typeof scenario[key] !== "string" || !scenario[key]) return `Scenario contract field is invalid: ${key}`;
+    if (typeof scenario[key] !== "string" || !scenario[key].trim()) return `Scenario contract field is invalid: ${key}`;
   }
+  if (!validPrediction(scenario.disposition)) return "Scenario disposition is not a valid disposition value.";
   if (!Array.isArray(scenario.compatiblePredictions) || !scenario.compatiblePredictions.every(validPrediction)) return "Scenario compatibility set is invalid.";
-  if (!Array.isArray(scenario.commitments) || !scenario.commitments.every((x) => x && typeof x.status === "string" && typeof x.text === "string")) return "Scenario commitments are invalid.";
-  if (!Array.isArray(scenario.sources) || !scenario.sources.every((x) => typeof x === "string")) return "Scenario source list is invalid.";
+  if (scenario.compatiblePredictions.includes(scenario.disposition)) return "Scenario compatibility set cannot contain the encoded disposition.";
+  if (!Array.isArray(scenario.commitments) || scenario.commitments.length < 1) return "Scenario commitments must contain at least one commitment.";
+  if (!scenario.commitments.every((x) => x && VALID_SUPPORT_STATUSES.has(x.status) && typeof x.text === "string" && x.text.trim())) return "Scenario commitments contain an invalid support status or text.";
+  if (!Array.isArray(scenario.sources) || scenario.sources.length < 1 || !scenario.sources.every((x) => typeof x === "string" && x.trim())) return "Scenario source list is invalid.";
   return null;
 }
 
@@ -532,6 +570,15 @@ function invalidateRun(reason, hadEvidence = Boolean(lastRun || lastReplay || !r
   exportBtn.disabled = true;
   staleNotice.hidden = !reason;
   staleNotice.textContent = reason || "";
+}
+
+function showRefusal(message) {
+  staleNotice.hidden = false;
+  staleNotice.textContent = message;
+}
+
+function restoreRunnableState() {
+  renderScenario();
 }
 
 async function buildEvidence(scenario, prediction, sourceObservation, harnessProvenance) {
@@ -626,6 +673,7 @@ async function runChallenge() {
   } catch (error) {
     if (token !== stateGeneration) return;
     invalidateRun(`Execution refused: ${error.message}`, false);
+    restoreRunnableState();
     return;
   }
 
@@ -650,7 +698,7 @@ async function runChallenge() {
   evidenceRequired.textContent = scenario.evidenceRequired;
   compatibilityInfo.textContent = `${(scenario.compatiblePredictions || []).map((p) => labels[p]).join(", ") || "None"}. ${scenario.compatibilityReason}`;
   const provenance = document.getElementById("provenanceInfo");
-  if (provenance) provenance.textContent = `Bound code commit: ${evidence.harness_code_commit}. Served app.js hash verified. GitHub main corroboration: ${evidence.harness_provenance.commit_verification}.`;
+  if (provenance) provenance.textContent = `Bound code commit: ${evidence.harness_code_commit}. Served app.js hash verified. Bound commit corroboration: ${evidence.harness_provenance.bound_commit_verification}. GitHub main corroboration: ${evidence.harness_provenance.commit_verification}.`;
   eventLog.textContent = evidence.event_log.join("\n");
 
   replayRecord.textContent = JSON.stringify({
@@ -674,40 +722,8 @@ async function runChallenge() {
   renderScenario();
 }
 
-async function replayLastRun() {
-  if (!lastRun) return;
-  const token = stateGeneration;
-  const snapshot = lastRun;
-  const scenario = scenarios.find((item) => item.id === snapshot.scenario_id);
-  if (!scenario || !validPrediction(snapshot.reviewer_prediction) || validateScenarioContract(scenario)) {
-    lastReplay = {result: "REPLAY REFUSED", reason: "Scenario contract or prediction is invalid."};
-    replayRecord.textContent = JSON.stringify(lastReplay, null, 2);
-    exportBtn.disabled = true;
-    staleNotice.hidden = false;
-    staleNotice.textContent = `Replay refused: ${lastReplay.reason}`;
-    return;
-  }
-
-  let sourceObservation;
-  let harnessProvenance;
-  let recomputed;
-  try {
-    [sourceObservation, harnessProvenance] = await Promise.all([observeSourceDocument(), observeHarnessProvenance()]);
-    if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
-    if (!sourceObservation.hash_match) throw new Error("Observed JANUS source-document SHA-256 does not match the published expected hash.");
-    if (!harnessProvenance.app_js_hash_match) throw new Error("Served harness code does not match bound build provenance.");
-    recomputed = await buildEvidence(scenario, snapshot.reviewer_prediction, sourceObservation, harnessProvenance);
-  } catch (error) {
-    if (token !== stateGeneration || lastRun !== snapshot) return;
-    lastReplay = {result: "REPLAY REFUSED", reason: error.message};
-    replayRecord.textContent = JSON.stringify(lastReplay, null, 2);
-    exportBtn.disabled = true;
-    staleNotice.hidden = false;
-    staleNotice.textContent = `Replay refused: ${error.message}`;
-    return;
-  }
-  if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
-
+async function deriveReplayRecord(snapshot, scenario, sourceObservation, harnessProvenance) {
+  const recomputed = await buildEvidence(scenario, snapshot.reviewer_prediction, sourceObservation, harnessProvenance);
   const storedCoreHash = await evidenceCoreHash(snapshot);
   const storedSnapshotHash = await recordSnapshotHash(snapshot);
   const dispositionMatch = recomputed.orientation_level_disposition === snapshot.orientation_level_disposition;
@@ -717,8 +733,7 @@ async function replayLastRun() {
   const recordIntegrityMatch = storedSnapshotHash === snapshot.record_snapshot_sha256;
   const authoredStateMatch = recomputed.evidence_core_sha256 === snapshot.evidence_core_sha256;
   const replayMatch = dispositionMatch && contractMatch && sourceMatch && codeMatch && recordIntegrityMatch && authoredStateMatch;
-
-  lastReplay = {
+  return {
     replay_inputs: {scenario_id: snapshot.scenario_id, reviewer_prediction: snapshot.reviewer_prediction},
     original_disposition: snapshot.orientation_level_disposition,
     rederived_disposition: recomputed.orientation_level_disposition,
@@ -733,6 +748,7 @@ async function replayLastRun() {
     source_observed_sha256: sourceObservation.observed_sha256,
     harness_code_commit: snapshot.harness_code_commit,
     current_harness_code_commit: harnessProvenance.code_commit,
+    bound_commit_verification: harnessProvenance.bound_commit_verification,
     commit_verification: harnessProvenance.commit_verification,
     disposition_match: dispositionMatch,
     contract_match: contractMatch,
@@ -744,97 +760,114 @@ async function replayLastRun() {
     result: replayMatch ? "REPLAY CONSISTENT" : "REPLAY DIVERGENCE — export blocked until a new clean run",
     limitation: "This is a re-derivation from the static authored scenario contract plus live source/code hashing; it is not an independent JANUS runtime execution."
   };
+}
+
+async function replayLastRun() {
+  if (!lastRun) return;
+  const token = stateGeneration;
+  const snapshot = lastRun;
+  let scenario;
+  try {
+    scenario = scenarios.find((item) => item && item.id === snapshot.scenario_id) || null;
+    const contractError = validateScenarioContract(scenario);
+    if (contractError || !validPrediction(snapshot.reviewer_prediction)) throw new Error(contractError || "Reviewer prediction is invalid.");
+    const [sourceObservation, harnessProvenance] = await Promise.all([observeSourceDocument(), observeHarnessProvenance()]);
+    if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
+    if (!sourceObservation.hash_match) throw new Error("Observed JANUS source-document SHA-256 does not match the published expected hash.");
+    if (!harnessProvenance.app_js_hash_match) throw new Error("Served harness code does not match bound build provenance.");
+    lastReplay = await deriveReplayRecord(snapshot, scenario, sourceObservation, harnessProvenance);
+  } catch (error) {
+    if (token !== stateGeneration || lastRun !== snapshot) return;
+    lastReplay = {result: "REPLAY REFUSED", replay_match: false, reason: error.message};
+    replayRecord.textContent = JSON.stringify(lastReplay, null, 2);
+    exportBtn.disabled = true;
+    showRefusal(`Replay refused: ${error.message}`);
+    return;
+  }
+  if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
   replayRecord.textContent = JSON.stringify(lastReplay, null, 2);
-  exportBtn.disabled = !replayMatch;
-  staleNotice.hidden = replayMatch;
-  staleNotice.textContent = replayMatch ? "" : "Replay divergence detected. Ordinary evidence export is blocked.";
+  exportBtn.disabled = !lastReplay.replay_match;
+  staleNotice.hidden = lastReplay.replay_match;
+  staleNotice.textContent = lastReplay.replay_match ? "" : "Replay divergence detected. Ordinary evidence export is blocked.";
 }
 
 async function exportEvidence() {
   if (!lastRun) return;
   const token = stateGeneration;
   const snapshot = lastRun;
-  const scenario = scenarios.find((item) => item.id === snapshot.scenario_id);
-  if (!scenario || !validPrediction(snapshot.reviewer_prediction) || validateScenarioContract(scenario)) {
-    alert("Export refused: scenario contract or prediction is invalid.");
-    return;
-  }
-  if (lastReplay && lastReplay.replay_match === false) {
-    alert("Export refused: replay integrity is divergent. Run the challenge again before exporting evidence.");
-    return;
-  }
-
-  let sourceObservation;
-  let harnessProvenance;
-  let expectedRecord;
   try {
-    [sourceObservation, harnessProvenance] = await Promise.all([observeSourceDocument(), observeHarnessProvenance()]);
+    const scenario = scenarios.find((item) => item && item.id === snapshot.scenario_id) || null;
+    const contractError = validateScenarioContract(scenario);
+    if (contractError || !validPrediction(snapshot.reviewer_prediction)) throw new Error(contractError || "Reviewer prediction is invalid.");
+
+    const [sourceObservation, harnessProvenance] = await Promise.all([observeSourceDocument(), observeHarnessProvenance()]);
     if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
     if (!sourceObservation.hash_match) throw new Error("Observed JANUS source-document SHA-256 does not match the published expected hash.");
     if (!harnessProvenance.app_js_hash_match) throw new Error("Served harness code does not match bound build provenance.");
-    expectedRecord = await buildEvidence(scenario, snapshot.reviewer_prediction, sourceObservation, harnessProvenance);
+
+    const expectedRecord = await buildEvidence(scenario, snapshot.reviewer_prediction, sourceObservation, harnessProvenance);
+    const freshReplay = await deriveReplayRecord(snapshot, scenario, sourceObservation, harnessProvenance);
+    const recomputedContract = await sha256Text(canonicalContract(scenario));
+    const storedCoreHash = await evidenceCoreHash(snapshot);
+    const storedSnapshotHash = await recordSnapshotHash(snapshot);
+    const expectedComparison = predictionComparison(scenario, snapshot.reviewer_prediction);
+    const expectedLog = expectedEventLog(scenario, snapshot.reviewer_prediction, expectedComparison);
+
+    const checks = {
+      valid_prediction: validPrediction(snapshot.reviewer_prediction),
+      disposition_label: labels[snapshot.orientation_level_disposition] === snapshot.orientation_level_disposition_label,
+      prediction_label: labels[snapshot.reviewer_prediction] === snapshot.reviewer_prediction_label,
+      comparison_code: expectedComparison.code === snapshot.prediction_comparison,
+      comparison_label: expectedComparison.label === snapshot.prediction_comparison_label,
+      contract_hash: recomputedContract === snapshot.contract_sha256,
+      source_expected_hash: sourceObservation.hash_match,
+      source_matches_run: sourceObservation.observed_sha256 === snapshot.source_document.observed_sha256,
+      code_commit: harnessProvenance.code_commit === snapshot.harness_code_commit,
+      code_hash: harnessProvenance.app_js_observed_sha256 === snapshot.harness_provenance.app_js_observed_sha256,
+      event_log: JSON.stringify(expectedLog) === JSON.stringify(snapshot.event_log),
+      stored_evidence_core_integrity: storedCoreHash === snapshot.evidence_core_sha256,
+      stored_record_snapshot_integrity: storedSnapshotHash === snapshot.record_snapshot_sha256,
+      authored_state_integrity: expectedRecord.evidence_core_sha256 === snapshot.evidence_core_sha256,
+      replay_rederived_consistent: freshReplay.replay_match === true
+    };
+    const failed = Object.entries(checks).filter(([, ok]) => !ok).map(([name]) => name);
+    if (failed.length) throw new Error(`Evidence integrity check failed (${failed.join(", ")}).`);
+
+    const exportedAt = new Date().toISOString();
+    const exportRecord = {
+      ...snapshot,
+      exported_at: exportedAt,
+      integrity_status: "PASS",
+      integrity_scope: "Stable authored evidence core plus full stored record snapshot. Replay is freshly re-derived at export time. Unsigned client-side evidence is not tamper-proof after export.",
+      integrity_checks: checks,
+      export_provenance: {
+        bound_code_commit: harnessProvenance.code_commit,
+        bound_commit_verification: harnessProvenance.bound_commit_verification,
+        deployment_head_observed: harnessProvenance.deployment_head_observed,
+        commit_verification: harnessProvenance.commit_verification,
+        corroboration_note: harnessProvenance.corroboration_note
+      },
+      replay: freshReplay,
+      compatible_predictions: [...scenario.compatiblePredictions],
+      compatibility_reason: scenario.compatibilityReason
+    };
+    const blob = new Blob([JSON.stringify(exportRecord, null, 2)], {type: "application/json"});
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    const stamp = exportedAt.replace(/[:.]/g, "-");
+    anchor.href = url;
+    anchor.download = `janus-harness-${snapshot.scenario_id}-${snapshot.reviewer_prediction.toLowerCase()}-${stamp}-v${HARNESS_VERSION}.json`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(url);
+    staleNotice.hidden = true;
+    staleNotice.textContent = "";
   } catch (error) {
+    if (token !== stateGeneration || lastRun !== snapshot) return;
+    showRefusal(`Export refused: ${error.message}`);
     alert(`Export refused: ${error.message}`);
-    return;
   }
-  if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
-
-  const recomputedContract = await sha256Text(canonicalContract(scenario));
-  const storedCoreHash = await evidenceCoreHash(snapshot);
-  const storedSnapshotHash = await recordSnapshotHash(snapshot);
-  const expectedComparison = predictionComparison(scenario, snapshot.reviewer_prediction);
-  const expectedLog = expectedEventLog(scenario, snapshot.reviewer_prediction, expectedComparison);
-
-  const checks = {
-    valid_prediction: validPrediction(snapshot.reviewer_prediction),
-    disposition_label: labels[snapshot.orientation_level_disposition] === snapshot.orientation_level_disposition_label,
-    prediction_label: labels[snapshot.reviewer_prediction] === snapshot.reviewer_prediction_label,
-    comparison_code: expectedComparison.code === snapshot.prediction_comparison,
-    comparison_label: expectedComparison.label === snapshot.prediction_comparison_label,
-    contract_hash: recomputedContract === snapshot.contract_sha256,
-    source_expected_hash: sourceObservation.hash_match,
-    source_matches_run: sourceObservation.observed_sha256 === snapshot.source_document.observed_sha256,
-    code_commit: harnessProvenance.code_commit === snapshot.harness_code_commit,
-    code_hash: harnessProvenance.app_js_observed_sha256 === snapshot.harness_provenance.app_js_observed_sha256,
-    event_log: JSON.stringify(expectedLog) === JSON.stringify(snapshot.event_log),
-    stored_evidence_core_integrity: storedCoreHash === snapshot.evidence_core_sha256,
-    stored_record_snapshot_integrity: storedSnapshotHash === snapshot.record_snapshot_sha256,
-    authored_state_integrity: expectedRecord.evidence_core_sha256 === snapshot.evidence_core_sha256,
-    replay_not_divergent: !lastReplay || lastReplay.replay_match === true
-  };
-  const failed = Object.entries(checks).filter(([, ok]) => !ok).map(([name]) => name);
-  if (failed.length) {
-    alert(`Export refused: evidence integrity check failed (${failed.join(", ")}).`);
-    return;
-  }
-
-  const exportedAt = new Date().toISOString();
-  const exportRecord = {
-    ...snapshot,
-    exported_at: exportedAt,
-    integrity_status: "PASS",
-    integrity_scope: "Stable authored evidence core plus full stored record snapshot; unsigned client-side evidence, not tamper-proof after export.",
-    integrity_checks: checks,
-    export_provenance: {
-      bound_code_commit: harnessProvenance.code_commit,
-      deployment_head_observed: harnessProvenance.deployment_head_observed,
-      commit_verification: harnessProvenance.commit_verification,
-      corroboration_note: harnessProvenance.corroboration_note
-    },
-    replay: lastReplay || {status: "NOT PERFORMED BEFORE EXPORT"},
-    compatible_predictions: [...scenario.compatiblePredictions],
-    compatibility_reason: scenario.compatibilityReason
-  };
-  const blob = new Blob([JSON.stringify(exportRecord, null, 2)], {type: "application/json"});
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
-  const stamp = exportedAt.replace(/[:.]/g, "-");
-  anchor.href = url;
-  anchor.download = `janus-harness-${snapshot.scenario_id}-${snapshot.reviewer_prediction.toLowerCase()}-${stamp}-v${HARNESS_VERSION}.json`;
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  URL.revokeObjectURL(url);
 }
 
 function resetHarness() {
@@ -862,13 +895,13 @@ renderScenario();
 scenarioSelect.addEventListener("change", () => {
   const hadEvidence = Boolean(lastRun || lastReplay || !resultArea.hidden);
   renderScenario();
-  invalidateRun("Scenario changed. Previous result, replay, and export state were invalidated.", hadEvidence);
+  invalidateRun(hadEvidence ? "Scenario changed. Previous result, replay, and export state were invalidated." : "", hadEvidence);
   renderScenario();
 });
 predictionSelect.addEventListener("change", () => {
   const hadEvidence = Boolean(lastRun || lastReplay || !resultArea.hidden);
   renderScenario();
-  invalidateRun("Prediction changed. Previous result, replay, and export state were invalidated.", hadEvidence);
+  invalidateRun(hadEvidence ? "Prediction changed. Previous result, replay, and export state were invalidated." : "", hadEvidence);
   renderScenario();
 });
 runBtn.addEventListener("click", runChallenge);
