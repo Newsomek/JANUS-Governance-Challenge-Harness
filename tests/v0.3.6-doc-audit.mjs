@@ -48,7 +48,7 @@ for (const rx of forbiddenOverclaims) {
   assert(!rx.test(html), `UI integrity overclaim matched: ${rx}`);
 }
 
-for (const suite of ['tests/v0.3.6-regression.mjs','tests/v0.3.6-doc-audit.mjs','tests/v0.3.6-mutation-regression.mjs']) {
+for (const suite of ['tests/v0.3.6-regression.mjs','tests/v0.3.6-doc-audit.mjs','tests/v0.3.6-mutation-regression.mjs','tests/v0.3.6-manifest-audit.mjs']) {
   assert(readme.includes(suite), `README current suite missing: ${suite}`);
   assert(gate.includes(suite), `Current gate missing suite: ${suite}`);
 }
