@@ -468,6 +468,10 @@ j.lastRun.generated_at = '2099-01-01T00:00:00.000Z';
 await j.replayLastRun();
 assert(j.lastReplay?.record_integrity_match === false, 'Stored record snapshot tamper was not detected.');
 assert(j.lastReplay?.replay_match === false, 'Stored record snapshot tamper falsely replayed CONSISTENT.');
+const beforeSnapshotTamperExport = downloads.length;
+await j.exportEvidence();
+assert(downloads.length === beforeSnapshotTamperExport, 'Stored record snapshot tamper exported evidence.');
+assert(elements.get('staleNotice').textContent.includes('stored_record_snapshot_integrity'), 'Export refusal did not name stored_record_snapshot_integrity.');
 
 // v0.3.6: selection change after a valid Run must invalidate evidence and preserve the notice.
 j.resetHarness();
