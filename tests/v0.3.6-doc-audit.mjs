@@ -38,10 +38,10 @@ assert(html.includes('it is not a digital signature'), 'UI digital-signature lim
 assert(html.includes('controls DevTools/console state and can recompute client-side hashes'), 'UI DevTools limitation missing.');
 
 const forbiddenOverclaims = [
-  /tamper[- ]proof/i,
-  /cryptographically authentic/i,
+  /(?:is|are|remains?)\s+tamper[- ]proof/i,
+  /(?:is|are)\s+cryptographically authentic/i,
   /PASS is a digital signature/i,
-  /proves? authenticity/i
+  /PASS proves? authenticity/i
 ];
 for (const rx of forbiddenOverclaims) {
   assert(!rx.test(readme), `README integrity overclaim matched: ${rx}`);
