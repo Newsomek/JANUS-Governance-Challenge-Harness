@@ -1,19 +1,21 @@
 {
   "schema": "janus-harness-build-info-v1",
-  "version": "0.3.1",
-  "build_id": "janus-governance-challenge-harness-v0.3.1",
-  "code_commit": "a10722a087e740d183598125909319610ca4238f",
-  "generated_at": "2026-09-24T05:06:18.6358042Z",
-  "note": "code_commit identifies the exact commit containing the served v0.3.1 application code; this build-info file is added by the following provenance commit.",
+  "version": "0.3.2",
+  "build_id": "janus-governance-challenge-harness-v0.3.2",
+  "code_commit": "d9b431a733b8d30e596df7b04816eda4da278d4d",
+  "generated_at": "2026-09-24T06:09:12.2889820Z",
+  "note": "code_commit identifies the exact commit containing the served v0.3.2 application code; this build-info file is added by the following provenance commit. Runtime verifies version/build ID, served app.js, and optionally corroborates the declared code commit and GitHub main.",
   "files": {
-    "app.js": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
-    "index.html": "01a6258a492384292d4db7cde26bbe150dd16fd36ea7201563e0e5231eac3c8f",
+    "app.js": "e3a716e2d853435e1ac276fc2713b6060d6a655500c752732e67c2bf6bed6105",
+    "index.html": "8fe81b40e35754328b458ea0d03ce5b02433f2b90f37c275d5756327096f92ce",
     "styles.css": "f8f2e06e8e803ea818214386876d1e991b149bca70f15a7fa816a4045fadcc6b",
-    "README.md": "cbdcc21656ab57e67731d4e260a1b69e84159dd1f99fa88eb5346176c952013f",
-    "CHANGELOG.md": "23a9df9107cb1127612f556056464223c66fabb0fc63a3156544cb82c3e75b27",
-    "VERSION.txt": "20f5dece0ab57849daca465190968bf6b916c9da4a81be069e8e3c2cc49c5c09",
+    "README.md": "38167c5f902bf53535c04fe6e5c5c526c2fb8dd950989f64e0debad6271866db",
+    "CHANGELOG.md": "b9f6b5e2f189061788dc115fd6c0754ffd00862f5a182511b2a258d47aa60c45",
+    "VERSION.txt": "6e3112c88784e38dbe53d42e5cc2a67d7b5d7f411e78e0f2d9eb24cfd037160f",
     "docs/JANUS_Orientation_Edition_2026_EN.docx": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
-    "testing/claude/v0.3/JANUS_Harness_v0.3_Independent_Regression_Integrity_Test_Report.md": "a8220a6c94bdd962ef3e31f7c9a5b73943bcef4953624458150baecd4c99ae30",
-    "testing/claude/v0.3/JANUS_Harness_v0.3_raw_results.json": "25d274b4378b5561c99c949ff49a4e679731e2b99fa74c83ae026a7c01a8ed48"
+    "tests/v0.3.2-regression.mjs": "5676f87e01cbd975b004439129950ab5459da3411eb5ca71566415dedcfb5dd4",
+    "tests/V0_3_2_RELEASE_GATE.md": "0be9e40b4cefb42fa90868f0737c1901f57de47f2f76e800828a361f462f1a94",
+    "testing/claude/v0.3.1/JANUS_Harness_v0.3.1_Independent_Regression_Integrity_Release_Test_Report.md": "5330f56007cce08b29f59a6eb8d0c8ab3ccb7552d26d1c475b73c0d3953a314f",
+    "testing/claude/v0.3.1/JANUS_Harness_v0.3.1_raw_results.json": "c81c5b0a7d2a0a9a7111898064287d3aef6c9a944cd872484f7940df7e104fef"
   }
 }
