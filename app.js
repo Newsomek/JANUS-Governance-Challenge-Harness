@@ -1,7 +1,7 @@
 "use strict";
 
-const HARNESS_VERSION = "0.3.5";
-const BUILD_ID = "janus-governance-challenge-harness-v0.3.5";
+const HARNESS_VERSION = "0.3.6";
+const BUILD_ID = "janus-governance-challenge-harness-v0.3.6";
 const BUILD_INFO_URL = "build-info.json";
 const REPOSITORY = "https://github.com/Newsomek/JANUS-Governance-Challenge-Harness";
 const GITHUB_HEAD_API = "https://api.github.com/repos/Newsomek/JANUS-Governance-Challenge-Harness/commits/main";
@@ -225,7 +225,8 @@ function canonicalComparisonText(value) {
   if (typeof value !== "string") return "";
   return value
     .normalize("NFC")
-    .replace(/[\p{Cf}\p{Default_Ignorable_Code_Point}\u2800\u3164\u115F\u1160\uFFA0\u034F\uFE0F\u180B\u200B]/gu, "")
+    .replace(/[\u2800\u3164\u115F\u1160\uFFA0]/gu, " ")
+    .replace(/[\p{Cf}\p{Default_Ignorable_Code_Point}\u034F\uFE0F\u180B\u200B\u007F]/gu, "")
     .replace(/[\s\u00A0]+/gu, " ")
     .trim();
 }
@@ -945,6 +946,10 @@ async function exportEvidenceCore() {
     };
     const failed = Object.entries(checks).filter(([, ok]) => !ok).map(([name]) => name);
     if (failed.length) throw new Error(`Evidence integrity check failed (${failed.join(", ")}).`);
+
+    // Re-check generation immediately before the synchronous download path.
+    // Scenario/prediction changes or Reset during any awaited hashing above invalidate this export.
+    if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
 
     const exportedAt = new Date().toISOString();
     const exportRecord = {
