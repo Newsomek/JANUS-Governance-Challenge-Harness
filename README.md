@@ -1,4 +1,4 @@
-# JANUS Governance Challenge Harness v0.3.5
+# JANUS Governance Challenge Harness v0.3.6
 
 A dependency-free external architectural challenge harness for examining governance claims described in the **JANUS Orientation Edition 2026**.
 
@@ -84,7 +84,7 @@ Exports include run and export timestamps, harness version/build ID, the bound a
 
 Before export the harness recomputes and checks: valid prediction membership, prediction/disposition labels, comparison code/label, current contract hash, live source-document bytes and hash, source consistency with the run, bound build identity and served `app.js`, event-log content, stored evidence-core hash, full stored-record snapshot hash, fresh authored-state hash, and a freshly re-derived replay result. A failed check refuses ordinary export. The mutable on-screen replay record is never trusted as export evidence. Client-side JSON remains unsigned and is not claimed to be tamper-proof.
 
-The build manifest records hashes for release artifacts so a reviewer can independently compare them. At runtime the harness directly enforces the manifest version/build ID and the served `app.js` hash; it separately verifies the JANUS source-document hash. Other manifest file hashes are release provenance metadata, not claims that every listed file is re-hashed by the browser on each Run.
+The build manifest records SHA-256 hashes for every tracked release file except `build-info.json` itself, which cannot self-hash. This includes served UI assets, source material, tests, and preserved independent evidence. At runtime the harness directly enforces the manifest version/build ID and the served `app.js` hash; it separately verifies the JANUS source-document hash. Other manifest hashes are release provenance metadata and are intended for independent exact-artifact verification.
 ## Independent v0.1 test record
 
 The v0.1 harness at commit `f8b2eb6284575d1670c748bee1868835bf7242eb` was independently exercised across all **36 scenario × prediction permutations** on the live public site. The test also covered replay, export, determinism, state isolation, source conformance, and tamper/edge behavior.
@@ -250,20 +250,24 @@ For independent checking, compare an export's `contract_sha256` with the scenari
 
 ## v0.3.4 bounded hardening candidate
 
-Version 0.3.4 addresses the six findings from the independent v0.3.3 zero-open-finding regression: broader blank/invisible-text rejection and duplicate-commitment validation; unified Run/Replay/Export concurrency locking; explicit stored-record structural validation and refusal messages; behavioural and mutation regression coverage; corrected integrity-limit wording plus published expected contract hashes; and corrected release documentation.
+Version 0.3.4 addressed the six findings from the independent v0.3.3 zero-open-finding regression: broader blank/invisible-text rejection and duplicate-commitment validation; unified Run/Replay/Export concurrency locking; explicit stored-record structural validation and refusal messages; behavioural and mutation regression coverage; corrected integrity-limit wording plus published expected contract hashes; and corrected release documentation.
 
-The authored six-scenario content is unchanged. This section records implementation intent only; closure is not claimed until a fresh independent regression returns zero open findings.
+The authored six-scenario content was unchanged. The deployed v0.3.4 smoke test found residual issues, so v0.3.4 was superseded and was not promoted to Version 1.0.
 
 
 ## v0.3.5 final residual hardening candidate
 
-Version 0.3.5 is a bounded correction to the three residuals found by the deployed v0.3.4 smoke gate. It does not change the six authored scenario contracts. It adds canonical comparison for duplicate detection (Unicode NFC, ignorable/blank stripping, and whitespace collapse), aligns README/UI integrity-limit wording, and corrects historical release/test documentation.
+Version 0.3.5 was a bounded correction to the three residuals found by the deployed v0.3.4 smoke gate. Its deployed smoke gates passed, but the final independent adversarial regression found nine actionable findings. Those results are preserved under `testing/claude/v0.3.5/`. Version 0.3.5 was superseded and was not promoted to Version 1.0.
+
+## v0.3.6 bounded hardening candidate
+
+Version 0.3.6 addresses V035-F01 through V035-F09 without changing the six authored scenario contracts. It tightens canonical duplicate handling, closes the late Export invalidation window, expands behavioral and mutation protection around core integrity controls, corrects historical release documentation, and strengthens exact-artifact provenance requirements.
 
 Current local release gates are:
 
-- `node tests/v0.3.5-regression.mjs`
-- `node tests/v0.3.5-doc-audit.mjs`
-- `node tests/v0.3.5-mutation-regression.mjs`
-- `tests/V0_3_5_RELEASE_GATE.md`
+- `node tests/v0.3.6-regression.mjs`
+- `node tests/v0.3.6-doc-audit.mjs`
+- `node tests/v0.3.6-mutation-regression.mjs`
+- `tests/V0_3_6_RELEASE_GATE.md`
 
-Independent closure is **not** claimed until the deployed v0.3.5 smoke gate and one final zero-open-finding adversarial regression both pass with no actionable findings.
+Independent closure is **not** claimed until a targeted V035-F01 through V035-F09 closure test passes with zero actionable findings and one final full independent zero-open-finding adversarial regression also passes.
