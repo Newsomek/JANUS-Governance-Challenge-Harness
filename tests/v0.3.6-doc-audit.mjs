@@ -19,6 +19,7 @@ const gate5 = read('tests/V0_3_5_RELEASE_GATE.md');
 const hashes = JSON.parse(read('docs/EXPECTED_CONTRACT_HASHES.json'));
 const report = read('testing/claude/v0.3.5/V0_3_5_FINAL_INDEPENDENT_ADVERSARIAL_REGRESSION.md');
 const findings = read('testing/claude/v0.3.5/V0_3_5_FINAL_FINDINGS_LOG.md');
+const v035Result = read('tests/V0_3_5_AUTOMATED_REGRESSION_RESULT.txt');
 
 assert(readme.includes('# JANUS Governance Challenge Harness v0.3.6'), 'README current version missing.');
 assert(version.includes('Version 0.3.6'), 'VERSION current version missing.');
@@ -87,5 +88,8 @@ assert(report.includes('FAIL — ACTIONABLE FINDINGS REMAIN'), 'Preserved v0.3.5
 assert(report.includes('TOTAL ACTIONABLE FINDINGS:'), 'Preserved v0.3.5 report missing finding total.');
 assert(findings.includes('TOTAL ACTIONABLE FINDINGS: 9'), 'Findings log does not record nine actionable findings.');
 assert(findings.includes('Do not promote to Version 1.0.'), 'Findings log does not preserve release block.');
+assert(v035Result.includes('21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4'), 'v0.3.5 result addendum missing source SHA.');
+assert(v035Result.includes('948536a17a454e59f782e023ac1ded8e30e9f33ca660c3dbd674273fe1b56488'), 'v0.3.5 result addendum missing scenario-block SHA.');
+assert(v035Result.includes('including exactly one trailing LF after the semicolon'), 'v0.3.5 result addendum missing exact scenario-block hashing method.');
 
 console.log('JANUS v0.3.6 documentation/release audit: PASS');
