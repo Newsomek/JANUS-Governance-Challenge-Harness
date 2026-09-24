@@ -41,3 +41,17 @@ Exit code: 0
 OVERALL RESULT
 --------------
 PASS
+
+POST-REGRESSION HASH REPRODUCTION ADDENDUM
+------------------------------------------
+Recorded after the v0.3.5 final independent adversarial regression for reproducibility and traceability.
+This addendum does not change the original automated PASS result above or the later independent FAIL gate result.
+
+JANUS source SHA-256:
+21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
+
+Authored scenario-block SHA-256:
+948536a17a454e59f782e023ac1ded8e30e9f33ca660c3dbd674273fe1b56488
+
+Scenario-block hashing method:
+Hash the UTF-8 bytes beginning with the exact text "const scenarios = [" through the matching authored scenario array closing "];", including exactly one trailing LF after the semicolon. No preceding or following bytes are included.
