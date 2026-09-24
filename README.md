@@ -268,6 +268,7 @@ Current local release gates are:
 - `node tests/v0.3.6-regression.mjs`
 - `node tests/v0.3.6-doc-audit.mjs`
 - `node tests/v0.3.6-mutation-regression.mjs`
+- `node tests/v0.3.6-manifest-audit.mjs` (after the bound v0.3.6 manifest is generated)
 - `tests/V0_3_6_RELEASE_GATE.md`
 
 Independent closure is **not** claimed until a targeted V035-F01 through V035-F09 closure test passes with zero actionable findings and one final full independent zero-open-finding adversarial regression also passes.
