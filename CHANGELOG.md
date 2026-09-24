@@ -1,12 +1,24 @@
 # Changelog
+## v0.3.6 — bounded hardening candidate
+- addresses V035-F01 through V035-F09 from the v0.3.5 final independent adversarial regression without changing authored scenario content;
+- maps blank-rendering filler characters to ordinary spaces before canonical whitespace collapse, strips U+007F, and adds internal-separator regression coverage;
+- re-checks export generation state immediately before the synchronous artifact-download path;
+- adds exact source SHA, scenario-block SHA/method, exact canonical dispositions, expected contract-hash verification, and broader mismatch/invalidation integrity assertions;
+- expands mutation testing to cover the core regressions identified by V035-F04/F05 rather than only the previous 18 operators;
+- corrects historical v0.3.2/v0.3.4 status language and the v0.3.3 superseded-gate pointer;
+- requires the bound v0.3.6 manifest to cover every tracked release file except build-info.json itself;
+- preserves the v0.3.5 final independent report and findings log under testing/claude/v0.3.5/.
+
+Independent closure is not claimed until targeted V035-F01 through V035-F09 closure and one final full zero-open-finding regression both pass.
+
 ## v0.3.5 — final residual hardening candidate
-- canonicalizes duplicate-comparison text using Unicode NFC, ignorable/blank removal, and whitespace collapse so visually equivalent commitments and sources are rejected;
+- canonicalizes duplicate-comparison text using Unicode NFC, selected ignorable/blank handling, and whitespace collapse so specified canonically equivalent commitment/source variants are rejected;
 - adds behavioural regression cases for near-duplicate commitments and sources, including whitespace, NBSP, zero-width/default-ignorable, Hangul filler, Braille blank, and Unicode-normalization variants;
 - aligns README and UI integrity disclosures: exported evidence is unsigned client-side evidence and PASS is not cryptographic authenticity;
 - marks historical v0.3.2/v0.3.4 release gates as superseded and names the current v0.3.5 suites/gate;
 - corrects the v0.3.3 historical record: V031-NEW-07 was confirmed closed in that independent regression;
 - extends positive documentation assertions and mutation tests so these corrections fail closed if reverted.
-Independent closure is not claimed until the deployed v0.3.5 smoke gate and final zero-open-finding regression both pass.
+Historical status: v0.3.5 passed its deployed smoke gates but its final independent regression found nine actionable findings; it was superseded and was not promoted to Version 1.0.
 
 
 ## v0.3.4 — bounded hardening candidate
@@ -19,7 +31,7 @@ Independent closure is not claimed until the deployed v0.3.5 smoke gate and fina
 - corrects integrity-limit documentation and publishes expected scenario contract hashes for offline verification;
 - corrects VERSION/README/release-gate documentation.
 
-Independent closure is not claimed until the deployed v0.3.4 smoke gate and zero-open-finding regression both pass.
+Historical status: v0.3.4 was superseded after its deployed smoke test found residual issues; it was not promoted to Version 1.0.
 
 ## v0.3.3 — bounded zero-open-finding hardening candidate
 
@@ -38,7 +50,7 @@ Based on the independent v0.3.1 release-candidate test:
 - closes V031-NEW-04 by freshly re-deriving the replay block at Export;
 - closes V031-NEW-05 by validating manifest version/build ID and corroborating the declared bound commit when available;
 - closes V031-NEW-06 by routing structural hash failures through guarded refusal paths;
-- closes V031-NEW-07 by persisting Export refusal reasons and naming failed fetch resources;
+- partially addressed V031-NEW-07 by persisting Export refusal reasons and naming failed fetch resources; independent v0.3.3 testing later confirmed full observability closure;
 - closes V031-NEW-08 through README, changelog, integrity-scope, and provenance documentation cleanup;
 - adds automated regression coverage and a zero-open-finding gate before Version 1.0 promotion.
 
