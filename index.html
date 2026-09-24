@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="External adversarial governance challenge harness for the JANUS Orientation Edition 2026.">
-  <title>JANUS Governance Challenge Harness v0.2</title>
+  <title>JANUS Governance Challenge Harness v0.3</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,13 +14,13 @@
 
   <main class="shell">
     <header class="hero">
-      <div class="eyebrow">EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.2</div>
+      <div class="eyebrow">EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3</div>
       <h1>JANUS Governance Challenge Harness</h1>
       <p class="lede">A small adversarial laboratory for examining whether the governance boundaries described in the JANUS Orientation Edition remain coherent when evidence, operating conditions, capability, or authority change.</p>
 
       <div class="guardrail">
         <strong>Important boundary.</strong>
-        This harness does not implement, emulate, penetrate, certify, validate, or reproduce JANUS. It evaluates authored architectural interpretations against the <em>JANUS Orientation Edition 2026</em>. Where that document does not specify the governing mechanism, the harness reports <strong>INSUFFICIENT SPECIFICATION</strong> rather than inventing JANUS behavior.
+        This harness does not implement, emulate, penetrate, certify, validate, or reproduce JANUS. It presents authored architectural interpretations against the <em>JANUS Orientation Edition 2026</em>. Where that document does not specify the governing mechanism, the harness reports <strong>INSUFFICIENT SPECIFICATION</strong> rather than inventing JANUS behavior.
       </div>
 
       <div class="principle">
@@ -40,6 +40,16 @@
         <div><strong>INSUFFICIENT SPECIFICATION</strong><span>The Orientation Edition does not supply enough detail to derive the mechanism without invention.</span></div>
       </div>
       <p class="hint">Prediction comparison is not a score. It can be <strong>Exact</strong>, <strong>Partial / Compatible</strong>, or <strong>Different</strong>.</p>
+    </section>
+
+    <section class="panel glossary-panel">
+      <div class="section-kicker">SOURCE-SUPPORT GLOSSARY</div>
+      <div class="glossary-grid support-glossary">
+        <div><strong>DIRECTLY SUPPORTED</strong><span>The Orientation Edition states the principle in substantially the same domain and direction.</span></div>
+        <div><strong>REASONABLE INFERENCE</strong><span>The conclusion follows plausibly from JANUS statements but is not itself directly stated.</span></div>
+        <div><strong>EXTENDED / BY ANALOGY</strong><span>A JANUS principle stated for one domain is intentionally applied to another domain.</span></div>
+        <div><strong>OPEN</strong><span>The Orientation Edition does not specify the mechanism or rule needed to resolve the point.</span></div>
+      </div>
     </section>
 
     <section class="panel">
@@ -103,6 +113,9 @@
         <h2>Encoded source commitments</h2>
         <div id="assertions"></div>
 
+        <h2>Compatible reviewer predictions</h2>
+        <div id="compatibilityInfo" class="question-box"></div>
+
         <h2>Why</h2>
         <p id="rationale" class="explain"></p>
 
@@ -123,7 +136,7 @@
       <pre id="eventLog">Not run.</pre>
       <h2>Replay record</h2>
       <pre id="replayRecord">No replay performed.</pre>
-      <div class="replay-rule">Replay is a re-derivation from the static authored scenario contract. It compares the encoded disposition, scenario-contract SHA-256, and source-document SHA-256. It is not an independent JANUS runtime execution.</div>
+      <div class="replay-rule">Replay is a re-derivation from the static authored scenario contract. At Run and Replay, the browser fetches the published JANUS source document, computes SHA-256 from its bytes, and compares the observed hash with the recorded expected hash. Replay also checks the contract and recorded evidence core. It is not an independent JANUS runtime execution.</div>
     </section>
 
     <section class="panel about-panel">
@@ -133,7 +146,7 @@
       <p>A result of <strong>INSUFFICIENT SPECIFICATION</strong> is not a failure of JANUS. It means the Orientation Edition does not disclose enough implementation or policy detail to derive a mechanism without inventing one.</p>
 
       <h2>Independent v0.1 test record</h2>
-      <p>The v0.1 harness was independently exercised across all 36 scenario × prediction permutations, with replay, export, determinism, state-isolation, and source-conformance checks. Findings and raw results are preserved in the repository under <code>testing/claude/v0.1/</code>. Version 0.2 incorporates the reported defects and clarifies the authored nature of the assessments.</p>
+      <p>The v0.1 harness was independently exercised across all 36 scenario × prediction permutations, with replay, export, determinism, state-isolation, and source-conformance checks. Findings and raw results are preserved in the repository under <code>testing/claude/v0.1/</code>. Version 0.2 incorporated the first remediation pass. Version 0.3 hardens source-byte verification, replay/export integrity, support-status precision, compatibility disclosure, and race handling. The v0.2 regression evidence is preserved under <code>testing/claude/v0.2/</code>.</p>
     </section>
   </main>
 
@@ -141,11 +154,11 @@
     <div class="footer-inner">
       <img class="footer-logo" src="assets/images/stratosengine_cover.jpg" alt="Stratos Engine">
       <div class="footer-copy">
-        <p><strong>JANUS Governance Challenge Harness v0.2</strong></p>
+        <p><strong>JANUS Governance Challenge Harness v0.3</strong></p>
         <p>Created by <a href="https://www.linkedin.com/in/michaelkellynewsome/" target="_blank" rel="noopener noreferrer">Kelly Newsome</a> · Stratos Engine</p>
         <p>Concept, experimental design, governance challenge structure, and product direction by Kelly Newsome. AI-assisted implementation.</p>
         <p class="footer-attribution">This harness is an independent external test of concepts described in the <em>JANUS Orientation Edition 2026</em>. JANUS — including the system, concept, architecture, and underlying ideas being examined here — is the work of <a href="https://www.linkedin.com/in/eryk-dubiel-1201a12b3/" target="_blank" rel="noopener noreferrer">Eryk Dubiel</a>.</p>
-        <p class="footer-source"><strong>Source document:</strong> <a href="docs/JANUS_Orientation_Edition_2026_EN.docx" target="_blank" rel="noopener noreferrer">JANUS Orientation Edition 2026</a> — the repository copy used for this review. Recorded SHA-256: <code>21766f5d…551fe4</code>.</p>
+        <p class="footer-source"><strong>Source document:</strong> <a href="docs/JANUS_Orientation_Edition_2026_EN.docx" target="_blank" rel="noopener noreferrer">JANUS Orientation Edition 2026</a> — the repository copy used for this review. Expected SHA-256: <code>21766f5d…551fe4</code>. The harness re-hashes the served document bytes at Run, Replay, and Export.</p>
         <p class="footer-restriction">This site does not claim to implement JANUS, reproduce its internal construction, validate its implementation, perform a penetration test, or represent unpublished JANUS behavior. Conclusions are limited to architectural statements available in the Orientation Edition supplied for review.</p>
       </div>
     </div>

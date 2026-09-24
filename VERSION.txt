@@ -1,26 +1,27 @@
 JANUS Governance Challenge Harness
 
-Version: 0.2
-Status: Hardened external architectural challenge prototype
+Version: 0.3
+Status: v0.3 hardening candidate pending independent regression
 
-Governing boundary:
-Challenge JANUS against JANUS first.
-
-v0.2 incorporates the independent v0.1 full-matrix test findings, including:
-- stale-state invalidation;
-- explicit authored-assessment language;
-- strengthened evidence provenance;
-- disposition glossary and partial compatibility;
-- consistent treatment of fail-closed constraints;
-- neutral prediction reset;
-- evidence-required field;
-- replay terminology and contract/source hash checks;
-- EXTENDED / BY ANALOGY support status;
-- corrected source-provenance wording;
-- invalid-scenario refusal.
+Base regression-tested v0.2 commit:
+ba7b6e5b9335f395499f569f0df091962c69bb8f
 
 Published source document:
 docs/JANUS_Orientation_Edition_2026_EN.docx
 
-Source document SHA-256:
+Expected source SHA-256:
 21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
+
+Primary v0.3 hardening:
+- actual source-byte SHA-256 verification at Run / Replay / Export
+- full observed GitHub main commit provenance when available
+- comprehensive export integrity gate
+- replay divergence blocks ordinary export
+- race-generation guard
+- strict prediction allow-list
+- support-status glossary and precision corrections
+- disclosed scenario compatibility sets and reasons
+- v0.2 independent regression evidence preserved
+
+Governing boundary:
+Challenge JANUS against JANUS first.

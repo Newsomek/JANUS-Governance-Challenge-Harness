@@ -1,21 +1,25 @@
 "use strict";
 
-const HARNESS_VERSION = "0.2";
-const BUILD_ID = "janus-governance-challenge-harness-v0.2";
-const SOURCE_DOCUMENT = {
+const HARNESS_VERSION = "0.3";
+const BUILD_ID = "janus-governance-challenge-harness-v0.3";
+const REPOSITORY = "https://github.com/Newsomek/JANUS-Governance-Challenge-Harness";
+const GITHUB_HEAD_API = "https://api.github.com/repos/Newsomek/JANUS-Governance-Challenge-Harness/commits/main";
+const SOURCE_DOCUMENT = Object.freeze({
   title: "JANUS Orientation Edition 2026",
-  url: "docs/JANUS_Orientation_Edition_2026_EN.docx",
-  sha256: "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4"
-};
+  path: "docs/JANUS_Orientation_Edition_2026_EN.docx",
+  url: "https://newsomek.github.io/JANUS-Governance-Challenge-Harness/docs/JANUS_Orientation_Edition_2026_EN.docx",
+  expected_sha256: "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4"
+});
 
-const labels = {
+const labels = Object.freeze({
   CONTINUE: "CONTINUE",
   BLOCK: "BLOCK",
   BLOCK_REAUTHORIZE: "BLOCK + REAUTHORIZE",
   ESCALATE: "ESCALATE",
   ROLLBACK_COMPENSATE: "ROLLBACK / COMPENSATE",
   INSUFFICIENT_SPECIFICATION: "INSUFFICIENT SPECIFICATION"
-};
+});
+const VALID_PREDICTIONS = new Set(Object.keys(labels));
 
 const scenarios = [
   {
@@ -24,7 +28,8 @@ const scenarios = [
     summary: "Evidence E1 supports Decision D1. Authorization A1 is granted under operating condition C1. Before execution, C1 changes to C2 while the evidence and decision remain otherwise intact.",
     perturbation: "A material authorization condition changes from C1 to C2 after authorization but before execution.",
     disposition: "BLOCK_REAUTHORIZE",
-    compatiblePredictions: ["BLOCK"],
+    compatiblePredictions: ["BLOCK", "ESCALATE"],
+    compatibilityReason: "BLOCK captures the fail-closed constraint; ESCALATE is compatible because the scenario requires reevaluation by an applicable governance authority. Neither supplies the missing JANUS reauthorization mechanism.",
     changed: "A condition attached to the previously granted authorization is no longer the condition under which A1 was issued.",
     valid: "E1 and the reasoning behind D1 may remain valid unless the changed condition also affects their epistemic basis.",
     invalid: "Current authorization to enter execution cannot be inferred solely from the existence of the earlier authorization.",
@@ -33,8 +38,8 @@ const scenarios = [
     openQuestion: "What exact event invalidates A1, and what JANUS mechanism determines whether a new authorization fact is required?",
     evidenceRequired: "A reconstructable record of E1, D1, A1, the C1→C2 change, the authority owner, the decision to stop or continue, and any subsequent authorization event.",
     commitments: [
-      {status: "SUPPORTED", text: "Decision validity and authorization validity remain separate."},
-      {status: "SUPPORTED", text: "A still-reasonable decision does not automatically preserve execution permission."},
+      {status: "DIRECTLY SUPPORTED", text: "Decision validity and authorization validity remain separate."},
+      {status: "DIRECTLY SUPPORTED", text: "A still-reasonable decision does not automatically preserve execution permission."},
       {status: "OPEN", text: "The Orientation Edition does not disclose a specific reauthorization protocol."}
     ],
     sources: [
@@ -50,6 +55,7 @@ const scenarios = [
     perturbation: "The epistemic basis changes while the recorded authorization remains historically present.",
     disposition: "BLOCK",
     compatiblePredictions: ["BLOCK_REAUTHORIZE", "ESCALATE"],
+    compatibilityReason: "BLOCK + REAUTHORIZE and ESCALATE are compatible because both preserve the core refusal to execute on the stale evidentiary basis while leaving the authorization dependency mechanism unresolved.",
     changed: "New evidence materially weakens or contradicts the basis on which the existing decision was formed.",
     valid: "The historical record that A1 was granted remains valid as history. It does not disappear merely because new evidence arrives.",
     invalid: "The assumption that historical authorization can be executed without reevaluating the changed epistemic basis.",
@@ -59,7 +65,7 @@ const scenarios = [
     evidenceRequired: "E1, E2, the contradiction record, D1, A1, provenance for both evidence sets, and the subsequent reevaluation or escalation decision.",
     commitments: [
       {status: "EXTENDED / BY ANALOGY", text: "The no-forced-resolution principle for conflicting data is applied here to conflicting decision evidence."},
-      {status: "SUPPORTED", text: "Authorization history and current epistemic justification are different facts."},
+      {status: "REASONABLE INFERENCE", text: "Authorization history and current epistemic justification are different facts."},
       {status: "OPEN", text: "The dependency rule linking evidence invalidation to authority invalidation is not stated."}
     ],
     sources: [
@@ -74,7 +80,8 @@ const scenarios = [
     summary: "Decision D1 is valid and Authorization A1 was valid within defined temporal or operating bounds. Execution is delayed until after those bounds expire.",
     perturbation: "Time or another explicit validity bound expires before execution begins.",
     disposition: "BLOCK_REAUTHORIZE",
-    compatiblePredictions: ["BLOCK"],
+    compatiblePredictions: ["BLOCK", "ESCALATE"],
+    compatibilityReason: "BLOCK captures the invalid-current-authority constraint; ESCALATE is compatible as a route to an applicable authority, while the exact renewal mechanism remains unspecified.",
     changed: "The current moment or operating state is outside the stipulated validity scope under which A1 was granted.",
     valid: "A1 remains part of the historical record and can still prove that authorization existed previously.",
     invalid: "Previously authorized is not equivalent to currently authorized under the scenario's stipulated validity bound.",
@@ -83,13 +90,13 @@ const scenarios = [
     openQuestion: "How does JANUS represent authorization lifetime: explicit expiry, policy validity, state dependency, or another mechanism?",
     evidenceRequired: "The original authorization, its stipulated validity condition, the time/state transition that ended validity, and any later authorization event.",
     commitments: [
-      {status: "SUPPORTED", text: "Historical authorization can remain true as history while no longer proving present authority under a stipulated bound."},
+      {status: "REASONABLE INFERENCE", text: "Historical authorization can remain true as history while no longer proving present authority under a stipulated bound."},
       {status: "EXTENDED / BY ANALOGY", text: "The document's scope-of-validity language is explicit for memory and is applied here by analogy to authorization validity."},
       {status: "OPEN", text: "No authorization TTL, expiry object, or renewal mechanism is specified."}
     ],
     sources: [
       "§19 Operational Control — authorization has its own history and conditions.",
-      "§27 Memory — prior states remain available when later interpretation changes.",
+      "§27 Memory — prior states remain available when later interpretation changes; §26 names provenance and scope of validity for memory (used here only by analogy).",
       "§39 Limits — conditions can change and trust must have context; §32 supplies the fail-closed principle."
     ]
   },
@@ -99,7 +106,8 @@ const scenarios = [
     summary: "The system repeatedly succeeds inside Scope S1. Learning produces capability C2 that appears reliable beyond S1. No governing authority has approved a larger operational scope.",
     perturbation: "Capability expands; formally granted authority does not.",
     disposition: "BLOCK_REAUTHORIZE",
-    compatiblePredictions: ["BLOCK", "CONTINUE"],
+    compatiblePredictions: ["BLOCK", "CONTINUE", "ESCALATE"],
+    compatibilityReason: "BLOCK is compatible for the attempted expansion; CONTINUE is compatible only for already-authorized S1 work; ESCALATE is compatible because §24 places expansion with a governance decision.",
     changed: "The system's demonstrated capability, learned behavior, or confidence has increased.",
     valid: "Historical performance and C2 may be legitimate evidence supporting a proposal for expanded authority. Existing work inside S1 may continue if separately authorized.",
     invalid: "The assumption that improved capability automatically enlarges operational permission beyond S1.",
@@ -108,8 +116,8 @@ const scenarios = [
     openQuestion: "What evidence and governance event would JANUS require before expanded capability could receive expanded authority?",
     evidenceRequired: "Performance history inside S1, evidence supporting C2, the current authority scope, the proposal for expansion, independent verification evidence, and the governance decision.",
     commitments: [
-      {status: "SUPPORTED", text: "Learning can change knowledge or preference without changing authorization."},
-      {status: "SUPPORTED", text: "Capability expansion is not authority expansion."},
+      {status: "DIRECTLY SUPPORTED", text: "Learning can change knowledge or preference without changing authorization."},
+      {status: "DIRECTLY SUPPORTED", text: "Capability expansion is not authority expansion."},
       {status: "OPEN", text: "The exact verification evidence and governance event required for expanded authority are not specified."}
     ],
     sources: [
@@ -125,6 +133,7 @@ const scenarios = [
     perturbation: "Two apparently legitimate authority claims point to incompatible execution outcomes.",
     disposition: "INSUFFICIENT_SPECIFICATION",
     compatiblePredictions: ["BLOCK", "ESCALATE"],
+    compatibilityReason: "BLOCK and ESCALATE are compatible constraints while the precedence mechanism itself remains insufficiently specified.",
     changed: "Nothing must change over time; the conflict exists because two valid-looking authority sources apply simultaneously.",
     valid: "Both authority records may remain valid within the scopes that produced them.",
     invalid: "The assumption that the Orientation Edition supplies a universal authority-precedence rule.",
@@ -134,7 +143,7 @@ const scenarios = [
     evidenceRequired: "Both authority records, their scopes and owners, the conflicting policy conditions, any precedence rule consulted, the escalation path, and the resolution event.",
     commitments: [
       {status: "EXTENDED / BY ANALOGY", text: "The no-forced-resolution principle stated for data conflict is applied here to authority conflict."},
-      {status: "SUPPORTED", text: "Fail-closed / refusal-of-unjustified-transition principles do not support silent execution on an unresolved basis."},
+      {status: "REASONABLE INFERENCE", text: "Fail-closed / refusal-of-unjustified-transition principles do not support silent execution on an unresolved basis."},
       {status: "OPEN", text: "The authority-resolution hierarchy itself is not specified."}
     ],
     sources: [
@@ -150,6 +159,7 @@ const scenarios = [
     perturbation: "Authority changes after execution has already begun.",
     disposition: "INSUFFICIENT_SPECIFICATION",
     compatiblePredictions: ["BLOCK", "ESCALATE", "ROLLBACK_COMPENSATE"],
+    compatibilityReason: "BLOCK, ESCALATE, and ROLLBACK / COMPENSATE are plausible constrained responses. CONTINUE remains DIFFERENT because the glossary means unqualified continuation under current authority, and this scenario stipulates that authority has disappeared; safe completion is a narrower mechanism that JANUS does not specify.",
     changed: "The authority state changes while a previously authorized action is already affecting the external environment.",
     valid: "The record that X1 began under valid authorization remains part of the historical evidence.",
     invalid: "The assumption that the Orientation Edition determines one universal response for every in-flight action.",
@@ -158,7 +168,7 @@ const scenarios = [
     openQuestion: "How does JANUS classify in-flight actions when authority disappears, and what determines stop, safe completion, rollback, compensation, or escalation?",
     evidenceRequired: "The authorization state at execution start, the revocation or condition-change event, action interruptibility/reversibility characteristics, the response selected, and the resulting external effect.",
     commitments: [
-      {status: "SUPPORTED", text: "Execution remains separately accountable from the authorization that preceded it."},
+      {status: "DIRECTLY SUPPORTED", text: "Execution remains separately accountable from the authorization that preceded it."},
       {status: "REASONABLE INFERENCE", text: "The authority-loss event should be reconstructable as part of the audit trail even though 'revocation' is not a named JANUS event."},
       {status: "OPEN", text: "No universal in-flight authority-loss mechanism is specified at orientation level."}
     ],
@@ -192,18 +202,20 @@ const rationale = document.getElementById("rationale");
 const sources = document.getElementById("sources");
 const openQuestion = document.getElementById("openQuestion");
 const evidenceRequired = document.getElementById("evidenceRequired");
+const compatibilityInfo = document.getElementById("compatibilityInfo");
 const eventLog = document.getElementById("eventLog");
 const replayRecord = document.getElementById("replayRecord");
 
 let lastRun = null;
 let lastReplay = null;
+let stateGeneration = 0;
 
 function selectedScenario() {
-  const scenario = scenarios.find((item) => item.id === scenarioSelect.value);
-  if (!scenario) {
-    return null;
-  }
-  return scenario;
+  return scenarios.find((item) => item.id === scenarioSelect.value) || null;
+}
+
+function validPrediction(value) {
+  return typeof value === "string" && VALID_PREDICTIONS.has(value) && Object.hasOwn(labels, value);
 }
 
 function populateScenarios() {
@@ -225,27 +237,29 @@ function renderScenario() {
   }
   scenarioSummary.innerHTML = `<strong>${scenario.name}</strong>${scenario.summary}`;
   perturbation.textContent = scenario.perturbation;
-  runBtn.disabled = !predictionSelect.value;
+  runBtn.disabled = !validPrediction(predictionSelect.value);
 }
 
 function predictionComparison(scenario, prediction) {
-  if (prediction === scenario.disposition) {
-    return {code: "EXACT", label: "EXACT MATCH", css: "match"};
-  }
-  if ((scenario.compatiblePredictions || []).includes(prediction)) {
-    return {code: "PARTIAL", label: "PARTIAL / COMPATIBLE", css: "partial"};
-  }
+  if (!validPrediction(prediction)) return {code: "INVALID", label: "INVALID PREDICTION", css: "mismatch"};
+  if (prediction === scenario.disposition) return {code: "EXACT", label: "EXACT MATCH", css: "match"};
+  if ((scenario.compatiblePredictions || []).includes(prediction)) return {code: "PARTIAL", label: "PARTIAL / COMPATIBLE", css: "partial"};
   return {code: "DIFFERENT", label: "DIFFERENT", css: "mismatch"};
 }
 
 function renderCommitments(items) {
   commitments.innerHTML = "";
+  const classMap = {
+    "DIRECTLY SUPPORTED": "direct",
+    "REASONABLE INFERENCE": "inference",
+    "EXTENDED / BY ANALOGY": "extended",
+    "OPEN": "open"
+  };
   for (const item of items) {
     const row = document.createElement("div");
     row.className = "assertion";
     const status = document.createElement("div");
-    const cls = item.status === "SUPPORTED" ? "supported" : item.status === "OPEN" ? "open" : "extended";
-    status.className = `assertion-status ${cls}`;
+    status.className = `assertion-status ${classMap[item.status] || "open"}`;
     status.textContent = item.status;
     const text = document.createElement("div");
     text.textContent = item.text;
@@ -269,6 +283,7 @@ function canonicalContract(scenario) {
     id: scenario.id,
     disposition: scenario.disposition,
     compatiblePredictions: scenario.compatiblePredictions,
+    compatibilityReason: scenario.compatibilityReason,
     summary: scenario.summary,
     perturbation: scenario.perturbation,
     changed: scenario.changed,
@@ -283,109 +298,47 @@ function canonicalContract(scenario) {
   });
 }
 
-async function sha256Hex(text) {
-  const bytes = new TextEncoder().encode(text);
-  const digest = await crypto.subtle.digest("SHA-256", bytes);
+async function sha256Buffer(buffer) {
+  const digest = await crypto.subtle.digest("SHA-256", buffer);
   return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-function invalidateRun(reason) {
-  lastRun = null;
-  lastReplay = null;
-  resultArea.hidden = true;
-  resultEmpty.hidden = false;
-  resultEmpty.textContent = "Selection changed. Run the challenge to create a new evidence state.";
-  eventLog.textContent = "Not run for the current selection.";
-  replayRecord.textContent = "No replay performed for the current selection.";
-  replayBtn.disabled = true;
-  exportBtn.disabled = true;
-  staleNotice.hidden = false;
-  staleNotice.textContent = reason || "Selection changed. Previous evidence was invalidated.";
+async function sha256Text(text) {
+  return sha256Buffer(new TextEncoder().encode(text));
 }
 
-async function buildEvidence(scenario, prediction) {
-  const comparison = predictionComparison(scenario, prediction);
-  const contractSha256 = await sha256Hex(canonicalContract(scenario));
+async function observeSourceDocument() {
+  const response = await fetch(SOURCE_DOCUMENT.url, {cache: "no-store"});
+  if (!response.ok) throw new Error(`Source document fetch failed: HTTP ${response.status}`);
+  const bytes = await response.arrayBuffer();
+  const observed = await sha256Buffer(bytes);
   return {
-    harness: "JANUS Governance Challenge Harness",
-    version: HARNESS_VERSION,
-    build_id: BUILD_ID,
-    generated_at: new Date().toISOString(),
-    source_document: SOURCE_DOCUMENT,
-    contract_sha256: contractSha256,
-    evaluation_mode: "external orientation-level authored conformance challenge",
-    restrictions: [
-      "Does not implement JANUS.",
-      "Does not emulate JANUS.",
-      "Does not penetrate or security-test JANUS.",
-      "Does not validate JANUS implementation internals.",
-      "Does not infer unpublished JANUS mechanisms.",
-      "Reports INSUFFICIENT SPECIFICATION when the source does not establish an answer."
-    ],
-    harness_attribution: {
-      creator: "Kelly Newsome",
-      organization: "Stratos Engine"
-    },
-    janus_attribution: {
-      creator: "Eryk Dubiel",
-      linkedin: "https://www.linkedin.com/in/eryk-dubiel-1201a12b3/"
-    },
-    scenario_id: scenario.id,
-    scenario_name: scenario.name,
-    scenario_summary: scenario.summary,
-    perturbation: scenario.perturbation,
-    reviewer_prediction: prediction,
-    reviewer_prediction_label: labels[prediction],
-    orientation_level_disposition: scenario.disposition,
-    orientation_level_disposition_label: labels[scenario.disposition],
-    prediction_comparison: comparison.code,
-    prediction_comparison_label: comparison.label,
-    changed: scenario.changed,
-    remains_valid: scenario.valid,
-    invalid_or_uncertain: scenario.invalid,
-    execution: scenario.execute,
-    source_commitments: scenario.commitments,
-    rationale: scenario.rationale,
-    open_question: scenario.openQuestion,
-    evidence_required: scenario.evidenceRequired,
-    sources: scenario.sources
+    title: SOURCE_DOCUMENT.title,
+    url: SOURCE_DOCUMENT.url,
+    path: SOURCE_DOCUMENT.path,
+    expected_sha256: SOURCE_DOCUMENT.expected_sha256,
+    observed_sha256: observed,
+    bytes: bytes.byteLength,
+    hash_match: observed === SOURCE_DOCUMENT.expected_sha256,
+    checked_at: new Date().toISOString(),
+    verification: "Fetched source bytes and computed SHA-256 in this browser session."
   };
 }
 
-async function runChallenge() {
-  const scenario = selectedScenario();
-  const prediction = predictionSelect.value;
-  if (!scenario) {
-    invalidateRun("Invalid scenario selection. Execution refused.");
-    return;
+async function observeHarnessCommit() {
+  try {
+    const response = await fetch(GITHUB_HEAD_API, {cache: "no-store", headers: {Accept: "application/vnd.github+json"}});
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    const sha = typeof data.sha === "string" && /^[0-9a-f]{40}$/i.test(data.sha) ? data.sha.toLowerCase() : null;
+    return {sha, source: GITHUB_HEAD_API, observed_at: new Date().toISOString(), note: "Observed GitHub main HEAD at run time; recorded as provenance, not embedded into the commit itself."};
+  } catch (error) {
+    return {sha: null, source: GITHUB_HEAD_API, observed_at: new Date().toISOString(), note: `Commit lookup unavailable: ${error.message}`};
   }
-  if (!prediction || !labels[prediction]) {
-    invalidateRun("Choose a reviewer prediction before running.");
-    return;
-  }
+}
 
-  lastRun = await buildEvidence(scenario, prediction);
-  lastReplay = null;
-  staleNotice.hidden = true;
-  resultEmpty.hidden = true;
-  resultArea.hidden = false;
-
-  disposition.textContent = labels[scenario.disposition];
-  const comparison = predictionComparison(scenario, prediction);
-  matchBadge.textContent = comparison.label;
-  matchBadge.className = `badge ${comparison.css}`;
-
-  changed.textContent = scenario.changed;
-  valid.textContent = scenario.valid;
-  invalid.textContent = scenario.invalid;
-  execute.textContent = scenario.execute;
-  renderCommitments(scenario.commitments);
-  rationale.textContent = scenario.rationale;
-  renderSources(scenario.sources);
-  openQuestion.textContent = scenario.openQuestion;
-  evidenceRequired.textContent = scenario.evidenceRequired;
-
-  const logLines = [
+function expectedEventLog(scenario, prediction, comparison) {
+  return [
     "EVENT 001 | Scenario selected",
     `            ${scenario.name}`,
     "",
@@ -404,82 +357,313 @@ async function runChallenge() {
     "EVENT 006 | Evidence boundary preserved",
     "            No unpublished JANUS implementation behavior inferred."
   ];
-  const log = logLines.join("\n");
-  eventLog.textContent = log;
-  lastRun.event_log = logLines;
+}
+
+function evidenceCore(record) {
+  return {
+    version: record.version,
+    build_id: record.build_id,
+    source_document: record.source_document,
+    contract_sha256: record.contract_sha256,
+    scenario_id: record.scenario_id,
+    scenario_name: record.scenario_name,
+    scenario_summary: record.scenario_summary,
+    perturbation: record.perturbation,
+    reviewer_prediction: record.reviewer_prediction,
+    reviewer_prediction_label: record.reviewer_prediction_label,
+    orientation_level_disposition: record.orientation_level_disposition,
+    orientation_level_disposition_label: record.orientation_level_disposition_label,
+    prediction_comparison: record.prediction_comparison,
+    prediction_comparison_label: record.prediction_comparison_label,
+    compatible_predictions: record.compatible_predictions,
+    compatibility_reason: record.compatibility_reason,
+    changed: record.changed,
+    remains_valid: record.remains_valid,
+    invalid_or_uncertain: record.invalid_or_uncertain,
+    execution: record.execution,
+    source_commitments: record.source_commitments,
+    rationale: record.rationale,
+    open_question: record.open_question,
+    evidence_required: record.evidence_required,
+    sources: record.sources,
+    event_log: record.event_log
+  };
+}
+
+async function evidenceCoreHash(record) {
+  return sha256Text(JSON.stringify(evidenceCore(record)));
+}
+
+function invalidateRun(reason, hadEvidence = Boolean(lastRun || lastReplay || !resultArea.hidden)) {
+  stateGeneration += 1;
+  lastRun = null;
+  lastReplay = null;
+  resultArea.hidden = true;
+  resultEmpty.hidden = false;
+  resultEmpty.textContent = hadEvidence ? "Selection changed. Run the challenge to create a new evidence state." : "No challenge has been run for this selection.";
+  eventLog.textContent = "Not run for the current selection.";
+  replayRecord.textContent = "No replay performed for the current selection.";
+  replayBtn.disabled = true;
+  exportBtn.disabled = true;
+  staleNotice.hidden = !hadEvidence;
+  staleNotice.textContent = hadEvidence ? (reason || "Selection changed. Previous evidence was invalidated.") : "";
+}
+
+async function buildEvidence(scenario, prediction, sourceObservation, commitObservation) {
+  const comparison = predictionComparison(scenario, prediction);
+  const contractSha256 = await sha256Text(canonicalContract(scenario));
+  const eventLines = expectedEventLog(scenario, prediction, comparison);
+  const record = {
+    harness: "JANUS Governance Challenge Harness",
+    version: HARNESS_VERSION,
+    build_id: BUILD_ID,
+    generated_at: new Date().toISOString(),
+    repository: REPOSITORY,
+    harness_commit: commitObservation.sha,
+    harness_commit_provenance: commitObservation,
+    source_document: {...sourceObservation},
+    contract_sha256: contractSha256,
+    evaluation_mode: "external orientation-level authored conformance challenge",
+    restrictions: [
+      "Does not implement JANUS.",
+      "Does not emulate JANUS.",
+      "Does not penetrate or security-test JANUS.",
+      "Does not validate JANUS implementation internals.",
+      "Does not infer unpublished JANUS mechanisms.",
+      "Reports INSUFFICIENT SPECIFICATION when the source does not establish an answer.",
+      "Client-side evidence is integrity-checked for internal consistency but is not cryptographically signed or tamper-proof."
+    ],
+    harness_attribution: {creator: "Kelly Newsome", organization: "Stratos Engine"},
+    janus_attribution: {creator: "Eryk Dubiel", linkedin: "https://www.linkedin.com/in/eryk-dubiel-1201a12b3/"},
+    scenario_id: scenario.id,
+    scenario_name: scenario.name,
+    scenario_summary: scenario.summary,
+    perturbation: scenario.perturbation,
+    reviewer_prediction: prediction,
+    reviewer_prediction_label: labels[prediction],
+    orientation_level_disposition: scenario.disposition,
+    orientation_level_disposition_label: labels[scenario.disposition],
+    prediction_comparison: comparison.code,
+    prediction_comparison_label: comparison.label,
+    compatible_predictions: [...(scenario.compatiblePredictions || [])],
+    compatibility_reason: scenario.compatibilityReason,
+    changed: scenario.changed,
+    remains_valid: scenario.valid,
+    invalid_or_uncertain: scenario.invalid,
+    execution: scenario.execute,
+    source_commitments: scenario.commitments.map((x) => ({...x})),
+    rationale: scenario.rationale,
+    open_question: scenario.openQuestion,
+    evidence_required: scenario.evidenceRequired,
+    sources: [...scenario.sources],
+    event_log: eventLines
+  };
+  record.evidence_integrity_sha256 = await evidenceCoreHash(record);
+  return record;
+}
+
+async function runChallenge() {
+  const token = ++stateGeneration;
+  const scenario = selectedScenario();
+  const prediction = predictionSelect.value;
+  if (!scenario) {
+    invalidateRun("Invalid scenario selection. Execution refused.", false);
+    return;
+  }
+  if (!validPrediction(prediction)) {
+    invalidateRun("Choose a valid reviewer prediction before running.", false);
+    return;
+  }
+
+  runBtn.disabled = true;
+  replayBtn.disabled = true;
+  exportBtn.disabled = true;
+  staleNotice.hidden = false;
+  staleNotice.textContent = "Verifying source bytes and building evidence state…";
+
+  let sourceObservation;
+  let commitObservation;
+  try {
+    [sourceObservation, commitObservation] = await Promise.all([observeSourceDocument(), observeHarnessCommit()]);
+  } catch (error) {
+    if (token !== stateGeneration) return;
+    invalidateRun(`Execution refused: ${error.message}`, false);
+    return;
+  }
+  if (token !== stateGeneration) return;
+  if (!sourceObservation.hash_match) {
+    invalidateRun("Execution refused: observed JANUS source-document SHA-256 does not match the published expected hash.", false);
+    return;
+  }
+
+  const evidence = await buildEvidence(scenario, prediction, sourceObservation, commitObservation);
+  if (token !== stateGeneration) return;
+  lastRun = evidence;
+  lastReplay = null;
+  staleNotice.hidden = true;
+  resultEmpty.hidden = true;
+  resultArea.hidden = false;
+
+  disposition.textContent = labels[scenario.disposition];
+  const comparison = predictionComparison(scenario, prediction);
+  matchBadge.textContent = comparison.label;
+  matchBadge.className = `badge ${comparison.css}`;
+  changed.textContent = scenario.changed;
+  valid.textContent = scenario.valid;
+  invalid.textContent = scenario.invalid;
+  execute.textContent = scenario.execute;
+  renderCommitments(scenario.commitments);
+  rationale.textContent = scenario.rationale;
+  renderSources(scenario.sources);
+  openQuestion.textContent = scenario.openQuestion;
+  evidenceRequired.textContent = scenario.evidenceRequired;
+  compatibilityInfo.textContent = `${(scenario.compatiblePredictions || []).map((p) => labels[p]).join(", ") || "None"}. ${scenario.compatibilityReason}`;
+  eventLog.textContent = evidence.event_log.join("\n");
 
   replayRecord.textContent = JSON.stringify({
     status: "NOT YET REPLAYED",
     scenario_id: scenario.id,
     reviewer_prediction: prediction,
     encoded_disposition: scenario.disposition,
-    contract_sha256: lastRun.contract_sha256,
-    source_document_sha256: SOURCE_DOCUMENT.sha256,
-    note: "Replay will re-derive the authored assessment from the current encoded scenario contract and compare contract/source hashes."
+    contract_sha256: evidence.contract_sha256,
+    evidence_integrity_sha256: evidence.evidence_integrity_sha256,
+    source_expected_sha256: sourceObservation.expected_sha256,
+    source_observed_sha256: sourceObservation.observed_sha256,
+    source_hash_match: sourceObservation.hash_match,
+    harness_commit: evidence.harness_commit,
+    note: "Replay will re-derive the authored assessment, re-hash the live source document bytes, and compare the recorded evidence core."
   }, null, 2);
 
   replayBtn.disabled = false;
   exportBtn.disabled = false;
+  renderScenario();
 }
 
 async function replayLastRun() {
   if (!lastRun) return;
-  const scenario = scenarios.find((item) => item.id === lastRun.scenario_id);
-  if (!scenario) {
-    lastReplay = {result: "REPLAY REFUSED", reason: "Scenario contract no longer exists."};
+  const token = stateGeneration;
+  const snapshot = lastRun;
+  const scenario = scenarios.find((item) => item.id === snapshot.scenario_id);
+  if (!scenario || !validPrediction(snapshot.reviewer_prediction)) {
+    lastReplay = {result: "REPLAY REFUSED", reason: "Scenario contract or prediction is invalid."};
     replayRecord.textContent = JSON.stringify(lastReplay, null, 2);
+    exportBtn.disabled = true;
     return;
   }
-  const recomputed = await buildEvidence(scenario, lastRun.reviewer_prediction);
-  const dispositionMatch = recomputed.orientation_level_disposition === lastRun.orientation_level_disposition;
-  const contractMatch = recomputed.contract_sha256 === lastRun.contract_sha256;
-  const sourceMatch = SOURCE_DOCUMENT.sha256 === lastRun.source_document.sha256;
-  const replayMatch = dispositionMatch && contractMatch && sourceMatch;
+
+  let sourceObservation;
+  try {
+    sourceObservation = await observeSourceDocument();
+  } catch (error) {
+    if (token !== stateGeneration || lastRun !== snapshot) return;
+    lastReplay = {result: "REPLAY REFUSED", reason: error.message};
+    replayRecord.textContent = JSON.stringify(lastReplay, null, 2);
+    exportBtn.disabled = true;
+    return;
+  }
+  if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
+
+  const recomputed = await buildEvidence(scenario, snapshot.reviewer_prediction, sourceObservation, snapshot.harness_commit_provenance || {sha: snapshot.harness_commit, source: "recorded", observed_at: snapshot.generated_at});
+  if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
+
+  const storedCoreHash = await evidenceCoreHash(snapshot);
+  const dispositionMatch = recomputed.orientation_level_disposition === snapshot.orientation_level_disposition;
+  const contractMatch = recomputed.contract_sha256 === snapshot.contract_sha256;
+  const sourceMatch = sourceObservation.hash_match && sourceObservation.observed_sha256 === snapshot.source_document.observed_sha256;
+  const recordIntegrityMatch = storedCoreHash === snapshot.evidence_integrity_sha256;
+  const authoredStateMatch = recomputed.evidence_integrity_sha256 === snapshot.evidence_integrity_sha256;
+  const replayMatch = dispositionMatch && contractMatch && sourceMatch && recordIntegrityMatch && authoredStateMatch;
+
   lastReplay = {
-    replay_inputs: {
-      scenario_id: lastRun.scenario_id,
-      reviewer_prediction: lastRun.reviewer_prediction
-    },
-    original_disposition: lastRun.orientation_level_disposition,
+    replay_inputs: {scenario_id: snapshot.scenario_id, reviewer_prediction: snapshot.reviewer_prediction},
+    original_disposition: snapshot.orientation_level_disposition,
     rederived_disposition: recomputed.orientation_level_disposition,
-    original_contract_sha256: lastRun.contract_sha256,
+    original_contract_sha256: snapshot.contract_sha256,
     current_contract_sha256: recomputed.contract_sha256,
-    source_document_sha256: SOURCE_DOCUMENT.sha256,
+    original_evidence_integrity_sha256: snapshot.evidence_integrity_sha256,
+    stored_evidence_integrity_sha256: storedCoreHash,
+    rederived_evidence_integrity_sha256: recomputed.evidence_integrity_sha256,
+    source_expected_sha256: SOURCE_DOCUMENT.expected_sha256,
+    source_observed_sha256: sourceObservation.observed_sha256,
     disposition_match: dispositionMatch,
     contract_match: contractMatch,
     source_match: sourceMatch,
+    record_integrity_match: recordIntegrityMatch,
+    authored_state_match: authoredStateMatch,
     replay_match: replayMatch,
-    result: replayMatch ? "REPLAY CONSISTENT" : "REPLAY DIVERGENCE — investigate encoded contract or evidence state",
-    limitation: "This is a re-derivation from the static authored scenario contract, not an independent JANUS runtime execution."
+    result: replayMatch ? "REPLAY CONSISTENT" : "REPLAY DIVERGENCE — export blocked until a new clean run",
+    limitation: "This is a re-derivation from the static authored scenario contract plus live source-byte hashing; it is not an independent JANUS runtime execution."
   };
   replayRecord.textContent = JSON.stringify(lastReplay, null, 2);
+  exportBtn.disabled = !replayMatch;
 }
 
 async function exportEvidence() {
   if (!lastRun) return;
-  const scenario = scenarios.find((item) => item.id === lastRun.scenario_id);
-  if (!scenario) return;
-  const expectedLabel = labels[lastRun.orientation_level_disposition];
-  const expectedComparison = predictionComparison(scenario, lastRun.reviewer_prediction);
-  if (expectedLabel !== lastRun.orientation_level_disposition_label) {
-    alert("Export refused: disposition label is internally inconsistent.");
+  const token = stateGeneration;
+  const snapshot = lastRun;
+  const scenario = scenarios.find((item) => item.id === snapshot.scenario_id);
+  if (!scenario || !validPrediction(snapshot.reviewer_prediction)) {
+    alert("Export refused: scenario or prediction is invalid.");
     return;
   }
-  if (expectedComparison.code !== lastRun.prediction_comparison) {
-    alert("Export refused: prediction comparison is internally inconsistent.");
+  if (lastReplay && lastReplay.replay_match === false) {
+    alert("Export refused: replay integrity is divergent. Run the challenge again before exporting evidence.");
     return;
   }
 
+  let sourceObservation;
+  try {
+    sourceObservation = await observeSourceDocument();
+  } catch (error) {
+    alert(`Export refused: ${error.message}`);
+    return;
+  }
+  if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
+
+  const recomputedContract = await sha256Text(canonicalContract(scenario));
+  const storedCoreHash = await evidenceCoreHash(snapshot);
+  const expectedComparison = predictionComparison(scenario, snapshot.reviewer_prediction);
+  const expectedLog = expectedEventLog(scenario, snapshot.reviewer_prediction, expectedComparison);
+  const expectedCommitObservation = snapshot.harness_commit_provenance || {sha: snapshot.harness_commit, source: "recorded", observed_at: snapshot.generated_at};
+  const expectedRecord = await buildEvidence(scenario, snapshot.reviewer_prediction, sourceObservation, expectedCommitObservation);
+
+  const checks = {
+    valid_prediction: validPrediction(snapshot.reviewer_prediction),
+    disposition_label: labels[snapshot.orientation_level_disposition] === snapshot.orientation_level_disposition_label,
+    prediction_label: labels[snapshot.reviewer_prediction] === snapshot.reviewer_prediction_label,
+    comparison_code: expectedComparison.code === snapshot.prediction_comparison,
+    comparison_label: expectedComparison.label === snapshot.prediction_comparison_label,
+    contract_hash: recomputedContract === snapshot.contract_sha256,
+    source_expected_hash: sourceObservation.hash_match,
+    source_matches_run: sourceObservation.observed_sha256 === snapshot.source_document.observed_sha256,
+    event_log: JSON.stringify(expectedLog) === JSON.stringify(snapshot.event_log),
+    stored_record_integrity: storedCoreHash === snapshot.evidence_integrity_sha256,
+    authored_state_integrity: expectedRecord.evidence_integrity_sha256 === snapshot.evidence_integrity_sha256,
+    replay_not_divergent: !lastReplay || lastReplay.replay_match === true
+  };
+  const failed = Object.entries(checks).filter(([, ok]) => !ok).map(([name]) => name);
+  if (failed.length) {
+    alert(`Export refused: evidence integrity check failed (${failed.join(", ")}).`);
+    return;
+  }
+
+  const exportedAt = new Date().toISOString();
   const exportRecord = {
-    ...lastRun,
-    replay: lastReplay || {status: "NOT PERFORMED BEFORE EXPORT"}
+    ...snapshot,
+    exported_at: exportedAt,
+    integrity_status: "PASS",
+    integrity_checks: checks,
+    replay: lastReplay || {status: "NOT PERFORMED BEFORE EXPORT"},
+    compatible_predictions: [...scenario.compatiblePredictions],
+    compatibility_reason: scenario.compatibilityReason
   };
   const blob = new Blob([JSON.stringify(exportRecord, null, 2)], {type: "application/json"});
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
-  const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const stamp = exportedAt.replace(/[:.]/g, "-");
   anchor.href = url;
-  anchor.download = `janus-harness-${lastRun.scenario_id}-${lastRun.reviewer_prediction.toLowerCase()}-${stamp}-v${HARNESS_VERSION}.json`;
+  anchor.download = `janus-harness-${snapshot.scenario_id}-${snapshot.reviewer_prediction.toLowerCase()}-${stamp}-v${HARNESS_VERSION}.json`;
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();
@@ -487,6 +671,7 @@ async function exportEvidence() {
 }
 
 function resetHarness() {
+  stateGeneration += 1;
   lastRun = null;
   lastReplay = null;
   predictionSelect.value = "";
@@ -498,6 +683,7 @@ function resetHarness() {
   replayBtn.disabled = true;
   exportBtn.disabled = true;
   staleNotice.hidden = true;
+  staleNotice.textContent = "";
   renderScenario();
 }
 
@@ -506,12 +692,16 @@ predictionSelect.value = "";
 renderScenario();
 
 scenarioSelect.addEventListener("change", () => {
+  const hadEvidence = Boolean(lastRun || lastReplay || !resultArea.hidden);
   renderScenario();
-  invalidateRun("Scenario changed. Previous result, replay, and export state were invalidated.");
+  invalidateRun("Scenario changed. Previous result, replay, and export state were invalidated.", hadEvidence);
+  renderScenario();
 });
 predictionSelect.addEventListener("change", () => {
+  const hadEvidence = Boolean(lastRun || lastReplay || !resultArea.hidden);
   renderScenario();
-  invalidateRun("Prediction changed. Previous result, replay, and export state were invalidated.");
+  invalidateRun("Prediction changed. Previous result, replay, and export state were invalidated.", hadEvidence);
+  renderScenario();
 });
 runBtn.addEventListener("click", runChallenge);
 replayBtn.addEventListener("click", replayLastRun);

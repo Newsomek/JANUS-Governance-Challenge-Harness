@@ -1,4 +1,4 @@
-# JANUS Governance Challenge Harness v0.2
+# JANUS Governance Challenge Harness v0.3
 
 A dependency-free external architectural challenge harness for examining governance claims described in the **JANUS Orientation Edition 2026**.
 
@@ -42,6 +42,15 @@ Where the source does not provide enough information to derive a mechanism, the 
 
 Prediction comparison is not a score. It can be **EXACT MATCH**, **PARTIAL / COMPATIBLE**, or **DIFFERENT**.
 
+The exact compatible-prediction set is part of each authored scenario contract, is shown in the UI, and is included in exports with a written reason. These compatibility sets are harness interpretations, not JANUS vocabulary.
+
+## Source-support vocabulary
+
+- **DIRECTLY SUPPORTED** — the Orientation Edition states the principle in substantially the same domain and direction.
+- **REASONABLE INFERENCE** — the conclusion follows plausibly from JANUS statements but is not itself directly stated.
+- **EXTENDED / BY ANALOGY** — a JANUS principle stated for one domain is intentionally applied to another domain.
+- **OPEN** — the Orientation Edition does not specify the mechanism or rule needed to resolve the point.
+
 ## What each challenge records
 
 For each scenario the harness records:
@@ -58,32 +67,21 @@ For each scenario the harness records:
 
 ## Replay
 
-Replay is intentionally described narrowly. It is a **re-derivation from the static authored scenario contract**, not an independent JANUS runtime execution. It compares:
+Replay is intentionally narrow. It is a **re-derivation from the static authored scenario contract**, not an independent JANUS runtime execution. At Run and Replay, the browser fetches the published JANUS source document and computes SHA-256 from the actual served bytes. Replay compares:
 
 - encoded disposition;
 - scenario-contract SHA-256;
-- source-document SHA-256.
+- expected vs observed source-document SHA-256;
+- the stored evidence-core SHA-256;
+- a freshly re-derived authored evidence core.
 
-A replay divergence means the encoded contract or recorded evidence state changed between run and replay.
+A replay divergence disables ordinary evidence export until a new clean run is performed.
 
 ## Evidence export
 
-Exports include:
+Exports include run and export timestamps, harness version/build ID, the full GitHub `main` commit observed at run time when available, absolute source URL, expected and observed source hashes, contract hash, authored compatibility set/reason, scenario fields, event log, replay result, attributions, restrictions, and an explicit integrity-check map.
 
-- generation timestamp;
-- harness version/build ID;
-- source-document URL and SHA-256;
-- scenario-contract SHA-256;
-- scenario summary and perturbation;
-- reviewer prediction and comparison classification;
-- encoded disposition;
-- cards, commitments, rationale, sources, open question, and evidence-required field;
-- event log;
-- replay result, if replay was performed;
-- JANUS and harness attribution;
-- non-claim restrictions.
-
-Export performs internal consistency checks before producing JSON.
+Before export the harness recomputes and checks: valid prediction membership, prediction/disposition labels, comparison code/label, current contract hash, live source-document bytes and hash, source consistency with the run, event-log content, stored evidence-core hash, fresh authored-state hash, and replay status. A failed check refuses ordinary export. Client-side JSON remains unsigned and is not claimed to be tamper-proof.
 
 ## Independent v0.1 test record
 
@@ -96,17 +94,27 @@ Preserved artifacts:
 
 The v0.1 report found 12 items: 1 High, 5 Medium, 4 Low, and 2 Observations. Version 0.2 incorporates the report's remediation recommendations while preserving the v0.1 record unchanged.
 
+
+## Independent v0.2 regression record
+
+The v0.2 harness at commit `ba7b6e5b9335f395499f569f0df091962c69bb8f` was independently regression-tested across all 36 permutations plus determinism, state-isolation, race, tamper, replay, export, and source-conformance checks. The report found 9 v0.1 items fixed, 3 partly fixed, and 7 new findings. Version 0.3 is the bounded hardening response to those findings.
+
+Preserved artifacts:
+
+- `testing/claude/v0.2/JANUS_Harness_v0.2_Independent_Regression_Test_Report.md`
+- `testing/claude/v0.2/JANUS_Harness_v0.2_raw_results.json`
+
 ## Source document
 
 The repository copy used for this review is:
 
 `docs/JANUS_Orientation_Edition_2026_EN.docx`
 
-Recorded SHA-256:
+Expected SHA-256:
 
 `21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4`
 
-The recorded hash identifies the exact repository copy used by the harness. The harness does not claim that document metadata proves original authorship or chain-of-custody.
+At Run, Replay, and Export, the browser fetches the public source document and computes SHA-256 from the served bytes. The expected hash identifies the repository copy used for the authored scenarios. The harness does not claim that document metadata proves original authorship or chain-of-custody.
 
 ## JANUS attribution
 
