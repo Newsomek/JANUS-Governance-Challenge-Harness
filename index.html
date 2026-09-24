@@ -3,47 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta
-    name="description"
-    content="External adversarial governance challenge harness for the JANUS Orientation Edition 2026."
-  >
-  <title>JANUS Governance Challenge Harness v0.1</title>
+  <meta name="description" content="External adversarial governance challenge harness for the JANUS Orientation Edition 2026.">
+  <title>JANUS Governance Challenge Harness v0.2</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-
   <header class="brand-header">
-    <img
-      src="assets/images/stratosengine_cover.jpg"
-      alt="Stratos Engine — Deterministic AI. Operational trust. Intelligent outcomes."
-    >
+    <img src="assets/images/stratosengine_cover.jpg" alt="Stratos Engine — Deterministic AI. Operational trust. Intelligent outcomes.">
   </header>
 
   <main class="shell">
-
     <header class="hero">
-      <div class="eyebrow">
-        EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.1
-      </div>
-
+      <div class="eyebrow">EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.2</div>
       <h1>JANUS Governance Challenge Harness</h1>
-
-      <p class="lede">
-        A small adversarial laboratory for examining whether the governance
-        boundaries described in the JANUS Orientation Edition remain coherent
-        when evidence, operating conditions, capability, or authority change.
-      </p>
+      <p class="lede">A small adversarial laboratory for examining whether the governance boundaries described in the JANUS Orientation Edition remain coherent when evidence, operating conditions, capability, or authority change.</p>
 
       <div class="guardrail">
         <strong>Important boundary.</strong>
-        This harness does not implement, emulate, penetrate, certify, validate,
-        or reproduce JANUS. It evaluates architectural statements made in the
-        <em>JANUS Orientation Edition 2026</em> at the level at which that
-        orientation document describes them.
-        Where the document does not specify the governing mechanism, this
-        harness reports <strong>INSUFFICIENT SPECIFICATION</strong> rather than
-        inventing JANUS behavior.
+        This harness does not implement, emulate, penetrate, certify, validate, or reproduce JANUS. It evaluates authored architectural interpretations against the <em>JANUS Orientation Edition 2026</em>. Where that document does not specify the governing mechanism, the harness reports <strong>INSUFFICIENT SPECIFICATION</strong> rather than inventing JANUS behavior.
       </div>
 
       <div class="principle">
@@ -52,47 +29,51 @@
       </div>
     </header>
 
+    <section class="panel glossary-panel">
+      <div class="section-kicker">DISPOSITION GLOSSARY</div>
+      <div class="glossary-grid">
+        <div><strong>CONTINUE</strong><span>Proceed within the currently supported and authorized scope.</span></div>
+        <div><strong>BLOCK</strong><span>Do not proceed on the current basis; the next governance step is not determined here.</span></div>
+        <div><strong>BLOCK + REAUTHORIZE</strong><span>Do not proceed on the current authority state; if execution is still desired, obtain a new valid authorization state. “Reauthorize” is harness shorthand, not a JANUS term.</span></div>
+        <div><strong>ESCALATE</strong><span>Move the unresolved issue to an applicable human or policy authority.</span></div>
+        <div><strong>ROLLBACK / COMPENSATE</strong><span>Reverse or offset an action already in progress or completed, where such semantics exist.</span></div>
+        <div><strong>INSUFFICIENT SPECIFICATION</strong><span>The Orientation Edition does not supply enough detail to derive the mechanism without invention.</span></div>
+      </div>
+      <p class="hint">Prediction comparison is not a score. It can be <strong>Exact</strong>, <strong>Partial / Compatible</strong>, or <strong>Different</strong>.</p>
+    </section>
+
     <section class="panel">
       <div class="section-kicker">1 · SELECT CHALLENGE</div>
-
       <label for="scenarioSelect">Adversarial scenario</label>
       <select id="scenarioSelect"></select>
-
       <div id="scenarioSummary" class="summary"></div>
     </section>
 
     <section class="panel grid-2">
       <div>
         <div class="section-kicker">2 · PREDICT FIRST</div>
-
         <label for="predictionSelect">Reviewer prediction</label>
-
         <select id="predictionSelect">
+          <option value="">— choose a prediction —</option>
           <option value="CONTINUE">CONTINUE</option>
           <option value="BLOCK">BLOCK</option>
           <option value="BLOCK_REAUTHORIZE">BLOCK + REAUTHORIZE</option>
           <option value="ESCALATE">ESCALATE</option>
           <option value="ROLLBACK_COMPENSATE">ROLLBACK / COMPENSATE</option>
-          <option value="INSUFFICIENT_SPECIFICATION">
-            INSUFFICIENT SPECIFICATION
-          </option>
+          <option value="INSUFFICIENT_SPECIFICATION">INSUFFICIENT SPECIFICATION</option>
         </select>
-
-        <p class="hint">
-          Commit to an expected result before running the challenge.
-          Your prediction is recorded for comparison; it is not treated as
-          ground truth.
-        </p>
+        <p class="hint">Commit to an expected result before running. Your prediction is recorded for comparison; it is not ground truth.</p>
       </div>
-
       <div>
         <div class="section-kicker">3 · PERTURBATION</div>
         <div id="perturbation" class="state-card"></div>
       </div>
     </section>
 
+    <div id="staleNotice" class="stale-notice" hidden></div>
+
     <section class="actions">
-      <button id="runBtn" class="primary">Run challenge</button>
+      <button id="runBtn" class="primary" disabled>Run challenge</button>
       <button id="replayBtn" disabled>Replay last run</button>
       <button id="exportBtn" disabled>Export evidence</button>
       <button id="resetBtn">Reset</button>
@@ -100,51 +81,26 @@
 
     <section class="panel">
       <div class="section-kicker">4 · RESULT</div>
-
-      <div id="resultEmpty" class="empty">
-        No challenge has been run.
-      </div>
-
+      <div id="resultEmpty" class="empty">No challenge has been run.</div>
       <div id="resultArea" hidden>
-
         <div class="result-head">
           <div>
-            <div class="muted">Orientation-level disposition</div>
+            <div class="muted">Encoded orientation-level assessment</div>
             <div id="disposition" class="disposition"></div>
           </div>
-
           <div id="matchBadge" class="badge"></div>
         </div>
 
-        <div class="interpretation-note">
-          This disposition describes what can reasonably be concluded from the
-          published Orientation Edition. It is not a measured result from a
-          JANUS implementation.
-        </div>
+        <div class="interpretation-note">This is an authored orientation-level assessment, not a measured result from a JANUS implementation or a runtime rule engine.</div>
 
         <div class="result-grid">
-          <div class="result-card">
-            <span>What changed?</span>
-            <strong id="changed"></strong>
-          </div>
-
-          <div class="result-card">
-            <span>What remains valid?</span>
-            <strong id="valid"></strong>
-          </div>
-
-          <div class="result-card">
-            <span>What became invalid or uncertain?</span>
-            <strong id="invalid"></strong>
-          </div>
-
-          <div class="result-card">
-            <span>May execution proceed?</span>
-            <strong id="execute"></strong>
-          </div>
+          <div class="result-card"><span>What changed?</span><strong id="changed"></strong></div>
+          <div class="result-card"><span>What remains valid?</span><strong id="valid"></strong></div>
+          <div class="result-card"><span>What became invalid or uncertain?</span><strong id="invalid"></strong></div>
+          <div class="result-card"><span>May execution proceed?</span><strong id="execute"></strong></div>
         </div>
 
-        <h2>Invariant checks</h2>
+        <h2>Encoded source commitments</h2>
         <div id="assertions"></div>
 
         <h2>Why</h2>
@@ -156,124 +112,45 @@
         <h2>Question exposed by this test</h2>
         <div id="openQuestion" class="question-box"></div>
 
+        <h2>Evidence required to reconstruct the path</h2>
+        <div id="evidenceRequired" class="question-box"></div>
       </div>
     </section>
 
     <section class="panel">
       <div class="section-kicker">5 · EVIDENCE & REPLAY</div>
-
       <h2>Event log</h2>
       <pre id="eventLog">Not run.</pre>
-
       <h2>Replay record</h2>
-      <pre id="replayRecord">Not run.</pre>
-
-      <div class="replay-rule">
-        Replay recomputes the orientation-level disposition from the declared
-        scenario and encoded source contract. The stored result is not used as
-        an instruction for the replay.
-      </div>
+      <pre id="replayRecord">No replay performed.</pre>
+      <div class="replay-rule">Replay is a re-derivation from the static authored scenario contract. It compares the encoded disposition, scenario-contract SHA-256, and source-document SHA-256. It is not an independent JANUS runtime execution.</div>
     </section>
 
     <section class="panel about-panel">
       <div class="section-kicker">ABOUT THIS HARNESS</div>
-
       <h2>What this tests</h2>
+      <p>JANUS separates model output, evidence, decision, authorization and execution, and describes authority as distinct from capability. This harness introduces controlled adversarial changes at those boundaries and asks whether the published orientation document provides enough information to determine what should happen next.</p>
+      <p>A result of <strong>INSUFFICIENT SPECIFICATION</strong> is not a failure of JANUS. It means the Orientation Edition does not disclose enough implementation or policy detail to derive a mechanism without inventing one.</p>
 
-      <p>
-        JANUS separates model output, evidence, decision, authorization and
-        execution, and describes authority as distinct from capability.
-        This harness introduces controlled adversarial changes at those
-        boundaries and asks whether the published architecture provides enough
-        information to determine what should happen next.
-      </p>
-
-      <p>
-        A result of <strong>INSUFFICIENT SPECIFICATION</strong> is not a failure
-        of JANUS. It means the Orientation Edition intentionally does not
-        disclose enough implementation or policy detail to derive the answer
-        without inventing one.
-      </p>
-
-      <h2>Included challenges</h2>
-
-      <ol class="test-index">
-        <li>Authorization condition changes after approval</li>
-        <li>Evidence changes after authorization</li>
-        <li>Authorization expires before execution</li>
-        <li>Learning attempts to expand authority</li>
-        <li>Two legitimate authorities conflict</li>
-        <li>Authority is revoked during execution</li>
-      </ol>
+      <h2>Independent v0.1 test record</h2>
+      <p>The v0.1 harness was independently exercised across all 36 scenario × prediction permutations, with replay, export, determinism, state-isolation, and source-conformance checks. Findings and raw results are preserved in the repository under <code>testing/claude/v0.1/</code>. Version 0.2 incorporates the reported defects and clarifies the authored nature of the assessments.</p>
     </section>
-
   </main>
 
   <footer class="site-footer">
     <div class="footer-inner">
-
-      <img
-        class="footer-logo"
-        src="assets/images/stratosengine_cover.jpg"
-        alt="Stratos Engine"
-      >
-
+      <img class="footer-logo" src="assets/images/stratosengine_cover.jpg" alt="Stratos Engine">
       <div class="footer-copy">
-        <p>
-          <strong>JANUS Governance Challenge Harness v0.1</strong>
-        </p>
-
-        <p>
-          Created by
-          <a
-            href="https://www.linkedin.com/in/michaelkellynewsome/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Kelly Newsome</a>
-          · Stratos Engine
-        </p>
-
-        <p>
-          Concept, experimental design, governance challenge structure,
-          and product direction by Kelly Newsome.
-          AI-assisted implementation.
-        </p>
-
-        <p class="footer-attribution">
-          This harness is an independent external test of concepts described
-          in the <em>JANUS Orientation Edition 2026</em>.
-          JANUS — including the system, concept, architecture, and underlying
-          ideas being examined here — is the work of
-          <a
-            href="https://www.linkedin.com/in/eryk-dubiel-1201a12b3/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Eryk Dubiel</a>.
-        </p>
-
-        <p class="footer-source">
-          <strong>Source document:</strong>
-          <a
-            href="docs/JANUS_Orientation_Edition_2026_EN.docx"
-            target="_blank"
-            rel="noopener noreferrer"
-          >JANUS Orientation Edition 2026</a>
-          — the original document supplied by Eryk Dubiel for this review,
-          published here unchanged.
-        </p>
-        <p class="footer-restriction">
-          This site does not claim to implement JANUS, reproduce its internal
-          construction, validate its implementation, perform a penetration
-          test, or represent unpublished JANUS behavior.
-          Conclusions are limited to architectural statements available in the
-          Orientation Edition supplied for review.
-        </p>
+        <p><strong>JANUS Governance Challenge Harness v0.2</strong></p>
+        <p>Created by <a href="https://www.linkedin.com/in/michaelkellynewsome/" target="_blank" rel="noopener noreferrer">Kelly Newsome</a> · Stratos Engine</p>
+        <p>Concept, experimental design, governance challenge structure, and product direction by Kelly Newsome. AI-assisted implementation.</p>
+        <p class="footer-attribution">This harness is an independent external test of concepts described in the <em>JANUS Orientation Edition 2026</em>. JANUS — including the system, concept, architecture, and underlying ideas being examined here — is the work of <a href="https://www.linkedin.com/in/eryk-dubiel-1201a12b3/" target="_blank" rel="noopener noreferrer">Eryk Dubiel</a>.</p>
+        <p class="footer-source"><strong>Source document:</strong> <a href="docs/JANUS_Orientation_Edition_2026_EN.docx" target="_blank" rel="noopener noreferrer">JANUS Orientation Edition 2026</a> — the repository copy used for this review. Recorded SHA-256: <code>21766f5d…551fe4</code>.</p>
+        <p class="footer-restriction">This site does not claim to implement JANUS, reproduce its internal construction, validate its implementation, perform a penetration test, or represent unpublished JANUS behavior. Conclusions are limited to architectural statements available in the Orientation Edition supplied for review.</p>
       </div>
-
     </div>
   </footer>
 
   <script src="app.js"></script>
 </body>
 </html>
-

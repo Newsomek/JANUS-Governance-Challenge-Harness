@@ -1,0 +1,690 @@
+{
+  "harness_commit": "f8b2eb6284575d1670c748bee1868835bf7242eb",
+  "tested_url": "https://newsomek.github.io/JANUS-Governance-Challenge-Harness/",
+  "runs": [
+    {
+      "run_id": "M01",
+      "scenario_id": "condition-change",
+      "reviewer_prediction": "CONTINUE",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-condition-change-evidence-v0.1.json",
+      "export_sha256_12": "416566b3d6c1",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "25ab9cf2a437",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M02",
+      "scenario_id": "condition-change",
+      "reviewer_prediction": "BLOCK",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-condition-change-evidence-v0.1.json",
+      "export_sha256_12": "4a6fe189c6a2",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "d862bf3894bc",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M03",
+      "scenario_id": "condition-change",
+      "reviewer_prediction": "BLOCK_REAUTHORIZE",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": true,
+      "badge": "PREDICTION MATCHED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-condition-change-evidence-v0.1.json",
+      "export_sha256_12": "f8b6e884781b",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "b82d26b7f91c",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M04",
+      "scenario_id": "condition-change",
+      "reviewer_prediction": "ESCALATE",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-condition-change-evidence-v0.1.json",
+      "export_sha256_12": "04d23b25afed",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "91347aec5bfb",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M05",
+      "scenario_id": "condition-change",
+      "reviewer_prediction": "ROLLBACK_COMPENSATE",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-condition-change-evidence-v0.1.json",
+      "export_sha256_12": "315a30c64c71",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "7ae840dfc8b8",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M06",
+      "scenario_id": "condition-change",
+      "reviewer_prediction": "INSUFFICIENT_SPECIFICATION",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-condition-change-evidence-v0.1.json",
+      "export_sha256_12": "b88c4e28ab62",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "4a4411075b07",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M07",
+      "scenario_id": "evidence-change",
+      "reviewer_prediction": "CONTINUE",
+      "orientation_level_disposition": "BLOCK",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK",
+        "recomputed": "BLOCK",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-evidence-change-evidence-v0.1.json",
+      "export_sha256_12": "f11bc318054b",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "deb971ed6743",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M08",
+      "scenario_id": "evidence-change",
+      "reviewer_prediction": "BLOCK",
+      "orientation_level_disposition": "BLOCK",
+      "prediction_matches_disposition": true,
+      "badge": "PREDICTION MATCHED",
+      "replay": {
+        "original": "BLOCK",
+        "recomputed": "BLOCK",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-evidence-change-evidence-v0.1.json",
+      "export_sha256_12": "874191446c85",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "7564e261a35b",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M09",
+      "scenario_id": "evidence-change",
+      "reviewer_prediction": "BLOCK_REAUTHORIZE",
+      "orientation_level_disposition": "BLOCK",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK",
+        "recomputed": "BLOCK",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-evidence-change-evidence-v0.1.json",
+      "export_sha256_12": "862c0c3d19ec",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "4f97a9277c64",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M10",
+      "scenario_id": "evidence-change",
+      "reviewer_prediction": "ESCALATE",
+      "orientation_level_disposition": "BLOCK",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK",
+        "recomputed": "BLOCK",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-evidence-change-evidence-v0.1.json",
+      "export_sha256_12": "ad6cd6ae65c0",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "8767b69941a3",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M11",
+      "scenario_id": "evidence-change",
+      "reviewer_prediction": "ROLLBACK_COMPENSATE",
+      "orientation_level_disposition": "BLOCK",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK",
+        "recomputed": "BLOCK",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-evidence-change-evidence-v0.1.json",
+      "export_sha256_12": "11743689bbb7",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "af8b07bade61",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M12",
+      "scenario_id": "evidence-change",
+      "reviewer_prediction": "INSUFFICIENT_SPECIFICATION",
+      "orientation_level_disposition": "BLOCK",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK",
+        "recomputed": "BLOCK",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-evidence-change-evidence-v0.1.json",
+      "export_sha256_12": "f3b9eec3b11a",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "b1baa1842345",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M13",
+      "scenario_id": "authorization-expiry",
+      "reviewer_prediction": "CONTINUE",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-authorization-expiry-evidence-v0.1.json",
+      "export_sha256_12": "40029be5b0ed",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "10506c7790ce",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M14",
+      "scenario_id": "authorization-expiry",
+      "reviewer_prediction": "BLOCK",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-authorization-expiry-evidence-v0.1.json",
+      "export_sha256_12": "ec1c76d15f65",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "10d075d33a05",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M15",
+      "scenario_id": "authorization-expiry",
+      "reviewer_prediction": "BLOCK_REAUTHORIZE",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": true,
+      "badge": "PREDICTION MATCHED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-authorization-expiry-evidence-v0.1.json",
+      "export_sha256_12": "322a8991b053",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "e17041602bee",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M16",
+      "scenario_id": "authorization-expiry",
+      "reviewer_prediction": "ESCALATE",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-authorization-expiry-evidence-v0.1.json",
+      "export_sha256_12": "a3027340c8d8",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "ea03df5fa375",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M17",
+      "scenario_id": "authorization-expiry",
+      "reviewer_prediction": "ROLLBACK_COMPENSATE",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-authorization-expiry-evidence-v0.1.json",
+      "export_sha256_12": "46ce61b61b96",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "c891599fb5b2",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M18",
+      "scenario_id": "authorization-expiry",
+      "reviewer_prediction": "INSUFFICIENT_SPECIFICATION",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-authorization-expiry-evidence-v0.1.json",
+      "export_sha256_12": "31e5b1272438",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "1e1e14845b7d",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M19",
+      "scenario_id": "learning-authority",
+      "reviewer_prediction": "CONTINUE",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-learning-authority-evidence-v0.1.json",
+      "export_sha256_12": "f0e7af2a0c10",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "5714bd8f5211",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M20",
+      "scenario_id": "learning-authority",
+      "reviewer_prediction": "BLOCK",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-learning-authority-evidence-v0.1.json",
+      "export_sha256_12": "79cf98bc9eca",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "a45b89a8757b",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M21",
+      "scenario_id": "learning-authority",
+      "reviewer_prediction": "BLOCK_REAUTHORIZE",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": true,
+      "badge": "PREDICTION MATCHED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-learning-authority-evidence-v0.1.json",
+      "export_sha256_12": "72ee1c2e400e",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "a4c74f08d4ed",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M22",
+      "scenario_id": "learning-authority",
+      "reviewer_prediction": "ESCALATE",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-learning-authority-evidence-v0.1.json",
+      "export_sha256_12": "fa5d8d3c5380",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "cc4d0213f7af",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M23",
+      "scenario_id": "learning-authority",
+      "reviewer_prediction": "ROLLBACK_COMPENSATE",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-learning-authority-evidence-v0.1.json",
+      "export_sha256_12": "b99061d246d2",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "d9083e72100e",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M24",
+      "scenario_id": "learning-authority",
+      "reviewer_prediction": "INSUFFICIENT_SPECIFICATION",
+      "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "BLOCK_REAUTHORIZE",
+        "recomputed": "BLOCK_REAUTHORIZE",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-learning-authority-evidence-v0.1.json",
+      "export_sha256_12": "cc87ffca259a",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "667059dde26a",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M25",
+      "scenario_id": "conflicting-authorities",
+      "reviewer_prediction": "CONTINUE",
+      "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "INSUFFICIENT_SPECIFICATION",
+        "recomputed": "INSUFFICIENT_SPECIFICATION",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-conflicting-authorities-evidence-v0.1.json",
+      "export_sha256_12": "90166ceaf31a",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "3990afae4f29",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M26",
+      "scenario_id": "conflicting-authorities",
+      "reviewer_prediction": "BLOCK",
+      "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "INSUFFICIENT_SPECIFICATION",
+        "recomputed": "INSUFFICIENT_SPECIFICATION",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-conflicting-authorities-evidence-v0.1.json",
+      "export_sha256_12": "8f95f3990f22",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "1149836a3ae9",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M27",
+      "scenario_id": "conflicting-authorities",
+      "reviewer_prediction": "BLOCK_REAUTHORIZE",
+      "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "INSUFFICIENT_SPECIFICATION",
+        "recomputed": "INSUFFICIENT_SPECIFICATION",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-conflicting-authorities-evidence-v0.1.json",
+      "export_sha256_12": "9f464ac691eb",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "3392c1c405a0",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M28",
+      "scenario_id": "conflicting-authorities",
+      "reviewer_prediction": "ESCALATE",
+      "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "INSUFFICIENT_SPECIFICATION",
+        "recomputed": "INSUFFICIENT_SPECIFICATION",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-conflicting-authorities-evidence-v0.1.json",
+      "export_sha256_12": "86645eb02cea",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "c71ec1d3442f",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M29",
+      "scenario_id": "conflicting-authorities",
+      "reviewer_prediction": "ROLLBACK_COMPENSATE",
+      "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "INSUFFICIENT_SPECIFICATION",
+        "recomputed": "INSUFFICIENT_SPECIFICATION",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-conflicting-authorities-evidence-v0.1.json",
+      "export_sha256_12": "202b07cd7b35",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "fd4600cd11e5",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M30",
+      "scenario_id": "conflicting-authorities",
+      "reviewer_prediction": "INSUFFICIENT_SPECIFICATION",
+      "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+      "prediction_matches_disposition": true,
+      "badge": "PREDICTION MATCHED",
+      "replay": {
+        "original": "INSUFFICIENT_SPECIFICATION",
+        "recomputed": "INSUFFICIENT_SPECIFICATION",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-conflicting-authorities-evidence-v0.1.json",
+      "export_sha256_12": "a9cf42a83356",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "4124d230457b",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M31",
+      "scenario_id": "mid-execution-revocation",
+      "reviewer_prediction": "CONTINUE",
+      "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "INSUFFICIENT_SPECIFICATION",
+        "recomputed": "INSUFFICIENT_SPECIFICATION",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-mid-execution-revocation-evidence-v0.1.json",
+      "export_sha256_12": "282a919a7e9d",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "aaf074683191",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M32",
+      "scenario_id": "mid-execution-revocation",
+      "reviewer_prediction": "BLOCK",
+      "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "INSUFFICIENT_SPECIFICATION",
+        "recomputed": "INSUFFICIENT_SPECIFICATION",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-mid-execution-revocation-evidence-v0.1.json",
+      "export_sha256_12": "c9e6c557400a",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "1deb29db05b5",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M33",
+      "scenario_id": "mid-execution-revocation",
+      "reviewer_prediction": "BLOCK_REAUTHORIZE",
+      "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "INSUFFICIENT_SPECIFICATION",
+        "recomputed": "INSUFFICIENT_SPECIFICATION",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-mid-execution-revocation-evidence-v0.1.json",
+      "export_sha256_12": "6350687b7218",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "ea4e486e28eb",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M34",
+      "scenario_id": "mid-execution-revocation",
+      "reviewer_prediction": "ESCALATE",
+      "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "INSUFFICIENT_SPECIFICATION",
+        "recomputed": "INSUFFICIENT_SPECIFICATION",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-mid-execution-revocation-evidence-v0.1.json",
+      "export_sha256_12": "850b030897b0",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "bcb8ba0941cd",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M35",
+      "scenario_id": "mid-execution-revocation",
+      "reviewer_prediction": "ROLLBACK_COMPENSATE",
+      "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+      "prediction_matches_disposition": false,
+      "badge": "PREDICTION DIFFERED",
+      "replay": {
+        "original": "INSUFFICIENT_SPECIFICATION",
+        "recomputed": "INSUFFICIENT_SPECIFICATION",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-mid-execution-revocation-evidence-v0.1.json",
+      "export_sha256_12": "881b027e99d6",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "c33fa1009660",
+      "eventlog_matches_independent_derivation": true
+    },
+    {
+      "run_id": "M36",
+      "scenario_id": "mid-execution-revocation",
+      "reviewer_prediction": "INSUFFICIENT_SPECIFICATION",
+      "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+      "prediction_matches_disposition": true,
+      "badge": "PREDICTION MATCHED",
+      "replay": {
+        "original": "INSUFFICIENT_SPECIFICATION",
+        "recomputed": "INSUFFICIENT_SPECIFICATION",
+        "replay_match": true,
+        "result": "REPLAY CONSISTENT"
+      },
+      "export_filename": "janus-harness-mid-execution-revocation-evidence-v0.1.json",
+      "export_sha256_12": "b8cbd0a620dd",
+      "export_hash_matches_independent_derivation": true,
+      "eventlog_plus_prereplay_sha256_12": "eb67c7300ec0",
+      "eventlog_matches_independent_derivation": true
+    }
+  ]
+}

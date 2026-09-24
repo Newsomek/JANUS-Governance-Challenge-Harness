@@ -1,22 +1,24 @@
 JANUS Governance Challenge Harness
 
-Version: 0.1
-Status: Complete external architectural challenge prototype
-
-Included challenge count: 6
+Version: 0.2
+Status: Hardened external architectural challenge prototype
 
 Governing boundary:
 Challenge JANUS against JANUS first.
 
-Do not:
-- implement JANUS;
-- infer unpublished JANUS behavior;
-- treat orientation-level disposition as observed runtime behavior;
-- manufacture answers where the source is insufficient.
+v0.2 incorporates the independent v0.1 full-matrix test findings, including:
+- stale-state invalidation;
+- explicit authored-assessment language;
+- strengthened evidence provenance;
+- disposition glossary and partial compatibility;
+- consistent treatment of fail-closed constraints;
+- neutral prediction reset;
+- evidence-required field;
+- replay terminology and contract/source hash checks;
+- EXTENDED / BY ANALOGY support status;
+- corrected source-provenance wording;
+- invalid-scenario refusal.
 
-JANUS attribution:
-Eryk Dubiel
-https://www.linkedin.com/in/eryk-dubiel-1201a12b3/
 Published source document:
 docs/JANUS_Orientation_Edition_2026_EN.docx
 
