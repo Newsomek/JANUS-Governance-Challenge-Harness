@@ -15,6 +15,7 @@ const baseFiles = [
   'docs/EXPECTED_CONTRACT_HASHES.json',
   'tests/V0_3_2_RELEASE_GATE.md','tests/V0_3_3_RELEASE_GATE.md','tests/V0_3_4_RELEASE_GATE.md',
   'tests/V0_3_5_RELEASE_GATE.md','tests/V0_3_6_RELEASE_GATE.md',
+  'tests/V0_3_5_AUTOMATED_REGRESSION_RESULT.txt',
   'testing/claude/v0.3.5/V0_3_5_FINAL_INDEPENDENT_ADVERSARIAL_REGRESSION.md',
   'testing/claude/v0.3.5/V0_3_5_FINAL_FINDINGS_LOG.md'
 ];
