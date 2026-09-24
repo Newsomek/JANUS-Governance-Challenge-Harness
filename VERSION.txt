@@ -1,7 +1,19 @@
 JANUS Governance Challenge Harness
-Version: 0.1
-Status: External architectural challenge prototype
 
-Boundary:
+Version: 0.1
+Status: Complete external architectural challenge prototype
+
+Included challenge count: 6
+
+Governing boundary:
 Challenge JANUS against JANUS first.
-Do not infer unpublished JANUS implementation behavior.
+
+Do not:
+- implement JANUS;
+- infer unpublished JANUS behavior;
+- treat orientation-level disposition as observed runtime behavior;
+- manufacture answers where the source is insufficient.
+
+JANUS attribution:
+Eryk Dubiel
+https://www.linkedin.com/in/eryk-dubiel-1201a12b3/

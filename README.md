@@ -1,127 +1,107 @@
 # JANUS Governance Challenge Harness v0.1
 
-A deliberately small, dependency-free external conformance prototype for challenging architectural commitments stated in the **JANUS Orientation Edition 2026**.
+A dependency-free external architectural challenge harness for examining governance claims described in the **JANUS Orientation Edition 2026**.
 
-## Purpose
-
-The harness asks whether JANUS's stated boundaries remain coherent when evidence, capability, operating conditions, or authority change.
-
-The governing rule for v0.1 is:
+## Governing principle
 
 > **Challenge JANUS against JANUS first.**
 
-This is not an implementation of JANUS and it does not claim to validate JANUS internals.
+The harness tests JANUS against architectural commitments stated in its own Orientation Edition before introducing any external governance framework.
 
-## Boundary
+## Important boundary
 
-The prototype does **not**:
+This harness does **not**:
 
 - implement JANUS;
 - emulate JANUS;
-- penetrate or security-test JANUS;
-- infer unpublished implementation mechanisms;
-- claim that JANUS passes or fails an implementation test.
+- reproduce JANUS internal construction;
+- validate JANUS implementation internals;
+- conduct a penetration or security test against JANUS;
+- infer unpublished mechanisms;
+- claim that an orientation-level result proves actual JANUS runtime behavior.
 
-It evaluates only architectural commitments stated in the Orientation Edition.
+The Orientation Edition explicitly stays above implementation-specification level.
 
-When the source does not establish the governing mechanism, the harness returns:
+Where that document does not provide enough information to derive a result, the harness reports:
 
 **INSUFFICIENT SPECIFICATION**
 
-rather than inventing an answer.
+rather than inventing JANUS behavior.
 
-## Included challenges
+## Included adversarial challenges
 
-### 01 — Authorization condition changes after approval
+1. Authorization condition changes after approval
+2. Evidence changes after authorization
+3. Authorization expires before execution
+4. Learning attempts to expand authority
+5. Two legitimate authorities conflict
+6. Authority is revoked during execution
 
-Evidence and the underlying decision remain valid, but a material condition under which authorization was granted changes before execution.
+## What each challenge asks
 
-Primary question:
+For each scenario:
 
-**Can JANUS distinguish continued decision validity from continued authorization validity?**
+1. What changed?
+2. What remains valid?
+3. What became invalid or uncertain?
+4. May execution proceed?
+5. Which JANUS-stated invariant applies?
+6. What remains unspecified?
+7. What evidence would be required to reconstruct the decision path?
 
-### 02 — Learning attempts to expand authority
+## Prediction
 
-The system develops or demonstrates capability beyond its currently authorized scope.
+The reviewer predeclares an expected result before the harness evaluates the encoded Orientation Edition contract.
 
-Primary question:
-
-**Can capability increase without silently becoming authority increase?**
-
-### 03 — Authority is revoked during execution
-
-Execution begins under valid authorization, then that authorization is revoked or becomes invalid while the action is in progress.
-
-Primary question:
-
-**Does the Orientation Edition specify enough to determine whether an in-flight action must stop, finish, roll back, compensate, or escalate?**
-
-For v0.1, the answer is intentionally recorded as **INSUFFICIENT SPECIFICATION** because the orientation-level source does not establish a universal mechanism.
-
-## Harness behavior
-
-For each challenge the reviewer:
-
-1. selects the scenario;
-2. predeclares an expected disposition;
-3. runs the deterministic architectural challenge;
-4. sees what changed;
-5. sees what remains valid;
-6. sees what became invalid or uncertain;
-7. sees whether execution can proceed;
-8. reviews invariant checks;
-9. reviews the JANUS source basis;
-10. inspects event evidence;
-11. replays the run;
-12. can export the evidence record as JSON.
-
-## Reviewer prediction choices
+Available predictions:
 
 - CONTINUE
+- BLOCK
 - BLOCK + REAUTHORIZE
 - ESCALATE
 - ROLLBACK / COMPENSATE
 - INSUFFICIENT SPECIFICATION
 
-A reviewer prediction is not treated as ground truth.
+The prediction is not ground truth.
 
-The harness separately computes the architectural disposition encoded from the stated Orientation Edition contract.
+## Replay
 
-## Source sections used
+Replay recomputes the result from:
 
-The prototype relies primarily on:
+- scenario identity;
+- reviewer prediction;
+- encoded source contract.
 
-- p.2 — §01 Protective Principle
-- p.20 — §19 Operational Control
-- p.21 — §20 Execution
-- p.23 — §22 Learning from Experience
-- p.25 — §24 Maturity
-- p.32 — §31 Audit
-- p.33 — §32 Security by Design
-- p.39 — §38 Working Contract
+It does not use the previously stored result as an instruction.
 
-## Run locally
+## JANUS attribution
 
-No package install, build process, server, or framework is required.
+JANUS — including the system, concept, architecture, and underlying ideas examined by this harness — is the work of:
 
-Open:
+**Eryk Dubiel**
 
-`index.html`
+LinkedIn:
 
-in a modern browser.
+https://www.linkedin.com/in/eryk-dubiel-1201a12b3/
 
-## GitHub Pages
+This harness is an independent external governance challenge and should not be interpreted as an official JANUS artifact or as an endorsement by Eryk Dubiel.
 
-The repository is intended to publish directly from the root of the `main` branch.
+## Harness attribution
 
-Expected public URL:
+Created by **Kelly Newsome · Stratos Engine**
+
+Concept, experimental design, governance challenge structure, and product direction by Kelly Newsome.
+
+AI-assisted implementation.
+
+## Public site
 
 https://newsomek.github.io/JANUS-Governance-Challenge-Harness/
 
-## v0.2 boundary
+## Repository
 
-Implementation-level assertions, adapters, APIs, or PASS/FAIL judgments about JANUS behavior should not be added until JANUS's actual architectural or implementation rules have been supplied and can be tested without invention.
+https://github.com/Newsomek/JANUS-Governance-Challenge-Harness
 
-## Status
+## Version
 
-**v0.1 — External architectural challenge prototype**
+**v0.1 — External architectural governance challenge**

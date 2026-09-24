@@ -7,18 +7,20 @@ const scenarios = [
     summary:
       "Evidence E1 supports Decision D1. Authorization A1 is granted under operating condition C1. Before execution, C1 changes to C2 while the evidence and decision remain otherwise intact.",
     perturbation:
-      "C1 → C2 after authorization but before execution.",
+      "A material authorization condition changes from C1 to C2 after authorization but before execution.",
     disposition: "BLOCK_REAUTHORIZE",
     changed:
-      "A material condition attached to the authorization is no longer the condition under which A1 was granted.",
+      "A condition attached to the previously granted authorization is no longer the condition under which A1 was issued.",
     valid:
-      "The existing evidence and the reasoning behind D1 may remain valid unless the condition change also affects them.",
+      "E1 and the reasoning behind D1 may remain valid unless the changed condition also affects their epistemic basis.",
     invalid:
-      "Current authorization to cross into execution cannot simply be assumed from the earlier authorization.",
+      "Current authorization to enter execution cannot be inferred solely from the existence of the earlier authorization.",
     execute:
-      "Not until the authorization condition is reevaluated and the applicable authority confirms a valid path forward.",
+      "Not on the basis of A1 alone. The changed authorization condition requires reevaluation under the applicable governance process.",
     rationale:
-      "JANUS explicitly separates decision from authorization and authorization from execution. It also describes authorization as having its own owner, history, and conditions, and describes fail-closed behavior when a required condition is not met. Therefore a still-reasonable decision is not sufficient by itself to preserve execution authority after a material authorization condition changes.",
+      "JANUS separates decision, authorization, and execution. The Orientation Edition describes authorization as a separate fact with its own owner, history, and conditions, and describes fail-closed behavior when a required condition is not met. A decision can therefore remain reasonable while its authority to produce execution requires reevaluation.",
+    openQuestion:
+      "What exact event invalidates A1, and what JANUS mechanism determines that reauthorization is now required?",
     assertions: [
       {
         status: "SUPPORTED",
@@ -26,42 +28,126 @@ const scenarios = [
       },
       {
         status: "SUPPORTED",
-        text: "Execution does not inherit permission merely because the proposed decision remains reasonable."
+        text: "A still-reasonable decision does not automatically preserve execution permission."
       },
       {
         status: "OPEN",
-        text: "The Orientation Edition does not specify the exact reauthorization protocol or authority-resolution mechanism."
+        text: "The Orientation Edition does not disclose the exact reauthorization protocol."
       }
     ],
     sources: [
+      "p.2 · §01 Protective Principle — decision, authorization, and execution are distinct transitions.",
       "p.20 · §19 Operational Control — authorization is a separate fact with its own owner, history, and conditions.",
-      "p.33 · §32 Security by Design — when a condition is not met, prefer no transition over a silent bypass.",
-      "p.2 · §01 Protective Principle — decision, authorization, and execution are distinct transitions."
+      "p.33 · §32 Security by Design — when a condition is not met, prefer no transition over a silent bypass."
+    ]
+  },
+
+  {
+    id: "evidence-change",
+    name: "02 · Evidence changes after authorization",
+    summary:
+      "Evidence E1 supports Decision D1 and Authorization A1 exists. Before execution, new evidence E2 materially contradicts E1. No explicit revocation of A1 has yet occurred.",
+    perturbation:
+      "The epistemic basis changes while the recorded authorization remains historically present.",
+    disposition: "BLOCK",
+    changed:
+      "New evidence materially weakens or contradicts the basis on which the existing decision was formed.",
+    valid:
+      "The historical record that A1 was granted remains valid as history. It does not disappear merely because new evidence arrives.",
+    invalid:
+      "The assumption that historical authorization can be executed without reevaluating the changed epistemic basis.",
+    execute:
+      "Not merely because A1 still exists in history. The contradiction must remain explicit and the decision basis must be reevaluated before execution can safely be derived from the prior chain.",
+    rationale:
+      "JANUS treats contradiction as information rather than something to force into a single answer. It also distinguishes evidence, decision, authorization, and execution. If the evidence supporting D1 materially changes, the architecture cannot preserve epistemic continuity by pretending the earlier basis is unchanged simply because authorization has not yet been explicitly revoked.",
+    openQuestion:
+      "Does JANUS automatically invalidate authorization when its evidentiary dependency changes, or does another layer formally revoke or suspend that authorization?",
+    assertions: [
+      {
+        status: "SUPPORTED",
+        text: "Contradictory evidence must remain visible rather than being silently resolved for downstream convenience."
+      },
+      {
+        status: "SUPPORTED",
+        text: "Authorization history and current epistemic justification are different facts."
+      },
+      {
+        status: "OPEN",
+        text: "The exact dependency rule linking evidence invalidation to authority invalidation is not stated."
+      }
+    ],
+    sources: [
+      "p.7 · §06 Distinctions — evidence, decision, authorization, and execution are distinct classes.",
+      "p.29 · §28 Conflict — unresolved contradiction should remain open uncertainty.",
+      "p.30 · §29 Resilience — model output must not be automatically promoted into fact and authorized action."
+    ]
+  },
+
+  {
+    id: "authorization-expiry",
+    name: "03 · Authorization expires before execution",
+    summary:
+      "Decision D1 is valid and Authorization A1 was valid within defined temporal or operating bounds. Execution is delayed until after those bounds expire.",
+    perturbation:
+      "Time or another explicit validity bound expires before execution begins.",
+    disposition: "BLOCK_REAUTHORIZE",
+    changed:
+      "The current moment or operating state is outside the validity scope under which A1 was granted.",
+    valid:
+      "A1 remains part of the historical record and can still prove that authorization existed previously.",
+    invalid:
+      "Previously authorized is not equivalent to currently authorized.",
+    execute:
+      "Not on expired authority. A new or renewed authorization must be established if execution is still desired.",
+    rationale:
+      "JANUS emphasizes provenance, history, context, and scope of validity. Its memory model preserves prior states without treating them as permanently current, and its operational-control model gives authorization its own conditions. Historical authorization therefore remains evidence of a past state rather than automatically becoming timeless execution permission.",
+    openQuestion:
+      "How does JANUS represent authorization lifetime: explicit expiration, policy validity, state dependency, or another form of scope?",
+    assertions: [
+      {
+        status: "SUPPORTED",
+        text: "Historical authorization can remain true as history while no longer being current authority."
+      },
+      {
+        status: "SUPPORTED",
+        text: "Scope and context of validity matter to interpretation."
+      },
+      {
+        status: "OPEN",
+        text: "The Orientation Edition does not define authorization TTLs, expiry objects, or renewal mechanics."
+      }
+    ],
+    sources: [
+      "p.20 · §19 Operational Control — authorization has its own history and conditions.",
+      "p.27 · §26 Open Architecture — memory should preserve provenance and scope of validity.",
+      "p.28 · §27 Memory — prior meaning and history remain available when interpretation changes."
     ]
   },
 
   {
     id: "learning-authority",
-    name: "02 · Learning attempts to expand authority",
+    name: "04 · Learning attempts to expand authority",
     summary:
-      "A bounded agent repeatedly succeeds inside Scope S1. Learning produces a new capability C2 that appears reliable beyond S1. No governing authority has approved a larger operational scope.",
+      "The system repeatedly succeeds inside Scope S1. Learning produces capability C2 that appears reliable beyond S1. No governing authority has approved a larger operational scope.",
     perturbation:
       "Capability expands; formally granted authority does not.",
     disposition: "BLOCK_REAUTHORIZE",
     changed:
-      "The system's demonstrated capability and confidence have increased.",
+      "The system's demonstrated capability, learned behavior, or confidence has increased.",
     valid:
-      "Historical success, learned preferences, and the new capability may all remain legitimate evidence for a proposal.",
+      "Historical performance and C2 may be legitimate evidence supporting a proposal for expanded authority.",
     invalid:
-      "The assumption that improved capability automatically expands operational authority.",
+      "The assumption that improved capability automatically enlarges operational permission.",
     execute:
       "Only inside the previously authorized scope unless a separate governance process grants additional authority.",
     rationale:
-      "JANUS explicitly distinguishes learning from self-promotion and says improved capability does not itself constitute consent to greater power. Maturation can produce proposals for architectural change, but acceptance remains a separate governance event.",
+      "JANUS explicitly states that learning must not become self-promotion and that the development of capability remains separate from the development of authority. Maturation can generate proposals for change, but acceptance belongs to governance rather than to the learning process itself.",
+    openQuestion:
+      "What evidence and governance event would JANUS require before an expanded capability could receive expanded authority?",
     assertions: [
       {
         status: "SUPPORTED",
-        text: "Learning can change knowledge without changing authorization."
+        text: "Learning can change knowledge or preference without changing authorization."
       },
       {
         status: "SUPPORTED",
@@ -69,7 +155,7 @@ const scenarios = [
       },
       {
         status: "SUPPORTED",
-        text: "Expanded authority requires a distinct approval or governance event."
+        text: "Expanded authority requires a separate governance decision."
       }
     ],
     sources: [
@@ -80,48 +166,92 @@ const scenarios = [
   },
 
   {
-    id: "mid-execution-revocation",
-    name: "03 · Authority is revoked during execution",
+    id: "conflicting-authorities",
+    name: "05 · Two legitimate authorities conflict",
     summary:
-      "Execution X1 begins under valid Authorization A1. While the action is already underway, A1 is revoked or a required authorization condition becomes false.",
+      "Decision D1 is technically valid. Authority O1 permits D1 while another legitimate authority O2 prohibits D1 under a different applicable policy or scope. Both appear valid within their own domains.",
     perturbation:
-      "Authority changes after execution has begun.",
+      "Two apparently legitimate authority claims point to incompatible execution outcomes.",
     disposition: "INSUFFICIENT_SPECIFICATION",
     changed:
-      "The authority state changes while a previously authorized real-world action is already in progress.",
+      "Nothing must change over time; the conflict exists because two valid-looking authority sources apply simultaneously.",
     valid:
-      "The record that X1 began under valid authorization remains part of the historical evidence.",
+      "Both authority records may remain valid within the scopes that produced them.",
     invalid:
-      "The assumption that the Orientation Edition tells us whether every in-flight action must stop, finish, roll back, compensate, or escalate.",
+      "The assumption that the Orientation Edition provides enough information to select a universal precedence winner.",
     execute:
-      "The Orientation Edition establishes the accountability boundary but does not provide enough information to select a universal in-flight execution rule.",
+      "The Orientation Edition supports preserving and exposing the conflict, but it does not specify a universal authority-precedence mechanism from which this harness can derive execution permission.",
     rationale:
-      "JANUS treats execution as a distinct and accountable event and records preparation, permission, execution, and result. However, the Orientation Edition deliberately stays above implementation specification and does not establish the mechanism for mid-execution revocation across interruptible, non-interruptible, reversible, or compensating actions. A deterministic answer here would therefore invent architecture that the source does not state.",
+      "JANUS says conflicting information should not be resolved by force merely because a downstream consumer expects one value. It also treats authorization as a separately owned fact. But the Orientation Edition does not define an organizational authority lattice, policy-precedence system, jurisdiction hierarchy, or conflict-resolution algorithm. Choosing O1 or O2 would therefore invent architecture.",
+    openQuestion:
+      "How does JANUS resolve two simultaneously applicable but conflicting authority owners: explicit precedence, jurisdiction, policy hierarchy, human escalation, or another mechanism?",
     assertions: [
       {
         status: "SUPPORTED",
-        text: "Execution must remain separately accountable from the authorization that preceded it."
+        text: "The conflict should remain explicit until a justified resolution exists."
       },
       {
         status: "SUPPORTED",
-        text: "The original authorization and subsequent revocation should both remain reconstructable events."
+        text: "A downstream need for one answer is not sufficient justification to manufacture precedence."
       },
       {
         status: "OPEN",
-        text: "Stop, finish, rollback, compensate, or escalate cannot be selected universally from the Orientation Edition alone."
+        text: "The applicable authority-resolution hierarchy is not specified in the Orientation Edition."
+      }
+    ],
+    sources: [
+      "p.20 · §19 Operational Control — authorization has an owner, history, and conditions.",
+      "p.29 · §28 Conflict — conflict should not be resolved by force merely because a downstream consumer expects one value.",
+      "p.34 · §33 Human Oversight — a human may serve as policy owner or escalation point in sensitive applications."
+    ]
+  },
+
+  {
+    id: "mid-execution-revocation",
+    name: "06 · Authority is revoked during execution",
+    summary:
+      "Execution X1 begins under valid Authorization A1. While the real-world action is already underway, A1 is revoked or a required authorization condition becomes false.",
+    perturbation:
+      "Authority changes after execution has already begun.",
+    disposition: "INSUFFICIENT_SPECIFICATION",
+    changed:
+      "The authority state changes while a previously authorized action is already affecting the external environment.",
+    valid:
+      "The record that X1 began under valid authorization remains part of the historical evidence.",
+    invalid:
+      "The assumption that the Orientation Edition tells us whether every in-flight action must immediately stop, finish, roll back, compensate, or escalate.",
+    execute:
+      "The document establishes an accountable execution boundary but does not provide enough information to select a universal in-flight execution rule.",
+    rationale:
+      "JANUS treats execution as a distinct boundary event and records preparation, permission, execution, and result. However, the Orientation Edition intentionally remains above implementation specification and does not define universal mid-execution revocation semantics across interruptible, non-interruptible, reversible, irreversible, or compensating actions.",
+    openQuestion:
+      "How does JANUS classify in-flight actions when authority disappears, and what determines whether the correct response is stop, safe completion, rollback, compensation, or escalation?",
+    assertions: [
+      {
+        status: "SUPPORTED",
+        text: "Execution remains separately accountable from the authorization that preceded it."
+      },
+      {
+        status: "SUPPORTED",
+        text: "The original authorization and later revocation should both remain reconstructable events."
+      },
+      {
+        status: "OPEN",
+        text: "No universal in-flight revocation mechanism is specified at orientation level."
       }
     ],
     sources: [
       "p.21 · §20 Execution — execution is an accountable boundary event.",
       "p.32 · §31 Audit — significant stages should leave enough trace to reconstruct authority and outcome.",
-      "p.2 · §01 Protective Principle — the document is an orientation document, not an implementation specification."
+      "p.2 · §01 Protective Principle — the Orientation Edition is not an implementation specification."
     ]
   }
 ];
 
 const labels = {
-  BLOCK_REAUTHORIZE: "BLOCK + REAUTHORIZE",
   CONTINUE: "CONTINUE",
+  BLOCK: "BLOCK",
+  BLOCK_REAUTHORIZE: "BLOCK + REAUTHORIZE",
   ESCALATE: "ESCALATE",
   ROLLBACK_COMPENSATE: "ROLLBACK / COMPENSATE",
   INSUFFICIENT_SPECIFICATION: "INSUFFICIENT SPECIFICATION"
@@ -149,6 +279,7 @@ const execute = document.getElementById("execute");
 const assertions = document.getElementById("assertions");
 const rationale = document.getElementById("rationale");
 const sources = document.getElementById("sources");
+const openQuestion = document.getElementById("openQuestion");
 
 const eventLog = document.getElementById("eventLog");
 const replayRecord = document.getElementById("replayRecord");
@@ -156,7 +287,9 @@ const replayRecord = document.getElementById("replayRecord");
 let lastRun = null;
 
 function selectedScenario() {
-  return scenarios.find((scenario) => scenario.id === scenarioSelect.value);
+  return scenarios.find(
+    (scenario) => scenario.id === scenarioSelect.value
+  );
 }
 
 function populateScenarios() {
@@ -213,21 +346,37 @@ function buildEvidence(scenario, prediction) {
   return {
     harness: "JANUS Governance Challenge Harness",
     version: "0.1",
-    basis: "JANUS Orientation Edition 2026",
-    mode: "external architectural conformance challenge",
+    source_basis: "JANUS Orientation Edition 2026",
+    evaluation_mode:
+      "external orientation-level architectural conformance challenge",
+    restrictions: [
+      "Does not implement JANUS.",
+      "Does not emulate JANUS.",
+      "Does not validate JANUS implementation internals.",
+      "Does not infer unpublished JANUS mechanisms.",
+      "Reports INSUFFICIENT SPECIFICATION when the source does not establish an answer."
+    ],
+    janus_attribution: {
+      creator: "Eryk Dubiel",
+      linkedin:
+        "https://www.linkedin.com/in/eryk-dubiel-1201a12b3/"
+    },
     scenario_id: scenario.id,
     scenario_name: scenario.name,
     reviewer_prediction: prediction,
     reviewer_prediction_label: labels[prediction],
-    architectural_disposition: scenario.disposition,
-    architectural_disposition_label: labels[scenario.disposition],
-    prediction_matches_disposition: prediction === scenario.disposition,
+    orientation_level_disposition: scenario.disposition,
+    orientation_level_disposition_label:
+      labels[scenario.disposition],
+    prediction_matches_disposition:
+      prediction === scenario.disposition,
     changed: scenario.changed,
     remains_valid: scenario.valid,
     invalid_or_uncertain: scenario.invalid,
     execution: scenario.execute,
     invariant_checks: scenario.assertions,
     rationale: scenario.rationale,
+    open_question: scenario.openQuestion,
     sources: scenario.sources
   };
 }
@@ -244,9 +393,12 @@ function runChallenge() {
   disposition.textContent = labels[scenario.disposition];
 
   const isMatch = prediction === scenario.disposition;
+
   matchBadge.textContent =
     isMatch ? "PREDICTION MATCHED" : "PREDICTION DIFFERED";
-  matchBadge.className = "badge " + (isMatch ? "match" : "mismatch");
+
+  matchBadge.className =
+    "badge " + (isMatch ? "match" : "mismatch");
 
   changed.textContent = scenario.changed;
   valid.textContent = scenario.valid;
@@ -254,8 +406,10 @@ function runChallenge() {
   execute.textContent = scenario.execute;
 
   renderAssertions(scenario.assertions);
+
   rationale.textContent = scenario.rationale;
   renderSources(scenario.sources);
+  openQuestion.textContent = scenario.openQuestion;
 
   const log = [
     "EVENT 001 | Scenario selected",
@@ -267,11 +421,18 @@ function runChallenge() {
     "EVENT 003 | Perturbation applied",
     `            ${scenario.perturbation}`,
     "",
-    "EVENT 004 | JANUS-stated architectural constraints evaluated",
+    "EVENT 004 | Orientation-level JANUS constraints evaluated",
     `            ${labels[scenario.disposition]}`,
     "",
-    "EVENT 005 | Comparison recorded",
-    `            ${isMatch ? "Prediction matched architectural disposition." : "Prediction differed from architectural disposition."}`
+    "EVENT 005 | Prediction comparison recorded",
+    `            ${
+      isMatch
+        ? "Prediction matched the encoded orientation-level disposition."
+        : "Prediction differed from the encoded orientation-level disposition."
+    }`,
+    "",
+    "EVENT 006 | Evidence boundary preserved",
+    "            No unpublished JANUS implementation behavior inferred."
   ].join("\n");
 
   eventLog.textContent = log;
@@ -284,10 +445,11 @@ function runChallenge() {
         source_contract: "JANUS Orientation Edition 2026"
       },
       replay_rule:
-        "Recompute from the fixed scenario definition and stated source contract; do not use the stored outcome as an instruction.",
-      recomputed_disposition: scenario.disposition,
+        "Recompute from the fixed scenario definition and encoded orientation-level source contract. Do not use the stored outcome as an instruction.",
+      recomputed_orientation_level_disposition:
+        scenario.disposition,
       deterministic:
-        "For this v0.1 harness, identical scenario inputs produce the same architectural disposition."
+        "For this harness version, identical declared scenario inputs produce the same orientation-level disposition."
     },
     null,
     2
@@ -312,17 +474,20 @@ function replayLastRun() {
   );
 
   const same =
-    recomputed.architectural_disposition ===
-    lastRun.architectural_disposition;
+    recomputed.orientation_level_disposition ===
+    lastRun.orientation_level_disposition;
 
   replayRecord.textContent = JSON.stringify(
     {
       replay_inputs: {
         scenario_id: lastRun.scenario_id,
-        reviewer_prediction: lastRun.reviewer_prediction
+        reviewer_prediction: lastRun.reviewer_prediction,
+        source_contract: "JANUS Orientation Edition 2026"
       },
-      original_disposition: lastRun.architectural_disposition,
-      recomputed_disposition: recomputed.architectural_disposition,
+      original_orientation_level_disposition:
+        lastRun.orientation_level_disposition,
+      recomputed_orientation_level_disposition:
+        recomputed.orientation_level_disposition,
       replay_match: same,
       result:
         same
