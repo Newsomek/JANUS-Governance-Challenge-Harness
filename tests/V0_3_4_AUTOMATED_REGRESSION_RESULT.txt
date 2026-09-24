@@ -1,0 +1,41 @@
+JANUS Governance Challenge Harness v0.3.4
+Automated Regression Result
+
+Recorded at: 2026-09-24T09:30:35.2101919Z
+Base v0.3.3 release HEAD: eb65796c93a18de916cd7a795447ff794194fabb
+Authored scenario block SHA-256: 948536a17a454e59f782e023ac1ded8e30e9f33ca660c3dbd674273fe1b56488
+JANUS source SHA-256: 21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
+
+BEHAVIOURAL REGRESSION
+----------------------
+JANUS v0.3.4 automated regression: PASS
+Canonical exports: 9; refusal alerts: 2
+Exit code: 0
+
+DOCUMENTATION / RELEASE AUDIT
+-----------------------------
+JANUS v0.3.4 documentation/release audit: PASS
+Exit code: 0
+
+MUTATION REGRESSION
+-------------------
+KILLED: stored_core_match forced true
+KILLED: bound 404 treated as unavailable
+KILLED: collection uniqueness disabled
+KILLED: visible-text hardening removed
+KILLED: duplicate commitment check removed
+KILLED: Run allowed during Replay/Export
+KILLED: Export in-flight lock removed
+KILLED: stored record validator bypassed
+KILLED: divergence failed-check list removed
+KILLED: unsafe scenario innerHTML sink restored
+KILLED: integrity disclosure weakened
+KILLED: release gate points to retired v0.3.2 suite
+JANUS v0.3.4 mutation regression: PASS (12/12 mutations killed)
+Exit code: 0
+
+OVERALL RESULT
+--------------
+PASS
+
+The mutation suite requires every listed fix-reverting mutation to be killed. This result does not claim independent closure; deployed smoke and independent zero-open-finding regression remain required.

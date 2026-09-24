@@ -1,7 +1,7 @@
 "use strict";
 
-const HARNESS_VERSION = "0.3.3";
-const BUILD_ID = "janus-governance-challenge-harness-v0.3.3";
+const HARNESS_VERSION = "0.3.4";
+const BUILD_ID = "janus-governance-challenge-harness-v0.3.4";
 const BUILD_INFO_URL = "build-info.json";
 const REPOSITORY = "https://github.com/Newsomek/JANUS-Governance-Challenge-Harness";
 const GITHUB_HEAD_API = "https://api.github.com/repos/Newsomek/JANUS-Governance-Challenge-Harness/commits/main";
@@ -222,11 +222,17 @@ return typeof value === "string" && VALID_PREDICTIONS.has(value) && Object.hasOw
 }
 
 function hasVisibleText(value) {
-  return typeof value === "string" && value.replace(/[\s\p{Cf}]+/gu, "").length > 0;
+  return typeof value === "string" && value.replace(/[\s\p{Cf}\p{Default_Ignorable_Code_Point}\u2800]+/gu, "").length > 0;
 }
 
 function uniqueStrings(values) {
   return Array.isArray(values) && new Set(values).size === values.length;
+}
+
+function uniqueCommitments(values) {
+  if (!Array.isArray(values)) return false;
+  const keys = values.map((item) => item && typeof item === "object" ? String(item.status) + "\u0000" + String(item.text) : "__INVALID__");
+  return new Set(keys).size === keys.length;
 }
 
 function validateScenarioSet() {
@@ -239,6 +245,36 @@ function validateScenarioSet() {
   }
   if (new Set(ids).size !== ids.length) return "Scenario IDs must be unique.";
   return null;
+}
+
+function isPlainObject(value) {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function isSha256(value) {
+  return typeof value === "string" && /^[0-9a-f]{64}$/i.test(value);
+}
+
+function validateStoredRunRecord(record) {
+  if (!isPlainObject(record)) return "Stored run record is structurally invalid (record).";
+  if (!hasVisibleText(record.scenario_id)) return "Stored run record is structurally invalid (scenario_id).";
+  if (!scenarios.some((item) => item && item.id === record.scenario_id)) return "Stored run record is structurally invalid (scenario_id does not identify a known scenario).";
+  if (!validPrediction(record.reviewer_prediction)) return "Stored run record is structurally invalid (reviewer_prediction).";
+  if (!isPlainObject(record.harness_provenance)) return "Stored run record is structurally invalid (harness_provenance).";
+  if (!isPlainObject(record.source_document)) return "Stored run record is structurally invalid (source_document).";
+  if (!isSha256(record.contract_sha256)) return "Stored run record is structurally invalid (contract_sha256).";
+  if (!isSha256(record.evidence_core_sha256)) return "Stored run record is structurally invalid (evidence_core_sha256).";
+  if (!isSha256(record.record_snapshot_sha256)) return "Stored run record is structurally invalid (record_snapshot_sha256).";
+  if (!Array.isArray(record.event_log)) return "Stored run record is structurally invalid (event_log).";
+  if (!Array.isArray(record.source_commitments)) return "Stored run record is structurally invalid (source_commitments).";
+  if (!Array.isArray(record.sources)) return "Stored run record is structurally invalid (sources).";
+  if (!Array.isArray(record.compatible_predictions)) return "Stored run record is structurally invalid (compatible_predictions).";
+  return null;
+}
+
+function normalizeStoredRunError(error) {
+  if (error instanceof TypeError) return new Error("Stored run record is structurally invalid.");
+  return error;
 }
 
 function populateScenarios() {
@@ -263,7 +299,7 @@ const scenarioTitle = document.createElement("strong");
 scenarioTitle.textContent = scenario.name;
 scenarioSummary.append(scenarioTitle, document.createTextNode(scenario.summary));
   perturbation.textContent = scenario.perturbation;
-  runBtn.disabled = !validPrediction(predictionSelect.value);
+  syncActionButtons();
 }
 
 function predictionComparison(scenario, prediction) {
@@ -585,6 +621,7 @@ function validateScenarioContract(scenario) {
   if (scenario.compatiblePredictions.includes(scenario.disposition)) return "Scenario compatibility set cannot contain the encoded disposition.";
   if (!Array.isArray(scenario.commitments) || scenario.commitments.length < 1) return "Scenario commitments must contain at least one commitment.";
   if (!scenario.commitments.every((x) => x && VALID_SUPPORT_STATUSES.has(x.status) && hasVisibleText(x.text))) return "Scenario commitments contain an invalid support status or text.";
+  if (!uniqueCommitments(scenario.commitments)) return "Scenario commitments contain duplicate entries.";
   if (!Array.isArray(scenario.sources) || scenario.sources.length < 1 || !scenario.sources.every(hasVisibleText)) return "Scenario source list is invalid.";
   if (!uniqueStrings(scenario.sources)) return "Scenario source list contains duplicate citations.";
   return null;
@@ -687,7 +724,7 @@ async function buildEvidence(scenario, prediction, sourceObservation, harnessPro
   return record;
 }
 
-async function runChallenge() {
+async function runChallengeCore() {
   const token = ++stateGeneration;
   const scenario = selectedScenario();
   const prediction = predictionSelect.value;
@@ -775,6 +812,8 @@ async function runChallenge() {
 }
 
 async function deriveReplayRecord(snapshot, scenario, sourceObservation, harnessProvenance) {
+  const storedRecordError = validateStoredRunRecord(snapshot);
+  if (storedRecordError) throw new Error(storedRecordError);
   const recomputed = await buildEvidence(scenario, snapshot.reviewer_prediction, sourceObservation, harnessProvenance);
   const storedCoreHash = await evidenceCoreHash(snapshot);
   const storedSnapshotHash = await recordSnapshotHash(snapshot);
@@ -824,9 +863,12 @@ async function replayLastRunCore() {
   const snapshot = lastRun;
   let scenario;
   try {
+    const storedRecordError = validateStoredRunRecord(snapshot);
+    if (storedRecordError) throw new Error(storedRecordError);
     scenario = scenarios.find((item) => item && item.id === snapshot.scenario_id) || null;
+    if (!scenario) throw new Error("Stored run record is structurally invalid (scenario_id does not identify a known scenario).");
     const contractError = validateScenarioContract(scenario);
-    if (contractError || !validPrediction(snapshot.reviewer_prediction)) throw new Error(contractError || "Reviewer prediction is invalid.");
+    if (contractError) throw new Error(contractError);
     const [sourceObservation, harnessProvenance] = await Promise.all([observeSourceDocument(), observeHarnessProvenance()]);
     if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
     if (!sourceObservation.hash_match) throw new Error("Observed JANUS source-document SHA-256 does not match the published expected hash.");
@@ -834,10 +876,11 @@ async function replayLastRunCore() {
     lastReplay = await deriveReplayRecord(snapshot, scenario, sourceObservation, harnessProvenance);
   } catch (error) {
     if (token !== stateGeneration || lastRun !== snapshot) return;
-    lastReplay = {result: "REPLAY REFUSED", replay_match: false, reason: error.message};
+    const normalizedError = normalizeStoredRunError(error);
+    lastReplay = {result: "REPLAY REFUSED", replay_match: false, reason: normalizedError.message};
     replayRecord.textContent = JSON.stringify(lastReplay, null, 2);
     exportBtn.disabled = true;
-    showRefusal(`Replay refused: ${error.message}`);
+    showRefusal("Replay refused: " + normalizedError.message);
     return;
   }
   if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
@@ -853,9 +896,12 @@ async function exportEvidenceCore() {
   const token = stateGeneration;
   const snapshot = lastRun;
   try {
+    const storedRecordError = validateStoredRunRecord(snapshot);
+    if (storedRecordError) throw new Error(storedRecordError);
     const scenario = scenarios.find((item) => item && item.id === snapshot.scenario_id) || null;
+    if (!scenario) throw new Error("Stored run record is structurally invalid (scenario_id does not identify a known scenario).");
     const contractError = validateScenarioContract(scenario);
-    if (contractError || !validPrediction(snapshot.reviewer_prediction)) throw new Error(contractError || "Reviewer prediction is invalid.");
+    if (contractError) throw new Error(contractError);
 
     const [sourceObservation, harnessProvenance] = await Promise.all([observeSourceDocument(), observeHarnessProvenance()]);
     if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
@@ -895,7 +941,7 @@ async function exportEvidenceCore() {
       ...snapshot,
       exported_at: exportedAt,
       integrity_status: "PASS",
-      integrity_scope: "Stable authored evidence core plus full stored record snapshot. Replay is freshly re-derived at export time. Unsigned client-side evidence is not tamper-proof after export.",
+      integrity_scope: "Unsigned client-side evidence. PASS means the current page state is internally consistent with the live authored contract, source, and code checks at export time; it is not proof against a user with console/devtools access. The snapshot hash detects accidental or uncoordinated mutation only. Independent verification should compare contract_sha256 with docs/EXPECTED_CONTRACT_HASHES.json and the bound commit.",
       integrity_checks: checks,
       export_provenance: {
         bound_code_commit: harnessProvenance.code_commit,
@@ -922,43 +968,57 @@ async function exportEvidenceCore() {
     staleNotice.textContent = "";
   } catch (error) {
     if (token !== stateGeneration || lastRun !== snapshot) return;
-    showRefusal(`Export refused: ${error.message}`);
-    alert(`Export refused: ${error.message}`);
+    const normalizedError = normalizeStoredRunError(error);
+    showRefusal("Export refused: " + normalizedError.message);
+    alert("Export refused: " + normalizedError.message);
   }
 }
 
+let runInFlight = false;
 let replayInFlight = false;
 let exportInFlight = false;
 
+function syncActionButtons() {
+  const busy = runInFlight || replayInFlight || exportInFlight;
+  const scenario = selectedScenario();
+  runBtn.disabled = busy || !scenario || !validPrediction(predictionSelect.value);
+  replayBtn.disabled = busy || !lastRun;
+  exportBtn.disabled = busy || !lastRun || Boolean(lastReplay && lastReplay.replay_match === false);
+}
+
+async function runChallenge() {
+  if (runInFlight || replayInFlight || exportInFlight) return;
+  runInFlight = true;
+  syncActionButtons();
+  try {
+    await runChallengeCore();
+  } finally {
+    runInFlight = false;
+    syncActionButtons();
+  }
+}
+
 async function replayLastRun() {
-  if (!lastRun || replayInFlight) return;
+  if (!lastRun || runInFlight || replayInFlight || exportInFlight) return;
   replayInFlight = true;
-  replayBtn.disabled = true;
-  exportBtn.disabled = true;
+  syncActionButtons();
   try {
     await replayLastRunCore();
   } finally {
     replayInFlight = false;
-    if (lastRun) {
-      replayBtn.disabled = false;
-      exportBtn.disabled = Boolean(lastReplay && lastReplay.replay_match === false);
-    }
+    syncActionButtons();
   }
 }
 
 async function exportEvidence() {
-  if (!lastRun || exportInFlight) return;
+  if (!lastRun || runInFlight || replayInFlight || exportInFlight) return;
   exportInFlight = true;
-  exportBtn.disabled = true;
-  replayBtn.disabled = true;
+  syncActionButtons();
   try {
     await exportEvidenceCore();
   } finally {
     exportInFlight = false;
-    if (lastRun) {
-      replayBtn.disabled = false;
-      exportBtn.disabled = Boolean(lastReplay && lastReplay.replay_match === false);
-    }
+    syncActionButtons();
   }
 }
 

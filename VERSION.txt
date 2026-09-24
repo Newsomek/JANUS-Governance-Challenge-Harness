@@ -1,27 +1,15 @@
 JANUS Governance Challenge Harness
+Version 0.3.4
+Build ID: janus-governance-challenge-harness-v0.3.4
+Status: bounded hardening candidate; not Version 1.0
 
-Version: 0.3.3
-Status: Zero-known-defect hardening candidate — requires independent adversarial regression before Version 1.0 promotion
+Primary v0.3.4 corrections
+- broader default-ignorable/blank validation plus duplicate commitment rejection
+- unified Run/Replay/Export concurrency locking
+- explicit stored-run structural validation and stable refusal messages
+- behavioural regression coverage plus mutation tests for the hardening fixes
+- accurate unsigned-client integrity disclosure and published expected contract hashes
+- corrected README, CHANGELOG, VERSION, and release-gate documentation
 
-Base reviewed release:
-v0.3.1-reviewed commit dc621ffe20b78443e1a0ce0dd2ad76e5127e81c0
-
-Primary v0.3.3 corrections:
-- complete scenario-contract schema validation, including enum and emptiness checks;
-- null-safe scenario lookup and fail-closed structural handling;
-- re-enable Run after transient refusal when the current selection remains valid;
-- suppress false stale-state notices before any evidence exists;
-- freshly re-derive the replay block at export instead of trusting mutable replay state;
-- validate build-info version/build ID and corroborate the declared bound commit when available;
-- preserve bound code identity when GitHub main corroboration is unavailable or moves;
-- make export refusals persistent and resource-specific;
-- clarify integrity scope and runtime provenance behavior;
-- add automated regression coverage for the six canonical scenarios, malformed contracts, replay/export integrity, and structural tampering.
-
-JANUS source expected SHA-256:
-21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
-
-Promotion rule:
-Do not promote to Version 1.0 until the deployed v0.3.3 release has no known open findings after independent Claude adversarial testing. Then create and test the actual Version 1.0 artifact separately.
-
-Candidate status: v0.3.3 bounded hardening; not Version 1.0 until zero-open-finding gate passes.
+Authored scenario content: unchanged from the reviewed baseline.
+Independent closure: pending deployed smoke and zero-open-finding regression.

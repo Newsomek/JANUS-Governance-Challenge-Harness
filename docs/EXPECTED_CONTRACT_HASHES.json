@@ -1,0 +1,37 @@
+{
+  "harness": "JANUS Governance Challenge Harness",
+  "version": "0.3.4",
+  "purpose": "Offline verification oracle for exported contract_sha256 values. Verify this file against build-info.json and the bound code commit.",
+  "scenarios": [
+    {
+      "scenario_id": "condition-change",
+      "scenario_name": "01 · Authorization condition changes after approval",
+      "contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3"
+    },
+    {
+      "scenario_id": "evidence-change",
+      "scenario_name": "02 · Evidence changes after authorization",
+      "contract_sha256": "36bc70425fbdcb41434072a5158ec306b6e364ba5d5f83e25c2a4edb5dadcc45"
+    },
+    {
+      "scenario_id": "authorization-expiry",
+      "scenario_name": "03 · Authorization expires before execution",
+      "contract_sha256": "e7e29686985b9ab3d75395b525fda4b59b857d0ff74628eabd1000cccba69af4"
+    },
+    {
+      "scenario_id": "learning-authority",
+      "scenario_name": "04 · Learning attempts to expand authority",
+      "contract_sha256": "d783abf986fce0b4069f8481c49fb6e970eff1a5c1458716ce1f41918c5142bf"
+    },
+    {
+      "scenario_id": "conflicting-authorities",
+      "scenario_name": "05 · Two legitimate authorities conflict",
+      "contract_sha256": "437615c49f3f5fe751fed2cf76d6552d23af5883d9df1d5b3c2e82edc1098f27"
+    },
+    {
+      "scenario_id": "mid-execution-revocation",
+      "scenario_name": "06 · Authority is revoked during execution",
+      "contract_sha256": "916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164"
+    }
+  ]
+}

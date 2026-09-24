@@ -1,3 +1,7 @@
+# SUPERSEDED — historical v0.3.3 candidate gate
+
+This historical gate contained an erroneous reference to the v0.3.2 regression suite. It is retained for traceability and must not be used for current releases. See `V0_3_4_RELEASE_GATE.md`.
+
 # JANUS v0.3.3 release gate
 
 This candidate is not eligible for Version 1.0 until all of the following pass on the deployed release:

@@ -1,11 +1,24 @@
+# Changelog
+
+## v0.3.4 — bounded hardening candidate
+
+- addresses V033-NEW-01 through V033-NEW-06 without changing authored scenario content;
+- broadens invisible-text validation and rejects duplicate commitments;
+- serializes Run, Replay, and Export so stale async completions cannot re-enable superseded evidence actions;
+- validates stored run-record structure before hashing/replay/export and returns stable refusal messages;
+- replaces static-only coverage claims with behavioural regression and mutation testing;
+- corrects integrity-limit documentation and publishes expected scenario contract hashes for offline verification;
+- corrects VERSION/README/release-gate documentation.
+
+Independent closure is not claimed until the deployed v0.3.4 smoke gate and zero-open-finding regression both pass.
+
 ## v0.3.3 — bounded zero-open-finding hardening candidate
 
-- closes V032-NEW-01 through V032-NEW-09 and the remaining V031-NEW-07 observability gap;
+- was intended to address V032-NEW-01 through V032-NEW-09; independent v0.3.3 testing found one residual and additional findings and the remaining V031-NEW-07 observability gap;
 - preserves all six authored scenario contracts unchanged;
 - adds explicit regression cases and a recorded automated test result;
 - remains a pre-Version-1 candidate pending deployed smoke and independent adversarial regression.
 
-# Changelog
 ## v0.3.2 — Zero-known-defect hardening candidate
 
 Based on the independent v0.3.1 release-candidate test:
@@ -77,4 +90,3 @@ Hardening release based on the independent v0.1 full-matrix test.
 ### Preserved test evidence
 
 The complete v0.1 test report and raw results remain under `testing/claude/v0.1/`.
-

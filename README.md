@@ -1,4 +1,4 @@
-# JANUS Governance Challenge Harness v0.3.3
+# JANUS Governance Challenge Harness v0.3.4
 
 A dependency-free external architectural challenge harness for examining governance claims described in the **JANUS Orientation Edition 2026**.
 
@@ -230,12 +230,26 @@ Version 0.3.2 was the first zero-open-finding candidate. Its independent adversa
 - automated local regression coverage is included under `tests/v0.3.2-regression.mjs`;
 - the build manifest lists hashes for independent release verification, while runtime enforcement is explicit about which resources are re-hashed (`app.js` and the JANUS source document).
 
-Promotion rule: v0.3.2 must undergo a new independent adversarial regression with **zero open findings** before a separate Version 1.0 artifact is created. Version 1.0 itself must then be deployed and tested before its final tag is created.
+Historical result: v0.3.2 underwent independent adversarial regression and produced additional findings; those results are preserved under `testing/claude/v0.3.2/`. Version 1.0 itself must then be deployed and tested before its final tag is created.
 
 
 
 ## v0.3.3 bounded hardening candidate
 
-Version 0.3.3 addresses every actionable finding from the independent v0.3.2 zero-open-finding regression while preserving the authored scenario content and source-conformance baseline. It adds the stored-evidence-core check to Replay, refuses nonexistent bound commits, removes the scenario-summary HTML sink, strengthens collection-level contract validation, improves refusal observability, prevents duplicate async exports, wraps long provenance values on narrow screens, adds live-region announcements, and exposes repository/test-evidence links.
+Version 0.3.3 was a bounded hardening candidate. Its independent regression found six residual actionable items, preserved under `testing/claude/v0.3.3/`.
 
 The automated regression output for this candidate is recorded in `tests/V0_3_3_AUTOMATED_REGRESSION_RESULT.txt`. The release remains ineligible for Version 1.0 until the deployed six-scenario smoke gate and a fresh independent zero-open-finding adversarial regression both pass with no actionable findings.
+
+
+## Integrity limitations and offline verification
+
+The harness and its exported JSON are unsigned client-side artifacts. A PASS result means the current page state was internally consistent with the live authored contract, source bytes, and bound code checks at export time. It is **not** proof against a user with browser console/devtools access, because such a user controls the same client-side state and code that performs the checks. The record snapshot hash is useful for detecting accidental or uncoordinated mutation, not malicious coordinated forgery.
+
+For independent checking, compare an export's `contract_sha256` with the scenario entry in `docs/EXPECTED_CONTRACT_HASHES.json`, then verify that file and `app.js` against the hashes in the release `build-info.json` and the bound code commit.
+
+
+## v0.3.4 bounded hardening candidate
+
+Version 0.3.4 addresses the six findings from the independent v0.3.3 zero-open-finding regression: broader blank/invisible-text rejection and duplicate-commitment validation; unified Run/Replay/Export concurrency locking; explicit stored-record structural validation and refusal messages; behavioural and mutation regression coverage; corrected integrity-limit wording plus published expected contract hashes; and corrected release documentation.
+
+The authored six-scenario content is unchanged. This section records implementation intent only; closure is not claimed until a fresh independent regression returns zero open findings.
