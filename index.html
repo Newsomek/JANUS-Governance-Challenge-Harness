@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="External conformance prototype for adversarial governance challenges against the JANUS Orientation Edition 2026.">
+  <title>JANUS Governance Challenge Harness v0.1</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <main class="shell">
+
+    <header class="hero">
+      <div class="eyebrow">EXTERNAL CONFORMANCE PROTOTYPE · v0.1</div>
+
+      <h1>JANUS Governance Challenge Harness</h1>
+
+      <p class="lede">
+        A small adversarial laboratory for testing whether JANUS's stated
+        boundaries remain coherent when evidence, operating conditions,
+        capability, or authority change.
+      </p>
+
+      <div class="guardrail">
+        <strong>Boundary:</strong>
+        This harness does not implement, emulate, penetrate, or validate JANUS.
+        It tests only architectural commitments stated in the
+        <em>JANUS Orientation Edition 2026</em>.
+        Where that document does not specify the governing mechanism,
+        the result is <strong>INSUFFICIENT SPECIFICATION</strong>
+        rather than an invented answer.
+      </div>
+    </header>
+
+    <section class="panel">
+      <div class="section-kicker">1 · SELECT CHALLENGE</div>
+
+      <label for="scenarioSelect">Adversarial scenario</label>
+      <select id="scenarioSelect"></select>
+
+      <div id="scenarioSummary" class="summary"></div>
+    </section>
+
+    <section class="panel grid-2">
+      <div>
+        <div class="section-kicker">2 · PREDICT FIRST</div>
+
+        <label for="predictionSelect">Reviewer prediction</label>
+
+        <select id="predictionSelect">
+          <option value="BLOCK_REAUTHORIZE">BLOCK + REAUTHORIZE</option>
+          <option value="CONTINUE">CONTINUE</option>
+          <option value="ESCALATE">ESCALATE</option>
+          <option value="ROLLBACK_COMPENSATE">ROLLBACK / COMPENSATE</option>
+          <option value="INSUFFICIENT_SPECIFICATION">INSUFFICIENT SPECIFICATION</option>
+        </select>
+
+        <p class="hint">
+          The reviewer commits to an expectation before the harness
+          evaluates the stated JANUS architectural contract.
+        </p>
+      </div>
+
+      <div>
+        <div class="section-kicker">3 · PERTURBATION</div>
+        <div id="perturbation" class="state-card"></div>
+      </div>
+    </section>
+
+    <section class="actions">
+      <button id="runBtn" class="primary">Run challenge</button>
+      <button id="replayBtn" disabled>Replay last run</button>
+      <button id="exportBtn" disabled>Export evidence</button>
+      <button id="resetBtn">Reset</button>
+    </section>
+
+    <section class="panel">
+      <div class="section-kicker">4 · RESULT</div>
+
+      <div id="resultEmpty" class="empty">
+        No challenge has been run.
+      </div>
+
+      <div id="resultArea" hidden>
+
+        <div class="result-head">
+          <div>
+            <div class="muted">Architectural disposition</div>
+            <div id="disposition" class="disposition"></div>
+          </div>
+
+          <div id="matchBadge" class="badge"></div>
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <span>What changed?</span>
+            <strong id="changed"></strong>
+          </div>
+
+          <div class="result-card">
+            <span>What remains valid?</span>
+            <strong id="valid"></strong>
+          </div>
+
+          <div class="result-card">
+            <span>What became invalid or uncertain?</span>
+            <strong id="invalid"></strong>
+          </div>
+
+          <div class="result-card">
+            <span>May execution proceed?</span>
+            <strong id="execute"></strong>
+          </div>
+        </div>
+
+        <h2>Invariant checks</h2>
+        <div id="assertions"></div>
+
+        <h2>Why</h2>
+        <p id="rationale" class="explain"></p>
+
+        <h2>Source basis</h2>
+        <div id="sources" class="sources"></div>
+
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-kicker">5 · EVIDENCE</div>
+
+      <h2>Event log</h2>
+      <pre id="eventLog">Not run.</pre>
+
+      <h2>Replay record</h2>
+      <pre id="replayRecord">Not run.</pre>
+    </section>
+
+    <footer>
+      <strong>v0.1 purpose:</strong>
+      Challenge JANUS against JANUS first.
+      This prototype deliberately leaves unresolved mechanisms unresolved.
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

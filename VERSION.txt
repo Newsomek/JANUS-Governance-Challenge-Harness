@@ -1,0 +1,7 @@
+JANUS Governance Challenge Harness
+Version: 0.1
+Status: External architectural challenge prototype
+
+Boundary:
+Challenge JANUS against JANUS first.
+Do not infer unpublished JANUS implementation behavior.
