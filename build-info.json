@@ -1,0 +1,19 @@
+{
+  "schema": "janus-harness-build-info-v1",
+  "version": "0.3.1",
+  "build_id": "janus-governance-challenge-harness-v0.3.1",
+  "code_commit": "a10722a087e740d183598125909319610ca4238f",
+  "generated_at": "2026-09-24T05:06:18.6358042Z",
+  "note": "code_commit identifies the exact commit containing the served v0.3.1 application code; this build-info file is added by the following provenance commit.",
+  "files": {
+    "app.js": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+    "index.html": "01a6258a492384292d4db7cde26bbe150dd16fd36ea7201563e0e5231eac3c8f",
+    "styles.css": "f8f2e06e8e803ea818214386876d1e991b149bca70f15a7fa816a4045fadcc6b",
+    "README.md": "cbdcc21656ab57e67731d4e260a1b69e84159dd1f99fa88eb5346176c952013f",
+    "CHANGELOG.md": "23a9df9107cb1127612f556056464223c66fabb0fc63a3156544cb82c3e75b27",
+    "VERSION.txt": "20f5dece0ab57849daca465190968bf6b916c9da4a81be069e8e3c2cc49c5c09",
+    "docs/JANUS_Orientation_Edition_2026_EN.docx": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+    "testing/claude/v0.3/JANUS_Harness_v0.3_Independent_Regression_Integrity_Test_Report.md": "a8220a6c94bdd962ef3e31f7c9a5b73943bcef4953624458150baecd4c99ae30",
+    "testing/claude/v0.3/JANUS_Harness_v0.3_raw_results.json": "25d274b4378b5561c99c949ff49a4e679731e2b99fa74c83ae026a7c01a8ed48"
+  }
+}
