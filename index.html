@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="External adversarial governance challenge harness for the JANUS Orientation Edition 2026.">
-  <title>JANUS Governance Challenge Harness v0.3.2</title>
+  <title>JANUS Governance Challenge Harness v0.3.3</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
 
   <main class="shell">
     <header class="hero">
-      <div class="eyebrow">EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3.2</div>
+      <div class="eyebrow">EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3.3</div>
       <h1>JANUS Governance Challenge Harness</h1>
       <p class="lede">A small adversarial laboratory for examining whether the governance boundaries described in the JANUS Orientation Edition remain coherent when evidence, operating conditions, capability, or authority change.</p>
 
@@ -80,7 +80,7 @@
       </div>
     </section>
 
-    <div id="staleNotice" class="stale-notice" hidden></div>
+    <div id="staleNotice" class="stale-notice" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 
     <section class="actions">
       <button id="runBtn" class="primary" disabled>Run challenge</button>
@@ -149,7 +149,7 @@
       <p>A result of <strong>INSUFFICIENT SPECIFICATION</strong> is not a failure of JANUS. It means the Orientation Edition does not disclose enough implementation or policy detail to derive a mechanism without inventing one.</p>
 
       <h2>Independent test record</h2>
-      <p>The v0.1 harness was independently exercised across all 36 scenario × prediction permutations, with replay, export, determinism, state-isolation, and source-conformance checks. Findings and raw results are preserved in the repository under <code>testing/claude/v0.1/</code>. Version 0.2 incorporated the first remediation pass. Version 0.3 added source-byte verification and broader evidence integrity controls; its independent regression found a fail-closed timestamp defect in the evidence core. Version 0.3.1 established a reviewed release candidate. Version 0.3.2 closes every remaining known Low/Observation finding from that review: stronger schema validation, replay-block reconstruction at export, bound-build validation, structural-tamper handling, retry/refusal UX, and documentation/provenance cleanup.</p>
+      <p>The v0.1 through v0.3.2 harness releases have been independently exercised and their reports and raw results are preserved under <code>testing/claude/</code>. Version 0.3.3 is a bounded hardening candidate that addresses every actionable finding from the v0.3.2 zero-open-finding regression without changing the six authored scenario contracts.</p>
     </section>
   </main>
 
@@ -157,11 +157,12 @@
     <div class="footer-inner">
       <img class="footer-logo" src="assets/images/stratosengine_cover.jpg" alt="Stratos Engine">
       <div class="footer-copy">
-        <p><strong>JANUS Governance Challenge Harness v0.3.2</strong></p>
+        <p><strong>JANUS Governance Challenge Harness v0.3.3</strong></p>
         <p>Created by <a href="https://www.linkedin.com/in/michaelkellynewsome/" target="_blank" rel="noopener noreferrer">Kelly Newsome</a> · Stratos Engine</p>
         <p>Concept, experimental design, governance challenge structure, and product direction by Kelly Newsome. AI-assisted implementation.</p>
         <p class="footer-attribution">This harness is an independent external test of concepts described in the <em>JANUS Orientation Edition 2026</em>. JANUS — including the system, concept, architecture, and underlying ideas being examined here — is the work of <a href="https://www.linkedin.com/in/eryk-dubiel-1201a12b3/" target="_blank" rel="noopener noreferrer">Eryk Dubiel</a>.</p>
-        <p class="footer-source"><strong>Source document:</strong> <a href="docs/JANUS_Orientation_Edition_2026_EN.docx" target="_blank" rel="noopener noreferrer">JANUS Orientation Edition 2026</a> — the repository copy used for this review. Expected SHA-256: <code>21766f5d…551fe4</code>. The harness re-hashes the served document bytes at Run, Replay, and Export.</p>
+        <p><a href="https://github.com/Newsomek/JANUS-Governance-Challenge-Harness" target="_blank" rel="noopener noreferrer">Repository</a> · <a href="https://github.com/Newsomek/JANUS-Governance-Challenge-Harness/tree/main/testing/claude" target="_blank" rel="noopener noreferrer">Independent test evidence</a></p>
+<p class="footer-source"><strong>Source document:</strong> <a href="docs/JANUS_Orientation_Edition_2026_EN.docx" target="_blank" rel="noopener noreferrer">JANUS Orientation Edition 2026</a> — the repository copy used for this review. Expected SHA-256: <code>21766f5d…551fe4</code>. The harness re-hashes the served document bytes at Run, Replay, and Export.</p>
         <p class="footer-restriction">This site does not claim to implement JANUS, reproduce its internal construction, validate its implementation, perform a penetration test, or represent unpublished JANUS behavior. Conclusions are limited to architectural statements available in the Orientation Edition supplied for review.</p>
       </div>
     </div>

@@ -1,3 +1,10 @@
+## v0.3.3 — bounded zero-open-finding hardening candidate
+
+- closes V032-NEW-01 through V032-NEW-09 and the remaining V031-NEW-07 observability gap;
+- preserves all six authored scenario contracts unchanged;
+- adds explicit regression cases and a recorded automated test result;
+- remains a pre-Version-1 candidate pending deployed smoke and independent adversarial regression.
+
 # Changelog
 ## v0.3.2 — Zero-known-defect hardening candidate
 

@@ -1,0 +1,26 @@
+JANUS Governance Challenge Harness v0.3.3
+Automated Regression Result
+
+Recorded at: 2026-09-24T03:16:45.1530850-04:00
+Base release HEAD before v0.3.3 commit:
+ef0f67516acd0ea80376ac17ece927c2e7c2ea85
+
+INHERITED REGRESSION
+--------------------
+JANUS v0.3.3 automated regression: PASS
+Canonical exports: 7; refusal alerts: 1
+
+Exit code: 0
+
+HARDENING REGRESSION
+--------------------
+JANUS v0.3.3 hardening regression: PASS
+Checks: 11
+
+Exit code: 0
+
+OVERALL RESULT
+--------------
+PASS
+
+Both automated regression suites completed successfully.

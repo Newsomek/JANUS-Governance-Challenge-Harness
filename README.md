@@ -1,4 +1,4 @@
-# JANUS Governance Challenge Harness v0.3.2
+# JANUS Governance Challenge Harness v0.3.3
 
 A dependency-free external architectural challenge harness for examining governance claims described in the **JANUS Orientation Edition 2026**.
 
@@ -77,7 +77,7 @@ Replay is intentionally narrow. It is a **re-derivation from the static authored
 - the stored full-record snapshot SHA-256;
 - a freshly re-derived authored evidence core.
 
-A replay divergence disables ordinary evidence export until a new clean run is performed.
+A replay divergence disables ordinary evidence export until a subsequent Replay returns REPLAY CONSISTENT.
 ## Evidence export
 
 Exports include run and export timestamps, harness version/build ID, the bound application code commit recorded in the deployed `build-info.json`, absolute source URL, expected and observed source hashes, contract hash, authored compatibility set/reason, scenario fields, event log, a freshly re-derived replay result, attributions, restrictions, and an explicit integrity-check map. GitHub `main` is optional corroboration only.
@@ -150,9 +150,9 @@ https://newsomek.github.io/JANUS-Governance-Challenge-Harness/
 
 https://github.com/Newsomek/JANUS-Governance-Challenge-Harness
 
-## v0.3.1 integrity model
+## Bound-release integrity model
 
-v0.3.1 separates two different integrity questions:
+The current harness separates two different integrity questions:
 
 1. **Stable authored evidence core** — scenario content, decision vocabulary, source hashes, bound harness code identity, attributions, restrictions and other stable fields. Per-fetch timestamps such as `checked_at` are deliberately excluded so an honest Replay can reproduce the same authored state.
 2. **Stored record snapshot** — the complete Run-time record, including observation timestamps and provenance observations. Replay and Export recompute a snapshot hash over the stored record to detect later mutation of those values.
@@ -161,7 +161,7 @@ The JANUS source document is fetched and SHA-256 hashed at Run, Replay and Expor
 
 ### Bound code provenance
 
-The governed updater creates the release in two commits. The first commit contains the exact v0.3.1 code and preserved test evidence. The second adds `build-info.json`, which records the first commit as `code_commit` plus SHA-256 hashes of the served files. At runtime the harness verifies served `app.js` against that manifest. GitHub `main` is queried only as optional corroboration and is reported as `MATCH`, `MISMATCH`, or `UNAVAILABLE`; quota or network failure does not erase the bound code identity.
+The governed updater creates each bound release in two commits. The first commit contains the exact application code and preserved test evidence. The second adds `build-info.json`, which records the first commit as `code_commit` plus SHA-256 hashes of the served files. At runtime the harness verifies served `app.js` against that manifest. GitHub `main` is queried only as optional corroboration and is reported as `MATCH`, `MISMATCH`, or `UNAVAILABLE`; quota or network failure does not erase the bound code identity.
 
 ### Export integrity scope
 
@@ -173,7 +173,7 @@ Source-hash mismatch, build-provenance mismatch, malformed scenario contract, in
 
 ## Required pre-review smoke test
 
-Before creating any `v0.3.1-reviewed` tag, test each of the six scenarios on the deployed URL:
+Before any reviewed or Version 1.0 promotion tag, test each of the six scenarios on the deployed URL:
 
 - Run succeeds;
 - Replay reports `REPLAY CONSISTENT`;
@@ -217,7 +217,7 @@ The remaining findings are Low-severity hardening and usability items tracked fo
 
 ## v0.3.2 zero-known-defect hardening candidate
 
-Version 0.3.2 closes every known Low/Observation finding from the independent v0.3.1 review before any Version 1.0 promotion:
+Version 0.3.2 was the first zero-open-finding candidate. Its independent adversarial regression found additional actionable hardening items, all preserved under `testing/claude/v0.3.2/`.
 
 - strict scenario-contract enum, non-empty, and compatibility validation;
 - null-safe scenario selection and guarded structural hashing;
@@ -232,3 +232,10 @@ Version 0.3.2 closes every known Low/Observation finding from the independent v0
 
 Promotion rule: v0.3.2 must undergo a new independent adversarial regression with **zero open findings** before a separate Version 1.0 artifact is created. Version 1.0 itself must then be deployed and tested before its final tag is created.
 
+
+
+## v0.3.3 bounded hardening candidate
+
+Version 0.3.3 addresses every actionable finding from the independent v0.3.2 zero-open-finding regression while preserving the authored scenario content and source-conformance baseline. It adds the stored-evidence-core check to Replay, refuses nonexistent bound commits, removes the scenario-summary HTML sink, strengthens collection-level contract validation, improves refusal observability, prevents duplicate async exports, wraps long provenance values on narrow screens, adds live-region announcements, and exposes repository/test-evidence links.
+
+The automated regression output for this candidate is recorded in `tests/V0_3_3_AUTOMATED_REGRESSION_RESULT.txt`. The release remains ineligible for Version 1.0 until the deployed six-scenario smoke gate and a fresh independent zero-open-finding adversarial regression both pass with no actionable findings.

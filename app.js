@@ -1,7 +1,7 @@
 "use strict";
 
-const HARNESS_VERSION = "0.3.2";
-const BUILD_ID = "janus-governance-challenge-harness-v0.3.2";
+const HARNESS_VERSION = "0.3.3";
+const BUILD_ID = "janus-governance-challenge-harness-v0.3.3";
 const BUILD_INFO_URL = "build-info.json";
 const REPOSITORY = "https://github.com/Newsomek/JANUS-Governance-Challenge-Harness";
 const GITHUB_HEAD_API = "https://api.github.com/repos/Newsomek/JANUS-Governance-Challenge-Harness/commits/main";
@@ -217,7 +217,28 @@ function selectedScenario() {
 }
 
 function validPrediction(value) {
-  return typeof value === "string" && VALID_PREDICTIONS.has(value) && Object.hasOwn(labels, value);
+return typeof value === "string" && VALID_PREDICTIONS.has(value) && Object.hasOwn(labels, value);
+
+}
+
+function hasVisibleText(value) {
+  return typeof value === "string" && value.replace(/[\s\p{Cf}]+/gu, "").length > 0;
+}
+
+function uniqueStrings(values) {
+  return Array.isArray(values) && new Set(values).size === values.length;
+}
+
+function validateScenarioSet() {
+  if (!Array.isArray(scenarios) || scenarios.length < 1) return "Scenario set is missing.";
+  const ids = [];
+  for (const scenario of scenarios) {
+    const error = validateScenarioContract(scenario);
+    if (error) return error;
+    ids.push(scenario.id);
+  }
+  if (new Set(ids).size !== ids.length) return "Scenario IDs must be unique.";
+  return null;
 }
 
 function populateScenarios() {
@@ -237,7 +258,10 @@ function renderScenario() {
     runBtn.disabled = true;
     return;
   }
-  scenarioSummary.innerHTML = `<strong>${scenario.name}</strong>${scenario.summary}`;
+  scenarioSummary.replaceChildren();
+const scenarioTitle = document.createElement("strong");
+scenarioTitle.textContent = scenario.name;
+scenarioSummary.append(scenarioTitle, document.createTextNode(scenario.summary));
   perturbation.textContent = scenario.perturbation;
   runBtn.disabled = !validPrediction(predictionSelect.value);
 }
@@ -317,8 +341,14 @@ async function observeSourceDocument() {
     throw new Error(`Source document fetch failed: ${error.message}`);
   }
   if (!response.ok) throw new Error(`Source document fetch failed: HTTP ${response.status}`);
-  const bytes = await response.arrayBuffer();
-  const observed = await sha256Buffer(bytes);
+  let bytes;
+try {
+  bytes = await response.arrayBuffer();
+} catch (error) {
+  throw new Error(`Source document body read failed: ${error.message}`);
+}
+
+const observed = await sha256Buffer(bytes);
   return {
     title: SOURCE_DOCUMENT.title,
     url: SOURCE_DOCUMENT.url,
@@ -341,8 +371,14 @@ async function observeHarnessProvenance() {
     throw new Error(`Build provenance fetch failed: ${error.message}`);
   }
   if (!buildResponse.ok) throw new Error(`Build provenance fetch failed: HTTP ${buildResponse.status}`);
-  const build = await buildResponse.json();
-  if (build.version !== HARNESS_VERSION) throw new Error(`Build provenance version mismatch: expected ${HARNESS_VERSION}, observed ${build.version ?? "missing"}.`);
+  let build;
+try {
+  build = await buildResponse.json();
+} catch (error) {
+  throw new Error(`Build provenance parse failed: ${error.message}`);
+}
+if (!build || typeof build !== "object" || Array.isArray(build)) throw new Error("Build provenance is malformed: expected a JSON object.");
+if (build.version !== HARNESS_VERSION) throw new Error(`Build provenance version mismatch: expected ${HARNESS_VERSION}, observed ${build.version ?? "missing"}.`);
   if (build.build_id !== BUILD_ID) throw new Error(`Build provenance ID mismatch: expected ${BUILD_ID}, observed ${build.build_id ?? "missing"}.`);
   const codeCommit = typeof build.code_commit === "string" && /^[0-9a-f]{40}$/i.test(build.code_commit)
     ? build.code_commit.toLowerCase()
@@ -360,8 +396,14 @@ async function observeHarnessProvenance() {
     throw new Error(`Harness code fetch failed: ${error.message}`);
   }
   if (!appResponse.ok) throw new Error(`Harness code fetch failed: HTTP ${appResponse.status}`);
-  const appBytes = await appResponse.arrayBuffer();
-  const observedAppHash = await sha256Buffer(appBytes);
+  let appBytes;
+try {
+  appBytes = await appResponse.arrayBuffer();
+} catch (error) {
+  throw new Error(`Harness code body read failed: ${error.message}`);
+}
+
+const observedAppHash = await sha256Buffer(appBytes);
   if (observedAppHash !== expectedAppHash) {
     throw new Error("Served app.js SHA-256 does not match build provenance.");
   }
@@ -371,14 +413,22 @@ async function observeHarnessProvenance() {
   try {
     const boundRawUrl = `https://raw.githubusercontent.com/Newsomek/JANUS-Governance-Challenge-Harness/${codeCommit}/app.js`;
     const boundRawResponse = await fetch(boundRawUrl, {cache: "no-store"});
-    if (!boundRawResponse.ok) throw new Error(`HTTP ${boundRawResponse.status}`);
-    const boundRawHash = await sha256Buffer(await boundRawResponse.arrayBuffer());
+if (boundRawResponse.status === 404) throw new Error("BOUND_COMMIT_NOT_FOUND");
+if (!boundRawResponse.ok) throw new Error(`HTTP ${boundRawResponse.status}`);
+let boundBytes;
+try {
+  boundBytes = await boundRawResponse.arrayBuffer();
+} catch (error) {
+  throw new Error(`Bound commit app.js body read failed: ${error.message}`);
+}
+const boundRawHash = await sha256Buffer(boundBytes);
     if (boundRawHash !== expectedAppHash) throw new Error("Bound commit app.js differs from the build manifest hash.");
     boundCommitVerification = "MATCH";
     boundCommitNote = "The declared bound commit serves the same app.js bytes as the build manifest.";
   } catch (error) {
-    if (/differs from the build manifest hash/.test(error.message)) throw error;
-    boundCommitNote = `Bound commit corroboration unavailable: ${error.message}`;
+    if (error.message === "BOUND_COMMIT_NOT_FOUND") throw new Error("Bound code commit could not be corroborated because app.js was not found at that commit (HTTP 404).");
+if (/differs from the build manifest hash/.test(error.message)) throw error;
+boundCommitNote = `Bound commit corroboration unavailable: ${error.message}`;
   }
 
   let deploymentHead = null;
@@ -527,14 +577,16 @@ function validateScenarioContract(scenario) {
   if (!scenario || typeof scenario !== "object") return "Scenario contract is missing.";
   const requiredStrings = ["id","name","summary","perturbation","disposition","compatibilityReason","changed","valid","invalid","execute","rationale","openQuestion","evidenceRequired"];
   for (const key of requiredStrings) {
-    if (typeof scenario[key] !== "string" || !scenario[key].trim()) return `Scenario contract field is invalid: ${key}`;
+    if (!hasVisibleText(scenario[key])) return `Scenario contract field is invalid: ${key}`;
   }
   if (!validPrediction(scenario.disposition)) return "Scenario disposition is not a valid disposition value.";
   if (!Array.isArray(scenario.compatiblePredictions) || !scenario.compatiblePredictions.every(validPrediction)) return "Scenario compatibility set is invalid.";
+  if (!uniqueStrings(scenario.compatiblePredictions)) return "Scenario compatibility set contains duplicate values.";
   if (scenario.compatiblePredictions.includes(scenario.disposition)) return "Scenario compatibility set cannot contain the encoded disposition.";
   if (!Array.isArray(scenario.commitments) || scenario.commitments.length < 1) return "Scenario commitments must contain at least one commitment.";
-  if (!scenario.commitments.every((x) => x && VALID_SUPPORT_STATUSES.has(x.status) && typeof x.text === "string" && x.text.trim())) return "Scenario commitments contain an invalid support status or text.";
-  if (!Array.isArray(scenario.sources) || scenario.sources.length < 1 || !scenario.sources.every((x) => typeof x === "string" && x.trim())) return "Scenario source list is invalid.";
+  if (!scenario.commitments.every((x) => x && VALID_SUPPORT_STATUSES.has(x.status) && hasVisibleText(x.text))) return "Scenario commitments contain an invalid support status or text.";
+  if (!Array.isArray(scenario.sources) || scenario.sources.length < 1 || !scenario.sources.every(hasVisibleText)) return "Scenario source list is invalid.";
+  if (!uniqueStrings(scenario.sources)) return "Scenario source list contains duplicate citations.";
   return null;
 }
 
@@ -731,8 +783,10 @@ async function deriveReplayRecord(snapshot, scenario, sourceObservation, harness
   const sourceMatch = sourceObservation.observed_sha256 === snapshot.source_document.observed_sha256 && sourceObservation.hash_match;
   const codeMatch = harnessProvenance.code_commit === snapshot.harness_code_commit && harnessProvenance.app_js_observed_sha256 === snapshot.harness_provenance.app_js_observed_sha256;
   const recordIntegrityMatch = storedSnapshotHash === snapshot.record_snapshot_sha256;
-  const authoredStateMatch = recomputed.evidence_core_sha256 === snapshot.evidence_core_sha256;
-  const replayMatch = dispositionMatch && contractMatch && sourceMatch && codeMatch && recordIntegrityMatch && authoredStateMatch;
+const storedCoreMatch = storedCoreHash === snapshot.evidence_core_sha256;
+
+const authoredStateMatch = recomputed.evidence_core_sha256 === snapshot.evidence_core_sha256;
+const replayMatch = dispositionMatch && contractMatch && sourceMatch && codeMatch && recordIntegrityMatch && storedCoreMatch && authoredStateMatch;
   return {
     replay_inputs: {scenario_id: snapshot.scenario_id, reviewer_prediction: snapshot.reviewer_prediction},
     original_disposition: snapshot.orientation_level_disposition,
@@ -755,14 +809,16 @@ async function deriveReplayRecord(snapshot, scenario, sourceObservation, harness
     source_match: sourceMatch,
     code_match: codeMatch,
     record_integrity_match: recordIntegrityMatch,
-    authored_state_match: authoredStateMatch,
+stored_core_match: storedCoreMatch,
+
+authored_state_match: authoredStateMatch,
     replay_match: replayMatch,
-    result: replayMatch ? "REPLAY CONSISTENT" : "REPLAY DIVERGENCE — export blocked until a new clean run",
+    result: replayMatch ? "REPLAY CONSISTENT" : "REPLAY DIVERGENCE — export blocked until a subsequent consistent Replay",
     limitation: "This is a re-derivation from the static authored scenario contract plus live source/code hashing; it is not an independent JANUS runtime execution."
   };
 }
 
-async function replayLastRun() {
+async function replayLastRunCore() {
   if (!lastRun) return;
   const token = stateGeneration;
   const snapshot = lastRun;
@@ -788,10 +844,11 @@ async function replayLastRun() {
   replayRecord.textContent = JSON.stringify(lastReplay, null, 2);
   exportBtn.disabled = !lastReplay.replay_match;
   staleNotice.hidden = lastReplay.replay_match;
-  staleNotice.textContent = lastReplay.replay_match ? "" : "Replay divergence detected. Ordinary evidence export is blocked.";
+const failedReplayChecks = ["disposition_match","contract_match","source_match","code_match","record_integrity_match","stored_core_match","authored_state_match"].filter((key) => lastReplay[key] === false);
+staleNotice.textContent = lastReplay.replay_match ? "" : `Replay divergence detected (${failedReplayChecks.join(", ") || "unknown check"}). Ordinary evidence export is blocked until a subsequent consistent Replay.`;
 }
 
-async function exportEvidence() {
+async function exportEvidenceCore() {
   if (!lastRun) return;
   const token = stateGeneration;
   const snapshot = lastRun;
@@ -870,6 +927,41 @@ async function exportEvidence() {
   }
 }
 
+let replayInFlight = false;
+let exportInFlight = false;
+
+async function replayLastRun() {
+  if (!lastRun || replayInFlight) return;
+  replayInFlight = true;
+  replayBtn.disabled = true;
+  exportBtn.disabled = true;
+  try {
+    await replayLastRunCore();
+  } finally {
+    replayInFlight = false;
+    if (lastRun) {
+      replayBtn.disabled = false;
+      exportBtn.disabled = Boolean(lastReplay && lastReplay.replay_match === false);
+    }
+  }
+}
+
+async function exportEvidence() {
+  if (!lastRun || exportInFlight) return;
+  exportInFlight = true;
+  exportBtn.disabled = true;
+  replayBtn.disabled = true;
+  try {
+    await exportEvidenceCore();
+  } finally {
+    exportInFlight = false;
+    if (lastRun) {
+      replayBtn.disabled = false;
+      exportBtn.disabled = Boolean(lastReplay && lastReplay.replay_match === false);
+    }
+  }
+}
+
 function resetHarness() {
   stateGeneration += 1;
   lastRun = null;
@@ -888,9 +980,19 @@ function resetHarness() {
   renderScenario();
 }
 
-populateScenarios();
-predictionSelect.value = "";
-renderScenario();
+const startupContractError = validateScenarioSet();
+if (startupContractError) {
+  scenarioSelect.disabled = true;
+  predictionSelect.disabled = true;
+  runBtn.disabled = true;
+  replayBtn.disabled = true;
+  exportBtn.disabled = true;
+  showRefusal(`Harness initialization refused: ${startupContractError}`);
+} else {
+  populateScenarios();
+  predictionSelect.value = "";
+  renderScenario();
+}
 
 scenarioSelect.addEventListener("change", () => {
   const hadEvidence = Boolean(lastRun || lastReplay || !resultArea.hidden);

@@ -1,12 +1,12 @@
 JANUS Governance Challenge Harness
 
-Version: 0.3.2
+Version: 0.3.3
 Status: Zero-known-defect hardening candidate — requires independent adversarial regression before Version 1.0 promotion
 
 Base reviewed release:
 v0.3.1-reviewed commit dc621ffe20b78443e1a0ce0dd2ad76e5127e81c0
 
-Primary v0.3.2 corrections:
+Primary v0.3.3 corrections:
 - complete scenario-contract schema validation, including enum and emptiness checks;
 - null-safe scenario lookup and fail-closed structural handling;
 - re-enable Run after transient refusal when the current selection remains valid;
@@ -22,4 +22,6 @@ JANUS source expected SHA-256:
 21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
 
 Promotion rule:
-Do not promote to Version 1.0 until the deployed v0.3.2 release has no known open findings after independent Claude adversarial testing. Then create and test the actual Version 1.0 artifact separately.
+Do not promote to Version 1.0 until the deployed v0.3.3 release has no known open findings after independent Claude adversarial testing. Then create and test the actual Version 1.0 artifact separately.
+
+Candidate status: v0.3.3 bounded hardening; not Version 1.0 until zero-open-finding gate passes.
