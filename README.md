@@ -105,3 +105,23 @@ https://github.com/Newsomek/JANUS-Governance-Challenge-Harness
 ## Version
 
 **v0.1 — External architectural governance challenge**
+
+## Source document
+
+The exact source document supplied by Eryk Dubiel for this review is published in this repository unchanged:
+
+**JANUS Orientation Edition 2026**
+
+`docs/JANUS_Orientation_Edition_2026_EN.docx`
+
+Public source:
+
+https://github.com/Newsomek/JANUS-Governance-Challenge-Harness/blob/main/docs/JANUS_Orientation_Edition_2026_EN.docx
+
+Source provenance:
+
+- Size: 50,354 bytes
+- SHA-256: `21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4`
+
+The published source is the original file supplied for review. The harness does not modify the source document itself.
+

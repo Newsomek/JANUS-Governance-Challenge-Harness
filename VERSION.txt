@@ -17,3 +17,8 @@ Do not:
 JANUS attribution:
 Eryk Dubiel
 https://www.linkedin.com/in/eryk-dubiel-1201a12b3/
+Published source document:
+docs/JANUS_Orientation_Edition_2026_EN.docx
+
+Source document SHA-256:
+21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
