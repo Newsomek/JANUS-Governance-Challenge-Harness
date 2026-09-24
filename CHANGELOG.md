@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.3.1 — Stable integrity baseline correction
+
+Based on the independent v0.3 regression at commit `d79b0385c5b041772580121deaaf1531c8d4a845`:
+
+- fixes V03-NEW-01 by excluding volatile per-fetch metadata from the stable authored evidence core;
+- adds a separate full stored-record snapshot hash;
+- binds served `app.js` to a governed `build-info.json` manifest and code commit;
+- treats GitHub `main` lookup only as optional corroboration;
+- includes repository, restrictions and attributions in the protected authored core;
+- surfaces Run/Replay refusal reasons;
+- adds scenario-contract schema validation and guarded evidence construction;
+- clears hidden result DOM during invalidation/reset;
+- explains S05/S06 `BLOCK + REAUTHORIZE` exclusions in compatibility rationale;
+- preserves Claude v0.3 regression evidence under `testing/claude/v0.3/`;
+- requires a deployed six-scenario Run → Replay → Export smoke test and full independent regression before a reviewed tag.
+
 ## v0.2
 
 Hardening release based on the independent v0.1 full-matrix test.

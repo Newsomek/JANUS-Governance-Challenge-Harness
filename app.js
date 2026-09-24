@@ -1,7 +1,8 @@
 "use strict";
 
-const HARNESS_VERSION = "0.3";
-const BUILD_ID = "janus-governance-challenge-harness-v0.3";
+const HARNESS_VERSION = "0.3.1";
+const BUILD_ID = "janus-governance-challenge-harness-v0.3.1";
+const BUILD_INFO_URL = "build-info.json";
 const REPOSITORY = "https://github.com/Newsomek/JANUS-Governance-Challenge-Harness";
 const GITHUB_HEAD_API = "https://api.github.com/repos/Newsomek/JANUS-Governance-Challenge-Harness/commits/main";
 const SOURCE_DOCUMENT = Object.freeze({
@@ -133,7 +134,7 @@ const scenarios = [
     perturbation: "Two apparently legitimate authority claims point to incompatible execution outcomes.",
     disposition: "INSUFFICIENT_SPECIFICATION",
     compatiblePredictions: ["BLOCK", "ESCALATE"],
-    compatibilityReason: "BLOCK and ESCALATE are compatible constraints while the precedence mechanism itself remains insufficiently specified.",
+    compatibilityReason: "BLOCK and ESCALATE are compatible constraints while the precedence mechanism itself remains insufficiently specified. BLOCK + REAUTHORIZE remains DIFFERENT because obtaining another authorization does not itself resolve which of the conflicting authorities governs.",
     changed: "Nothing must change over time; the conflict exists because two valid-looking authority sources apply simultaneously.",
     valid: "Both authority records may remain valid within the scopes that produced them.",
     invalid: "The assumption that the Orientation Edition supplies a universal authority-precedence rule.",
@@ -159,7 +160,7 @@ const scenarios = [
     perturbation: "Authority changes after execution has already begun.",
     disposition: "INSUFFICIENT_SPECIFICATION",
     compatiblePredictions: ["BLOCK", "ESCALATE", "ROLLBACK_COMPENSATE"],
-    compatibilityReason: "BLOCK, ESCALATE, and ROLLBACK / COMPENSATE are plausible constrained responses. CONTINUE remains DIFFERENT because the glossary means unqualified continuation under current authority, and this scenario stipulates that authority has disappeared; safe completion is a narrower mechanism that JANUS does not specify.",
+    compatibilityReason: "BLOCK, ESCALATE, and ROLLBACK / COMPENSATE are plausible constrained responses. CONTINUE remains DIFFERENT because the glossary means unqualified continuation under current authority, and this scenario stipulates that authority has disappeared; safe completion is a narrower mechanism that JANUS does not specify. BLOCK + REAUTHORIZE remains DIFFERENT because the immediate in-flight handling rule is still unspecified; a later authorization event would not by itself decide what the already-running action should do now.",
     changed: "The authority state changes while a previously authorized action is already affecting the external environment.",
     valid: "The record that X1 began under valid authorization remains part of the historical evidence.",
     invalid: "The assumption that the Orientation Edition determines one universal response for every in-flight action.",
@@ -325,16 +326,93 @@ async function observeSourceDocument() {
   };
 }
 
-async function observeHarnessCommit() {
+async function observeHarnessProvenance() {
+  const buildUrl = new URL(BUILD_INFO_URL, window.location.href).href;
+  const buildResponse = await fetch(buildUrl, {cache: "no-store"});
+  if (!buildResponse.ok) throw new Error(`Build provenance fetch failed: HTTP ${buildResponse.status}`);
+  const build = await buildResponse.json();
+  const codeCommit = typeof build.code_commit === "string" && /^[0-9a-f]{40}$/i.test(build.code_commit)
+    ? build.code_commit.toLowerCase()
+    : null;
+  const expectedAppHash = build.files && typeof build.files["app.js"] === "string" ? build.files["app.js"].toLowerCase() : null;
+  if (!codeCommit || !expectedAppHash || !/^[0-9a-f]{64}$/.test(expectedAppHash)) {
+    throw new Error("Build provenance is malformed.");
+  }
+
+  const appUrl = new URL("app.js", window.location.href).href;
+  const appResponse = await fetch(appUrl, {cache: "no-store"});
+  if (!appResponse.ok) throw new Error(`Harness code fetch failed: HTTP ${appResponse.status}`);
+  const appBytes = await appResponse.arrayBuffer();
+  const observedAppHash = await sha256Buffer(appBytes);
+  if (observedAppHash !== expectedAppHash) {
+    throw new Error("Served app.js SHA-256 does not match build provenance.");
+  }
+
+  let deploymentHead = null;
+  let deploymentParents = [];
+  let commitVerification = "UNAVAILABLE";
+  let corroborationNote = "GitHub main corroboration unavailable.";
   try {
     const response = await fetch(GITHUB_HEAD_API, {cache: "no-store", headers: {Accept: "application/vnd.github+json"}});
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
-    const sha = typeof data.sha === "string" && /^[0-9a-f]{40}$/i.test(data.sha) ? data.sha.toLowerCase() : null;
-    return {sha, source: GITHUB_HEAD_API, observed_at: new Date().toISOString(), note: "Observed GitHub main HEAD at run time; recorded as provenance, not embedded into the commit itself."};
+    deploymentHead = typeof data.sha === "string" && /^[0-9a-f]{40}$/i.test(data.sha) ? data.sha.toLowerCase() : null;
+    deploymentParents = Array.isArray(data.parents)
+      ? data.parents.map((p) => p && typeof p.sha === "string" ? p.sha.toLowerCase() : null).filter(Boolean)
+      : [];
+    if (!deploymentHead) throw new Error("GitHub main did not return a valid commit SHA.");
+    const rawUrl = `https://raw.githubusercontent.com/Newsomek/JANUS-Governance-Challenge-Harness/${deploymentHead}/app.js`;
+    const rawResponse = await fetch(rawUrl, {cache: "no-store"});
+    if (!rawResponse.ok) throw new Error(`GitHub main app.js fetch failed: HTTP ${rawResponse.status}`);
+    const rawHash = await sha256Buffer(await rawResponse.arrayBuffer());
+    if (rawHash === expectedAppHash) {
+      commitVerification = "MATCH";
+      corroborationNote = "GitHub main serves the same app.js bytes as the bound build manifest.";
+    } else {
+      commitVerification = "MISMATCH";
+      corroborationNote = "GitHub main app.js differs from the bound build manifest.";
+    }
   } catch (error) {
-    return {sha: null, source: GITHUB_HEAD_API, observed_at: new Date().toISOString(), note: `Commit lookup unavailable: ${error.message}`};
+    corroborationNote = `GitHub main corroboration unavailable: ${error.message}`;
   }
+
+  return {
+    build_info_url: buildUrl,
+    build_version: build.version || null,
+    build_id: build.build_id || null,
+    code_commit: codeCommit,
+    app_js_expected_sha256: expectedAppHash,
+    app_js_observed_sha256: observedAppHash,
+    app_js_hash_match: observedAppHash === expectedAppHash,
+    deployment_head_observed: deploymentHead,
+    deployment_parent_shas: deploymentParents,
+    commit_verification: commitVerification,
+    corroboration_note: corroborationNote,
+    observed_at: new Date().toISOString()
+  };
+}
+
+function stableSourceEvidence(source) {
+  return {
+    title: source.title,
+    url: source.url,
+    path: source.path,
+    expected_sha256: source.expected_sha256,
+    observed_sha256: source.observed_sha256,
+    bytes: source.bytes
+  };
+}
+
+function stableHarnessProvenance(provenance) {
+  return {
+    build_info_url: provenance.build_info_url,
+    build_version: provenance.build_version,
+    build_id: provenance.build_id,
+    code_commit: provenance.code_commit,
+    app_js_expected_sha256: provenance.app_js_expected_sha256,
+    app_js_observed_sha256: provenance.app_js_observed_sha256,
+    app_js_hash_match: provenance.app_js_hash_match
+  };
 }
 
 function expectedEventLog(scenario, prediction, comparison) {
@@ -363,8 +441,14 @@ function evidenceCore(record) {
   return {
     version: record.version,
     build_id: record.build_id,
-    source_document: record.source_document,
+    repository: record.repository,
+    harness_code: stableHarnessProvenance(record.harness_provenance),
+    source_document: stableSourceEvidence(record.source_document),
     contract_sha256: record.contract_sha256,
+    evaluation_mode: record.evaluation_mode,
+    restrictions: record.restrictions,
+    harness_attribution: record.harness_attribution,
+    janus_attribution: record.janus_attribution,
     scenario_id: record.scenario_id,
     scenario_name: record.scenario_name,
     scenario_summary: record.scenario_summary,
@@ -394,22 +478,63 @@ async function evidenceCoreHash(record) {
   return sha256Text(JSON.stringify(evidenceCore(record)));
 }
 
+function recordSnapshotCore(record) {
+  const clone = {...record};
+  delete clone.record_snapshot_sha256;
+  return clone;
+}
+
+async function recordSnapshotHash(record) {
+  return sha256Text(JSON.stringify(recordSnapshotCore(record)));
+}
+
+function validateScenarioContract(scenario) {
+  if (!scenario || typeof scenario !== "object") return "Scenario contract is missing.";
+  const requiredStrings = ["id","name","summary","perturbation","disposition","compatibilityReason","changed","valid","invalid","execute","rationale","openQuestion","evidenceRequired"];
+  for (const key of requiredStrings) {
+    if (typeof scenario[key] !== "string" || !scenario[key]) return `Scenario contract field is invalid: ${key}`;
+  }
+  if (!Array.isArray(scenario.compatiblePredictions) || !scenario.compatiblePredictions.every(validPrediction)) return "Scenario compatibility set is invalid.";
+  if (!Array.isArray(scenario.commitments) || !scenario.commitments.every((x) => x && typeof x.status === "string" && typeof x.text === "string")) return "Scenario commitments are invalid.";
+  if (!Array.isArray(scenario.sources) || !scenario.sources.every((x) => typeof x === "string")) return "Scenario source list is invalid.";
+  return null;
+}
+
+function clearResultDom() {
+  disposition.textContent = "";
+  matchBadge.textContent = "";
+  matchBadge.className = "badge";
+  changed.textContent = "";
+  valid.textContent = "";
+  invalid.textContent = "";
+  execute.textContent = "";
+  commitments.innerHTML = "";
+  rationale.textContent = "";
+  sources.innerHTML = "";
+  openQuestion.textContent = "";
+  evidenceRequired.textContent = "";
+  compatibilityInfo.textContent = "";
+  const provenance = document.getElementById("provenanceInfo");
+  if (provenance) provenance.textContent = "";
+}
+
 function invalidateRun(reason, hadEvidence = Boolean(lastRun || lastReplay || !resultArea.hidden)) {
   stateGeneration += 1;
   lastRun = null;
   lastReplay = null;
   resultArea.hidden = true;
+  clearResultDom();
   resultEmpty.hidden = false;
   resultEmpty.textContent = hadEvidence ? "Selection changed. Run the challenge to create a new evidence state." : "No challenge has been run for this selection.";
   eventLog.textContent = "Not run for the current selection.";
   replayRecord.textContent = "No replay performed for the current selection.";
   replayBtn.disabled = true;
   exportBtn.disabled = true;
-  staleNotice.hidden = !hadEvidence;
-  staleNotice.textContent = hadEvidence ? (reason || "Selection changed. Previous evidence was invalidated.") : "";
+  staleNotice.hidden = !reason;
+  staleNotice.textContent = reason || "";
 }
 
-async function buildEvidence(scenario, prediction, sourceObservation, commitObservation) {
+async function buildEvidence(scenario, prediction, sourceObservation, harnessProvenance) {
   const comparison = predictionComparison(scenario, prediction);
   const contractSha256 = await sha256Text(canonicalContract(scenario));
   const eventLines = expectedEventLog(scenario, prediction, comparison);
@@ -419,8 +544,8 @@ async function buildEvidence(scenario, prediction, sourceObservation, commitObse
     build_id: BUILD_ID,
     generated_at: new Date().toISOString(),
     repository: REPOSITORY,
-    harness_commit: commitObservation.sha,
-    harness_commit_provenance: commitObservation,
+    harness_code_commit: harnessProvenance.code_commit,
+    harness_provenance: {...harnessProvenance},
     source_document: {...sourceObservation},
     contract_sha256: contractSha256,
     evaluation_mode: "external orientation-level authored conformance challenge",
@@ -458,7 +583,8 @@ async function buildEvidence(scenario, prediction, sourceObservation, commitObse
     sources: [...scenario.sources],
     event_log: eventLines
   };
-  record.evidence_integrity_sha256 = await evidenceCoreHash(record);
+  record.evidence_core_sha256 = await evidenceCoreHash(record);
+  record.record_snapshot_sha256 = await recordSnapshotHash(record);
   return record;
 }
 
@@ -467,11 +593,16 @@ async function runChallenge() {
   const scenario = selectedScenario();
   const prediction = predictionSelect.value;
   if (!scenario) {
-    invalidateRun("Invalid scenario selection. Execution refused.", false);
+    invalidateRun("Execution refused: invalid scenario selection.", false);
     return;
   }
   if (!validPrediction(prediction)) {
-    invalidateRun("Choose a valid reviewer prediction before running.", false);
+    invalidateRun("Execution refused: choose a valid reviewer prediction before running.", false);
+    return;
+  }
+  const contractError = validateScenarioContract(scenario);
+  if (contractError) {
+    invalidateRun(`Execution refused: ${contractError}`, false);
     return;
   }
 
@@ -479,28 +610,28 @@ async function runChallenge() {
   replayBtn.disabled = true;
   exportBtn.disabled = true;
   staleNotice.hidden = false;
-  staleNotice.textContent = "Verifying source bytes and building evidence state…";
+  staleNotice.textContent = "Verifying source bytes, bound build provenance, and evidence state…";
 
   let sourceObservation;
-  let commitObservation;
+  let harnessProvenance;
   try {
-    [sourceObservation, commitObservation] = await Promise.all([observeSourceDocument(), observeHarnessCommit()]);
+    [sourceObservation, harnessProvenance] = await Promise.all([observeSourceDocument(), observeHarnessProvenance()]);
+    if (token !== stateGeneration) return;
+    if (!sourceObservation.hash_match) throw new Error("Observed JANUS source-document SHA-256 does not match the published expected hash.");
+    if (!harnessProvenance.app_js_hash_match) throw new Error("Served harness code does not match bound build provenance.");
+    const evidence = await buildEvidence(scenario, prediction, sourceObservation, harnessProvenance);
+    if (token !== stateGeneration) return;
+    lastRun = evidence;
+    lastReplay = null;
   } catch (error) {
     if (token !== stateGeneration) return;
     invalidateRun(`Execution refused: ${error.message}`, false);
     return;
   }
-  if (token !== stateGeneration) return;
-  if (!sourceObservation.hash_match) {
-    invalidateRun("Execution refused: observed JANUS source-document SHA-256 does not match the published expected hash.", false);
-    return;
-  }
 
-  const evidence = await buildEvidence(scenario, prediction, sourceObservation, commitObservation);
-  if (token !== stateGeneration) return;
-  lastRun = evidence;
-  lastReplay = null;
+  const evidence = lastRun;
   staleNotice.hidden = true;
+  staleNotice.textContent = "";
   resultEmpty.hidden = true;
   resultArea.hidden = false;
 
@@ -518,6 +649,8 @@ async function runChallenge() {
   openQuestion.textContent = scenario.openQuestion;
   evidenceRequired.textContent = scenario.evidenceRequired;
   compatibilityInfo.textContent = `${(scenario.compatiblePredictions || []).map((p) => labels[p]).join(", ") || "None"}. ${scenario.compatibilityReason}`;
+  const provenance = document.getElementById("provenanceInfo");
+  if (provenance) provenance.textContent = `Bound code commit: ${evidence.harness_code_commit}. Served app.js hash verified. GitHub main corroboration: ${evidence.harness_provenance.commit_verification}.`;
   eventLog.textContent = evidence.event_log.join("\n");
 
   replayRecord.textContent = JSON.stringify({
@@ -526,12 +659,14 @@ async function runChallenge() {
     reviewer_prediction: prediction,
     encoded_disposition: scenario.disposition,
     contract_sha256: evidence.contract_sha256,
-    evidence_integrity_sha256: evidence.evidence_integrity_sha256,
+    evidence_core_sha256: evidence.evidence_core_sha256,
+    record_snapshot_sha256: evidence.record_snapshot_sha256,
     source_expected_sha256: sourceObservation.expected_sha256,
     source_observed_sha256: sourceObservation.observed_sha256,
     source_hash_match: sourceObservation.hash_match,
-    harness_commit: evidence.harness_commit,
-    note: "Replay will re-derive the authored assessment, re-hash the live source document bytes, and compare the recorded evidence core."
+    harness_code_commit: evidence.harness_code_commit,
+    commit_verification: evidence.harness_provenance.commit_verification,
+    note: "Replay re-derives the stable authored evidence core, re-hashes the live source and served app.js bytes, and separately verifies the stored record snapshot."
   }, null, 2);
 
   replayBtn.disabled = false;
@@ -544,35 +679,44 @@ async function replayLastRun() {
   const token = stateGeneration;
   const snapshot = lastRun;
   const scenario = scenarios.find((item) => item.id === snapshot.scenario_id);
-  if (!scenario || !validPrediction(snapshot.reviewer_prediction)) {
+  if (!scenario || !validPrediction(snapshot.reviewer_prediction) || validateScenarioContract(scenario)) {
     lastReplay = {result: "REPLAY REFUSED", reason: "Scenario contract or prediction is invalid."};
     replayRecord.textContent = JSON.stringify(lastReplay, null, 2);
     exportBtn.disabled = true;
+    staleNotice.hidden = false;
+    staleNotice.textContent = `Replay refused: ${lastReplay.reason}`;
     return;
   }
 
   let sourceObservation;
+  let harnessProvenance;
+  let recomputed;
   try {
-    sourceObservation = await observeSourceDocument();
+    [sourceObservation, harnessProvenance] = await Promise.all([observeSourceDocument(), observeHarnessProvenance()]);
+    if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
+    if (!sourceObservation.hash_match) throw new Error("Observed JANUS source-document SHA-256 does not match the published expected hash.");
+    if (!harnessProvenance.app_js_hash_match) throw new Error("Served harness code does not match bound build provenance.");
+    recomputed = await buildEvidence(scenario, snapshot.reviewer_prediction, sourceObservation, harnessProvenance);
   } catch (error) {
     if (token !== stateGeneration || lastRun !== snapshot) return;
     lastReplay = {result: "REPLAY REFUSED", reason: error.message};
     replayRecord.textContent = JSON.stringify(lastReplay, null, 2);
     exportBtn.disabled = true;
+    staleNotice.hidden = false;
+    staleNotice.textContent = `Replay refused: ${error.message}`;
     return;
   }
   if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
 
-  const recomputed = await buildEvidence(scenario, snapshot.reviewer_prediction, sourceObservation, snapshot.harness_commit_provenance || {sha: snapshot.harness_commit, source: "recorded", observed_at: snapshot.generated_at});
-  if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
-
   const storedCoreHash = await evidenceCoreHash(snapshot);
+  const storedSnapshotHash = await recordSnapshotHash(snapshot);
   const dispositionMatch = recomputed.orientation_level_disposition === snapshot.orientation_level_disposition;
   const contractMatch = recomputed.contract_sha256 === snapshot.contract_sha256;
-  const sourceMatch = sourceObservation.hash_match && sourceObservation.observed_sha256 === snapshot.source_document.observed_sha256;
-  const recordIntegrityMatch = storedCoreHash === snapshot.evidence_integrity_sha256;
-  const authoredStateMatch = recomputed.evidence_integrity_sha256 === snapshot.evidence_integrity_sha256;
-  const replayMatch = dispositionMatch && contractMatch && sourceMatch && recordIntegrityMatch && authoredStateMatch;
+  const sourceMatch = sourceObservation.observed_sha256 === snapshot.source_document.observed_sha256 && sourceObservation.hash_match;
+  const codeMatch = harnessProvenance.code_commit === snapshot.harness_code_commit && harnessProvenance.app_js_observed_sha256 === snapshot.harness_provenance.app_js_observed_sha256;
+  const recordIntegrityMatch = storedSnapshotHash === snapshot.record_snapshot_sha256;
+  const authoredStateMatch = recomputed.evidence_core_sha256 === snapshot.evidence_core_sha256;
+  const replayMatch = dispositionMatch && contractMatch && sourceMatch && codeMatch && recordIntegrityMatch && authoredStateMatch;
 
   lastReplay = {
     replay_inputs: {scenario_id: snapshot.scenario_id, reviewer_prediction: snapshot.reviewer_prediction},
@@ -580,22 +724,30 @@ async function replayLastRun() {
     rederived_disposition: recomputed.orientation_level_disposition,
     original_contract_sha256: snapshot.contract_sha256,
     current_contract_sha256: recomputed.contract_sha256,
-    original_evidence_integrity_sha256: snapshot.evidence_integrity_sha256,
-    stored_evidence_integrity_sha256: storedCoreHash,
-    rederived_evidence_integrity_sha256: recomputed.evidence_integrity_sha256,
+    original_evidence_core_sha256: snapshot.evidence_core_sha256,
+    stored_evidence_core_sha256: storedCoreHash,
+    rederived_evidence_core_sha256: recomputed.evidence_core_sha256,
+    original_record_snapshot_sha256: snapshot.record_snapshot_sha256,
+    stored_record_snapshot_sha256: storedSnapshotHash,
     source_expected_sha256: SOURCE_DOCUMENT.expected_sha256,
     source_observed_sha256: sourceObservation.observed_sha256,
+    harness_code_commit: snapshot.harness_code_commit,
+    current_harness_code_commit: harnessProvenance.code_commit,
+    commit_verification: harnessProvenance.commit_verification,
     disposition_match: dispositionMatch,
     contract_match: contractMatch,
     source_match: sourceMatch,
+    code_match: codeMatch,
     record_integrity_match: recordIntegrityMatch,
     authored_state_match: authoredStateMatch,
     replay_match: replayMatch,
     result: replayMatch ? "REPLAY CONSISTENT" : "REPLAY DIVERGENCE — export blocked until a new clean run",
-    limitation: "This is a re-derivation from the static authored scenario contract plus live source-byte hashing; it is not an independent JANUS runtime execution."
+    limitation: "This is a re-derivation from the static authored scenario contract plus live source/code hashing; it is not an independent JANUS runtime execution."
   };
   replayRecord.textContent = JSON.stringify(lastReplay, null, 2);
   exportBtn.disabled = !replayMatch;
+  staleNotice.hidden = replayMatch;
+  staleNotice.textContent = replayMatch ? "" : "Replay divergence detected. Ordinary evidence export is blocked.";
 }
 
 async function exportEvidence() {
@@ -603,8 +755,8 @@ async function exportEvidence() {
   const token = stateGeneration;
   const snapshot = lastRun;
   const scenario = scenarios.find((item) => item.id === snapshot.scenario_id);
-  if (!scenario || !validPrediction(snapshot.reviewer_prediction)) {
-    alert("Export refused: scenario or prediction is invalid.");
+  if (!scenario || !validPrediction(snapshot.reviewer_prediction) || validateScenarioContract(scenario)) {
+    alert("Export refused: scenario contract or prediction is invalid.");
     return;
   }
   if (lastReplay && lastReplay.replay_match === false) {
@@ -613,8 +765,14 @@ async function exportEvidence() {
   }
 
   let sourceObservation;
+  let harnessProvenance;
+  let expectedRecord;
   try {
-    sourceObservation = await observeSourceDocument();
+    [sourceObservation, harnessProvenance] = await Promise.all([observeSourceDocument(), observeHarnessProvenance()]);
+    if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;
+    if (!sourceObservation.hash_match) throw new Error("Observed JANUS source-document SHA-256 does not match the published expected hash.");
+    if (!harnessProvenance.app_js_hash_match) throw new Error("Served harness code does not match bound build provenance.");
+    expectedRecord = await buildEvidence(scenario, snapshot.reviewer_prediction, sourceObservation, harnessProvenance);
   } catch (error) {
     alert(`Export refused: ${error.message}`);
     return;
@@ -623,10 +781,9 @@ async function exportEvidence() {
 
   const recomputedContract = await sha256Text(canonicalContract(scenario));
   const storedCoreHash = await evidenceCoreHash(snapshot);
+  const storedSnapshotHash = await recordSnapshotHash(snapshot);
   const expectedComparison = predictionComparison(scenario, snapshot.reviewer_prediction);
   const expectedLog = expectedEventLog(scenario, snapshot.reviewer_prediction, expectedComparison);
-  const expectedCommitObservation = snapshot.harness_commit_provenance || {sha: snapshot.harness_commit, source: "recorded", observed_at: snapshot.generated_at};
-  const expectedRecord = await buildEvidence(scenario, snapshot.reviewer_prediction, sourceObservation, expectedCommitObservation);
 
   const checks = {
     valid_prediction: validPrediction(snapshot.reviewer_prediction),
@@ -637,9 +794,12 @@ async function exportEvidence() {
     contract_hash: recomputedContract === snapshot.contract_sha256,
     source_expected_hash: sourceObservation.hash_match,
     source_matches_run: sourceObservation.observed_sha256 === snapshot.source_document.observed_sha256,
+    code_commit: harnessProvenance.code_commit === snapshot.harness_code_commit,
+    code_hash: harnessProvenance.app_js_observed_sha256 === snapshot.harness_provenance.app_js_observed_sha256,
     event_log: JSON.stringify(expectedLog) === JSON.stringify(snapshot.event_log),
-    stored_record_integrity: storedCoreHash === snapshot.evidence_integrity_sha256,
-    authored_state_integrity: expectedRecord.evidence_integrity_sha256 === snapshot.evidence_integrity_sha256,
+    stored_evidence_core_integrity: storedCoreHash === snapshot.evidence_core_sha256,
+    stored_record_snapshot_integrity: storedSnapshotHash === snapshot.record_snapshot_sha256,
+    authored_state_integrity: expectedRecord.evidence_core_sha256 === snapshot.evidence_core_sha256,
     replay_not_divergent: !lastReplay || lastReplay.replay_match === true
   };
   const failed = Object.entries(checks).filter(([, ok]) => !ok).map(([name]) => name);
@@ -653,7 +813,14 @@ async function exportEvidence() {
     ...snapshot,
     exported_at: exportedAt,
     integrity_status: "PASS",
+    integrity_scope: "Stable authored evidence core plus full stored record snapshot; unsigned client-side evidence, not tamper-proof after export.",
     integrity_checks: checks,
+    export_provenance: {
+      bound_code_commit: harnessProvenance.code_commit,
+      deployment_head_observed: harnessProvenance.deployment_head_observed,
+      commit_verification: harnessProvenance.commit_verification,
+      corroboration_note: harnessProvenance.corroboration_note
+    },
     replay: lastReplay || {status: "NOT PERFORMED BEFORE EXPORT"},
     compatible_predictions: [...scenario.compatiblePredictions],
     compatibility_reason: scenario.compatibilityReason
@@ -676,6 +843,7 @@ function resetHarness() {
   lastReplay = null;
   predictionSelect.value = "";
   resultArea.hidden = true;
+  clearResultDom();
   resultEmpty.hidden = false;
   resultEmpty.textContent = "No challenge has been run.";
   eventLog.textContent = "Not run.";

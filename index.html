@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="External adversarial governance challenge harness for the JANUS Orientation Edition 2026.">
-  <title>JANUS Governance Challenge Harness v0.3</title>
+  <title>JANUS Governance Challenge Harness v0.3.1</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
 
   <main class="shell">
     <header class="hero">
-      <div class="eyebrow">EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3</div>
+      <div class="eyebrow">EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3.1</div>
       <h1>JANUS Governance Challenge Harness</h1>
       <p class="lede">A small adversarial laboratory for examining whether the governance boundaries described in the JANUS Orientation Edition remain coherent when evidence, operating conditions, capability, or authority change.</p>
 
@@ -127,6 +127,9 @@
 
         <h2>Evidence required to reconstruct the path</h2>
         <div id="evidenceRequired" class="question-box"></div>
+
+        <h2>Harness provenance</h2>
+        <div id="provenanceInfo" class="question-box"></div>
       </div>
     </section>
 
@@ -136,7 +139,7 @@
       <pre id="eventLog">Not run.</pre>
       <h2>Replay record</h2>
       <pre id="replayRecord">No replay performed.</pre>
-      <div class="replay-rule">Replay is a re-derivation from the static authored scenario contract. At Run and Replay, the browser fetches the published JANUS source document, computes SHA-256 from its bytes, and compares the observed hash with the recorded expected hash. Replay also checks the contract and recorded evidence core. It is not an independent JANUS runtime execution.</div>
+      <div class="replay-rule">Replay is a re-derivation from the static authored scenario contract. The browser re-hashes the published JANUS source bytes and the served harness code, checks a stable authored evidence core, and separately verifies the stored record snapshot. Per-fetch timestamps are observation metadata and are not part of the stable authored core. It is not an independent JANUS runtime execution.</div>
     </section>
 
     <section class="panel about-panel">
@@ -145,8 +148,8 @@
       <p>JANUS separates model output, evidence, decision, authorization and execution, and describes authority as distinct from capability. This harness introduces controlled adversarial changes at those boundaries and asks whether the published orientation document provides enough information to determine what should happen next.</p>
       <p>A result of <strong>INSUFFICIENT SPECIFICATION</strong> is not a failure of JANUS. It means the Orientation Edition does not disclose enough implementation or policy detail to derive a mechanism without inventing one.</p>
 
-      <h2>Independent v0.1 test record</h2>
-      <p>The v0.1 harness was independently exercised across all 36 scenario × prediction permutations, with replay, export, determinism, state-isolation, and source-conformance checks. Findings and raw results are preserved in the repository under <code>testing/claude/v0.1/</code>. Version 0.2 incorporated the first remediation pass. Version 0.3 hardens source-byte verification, replay/export integrity, support-status precision, compatibility disclosure, and race handling. The v0.2 regression evidence is preserved under <code>testing/claude/v0.2/</code>.</p>
+      <h2>Independent test record</h2>
+      <p>The v0.1 harness was independently exercised across all 36 scenario × prediction permutations, with replay, export, determinism, state-isolation, and source-conformance checks. Findings and raw results are preserved in the repository under <code>testing/claude/v0.1/</code>. Version 0.2 incorporated the first remediation pass. Version 0.3 added source-byte verification and broader evidence integrity controls; its independent regression found a fail-closed timestamp defect in the evidence core. Version 0.3.1 removes volatile observation metadata from the authored core, binds served code to a versioned build manifest, surfaces refusal/provenance status, and preserves the v0.3 regression evidence under <code>testing/claude/v0.3/</code>.</p>
     </section>
   </main>
 
@@ -154,7 +157,7 @@
     <div class="footer-inner">
       <img class="footer-logo" src="assets/images/stratosengine_cover.jpg" alt="Stratos Engine">
       <div class="footer-copy">
-        <p><strong>JANUS Governance Challenge Harness v0.3</strong></p>
+        <p><strong>JANUS Governance Challenge Harness v0.3.1</strong></p>
         <p>Created by <a href="https://www.linkedin.com/in/michaelkellynewsome/" target="_blank" rel="noopener noreferrer">Kelly Newsome</a> · Stratos Engine</p>
         <p>Concept, experimental design, governance challenge structure, and product direction by Kelly Newsome. AI-assisted implementation.</p>
         <p class="footer-attribution">This harness is an independent external test of concepts described in the <em>JANUS Orientation Edition 2026</em>. JANUS — including the system, concept, architecture, and underlying ideas being examined here — is the work of <a href="https://www.linkedin.com/in/eryk-dubiel-1201a12b3/" target="_blank" rel="noopener noreferrer">Eryk Dubiel</a>.</p>

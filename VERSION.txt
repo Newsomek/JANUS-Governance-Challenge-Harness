@@ -1,27 +1,22 @@
 JANUS Governance Challenge Harness
 
-Version: 0.3
-Status: v0.3 hardening candidate pending independent regression
+Version: 0.3.1
+Status: Integrity correction candidate — requires independent regression before reviewed tag
 
-Base regression-tested v0.2 commit:
-ba7b6e5b9335f395499f569f0df091962c69bb8f
+Base tested release:
+v0.3 commit d79b0385c5b041772580121deaaf1531c8d4a845
 
-Published source document:
-docs/JANUS_Orientation_Edition_2026_EN.docx
+Primary v0.3.1 corrections:
+- remove volatile source checked_at metadata from the stable authored evidence core;
+- split stable evidence-core integrity from full stored-record snapshot integrity;
+- bind served app.js to build-info.json and a code commit created by the governed updater;
+- use GitHub main only as optional corroboration, not as the bound code identity;
+- surface refusal reasons and provenance status;
+- schema-check scenario contracts and catch evidence-build failures;
+- clear hidden result DOM on invalidation;
+- preserve v0.3 independent regression evidence.
 
-Expected source SHA-256:
+JANUS source expected SHA-256:
 21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
 
-Primary v0.3 hardening:
-- actual source-byte SHA-256 verification at Run / Replay / Export
-- full observed GitHub main commit provenance when available
-- comprehensive export integrity gate
-- replay divergence blocks ordinary export
-- race-generation guard
-- strict prediction allow-list
-- support-status glossary and precision corrections
-- disclosed scenario compatibility sets and reasons
-- v0.2 independent regression evidence preserved
-
-Governing boundary:
-Challenge JANUS against JANUS first.
+Do not tag v0.3.1-reviewed until the deployed six-scenario smoke test and independent regression pass.

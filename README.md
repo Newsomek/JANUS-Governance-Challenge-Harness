@@ -1,4 +1,4 @@
-# JANUS Governance Challenge Harness v0.3
+# JANUS Governance Challenge Harness v0.3.1
 
 A dependency-free external architectural challenge harness for examining governance claims described in the **JANUS Orientation Edition 2026**.
 
@@ -139,3 +139,38 @@ https://newsomek.github.io/JANUS-Governance-Challenge-Harness/
 ## Repository
 
 https://github.com/Newsomek/JANUS-Governance-Challenge-Harness
+
+## v0.3.1 integrity model
+
+v0.3.1 separates two different integrity questions:
+
+1. **Stable authored evidence core** — scenario content, decision vocabulary, source hashes, bound harness code identity, attributions, restrictions and other stable fields. Per-fetch timestamps such as `checked_at` are deliberately excluded so an honest Replay can reproduce the same authored state.
+2. **Stored record snapshot** — the complete Run-time record, including observation timestamps and provenance observations. Replay and Export recompute a snapshot hash over the stored record to detect later mutation of those values.
+
+The JANUS source document is fetched and SHA-256 hashed at Run, Replay and Export. The served `app.js` is also fetched and checked against `build-info.json`.
+
+### Bound code provenance
+
+The governed updater creates the release in two commits. The first commit contains the exact v0.3.1 code and preserved test evidence. The second adds `build-info.json`, which records the first commit as `code_commit` plus SHA-256 hashes of the served files. At runtime the harness verifies served `app.js` against that manifest. GitHub `main` is queried only as optional corroboration and is reported as `MATCH`, `MISMATCH`, or `UNAVAILABLE`; quota or network failure does not erase the bound code identity.
+
+### Export integrity scope
+
+`integrity_status: PASS` means the stable authored evidence core and the complete stored Run snapshot both verify, together with fresh source/code checks at Export. It does **not** mean the downloaded JSON is cryptographically signed or tamper-proof after export.
+
+### Refusals
+
+Source-hash mismatch, build-provenance mismatch, malformed scenario contract, invalid prediction, replay divergence, or export integrity failure are surfaced visibly and ordinary evidence export is refused.
+
+## Required pre-review smoke test
+
+Before creating any `v0.3.1-reviewed` tag, test each of the six scenarios on the deployed URL:
+
+- Run succeeds;
+- Replay reports `REPLAY CONSISTENT`;
+- Export produces an evidence JSON with `integrity_status: PASS`;
+- expected and observed JANUS source hashes match;
+- served `app.js` matches the build manifest;
+- the bound `harness_code_commit` is present.
+
+Then rerun the independent full-matrix regression.
+
