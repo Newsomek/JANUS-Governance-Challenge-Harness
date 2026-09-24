@@ -79,7 +79,7 @@ A replay divergence disables ordinary evidence export until a new clean run is p
 
 ## Evidence export
 
-Exports include run and export timestamps, harness version/build ID, the full GitHub `main` commit observed at run time when available, absolute source URL, expected and observed source hashes, contract hash, authored compatibility set/reason, scenario fields, event log, replay result, attributions, restrictions, and an explicit integrity-check map.
+Exports include run and export timestamps, harness version/build ID, the bound application code commit recorded in the deployed `build-info.json`, with GitHub `main` used only as optional corroboration, absolute source URL, expected and observed source hashes, contract hash, authored compatibility set/reason, scenario fields, event log, replay result, attributions, restrictions, and an explicit integrity-check map.
 
 Before export the harness recomputes and checks: valid prediction membership, prediction/disposition labels, comparison code/label, current contract hash, live source-document bytes and hash, source consistency with the run, event-log content, stored evidence-core hash, fresh authored-state hash, and replay status. A failed check refuses ordinary export. Client-side JSON remains unsigned and is not claimed to be tamper-proof.
 
@@ -173,4 +173,35 @@ Before creating any `v0.3.1-reviewed` tag, test each of the six scenarios on the
 - the bound `harness_code_commit` is present.
 
 Then rerun the independent full-matrix regression.
+
+## Independent v0.3.1 test record
+
+JANUS Governance Challenge Harness v0.3.1 underwent an independent regression, integrity, and release-candidate test against the deployed release.
+
+Tested release HEAD:
+
+`9dc291a5478668b9baae957797b5c799917d35f7`
+
+Bound application code commit:
+
+`a10722a087e740d183598125909319610ca4238f`
+
+Results included:
+
+- 6/6 deployed release smoke tests passed;
+- 36/36 scenario × prediction permutations passed;
+- 68/68 clean replays reported REPLAY CONSISTENT;
+- 67/67 clean exports reported integrity PASS;
+- 24/24 determinism runs passed;
+- 9/9 race tests passed;
+- 0 Critical, High, or Medium defects were identified;
+- 0/18 source commitments were contradicted or insufficiently supported.
+
+Independent test evidence:
+
+`testing/claude/v0.3.1/JANUS_Harness_v0.3.1_Independent_Regression_Integrity_Release_Test_Report.md`
+
+`testing/claude/v0.3.1/JANUS_Harness_v0.3.1_raw_results.json`
+
+The remaining findings are Low-severity hardening and usability items tracked for a later release. The test evidence does not make this harness an official JANUS implementation or a validation of unpublished JANUS runtime behavior.
 

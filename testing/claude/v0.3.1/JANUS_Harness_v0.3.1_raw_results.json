@@ -1,0 +1,2924 @@
+{
+  "report": "JANUS Governance Challenge Harness v0.3.1 — Independent Regression, Integrity & Release-Candidate Test — raw results",
+  "tested_on": "2026-09-24 (approx. 05:10–05:55 UTC)",
+  "tester": "Claude (Cowork), driving the user's Chrome via Claude in Chrome; independent recomputation in Node v22 sandbox",
+  "release_head": "9dc291a5478668b9baae957797b5c799917d35f7",
+  "bound_code_commit": "a10722a087e740d183598125909319610ca4238f",
+  "tested_url": "https://newsomek.github.io/JANUS-Governance-Challenge-Harness/",
+  "baseline": {
+    "tag": "v0.3-tested",
+    "tag_object": "4a93bd800876da057b91dfeb4c63235ddb058fc4",
+    "commit": "d79b0385c5b041772580121deaaf1531c8d4a845",
+    "v0_3_app_js_sha256": "1e82fe2e8769614462cb4c211aa7c3fe4ec8226c31ceeda6dfa46ecbd8b139a0"
+  },
+  "method_notes": [
+    "Live testing ran in the user's Chrome tab via page-context JavaScript that drove the real controls (select change events, button clicks).",
+    "Instrumentation: window.alert captured to an array; URL.createObjectURL and HTMLAnchorElement.prototype.click wrapped so each export's Blob and download filename were captured in memory instead of written to disk. The final browser download step was therefore not exercised.",
+    "Fault injection used a window.fetch wrapper (byte flip, 404, network error, manifest edits, GitHub API mocks). Tamper tests mutated lastRun/lastReplay in place.",
+    "Expected contract and evidence-core hashes were independently recomputed in Node from the repository app.js + DOCX + manifest values, then injected into the page for comparison.",
+    "The cloud sandbox could not reach github.io directly (proxy 403); all live-file hashing was done in the browser.",
+    "GitHub's unauthenticated API quota ran out mid-matrix (HTTP 429). commit_verification was MATCH for the first ~25 cycles and UNAVAILABLE afterwards; this doubled as the quota-exhaustion test."
+  ],
+  "deployment_verification": {
+    "repo_main_head": "9dc291a5478668b9baae957797b5c799917d35f7",
+    "repo_main_head_matches": true,
+    "tag_v0_3_tested_peeled": "d79b0385c5b041772580121deaaf1531c8d4a845",
+    "tag_matches": true,
+    "commits": [
+      "9dc291a Bind JANUS harness v0.3.1 build provenance (adds build-info.json only)",
+      "a10722a Fix JANUS harness v0.3.1 integrity baseline",
+      "d79b038 Harden JANUS governance challenge harness v0.3"
+    ],
+    "diff_a10722a_to_9dc291a": [
+      "build-info.json (added)"
+    ],
+    "live_files": {
+      "build-info.json": {
+        "http": 200,
+        "bytes": 1366,
+        "sha256": "8aafebba102beab1064d456be62647d36dc4797b14081e8cd9b638e6f8e5d115",
+        "equals": "repo HEAD 9dc291a"
+      },
+      "app.js": {
+        "http": 200,
+        "bytes": 49208,
+        "sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "equals": "a10722a:app.js and build-info files[app.js]"
+      },
+      "index.html": {
+        "http": 200,
+        "bytes": 11099,
+        "sha256": "01a6258a492384292d4db7cde26bbe150dd16fd36ea7201563e0e5231eac3c8f",
+        "equals": "a10722a and manifest"
+      },
+      "styles.css": {
+        "http": 200,
+        "bytes": 5850,
+        "sha256": "f8f2e06e8e803ea818214386876d1e991b149bca70f15a7fa816a4045fadcc6b",
+        "equals": "a10722a and manifest"
+      },
+      "README.md": {
+        "http": 200,
+        "bytes": 9280,
+        "sha256": "cbdcc21656ab57e67731d4e260a1b69e84159dd1f99fa88eb5346176c952013f",
+        "equals": "manifest"
+      },
+      "CHANGELOG.md": {
+        "http": 200,
+        "bytes": 4497,
+        "sha256": "23a9df9107cb1127612f556056464223c66fabb0fc63a3156544cb82c3e75b27",
+        "equals": "manifest"
+      },
+      "VERSION.txt": {
+        "http": 200,
+        "bytes": 1002,
+        "sha256": "20f5dece0ab57849daca465190968bf6b916c9da4a81be069e8e3c2cc49c5c09",
+        "equals": "manifest"
+      },
+      "docs/JANUS_Orientation_Edition_2026_EN.docx": {
+        "http": 200,
+        "bytes": 50354,
+        "sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "equals": "expected"
+      },
+      "tests/V0_3_1_SMOKE_TEST.md": {
+        "http": 200,
+        "bytes": 935,
+        "sha256": "45787646dc25b232b126640d1c9af0576cc556b73b2fcd8cb8f6bc9064d19fdc",
+        "equals": "repo"
+      },
+      "testing/claude/v0.3/JANUS_Harness_v0.3_Independent_Regression_Integrity_Test_Report.md": {
+        "http": 200,
+        "bytes": 52004,
+        "sha256": "a8220a6c94bdd962ef3e31f7c9a5b73943bcef4953624458150baecd4c99ae30",
+        "equals": "manifest"
+      },
+      "testing/claude/v0.3/JANUS_Harness_v0.3_raw_results.json": {
+        "http": 200,
+        "bytes": 302244,
+        "sha256": "25d274b4378b5561c99c949ff49a4e679731e2b99fa74c83ae026a7c01a8ed48",
+        "equals": "manifest"
+      }
+    },
+    "page_title": "JANUS Governance Challenge Harness v0.3.1",
+    "page_eyebrow": "EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3.1",
+    "HARNESS_VERSION": "0.3.1",
+    "BUILD_ID": "janus-governance-challenge-harness-v0.3.1",
+    "verdict": "PASS — live deployment is the intended v0.3.1 release; not stale"
+  },
+  "build_info": {
+    "schema": "janus-harness-build-info-v1",
+    "version": "0.3.1",
+    "build_id": "janus-governance-challenge-harness-v0.3.1",
+    "code_commit": "a10722a087e740d183598125909319610ca4238f",
+    "generated_at": "2026-09-24T05:06:18.6358042Z",
+    "note": "code_commit identifies the exact commit containing the served v0.3.1 application code; this build-info file is added by the following provenance commit.",
+    "files": {
+      "app.js": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+      "index.html": "01a6258a492384292d4db7cde26bbe150dd16fd36ea7201563e0e5231eac3c8f",
+      "styles.css": "f8f2e06e8e803ea818214386876d1e991b149bca70f15a7fa816a4045fadcc6b",
+      "README.md": "cbdcc21656ab57e67731d4e260a1b69e84159dd1f99fa88eb5346176c952013f",
+      "CHANGELOG.md": "23a9df9107cb1127612f556056464223c66fabb0fc63a3156544cb82c3e75b27",
+      "VERSION.txt": "20f5dece0ab57849daca465190968bf6b916c9da4a81be069e8e3c2cc49c5c09",
+      "docs/JANUS_Orientation_Edition_2026_EN.docx": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+      "testing/claude/v0.3/JANUS_Harness_v0.3_Independent_Regression_Integrity_Test_Report.md": "a8220a6c94bdd962ef3e31f7c9a5b73943bcef4953624458150baecd4c99ae30",
+      "testing/claude/v0.3/JANUS_Harness_v0.3_raw_results.json": "25d274b4378b5561c99c949ff49a4e679731e2b99fa74c83ae026a7c01a8ed48"
+    }
+  },
+  "build_info_sha256": "8aafebba102beab1064d456be62647d36dc4797b14081e8cd9b638e6f8e5d115",
+  "source_document": {
+    "url": "https://newsomek.github.io/JANUS-Governance-Challenge-Harness/docs/JANUS_Orientation_Edition_2026_EN.docx",
+    "expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+    "observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+    "bytes": 50354,
+    "match": true
+  },
+  "contract_sha256_by_scenario": {
+    "condition-change": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3",
+    "evidence-change": "36bc70425fbdcb41434072a5158ec306b6e364ba5d5f83e25c2a4edb5dadcc45",
+    "authorization-expiry": "e7e29686985b9ab3d75395b525fda4b59b857d0ff74628eabd1000cccba69af4",
+    "learning-authority": "d783abf986fce0b4069f8481c49fb6e970eff1a5c1458716ce1f41918c5142bf",
+    "conflicting-authorities": "437615c49f3f5fe751fed2cf76d6552d23af5883d9df1d5b3c2e82edc1098f27",
+    "mid-execution-revocation": "916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164"
+  },
+  "independent_evidence_core_sha256": {
+    "condition-change|CONTINUE": "0fae3843d349a78d4f3b544a34cfa7d795d0fa70b014e6df1754302e213bf377",
+    "condition-change|BLOCK": "863db77dc7156553c22b1bfecdb4971815046082d76a9ed15fa86d99a2801b23",
+    "condition-change|BLOCK_REAUTHORIZE": "849cc3cf5e555db4d8e65ebdfb18be93f92ec30c816b4240a3c6cfa891e85662",
+    "condition-change|ESCALATE": "cce14f4c096c68c7943aed2e371483a6571e48502ad938822396488149ff169a",
+    "condition-change|ROLLBACK_COMPENSATE": "6b9541b8a1756e66123330e0803990403a740b64e4718aaf95fce5925d81d090",
+    "condition-change|INSUFFICIENT_SPECIFICATION": "e8fb08541dcb6113cf44ca1a6c2e6658f8a6ff8d84a683e83680cc72c90cfe4f",
+    "evidence-change|CONTINUE": "b96fae3b1f4b64a0aad51f15a6777d9a1e4781519fb33960e867380c09a91a4f",
+    "evidence-change|BLOCK": "0e232f3817e158a692e8ca3427f7f93c1000292a7e0c76f7c173d1fc71b392a3",
+    "evidence-change|BLOCK_REAUTHORIZE": "5d41e89777f05f07528db1bd03414d4c5d0bdde3991c05e26b75ef7c6a550338",
+    "evidence-change|ESCALATE": "1b6beb0b1ca093a513edf71a022acfcb50fbcf60b33204c33eee869437fec007",
+    "evidence-change|ROLLBACK_COMPENSATE": "adcea0e3a3cee708190c6dd94059dc2978946fd2881c2d38e7aed71aea78f6fc",
+    "evidence-change|INSUFFICIENT_SPECIFICATION": "f815d080b713776490550d9dc3cdbe58596d0cf8fd4040bdc2e0afebddfabdc5",
+    "authorization-expiry|CONTINUE": "5a241a5b6b20dc1929ad779b68e8f31d5041b3486f9977e808c296e4f0db7c46",
+    "authorization-expiry|BLOCK": "ac554ae2ddcf1a8c3ef17c4f2f03abc532aaa68ddd94d837309e346799c78ff9",
+    "authorization-expiry|BLOCK_REAUTHORIZE": "9db2d32ebc93b72ce7d29f8917cfcec265167928ba972e2d5b188015cd684f01",
+    "authorization-expiry|ESCALATE": "08fcb9ac373d6e497c4f9fa549d39628e0109fc2adbdea259097270f0f0064a3",
+    "authorization-expiry|ROLLBACK_COMPENSATE": "ed69f2e341f9fea4c4f546e4a708c3cf4d4aae4d5d8df5b877f4e609a77d89e9",
+    "authorization-expiry|INSUFFICIENT_SPECIFICATION": "b23fddafb732237051b3f1191685783ce0311d2c7c48dc6317df630aedc1c81a",
+    "learning-authority|CONTINUE": "17d8597a57eae26c5af26814df638bb66395254eb8234d036ecb9250530dea25",
+    "learning-authority|BLOCK": "06dcc36322128e19a03b931be89e676b33dc1e27462c2f0cc3315d58370e1751",
+    "learning-authority|BLOCK_REAUTHORIZE": "afe043045692e2ca60a03591b8ff41d1b9ed96ac6833d8a100714e703e917c79",
+    "learning-authority|ESCALATE": "2c242fb741988322b51836cada144c514049bfd63d9348a93e17c17d7baca9b3",
+    "learning-authority|ROLLBACK_COMPENSATE": "bb5f5bd7a91b600175440ed7dcddb456ba7baf88e9b48129857df6215451feeb",
+    "learning-authority|INSUFFICIENT_SPECIFICATION": "e61510dfa6d49fdaefce2e3799d63c598806f77db7c17eaf40ac2228146a954c",
+    "conflicting-authorities|CONTINUE": "39d1bf2607dc2a7f065dfbde431e2697248be5eccfacf227d740b7af78684d07",
+    "conflicting-authorities|BLOCK": "9246a8fd85199def13461a7ab4da9d19bf40d3c1453410c7e79258c9fc860d21",
+    "conflicting-authorities|BLOCK_REAUTHORIZE": "83a8e63c06958628424d7f6308008e67ee0a4af384646786a72b5e17c6ed5a6d",
+    "conflicting-authorities|ESCALATE": "a881d2f6df399884684e96474f9279843fff8a4e13a034c0fcef719495e660bf",
+    "conflicting-authorities|ROLLBACK_COMPENSATE": "c2d53f16ddd479b9bd28aa7d4988d9b8eceb80ca84820fec9bf2ae85e364f271",
+    "conflicting-authorities|INSUFFICIENT_SPECIFICATION": "3831a34521d299d076ac4037719d0d532d7f24694f012a3be9b603e708d59764",
+    "mid-execution-revocation|CONTINUE": "cb639790a11d6dea08737233cb1ef6692748a42cb6b891b71178c598f918b804",
+    "mid-execution-revocation|BLOCK": "70a005888d2ecdc1cf1bafab6205fedffe5f73f26e92409127b7ee86224fa693",
+    "mid-execution-revocation|BLOCK_REAUTHORIZE": "2c2b8daefbbe5e3f2c4eae34536f5c55ad953ccef25570b7a1bffa4b215db07c",
+    "mid-execution-revocation|ESCALATE": "47ab671f35189c768efdfe69bcc27c9bc79bfc892c288de708a7de28ddb97270",
+    "mid-execution-revocation|ROLLBACK_COMPENSATE": "40574e4dbf55fe1f7ec4bfd3ad5d4cc537847c6bc42dc448f11c0dce4356aea5",
+    "mid-execution-revocation|INSUFFICIENT_SPECIFICATION": "9f7a0c065369e8d79640cddac37a435a6de1741ac6773063f6c7eaced044b126"
+  },
+  "smoke_test": {
+    "result": "PASS 6/6",
+    "runs": [
+      {
+        "scenario": "condition-change",
+        "prediction": "BLOCK_REAUTHORIZE",
+        "prediction_label": "BLOCK + REAUTHORIZE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "EXACT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3",
+        "evidence_core_sha256_observed": "849cc3cf5e555db4d8e65ebdfb18be93f92ec30c816b4240a3c6cfa891e85662",
+        "evidence_core_sha256_independent": "849cc3cf5e555db4d8e65ebdfb18be93f92ec30c816b4240a3c6cfa891e85662",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "030efe88fdfdf105565f7840412ebfaa3d4370fb46f7759367aca27f53990799",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:15:00.093Z",
+        "exported_at": "2026-09-24T05:15:00.480Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "evidence-change",
+        "prediction": "BLOCK",
+        "prediction_label": "BLOCK",
+        "encoded_assessment": "BLOCK",
+        "encoded_assessment_label": "BLOCK",
+        "comparison": "EXACT",
+        "compatible_set": [
+          "BLOCK_REAUTHORIZE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "36bc70425fbdcb41434072a5158ec306b6e364ba5d5f83e25c2a4edb5dadcc45",
+        "evidence_core_sha256_observed": "0e232f3817e158a692e8ca3427f7f93c1000292a7e0c76f7c173d1fc71b392a3",
+        "evidence_core_sha256_independent": "0e232f3817e158a692e8ca3427f7f93c1000292a7e0c76f7c173d1fc71b392a3",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "20e3fa2c4765dbd30d364b7f3f146239a6f413eb6320a7ce24787854784881f5",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:15:00.659Z",
+        "exported_at": "2026-09-24T05:15:01.037Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "authorization-expiry",
+        "prediction": "BLOCK_REAUTHORIZE",
+        "prediction_label": "BLOCK + REAUTHORIZE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "EXACT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "e7e29686985b9ab3d75395b525fda4b59b857d0ff74628eabd1000cccba69af4",
+        "evidence_core_sha256_observed": "9db2d32ebc93b72ce7d29f8917cfcec265167928ba972e2d5b188015cd684f01",
+        "evidence_core_sha256_independent": "9db2d32ebc93b72ce7d29f8917cfcec265167928ba972e2d5b188015cd684f01",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "7154ab9e37fb989217f0461f8a13d2c5d9c41b2f3f47a77f47b57815e5635ff4",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:15:01.204Z",
+        "exported_at": "2026-09-24T05:15:01.587Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "learning-authority",
+        "prediction": "BLOCK_REAUTHORIZE",
+        "prediction_label": "BLOCK + REAUTHORIZE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "EXACT",
+        "compatible_set": [
+          "BLOCK",
+          "CONTINUE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "d783abf986fce0b4069f8481c49fb6e970eff1a5c1458716ce1f41918c5142bf",
+        "evidence_core_sha256_observed": "afe043045692e2ca60a03591b8ff41d1b9ed96ac6833d8a100714e703e917c79",
+        "evidence_core_sha256_independent": "afe043045692e2ca60a03591b8ff41d1b9ed96ac6833d8a100714e703e917c79",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "7e49a99ddb688adba3b56fb8e9d3143441b202d737477081b09e3f556a47fdab",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:15:01.752Z",
+        "exported_at": "2026-09-24T05:15:02.147Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "conflicting-authorities",
+        "prediction": "INSUFFICIENT_SPECIFICATION",
+        "prediction_label": "INSUFFICIENT SPECIFICATION",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "EXACT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "437615c49f3f5fe751fed2cf76d6552d23af5883d9df1d5b3c2e82edc1098f27",
+        "evidence_core_sha256_observed": "3831a34521d299d076ac4037719d0d532d7f24694f012a3be9b603e708d59764",
+        "evidence_core_sha256_independent": "3831a34521d299d076ac4037719d0d532d7f24694f012a3be9b603e708d59764",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "0537796e4dbb1f27effec389820e346ef99c65365d23345773bb881718a2c2b0",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:15:02.289Z",
+        "exported_at": "2026-09-24T05:15:02.630Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "mid-execution-revocation",
+        "prediction": "INSUFFICIENT_SPECIFICATION",
+        "prediction_label": "INSUFFICIENT SPECIFICATION",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "EXACT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE",
+          "ROLLBACK_COMPENSATE"
+        ],
+        "contract_sha256": "916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164",
+        "evidence_core_sha256_observed": "9f7a0c065369e8d79640cddac37a435a6de1741ac6773063f6c7eaced044b126",
+        "evidence_core_sha256_independent": "9f7a0c065369e8d79640cddac37a435a6de1741ac6773063f6c7eaced044b126",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "5d4691cfe894ca4a60be68e160b5bda98350c6a8a0a37fc280b650f53c862c00",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:15:02.817Z",
+        "exported_at": "2026-09-24T05:15:03.179Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      }
+    ]
+  },
+  "primary_matrix": {
+    "result": "PASS 36/36",
+    "runs": [
+      {
+        "scenario": "condition-change",
+        "prediction": "CONTINUE",
+        "prediction_label": "CONTINUE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3",
+        "evidence_core_sha256_observed": "0fae3843d349a78d4f3b544a34cfa7d795d0fa70b014e6df1754302e213bf377",
+        "evidence_core_sha256_independent": "0fae3843d349a78d4f3b544a34cfa7d795d0fa70b014e6df1754302e213bf377",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "b5c3a9a6071f46bd21977dbaaa70a52a62d9622915215de847669e2eb28c2379",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:00.470Z",
+        "exported_at": "2026-09-24T05:18:00.835Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "condition-change",
+        "prediction": "BLOCK",
+        "prediction_label": "BLOCK",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3",
+        "evidence_core_sha256_observed": "863db77dc7156553c22b1bfecdb4971815046082d76a9ed15fa86d99a2801b23",
+        "evidence_core_sha256_independent": "863db77dc7156553c22b1bfecdb4971815046082d76a9ed15fa86d99a2801b23",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "35f7d6d8dadafcfe69bdcc2f0db172e64a97ef77681e0f7167345f51d4b236c7",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:00.994Z",
+        "exported_at": "2026-09-24T05:18:01.406Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "condition-change",
+        "prediction": "BLOCK_REAUTHORIZE",
+        "prediction_label": "BLOCK + REAUTHORIZE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "EXACT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3",
+        "evidence_core_sha256_observed": "849cc3cf5e555db4d8e65ebdfb18be93f92ec30c816b4240a3c6cfa891e85662",
+        "evidence_core_sha256_independent": "849cc3cf5e555db4d8e65ebdfb18be93f92ec30c816b4240a3c6cfa891e85662",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "9958690a4b90afde8d5afddcb8720ddbf29a852102c8d399eab1be69dc000ea2",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:01.566Z",
+        "exported_at": "2026-09-24T05:18:01.952Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "condition-change",
+        "prediction": "ESCALATE",
+        "prediction_label": "ESCALATE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3",
+        "evidence_core_sha256_observed": "cce14f4c096c68c7943aed2e371483a6571e48502ad938822396488149ff169a",
+        "evidence_core_sha256_independent": "cce14f4c096c68c7943aed2e371483a6571e48502ad938822396488149ff169a",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "8a4e3449edb0979ccc72ac8d26e59d6c94830e6ea54b8e55fb67815d825e210c",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:02.124Z",
+        "exported_at": "2026-09-24T05:18:02.537Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "condition-change",
+        "prediction": "ROLLBACK_COMPENSATE",
+        "prediction_label": "ROLLBACK / COMPENSATE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3",
+        "evidence_core_sha256_observed": "6b9541b8a1756e66123330e0803990403a740b64e4718aaf95fce5925d81d090",
+        "evidence_core_sha256_independent": "6b9541b8a1756e66123330e0803990403a740b64e4718aaf95fce5925d81d090",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "1cdec6a1a5a1bbc2ad1ab2234f7c56f2f9be6b12015bda0a508842da74864b4c",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:02.674Z",
+        "exported_at": "2026-09-24T05:18:03.057Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "condition-change",
+        "prediction": "INSUFFICIENT_SPECIFICATION",
+        "prediction_label": "INSUFFICIENT SPECIFICATION",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3",
+        "evidence_core_sha256_observed": "e8fb08541dcb6113cf44ca1a6c2e6658f8a6ff8d84a683e83680cc72c90cfe4f",
+        "evidence_core_sha256_independent": "e8fb08541dcb6113cf44ca1a6c2e6658f8a6ff8d84a683e83680cc72c90cfe4f",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "07a2b8bc09905111d3d27ec9a403e381f849404fa5ff59d9f25f3be7a9846e18",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:03.243Z",
+        "exported_at": "2026-09-24T05:18:03.646Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "evidence-change",
+        "prediction": "CONTINUE",
+        "prediction_label": "CONTINUE",
+        "encoded_assessment": "BLOCK",
+        "encoded_assessment_label": "BLOCK",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK_REAUTHORIZE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "36bc70425fbdcb41434072a5158ec306b6e364ba5d5f83e25c2a4edb5dadcc45",
+        "evidence_core_sha256_observed": "b96fae3b1f4b64a0aad51f15a6777d9a1e4781519fb33960e867380c09a91a4f",
+        "evidence_core_sha256_independent": "b96fae3b1f4b64a0aad51f15a6777d9a1e4781519fb33960e867380c09a91a4f",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "7ed8c8d10802aa397f86db2212be00c6b219489424e407c960f1ecf7a202ac27",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:03.805Z",
+        "exported_at": "2026-09-24T05:18:04.202Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "evidence-change",
+        "prediction": "BLOCK",
+        "prediction_label": "BLOCK",
+        "encoded_assessment": "BLOCK",
+        "encoded_assessment_label": "BLOCK",
+        "comparison": "EXACT",
+        "compatible_set": [
+          "BLOCK_REAUTHORIZE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "36bc70425fbdcb41434072a5158ec306b6e364ba5d5f83e25c2a4edb5dadcc45",
+        "evidence_core_sha256_observed": "0e232f3817e158a692e8ca3427f7f93c1000292a7e0c76f7c173d1fc71b392a3",
+        "evidence_core_sha256_independent": "0e232f3817e158a692e8ca3427f7f93c1000292a7e0c76f7c173d1fc71b392a3",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "40cfb60e99c563539d3bfc64a96d47d8342851bc7ddc22c6e83ba347444fcc97",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:04.396Z",
+        "exported_at": "2026-09-24T05:18:04.769Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "evidence-change",
+        "prediction": "BLOCK_REAUTHORIZE",
+        "prediction_label": "BLOCK + REAUTHORIZE",
+        "encoded_assessment": "BLOCK",
+        "encoded_assessment_label": "BLOCK",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK_REAUTHORIZE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "36bc70425fbdcb41434072a5158ec306b6e364ba5d5f83e25c2a4edb5dadcc45",
+        "evidence_core_sha256_observed": "5d41e89777f05f07528db1bd03414d4c5d0bdde3991c05e26b75ef7c6a550338",
+        "evidence_core_sha256_independent": "5d41e89777f05f07528db1bd03414d4c5d0bdde3991c05e26b75ef7c6a550338",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "b87c043c92b9511a284c1da572376600cf393f63e921520277eeb17686fb4369",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:05.202Z",
+        "exported_at": "2026-09-24T05:18:05.585Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "evidence-change",
+        "prediction": "ESCALATE",
+        "prediction_label": "ESCALATE",
+        "encoded_assessment": "BLOCK",
+        "encoded_assessment_label": "BLOCK",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK_REAUTHORIZE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "36bc70425fbdcb41434072a5158ec306b6e364ba5d5f83e25c2a4edb5dadcc45",
+        "evidence_core_sha256_observed": "1b6beb0b1ca093a513edf71a022acfcb50fbcf60b33204c33eee869437fec007",
+        "evidence_core_sha256_independent": "1b6beb0b1ca093a513edf71a022acfcb50fbcf60b33204c33eee869437fec007",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "86678b239a0fe457aa70a7ace0c8631de0f9b1724a95be279e4eaba1f7a3d943",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:05.766Z",
+        "exported_at": "2026-09-24T05:18:06.135Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "evidence-change",
+        "prediction": "ROLLBACK_COMPENSATE",
+        "prediction_label": "ROLLBACK / COMPENSATE",
+        "encoded_assessment": "BLOCK",
+        "encoded_assessment_label": "BLOCK",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK_REAUTHORIZE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "36bc70425fbdcb41434072a5158ec306b6e364ba5d5f83e25c2a4edb5dadcc45",
+        "evidence_core_sha256_observed": "adcea0e3a3cee708190c6dd94059dc2978946fd2881c2d38e7aed71aea78f6fc",
+        "evidence_core_sha256_independent": "adcea0e3a3cee708190c6dd94059dc2978946fd2881c2d38e7aed71aea78f6fc",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "5ee20baa1ddcd6656139ef6aecce0ce1315eea16e036fc3b05e7cf46c1afb4c8",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:06.317Z",
+        "exported_at": "2026-09-24T05:18:06.767Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "evidence-change",
+        "prediction": "INSUFFICIENT_SPECIFICATION",
+        "prediction_label": "INSUFFICIENT SPECIFICATION",
+        "encoded_assessment": "BLOCK",
+        "encoded_assessment_label": "BLOCK",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK_REAUTHORIZE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "36bc70425fbdcb41434072a5158ec306b6e364ba5d5f83e25c2a4edb5dadcc45",
+        "evidence_core_sha256_observed": "f815d080b713776490550d9dc3cdbe58596d0cf8fd4040bdc2e0afebddfabdc5",
+        "evidence_core_sha256_independent": "f815d080b713776490550d9dc3cdbe58596d0cf8fd4040bdc2e0afebddfabdc5",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "20da48124d477e3e44d14b63c55a9baf13f111a08a2ada55499b3f30876db541",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:06.952Z",
+        "exported_at": "2026-09-24T05:18:07.990Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "authorization-expiry",
+        "prediction": "CONTINUE",
+        "prediction_label": "CONTINUE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "e7e29686985b9ab3d75395b525fda4b59b857d0ff74628eabd1000cccba69af4",
+        "evidence_core_sha256_observed": "5a241a5b6b20dc1929ad779b68e8f31d5041b3486f9977e808c296e4f0db7c46",
+        "evidence_core_sha256_independent": "5a241a5b6b20dc1929ad779b68e8f31d5041b3486f9977e808c296e4f0db7c46",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "2c3a7caee83bdd0bc082919576657bf7b0f0e9acf53bb347cceaee91b9d4ff46",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:12.727Z",
+        "exported_at": "2026-09-24T05:18:13.086Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "authorization-expiry",
+        "prediction": "BLOCK",
+        "prediction_label": "BLOCK",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "e7e29686985b9ab3d75395b525fda4b59b857d0ff74628eabd1000cccba69af4",
+        "evidence_core_sha256_observed": "ac554ae2ddcf1a8c3ef17c4f2f03abc532aaa68ddd94d837309e346799c78ff9",
+        "evidence_core_sha256_independent": "ac554ae2ddcf1a8c3ef17c4f2f03abc532aaa68ddd94d837309e346799c78ff9",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "28fcc981c3798a6812ddec2ebe0dfa444f16b7c244afffebe070c46babcc7a45",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:13.248Z",
+        "exported_at": "2026-09-24T05:18:13.642Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "authorization-expiry",
+        "prediction": "BLOCK_REAUTHORIZE",
+        "prediction_label": "BLOCK + REAUTHORIZE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "EXACT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "e7e29686985b9ab3d75395b525fda4b59b857d0ff74628eabd1000cccba69af4",
+        "evidence_core_sha256_observed": "9db2d32ebc93b72ce7d29f8917cfcec265167928ba972e2d5b188015cd684f01",
+        "evidence_core_sha256_independent": "9db2d32ebc93b72ce7d29f8917cfcec265167928ba972e2d5b188015cd684f01",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "72a6f5258e991282a733a069484d3c3af285a6f2f5dec47a4d1319668de90e3c",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:13.802Z",
+        "exported_at": "2026-09-24T05:18:14.191Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "authorization-expiry",
+        "prediction": "ESCALATE",
+        "prediction_label": "ESCALATE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "e7e29686985b9ab3d75395b525fda4b59b857d0ff74628eabd1000cccba69af4",
+        "evidence_core_sha256_observed": "08fcb9ac373d6e497c4f9fa549d39628e0109fc2adbdea259097270f0f0064a3",
+        "evidence_core_sha256_independent": "08fcb9ac373d6e497c4f9fa549d39628e0109fc2adbdea259097270f0f0064a3",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "f95219308a42f7b1ff2a59338a83f8f93dbea24b780f062bf3567dbab7195b4b",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:14.357Z",
+        "exported_at": "2026-09-24T05:18:14.780Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "authorization-expiry",
+        "prediction": "ROLLBACK_COMPENSATE",
+        "prediction_label": "ROLLBACK / COMPENSATE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "e7e29686985b9ab3d75395b525fda4b59b857d0ff74628eabd1000cccba69af4",
+        "evidence_core_sha256_observed": "ed69f2e341f9fea4c4f546e4a708c3cf4d4aae4d5d8df5b877f4e609a77d89e9",
+        "evidence_core_sha256_independent": "ed69f2e341f9fea4c4f546e4a708c3cf4d4aae4d5d8df5b877f4e609a77d89e9",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "e086dcfa948d839aef2994d1a8383b0c0d083e57d46a8c18def363a52bc891f1",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:14.921Z",
+        "exported_at": "2026-09-24T05:18:15.294Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "authorization-expiry",
+        "prediction": "INSUFFICIENT_SPECIFICATION",
+        "prediction_label": "INSUFFICIENT SPECIFICATION",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "e7e29686985b9ab3d75395b525fda4b59b857d0ff74628eabd1000cccba69af4",
+        "evidence_core_sha256_observed": "b23fddafb732237051b3f1191685783ce0311d2c7c48dc6317df630aedc1c81a",
+        "evidence_core_sha256_independent": "b23fddafb732237051b3f1191685783ce0311d2c7c48dc6317df630aedc1c81a",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "de193c5fb9be4f7e4b9597927086ebe301fd144cb671567a79917d80e10b5473",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:15.465Z",
+        "exported_at": "2026-09-24T05:18:15.849Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "learning-authority",
+        "prediction": "CONTINUE",
+        "prediction_label": "CONTINUE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK",
+          "CONTINUE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "d783abf986fce0b4069f8481c49fb6e970eff1a5c1458716ce1f41918c5142bf",
+        "evidence_core_sha256_observed": "17d8597a57eae26c5af26814df638bb66395254eb8234d036ecb9250530dea25",
+        "evidence_core_sha256_independent": "17d8597a57eae26c5af26814df638bb66395254eb8234d036ecb9250530dea25",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "c5b6d01522e068898416567ea10b39680e22744421432a05a64a20eddf70f4ab",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:16.024Z",
+        "exported_at": "2026-09-24T05:18:16.439Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "MATCH"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "learning-authority",
+        "prediction": "BLOCK",
+        "prediction_label": "BLOCK",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK",
+          "CONTINUE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "d783abf986fce0b4069f8481c49fb6e970eff1a5c1458716ce1f41918c5142bf",
+        "evidence_core_sha256_observed": "06dcc36322128e19a03b931be89e676b33dc1e27462c2f0cc3315d58370e1751",
+        "evidence_core_sha256_independent": "06dcc36322128e19a03b931be89e676b33dc1e27462c2f0cc3315d58370e1751",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "67a240012ea085f424e8600a6daf1bc4c9fc5c5796a44d09453cc9e004d4c6c5",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:16.613Z",
+        "exported_at": "2026-09-24T05:18:16.965Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "MATCH",
+          "replay": "MATCH",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "learning-authority",
+        "prediction": "BLOCK_REAUTHORIZE",
+        "prediction_label": "BLOCK + REAUTHORIZE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "EXACT",
+        "compatible_set": [
+          "BLOCK",
+          "CONTINUE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "d783abf986fce0b4069f8481c49fb6e970eff1a5c1458716ce1f41918c5142bf",
+        "evidence_core_sha256_observed": "afe043045692e2ca60a03591b8ff41d1b9ed96ac6833d8a100714e703e917c79",
+        "evidence_core_sha256_independent": "afe043045692e2ca60a03591b8ff41d1b9ed96ac6833d8a100714e703e917c79",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "fc71cbb60a00cfff944351a9c466233e0e6618c44f732275275dd006b62bd45c",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:17.057Z",
+        "exported_at": "2026-09-24T05:18:17.363Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "learning-authority",
+        "prediction": "ESCALATE",
+        "prediction_label": "ESCALATE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK",
+          "CONTINUE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "d783abf986fce0b4069f8481c49fb6e970eff1a5c1458716ce1f41918c5142bf",
+        "evidence_core_sha256_observed": "2c242fb741988322b51836cada144c514049bfd63d9348a93e17c17d7baca9b3",
+        "evidence_core_sha256_independent": "2c242fb741988322b51836cada144c514049bfd63d9348a93e17c17d7baca9b3",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "279ca45fb3ce8e1b67a42ea838f5dd45b1e4209e37fade27824a5a4cd5160f80",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:17.519Z",
+        "exported_at": "2026-09-24T05:18:17.857Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "learning-authority",
+        "prediction": "ROLLBACK_COMPENSATE",
+        "prediction_label": "ROLLBACK / COMPENSATE",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "CONTINUE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "d783abf986fce0b4069f8481c49fb6e970eff1a5c1458716ce1f41918c5142bf",
+        "evidence_core_sha256_observed": "bb5f5bd7a91b600175440ed7dcddb456ba7baf88e9b48129857df6215451feeb",
+        "evidence_core_sha256_independent": "bb5f5bd7a91b600175440ed7dcddb456ba7baf88e9b48129857df6215451feeb",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "e318b3a10ad74ef8afb6622166d6b5d43e58dd4ded41e1a41ee5bf2e07cbbb28",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:17.952Z",
+        "exported_at": "2026-09-24T05:18:18.251Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "learning-authority",
+        "prediction": "INSUFFICIENT_SPECIFICATION",
+        "prediction_label": "INSUFFICIENT SPECIFICATION",
+        "encoded_assessment": "BLOCK_REAUTHORIZE",
+        "encoded_assessment_label": "BLOCK + REAUTHORIZE",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "CONTINUE",
+          "ESCALATE"
+        ],
+        "contract_sha256": "d783abf986fce0b4069f8481c49fb6e970eff1a5c1458716ce1f41918c5142bf",
+        "evidence_core_sha256_observed": "e61510dfa6d49fdaefce2e3799d63c598806f77db7c17eaf40ac2228146a954c",
+        "evidence_core_sha256_independent": "e61510dfa6d49fdaefce2e3799d63c598806f77db7c17eaf40ac2228146a954c",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "05b4ca29aa2c9f49db47bab1edead0da881a0deb4eb2055ce989918d718d3e3f",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:18.351Z",
+        "exported_at": "2026-09-24T05:18:18.604Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "conflicting-authorities",
+        "prediction": "CONTINUE",
+        "prediction_label": "CONTINUE",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "437615c49f3f5fe751fed2cf76d6552d23af5883d9df1d5b3c2e82edc1098f27",
+        "evidence_core_sha256_observed": "39d1bf2607dc2a7f065dfbde431e2697248be5eccfacf227d740b7af78684d07",
+        "evidence_core_sha256_independent": "39d1bf2607dc2a7f065dfbde431e2697248be5eccfacf227d740b7af78684d07",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "accf71ff14d397d5303c61026a8a89b89fb77a653b479e152778958b6b880348",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:25.049Z",
+        "exported_at": "2026-09-24T05:18:25.354Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "conflicting-authorities",
+        "prediction": "BLOCK",
+        "prediction_label": "BLOCK",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "437615c49f3f5fe751fed2cf76d6552d23af5883d9df1d5b3c2e82edc1098f27",
+        "evidence_core_sha256_observed": "9246a8fd85199def13461a7ab4da9d19bf40d3c1453410c7e79258c9fc860d21",
+        "evidence_core_sha256_independent": "9246a8fd85199def13461a7ab4da9d19bf40d3c1453410c7e79258c9fc860d21",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "1926c13202aa5272b18d79dbe1082ada02a05d9330f6393d87ecff75fb196b77",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:25.468Z",
+        "exported_at": "2026-09-24T05:18:25.749Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "conflicting-authorities",
+        "prediction": "BLOCK_REAUTHORIZE",
+        "prediction_label": "BLOCK + REAUTHORIZE",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "437615c49f3f5fe751fed2cf76d6552d23af5883d9df1d5b3c2e82edc1098f27",
+        "evidence_core_sha256_observed": "83a8e63c06958628424d7f6308008e67ee0a4af384646786a72b5e17c6ed5a6d",
+        "evidence_core_sha256_independent": "83a8e63c06958628424d7f6308008e67ee0a4af384646786a72b5e17c6ed5a6d",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "24799f8a17da952178249d3e6f006d76c15289c5b2b981b7c87309e4dc7a5adf",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:25.845Z",
+        "exported_at": "2026-09-24T05:18:26.133Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "conflicting-authorities",
+        "prediction": "ESCALATE",
+        "prediction_label": "ESCALATE",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "437615c49f3f5fe751fed2cf76d6552d23af5883d9df1d5b3c2e82edc1098f27",
+        "evidence_core_sha256_observed": "a881d2f6df399884684e96474f9279843fff8a4e13a034c0fcef719495e660bf",
+        "evidence_core_sha256_independent": "a881d2f6df399884684e96474f9279843fff8a4e13a034c0fcef719495e660bf",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "1928880aac4636fab01eae114fab066e87637ebf486ca90073bc82a928ee62e2",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:26.245Z",
+        "exported_at": "2026-09-24T05:18:26.556Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "conflicting-authorities",
+        "prediction": "ROLLBACK_COMPENSATE",
+        "prediction_label": "ROLLBACK / COMPENSATE",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "437615c49f3f5fe751fed2cf76d6552d23af5883d9df1d5b3c2e82edc1098f27",
+        "evidence_core_sha256_observed": "c2d53f16ddd479b9bd28aa7d4988d9b8eceb80ca84820fec9bf2ae85e364f271",
+        "evidence_core_sha256_independent": "c2d53f16ddd479b9bd28aa7d4988d9b8eceb80ca84820fec9bf2ae85e364f271",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "82d1c85c371b60eecce8fcf7bf7011706d86a7ad6d5292fe08f25bab1d8be4d3",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:26.704Z",
+        "exported_at": "2026-09-24T05:18:27.015Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "conflicting-authorities",
+        "prediction": "INSUFFICIENT_SPECIFICATION",
+        "prediction_label": "INSUFFICIENT SPECIFICATION",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "EXACT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE"
+        ],
+        "contract_sha256": "437615c49f3f5fe751fed2cf76d6552d23af5883d9df1d5b3c2e82edc1098f27",
+        "evidence_core_sha256_observed": "3831a34521d299d076ac4037719d0d532d7f24694f012a3be9b603e708d59764",
+        "evidence_core_sha256_independent": "3831a34521d299d076ac4037719d0d532d7f24694f012a3be9b603e708d59764",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "d60dbd7e500cfd225b18a1d1f54af5e88251190b92e18803481c6062b6e80dd3",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:27.121Z",
+        "exported_at": "2026-09-24T05:18:27.404Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "mid-execution-revocation",
+        "prediction": "CONTINUE",
+        "prediction_label": "CONTINUE",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE",
+          "ROLLBACK_COMPENSATE"
+        ],
+        "contract_sha256": "916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164",
+        "evidence_core_sha256_observed": "cb639790a11d6dea08737233cb1ef6692748a42cb6b891b71178c598f918b804",
+        "evidence_core_sha256_independent": "cb639790a11d6dea08737233cb1ef6692748a42cb6b891b71178c598f918b804",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "12f38e085b046e509c76b4ef2a62b5a077d1ea52b4931821bec7b2c14277bbb0",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:27.508Z",
+        "exported_at": "2026-09-24T05:18:27.790Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "mid-execution-revocation",
+        "prediction": "BLOCK",
+        "prediction_label": "BLOCK",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE",
+          "ROLLBACK_COMPENSATE"
+        ],
+        "contract_sha256": "916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164",
+        "evidence_core_sha256_observed": "70a005888d2ecdc1cf1bafab6205fedffe5f73f26e92409127b7ee86224fa693",
+        "evidence_core_sha256_independent": "70a005888d2ecdc1cf1bafab6205fedffe5f73f26e92409127b7ee86224fa693",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "53f8635899489818a574a6b21c1f2bc293a2af8b5566cabbe193603d8a43e4c5",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:27.892Z",
+        "exported_at": "2026-09-24T05:18:28.194Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "mid-execution-revocation",
+        "prediction": "BLOCK_REAUTHORIZE",
+        "prediction_label": "BLOCK + REAUTHORIZE",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "DIFFERENT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE",
+          "ROLLBACK_COMPENSATE"
+        ],
+        "contract_sha256": "916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164",
+        "evidence_core_sha256_observed": "2c2b8daefbbe5e3f2c4eae34536f5c55ad953ccef25570b7a1bffa4b215db07c",
+        "evidence_core_sha256_independent": "2c2b8daefbbe5e3f2c4eae34536f5c55ad953ccef25570b7a1bffa4b215db07c",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "8b1a6bea701546c0945392891df770c557b254fa148e6cd50d0e56d754f0d20c",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:28.279Z",
+        "exported_at": "2026-09-24T05:18:28.567Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "mid-execution-revocation",
+        "prediction": "ESCALATE",
+        "prediction_label": "ESCALATE",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE",
+          "ROLLBACK_COMPENSATE"
+        ],
+        "contract_sha256": "916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164",
+        "evidence_core_sha256_observed": "47ab671f35189c768efdfe69bcc27c9bc79bfc892c288de708a7de28ddb97270",
+        "evidence_core_sha256_independent": "47ab671f35189c768efdfe69bcc27c9bc79bfc892c288de708a7de28ddb97270",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "637b34e468eb8706ee0e0cc6565c349b4191556e5239eee8deb2c0e444133e7b",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:28.659Z",
+        "exported_at": "2026-09-24T05:18:28.945Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "mid-execution-revocation",
+        "prediction": "ROLLBACK_COMPENSATE",
+        "prediction_label": "ROLLBACK / COMPENSATE",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "PARTIAL",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE",
+          "ROLLBACK_COMPENSATE"
+        ],
+        "contract_sha256": "916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164",
+        "evidence_core_sha256_observed": "40574e4dbf55fe1f7ec4bfd3ad5d4cc537847c6bc42dc448f11c0dce4356aea5",
+        "evidence_core_sha256_independent": "40574e4dbf55fe1f7ec4bfd3ad5d4cc537847c6bc42dc448f11c0dce4356aea5",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "bf4f33e700e2315ab122573993e1d49c8ca675ff1d024f048a836e745093b6cc",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:29.040Z",
+        "exported_at": "2026-09-24T05:18:29.320Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      },
+      {
+        "scenario": "mid-execution-revocation",
+        "prediction": "INSUFFICIENT_SPECIFICATION",
+        "prediction_label": "INSUFFICIENT SPECIFICATION",
+        "encoded_assessment": "INSUFFICIENT_SPECIFICATION",
+        "encoded_assessment_label": "INSUFFICIENT SPECIFICATION",
+        "comparison": "EXACT",
+        "compatible_set": [
+          "BLOCK",
+          "ESCALATE",
+          "ROLLBACK_COMPENSATE"
+        ],
+        "contract_sha256": "916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164",
+        "evidence_core_sha256_observed": "9f7a0c065369e8d79640cddac37a435a6de1741ac6773063f6c7eaced044b126",
+        "evidence_core_sha256_independent": "9f7a0c065369e8d79640cddac37a435a6de1741ac6773063f6c7eaced044b126",
+        "core_matches_independent": true,
+        "record_snapshot_sha256": "762a2ac93b2f8f4608e3c86d660ad2cb69663f25e788b7ad4bb4a99e2c33543d",
+        "snapshot_recomputable_from_exported_file": true,
+        "generated_at": "2026-09-24T05:18:29.425Z",
+        "exported_at": "2026-09-24T05:18:29.718Z",
+        "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+        "source_bytes": 50354,
+        "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+        "app_js_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+        "commit_verification": {
+          "run": "UNAVAILABLE",
+          "replay": "UNAVAILABLE",
+          "export": "UNAVAILABLE"
+        },
+        "run": "OK",
+        "refusal_notice": null,
+        "replay_result": "REPLAY CONSISTENT",
+        "replay_flags": {
+          "replay_match": true,
+          "disposition_match": true,
+          "contract_match": true,
+          "source_match": true,
+          "code_match": true,
+          "record_integrity_match": true,
+          "authored_state_match": true
+        },
+        "export_enabled_after_replay": true,
+        "export": "PRODUCED",
+        "integrity_status": "PASS",
+        "all_15_integrity_checks_true": true,
+        "json_matches_selection": true,
+        "uncaught_errors": 0
+      }
+    ],
+    "unique_core_hashes": 36
+  },
+  "example_export_S01_BLOCK_REAUTHORIZE": {
+    "file": "janus-harness-condition-change-block_reauthorize-2026-09-24T05-15-00-480Z-v0.3.1.json",
+    "keys": [
+      "harness",
+      "version",
+      "build_id",
+      "generated_at",
+      "repository",
+      "harness_code_commit",
+      "harness_provenance",
+      "source_document",
+      "contract_sha256",
+      "evaluation_mode",
+      "restrictions",
+      "harness_attribution",
+      "janus_attribution",
+      "scenario_id",
+      "scenario_name",
+      "scenario_summary",
+      "perturbation",
+      "reviewer_prediction",
+      "reviewer_prediction_label",
+      "orientation_level_disposition",
+      "orientation_level_disposition_label",
+      "prediction_comparison",
+      "prediction_comparison_label",
+      "compatible_predictions",
+      "compatibility_reason",
+      "changed",
+      "remains_valid",
+      "invalid_or_uncertain",
+      "execution",
+      "source_commitments",
+      "rationale",
+      "open_question",
+      "evidence_required",
+      "sources",
+      "event_log",
+      "evidence_core_sha256",
+      "record_snapshot_sha256",
+      "exported_at",
+      "integrity_status",
+      "integrity_scope",
+      "integrity_checks",
+      "export_provenance",
+      "replay"
+    ],
+    "version": "0.3.1",
+    "build_id": "janus-governance-challenge-harness-v0.3.1",
+    "harness_code_commit": "a10722a087e740d183598125909319610ca4238f",
+    "harness_provenance": {
+      "build_info_url": "https://newsomek.github.io/JANUS-Governance-Challenge-Harness/build-info.json",
+      "build_version": "0.3.1",
+      "build_id": "janus-governance-challenge-harness-v0.3.1",
+      "code_commit": "a10722a087e740d183598125909319610ca4238f",
+      "app_js_expected_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+      "app_js_observed_sha256": "0cc9f921401c122ef5f4f9cbbc29d205dc643e0b98891a477bac814647f0eb45",
+      "app_js_hash_match": true,
+      "deployment_head_observed": "9dc291a5478668b9baae957797b5c799917d35f7",
+      "deployment_parent_shas": [
+        "a10722a087e740d183598125909319610ca4238f"
+      ],
+      "commit_verification": "MATCH",
+      "corroboration_note": "GitHub main serves the same app.js bytes as the bound build manifest.",
+      "observed_at": "2026-09-24T05:15:00.091Z"
+    },
+    "source_document": {
+      "url": "https://newsomek.github.io/JANUS-Governance-Challenge-Harness/docs/JANUS_Orientation_Edition_2026_EN.docx",
+      "expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+      "observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+      "bytes": 50354,
+      "hash_match": true,
+      "checked_at": "2026-09-24T05:14:59.531Z"
+    },
+    "generated_at": "2026-09-24T05:15:00.093Z",
+    "exported_at": "2026-09-24T05:15:00.480Z",
+    "contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3",
+    "evidence_core_sha256": "849cc3cf5e555db4d8e65ebdfb18be93f92ec30c816b4240a3c6cfa891e85662",
+    "record_snapshot_sha256": "030efe88fdfdf105565f7840412ebfaa3d4370fb46f7759367aca27f53990799",
+    "repository": "https://github.com/Newsomek/JANUS-Governance-Challenge-Harness",
+    "evaluation_mode": "external orientation-level authored conformance challenge",
+    "restrictions_count": 7,
+    "harness_attribution": {
+      "creator": "Kelly Newsome",
+      "organization": "Stratos Engine"
+    },
+    "janus_attribution": {
+      "creator": "Eryk Dubiel",
+      "linkedin": "https://www.linkedin.com/in/eryk-dubiel-1201a12b3/"
+    },
+    "integrity_status": "PASS",
+    "integrity_scope": "Stable authored evidence core plus full stored record snapshot; unsigned client-side evidence, not tamper-proof after export.",
+    "integrity_checks_count": 15,
+    "export_provenance": {
+      "bound_code_commit": "a10722a087e740d183598125909319610ca4238f",
+      "deployment_head_observed": "9dc291a5478668b9baae957797b5c799917d35f7",
+      "commit_verification": "MATCH"
+    }
+  },
+  "v03_new_01_fix_verification": {
+    "delayed_sequence": {
+      "scenario": "evidence-change",
+      "prediction": "BLOCK",
+      "replay_after_8s": "REPLAY CONSISTENT",
+      "replay_after_16s": "REPLAY CONSISTENT",
+      "export_after_21s": "PASS",
+      "run_to_export_gap_ms": 21475,
+      "core_equals_independent": true
+    },
+    "field_sensitivity_live_page": {
+      "source.checked_at": false,
+      "source.verification": false,
+      "source.hash_match": false,
+      "provenance.observed_at": false,
+      "provenance.commit_verification": false,
+      "provenance.deployment_head_observed": false,
+      "provenance.corroboration_note": false,
+      "generated_at": false,
+      "harness_code_commit (top-level; separately checked)": false,
+      "source.bytes": true,
+      "source.observed_sha256": true,
+      "source.expected_sha256": true,
+      "source.url": true,
+      "source.title": true,
+      "source.path": true,
+      "provenance.code_commit": true,
+      "provenance.build_version": true,
+      "provenance.app_js_observed_sha256": true
+    },
+    "node_independent": {
+      "volatile_change_altered_core_in": "0/36",
+      "byte_count_change_left_core_unchanged_in": "0/36"
+    },
+    "classification": "FIXED"
+  },
+  "source_substitution_tests": [
+    {
+      "at": "run",
+      "mode": "one byte flipped",
+      "result": "Run refused; banner: Execution refused: Observed JANUS source-document SHA-256 does not match the published expected hash."
+    },
+    {
+      "at": "run",
+      "mode": "HTTP 404",
+      "result": "Run refused; banner: Execution refused: Source document fetch failed: HTTP 404"
+    },
+    {
+      "at": "run",
+      "mode": "network failure",
+      "result": "Run refused; banner: Execution refused: Failed to fetch"
+    },
+    {
+      "at": "replay",
+      "mode": "one byte flipped",
+      "result": "REPLAY REFUSED; banner: Replay refused: Observed JANUS source-document SHA-256 does not match...; Export disabled"
+    },
+    {
+      "at": "replay",
+      "mode": "HTTP 404",
+      "result": "REPLAY REFUSED; banner shows HTTP 404; Export disabled"
+    },
+    {
+      "at": "replay",
+      "mode": "network failure",
+      "result": "REPLAY REFUSED; banner: Replay refused: Failed to fetch; Export disabled"
+    },
+    {
+      "at": "export",
+      "mode": "one byte flipped",
+      "result": "Export refused (alert): Observed JANUS source-document SHA-256 does not match...; no file"
+    },
+    {
+      "at": "export",
+      "mode": "HTTP 404",
+      "result": "Export refused (alert): Source document fetch failed: HTTP 404; no file"
+    },
+    {
+      "at": "export",
+      "mode": "network failure",
+      "result": "Export refused (alert): Failed to fetch; no file"
+    }
+  ],
+  "source_substitution_summary": "9/9 detected and refused visibly; 0 files produced; 0 uncaught errors",
+  "build_provenance_tests": [
+    {
+      "case": "build-info 404 @Run",
+      "result": "Refused: Build provenance fetch failed: HTTP 404"
+    },
+    {
+      "case": "build-info network failure @Run",
+      "result": "Refused: Failed to fetch"
+    },
+    {
+      "case": "build-info code_commit malformed @Run",
+      "result": "Refused: Build provenance is malformed."
+    },
+    {
+      "case": "build-info files[app.js] missing @Run",
+      "result": "Refused: Build provenance is malformed."
+    },
+    {
+      "case": "build-info files[app.js] wrong @Run",
+      "result": "Refused: Served app.js SHA-256 does not match build provenance."
+    },
+    {
+      "case": "build-info version=9.9.9 (hashes intact) @Run",
+      "result": "ACCEPTED at Run; evidence records build_version 9.9.9; later Replay DIVERGENCE (authored_state) because live manifest differs -> V031-NEW-05"
+    },
+    {
+      "case": "build-info build_id altered @Run",
+      "result": "ACCEPTED at Run; later Replay DIVERGENCE -> V031-NEW-05"
+    },
+    {
+      "case": "build-info code_commit -> d79b038 @Run",
+      "result": "ACCEPTED at Run; evidence names d79b038; later Replay DIVERGENCE (code_match, authored_state) -> V031-NEW-05"
+    },
+    {
+      "case": "served app.js 1 byte flipped @Run",
+      "result": "Refused: Served app.js SHA-256 does not match build provenance."
+    },
+    {
+      "case": "served app.js 404 @Run",
+      "result": "Refused: Harness code fetch failed: HTTP 404"
+    },
+    {
+      "case": "GitHub API 403 @Run",
+      "result": "Run OK, code_commit a10722a retained, commit_verification UNAVAILABLE; Replay CONSISTENT; Export PASS"
+    },
+    {
+      "case": "GitHub API network failure @Run",
+      "result": "Run OK, code_commit retained, UNAVAILABLE; Replay CONSISTENT; Export PASS"
+    },
+    {
+      "case": "GitHub API real 429 quota exhaustion (natural, 26+ cycles)",
+      "result": "code_commit retained in all runs; UNAVAILABLE; all Replays CONSISTENT, Exports PASS; UI shows 'GitHub main corroboration: UNAVAILABLE'"
+    },
+    {
+      "case": "GitHub main moved to d79b038 (different app.js) @Run",
+      "result": "Run OK, code_commit remains a10722a, commit_verification MISMATCH, note 'GitHub main app.js differs from the bound build manifest.'; Replay CONSISTENT; Export PASS"
+    },
+    {
+      "case": "build-info code_commit altered @Replay",
+      "result": "REPLAY DIVERGENCE (code_match, authored_state_match); Export disabled"
+    },
+    {
+      "case": "build-info version altered @Replay",
+      "result": "REPLAY DIVERGENCE (authored_state_match); Export disabled"
+    },
+    {
+      "case": "app.js flipped @Replay",
+      "result": "REPLAY REFUSED: Served app.js SHA-256 does not match build provenance.; Export disabled"
+    },
+    {
+      "case": "build-info code_commit altered @Export",
+      "result": "Export refused (alert): integrity check failed (code_commit, authored_state_integrity)"
+    },
+    {
+      "case": "app.js flipped @Export",
+      "result": "Export refused (alert): Served app.js SHA-256 does not match build provenance."
+    },
+    {
+      "case": "GitHub API 403 @Export",
+      "result": "Export PASS; export_provenance.commit_verification UNAVAILABLE"
+    }
+  ],
+  "tamper_tests": {
+    "setup": "S02 evidence-change / BLOCK; A = tamper after Run, then Replay, then Export; B = tamper after clean Replay, then Export",
+    "protected_fields_tampered": [
+      "disposition",
+      "disposition label",
+      "prediction",
+      "prediction label",
+      "comparison code",
+      "comparison label",
+      "compatibility set",
+      "compatibility rationale",
+      "contract hash",
+      "scenario rationale",
+      "source expected hash",
+      "source observed hash",
+      "source URL",
+      "source byte count",
+      "event log",
+      "evidence required",
+      "support status",
+      "code commit (top-level)",
+      "code commit (provenance)",
+      "build manifest version",
+      "build manifest app.js hash",
+      "repository",
+      "restrictions",
+      "JANUS attribution",
+      "harness attribution"
+    ],
+    "protected_result": {
+      "A": "25/25 REPLAY DIVERGENCE, Export disabled",
+      "B": "25/25 Export refused with named failed checks"
+    },
+    "non_core_fields_plain_tamper": {
+      "fields": [
+        "generated_at",
+        "source checked_at",
+        "source hash_match",
+        "provenance commit_verification",
+        "harness name"
+      ],
+      "A": "5/5 DIVERGENCE (record_integrity_match)",
+      "B": "5/5 refused (stored_record_snapshot_integrity)"
+    },
+    "recompute_attacks": {
+      "disposition+core+snapshot recomputed": "caught (A: disposition_match+authored_state_match; B: authored_state_integrity)",
+      "commit_verification forged + snapshot recomputed": "NOT caught: Replay CONSISTENT, Export PASS (A and B)",
+      "generated_at forged + snapshot recomputed": "NOT caught: Replay CONSISTENT, Export PASS (A and B)",
+      "full self-consistent prediction forgery CONTINUE->BLOCK + hashes recomputed": "NOT caught (inherent; record identical to genuine BLOCK run, core 0e232f38...)"
+    },
+    "structural": {
+      "harness_provenance=null": "Replay and Export throw uncaught TypeError (reading 'build_info_url'); no replay result, no export, no visible reason",
+      "source_document=null": "uncaught TypeError (reading 'title'); no export, no visible reason"
+    },
+    "lastReplay_tamper_after_clean_replay": "replay.result='FORGED RESULT', replay.source_observed_sha256=000... -> Export PASS containing the forged replay block (replay block not integrity-checked)",
+    "B_failed_checks": {
+      "disposition": [
+        "disposition_label",
+        "stored_evidence_core_integrity",
+        "stored_record_snapshot_integrity"
+      ],
+      "prediction": [
+        "prediction_label",
+        "comparison_code",
+        "comparison_label",
+        "event_log",
+        "stored_evidence_core_integrity",
+        "stored_record_snapshot_integrity",
+        "authored_state_integrity"
+      ],
+      "contract hash": [
+        "contract_hash",
+        "core",
+        "snapshot"
+      ],
+      "source observed hash": [
+        "source_matches_run",
+        "core",
+        "snapshot"
+      ],
+      "event log": [
+        "event_log",
+        "core",
+        "snapshot"
+      ],
+      "code commit (top-level)": [
+        "code_commit",
+        "snapshot"
+      ],
+      "other protected fields": [
+        "core",
+        "snapshot"
+      ],
+      "non-core fields": [
+        "snapshot"
+      ]
+    },
+    "totals": {
+      "cases": 70,
+      "caught": 62,
+      "not_caught_recompute": 4,
+      "structural_uncaught_error_fail_closed": 4
+    }
+  },
+  "not_protected": [
+    "exported replay block (copied from lastReplay, not hashed or checked)",
+    "export_provenance, integrity_checks, integrity_scope, exported_at (generated at export)",
+    "non-core Run fields (generated_at, checked_at, verification, hash_match, commit_verification, deployment_head_observed, corroboration_note, observed_at, harness name) are protected only by the unkeyed snapshot hash and can be forged by recomputing it",
+    "index.html, styles.css, README etc. are listed in build-info but not verified at runtime; only app.js is",
+    "build-info.json itself (its code_commit is asserted, not verified against a git object at runtime)"
+  ],
+  "refusal_observability": {
+    "run_refusals": "visible banner 'Execution refused: <reason>' (source mismatch/404/network, build-info 404/malformed, app.js mismatch/404, invalid prediction, invalid scenario, contract schema errors)",
+    "replay_refusals": "visible banner 'Replay refused: <reason>' + replay record JSON",
+    "replay_divergence": "visible banner 'Replay divergence detected. Ordinary evidence export is blocked.' (flags only in replay record)",
+    "export_refusals": "window.alert('Export refused: <reason / failed checks>') only; nothing persisted on the page",
+    "network_failure_wording": "'Failed to fetch' does not say which resource (source, build-info, app.js)",
+    "gaps": [
+      "null scenario object: uncaught TypeError, no message",
+      "structural tamper: uncaught TypeError, no message",
+      "Run button remains disabled after any Run refusal (retry needs Reset or reselect)"
+    ]
+  },
+  "malformed_contract_tests": [
+    {
+      "case": "missing commitments",
+      "result": "refused visibly: Scenario commitments are invalid."
+    },
+    {
+      "case": "missing sources",
+      "result": "refused visibly: Scenario source list is invalid."
+    },
+    {
+      "case": "missing disposition",
+      "result": "refused visibly: Scenario contract field is invalid: disposition"
+    },
+    {
+      "case": "invalid disposition 'FOO'",
+      "result": "ACCEPTED: Run OK, UI disposition blank, Export PASS with orientation_level_disposition_label undefined/absent"
+    },
+    {
+      "case": "missing compatibility set",
+      "result": "refused visibly: Scenario compatibility set is invalid."
+    },
+    {
+      "case": "compatibility set contains 'FOO'",
+      "result": "refused visibly"
+    },
+    {
+      "case": "compatibility set contains the scenario's own disposition",
+      "result": "ACCEPTED, Export PASS"
+    },
+    {
+      "case": "invalid support status 'TOTALLY PROVEN'",
+      "result": "ACCEPTED: rendered with OPEN styling, Export PASS with status 'TOTALLY PROVEN'"
+    },
+    {
+      "case": "commitments contains null",
+      "result": "refused visibly: Scenario commitments are invalid."
+    },
+    {
+      "case": "sources contains number",
+      "result": "refused visibly"
+    },
+    {
+      "case": "missing rationale",
+      "result": "refused visibly: ...invalid: rationale"
+    },
+    {
+      "case": "empty commitments array",
+      "result": "ACCEPTED: Export PASS with 0 commitments"
+    },
+    {
+      "case": "null scenario object in scenarios[]",
+      "result": "uncaught TypeError (reading 'id') from selectedScenario(); no visible reason; no run; UI not stuck in Verifying"
+    }
+  ],
+  "malformed_summary": {
+    "cases": 13,
+    "refused_visibly": 8,
+    "accepted_and_exported_PASS": 4,
+    "uncaught_error": 1,
+    "stuck_in_verifying": 0
+  },
+  "race_tests": {
+    "R1 Run -> immediate scenario change": "PASS: lastRun null, result hidden, Export off, 0 files",
+    "R2 Run -> immediate prediction change": "PASS",
+    "R3 Replay -> immediate prediction change": "PASS: lastReplay null",
+    "R4 Run -> immediate Reset": "PASS",
+    "R5 Run S01 -> switch S06 -> Run S06": "PASS: only S06/BLOCK state, INSUFFICIENT SPECIFICATION shown",
+    "R6 Replay -> Reset -> direct exportEvidence()": "PASS: 0 files",
+    "R7 Export in flight -> scenario change": "PASS: 0 files",
+    "R8 Run x2 with prediction change between": "PASS: final state ESCALATE (later wins)",
+    "R9 Replay in flight -> prediction change -> Run": "PASS: final ROLLBACK_COMPENSATE run, lastReplay null",
+    "result": "9/9 PASS, 0 uncaught errors"
+  },
+  "prediction_validation": {
+    "values": [
+      "constructor",
+      "toString",
+      "__proto__",
+      "prototype",
+      "valueOf",
+      "hasOwnProperty",
+      "FOO",
+      "block",
+      "BLOCK ",
+      " ",
+      "CONTINUE\\u200b"
+    ],
+    "natural_run_button": "disabled for all 11",
+    "forced_run": "all 11 refused visibly: 'Execution refused: choose a valid reviewer prediction before running.'",
+    "evidence_produced": 0,
+    "uncaught_errors": 0,
+    "invalid_scenario": "summary 'Invalid scenario selection.', Run disabled; forced Run refused visibly 'Execution refused: invalid scenario selection.'",
+    "result": "11/11 + scenario PASS"
+  },
+  "stale_dom": {
+    "after_scenario_change": "all 13 result fields empty, hidden, no residue",
+    "after_prediction_change": "clean",
+    "after_reset": "clean",
+    "after_injected_invalid_value": "clean",
+    "result": "4/4 PASS"
+  },
+  "compatibility_audit": {
+    "condition-change": {
+      "encoded": "BLOCK_REAUTHORIZE",
+      "compatible": [
+        "BLOCK",
+        "ESCALATE"
+      ],
+      "ui_equals_code": true,
+      "run_record_equals_code": true,
+      "export_equals_code": true
+    },
+    "evidence-change": {
+      "encoded": "BLOCK",
+      "compatible": [
+        "BLOCK_REAUTHORIZE",
+        "ESCALATE"
+      ],
+      "ui_equals_code": true,
+      "run_record_equals_code": true,
+      "export_equals_code": true
+    },
+    "authorization-expiry": {
+      "encoded": "BLOCK_REAUTHORIZE",
+      "compatible": [
+        "BLOCK",
+        "ESCALATE"
+      ],
+      "ui_equals_code": true,
+      "run_record_equals_code": true,
+      "export_equals_code": true
+    },
+    "learning-authority": {
+      "encoded": "BLOCK_REAUTHORIZE",
+      "compatible": [
+        "BLOCK",
+        "CONTINUE",
+        "ESCALATE"
+      ],
+      "ui_equals_code": true,
+      "run_record_equals_code": true,
+      "export_equals_code": true
+    },
+    "conflicting-authorities": {
+      "encoded": "INSUFFICIENT_SPECIFICATION",
+      "compatible": [
+        "BLOCK",
+        "ESCALATE"
+      ],
+      "ui_equals_code": true,
+      "run_record_equals_code": true,
+      "export_equals_code": true
+    },
+    "mid-execution-revocation": {
+      "encoded": "INSUFFICIENT_SPECIFICATION",
+      "compatible": [
+        "BLOCK",
+        "ESCALATE",
+        "ROLLBACK_COMPENSATE"
+      ],
+      "ui_equals_code": true,
+      "run_record_equals_code": true,
+      "export_equals_code": true
+    }
+  },
+  "support_status_audit": {
+    "vocabulary": [
+      "DIRECTLY SUPPORTED",
+      "REASONABLE INFERENCE",
+      "EXTENDED / BY ANALOGY",
+      "OPEN"
+    ],
+    "colors_rgb": {
+      "DIRECTLY SUPPORTED": "143,213,170",
+      "REASONABLE INFERENCE": "212,180,255",
+      "EXTENDED / BY ANALOGY": "159,210,255",
+      "OPEN": "232,207,125"
+    },
+    "S02_2": "REASONABLE INFERENCE",
+    "S03_1": "REASONABLE INFERENCE",
+    "S05_2": "REASONABLE INFERENCE",
+    "commitments_checked": 18,
+    "contradicted": 0,
+    "insufficiently_supported": 0
+  },
+  "determinism": {
+    "reset_runs": "6 scenarios x 3 (smoke predictions): identical core, contract, source, commit, comparison, event-log hash, UI hash; Replay CONSISTENT and Export PASS 18/18; snapshot hashes differ only via timestamps",
+    "after_full_reload": "6/6 identical to pre-reload values",
+    "core_hashes": {
+      "condition-change": "849cc3cf5e555db4d8e65ebdfb18be93f92ec30c816b4240a3c6cfa891e85662",
+      "evidence-change": "0e232f3817e158a692e8ca3427f7f93c1000292a7e0c76f7c173d1fc71b392a3",
+      "authorization-expiry": "9db2d32ebc93b72ce7d29f8917cfcec265167928ba972e2d5b188015cd684f01",
+      "learning-authority": "afe043045692e2ca60a03591b8ff41d1b9ed96ac6833d8a100714e703e917c79",
+      "conflicting-authorities": "3831a34521d299d076ac4037719d0d532d7f24694f012a3be9b603e708d59764",
+      "mid-execution-revocation": "9f7a0c065369e8d79640cddac37a435a6de1741ac6773063f6c7eaced044b126"
+    },
+    "matches_independent": true,
+    "result": "24/24 PASS"
+  },
+  "state_isolation": {
+    "A": "PASS",
+    "B": "PASS",
+    "C": "PASS",
+    "D": "PASS (Replay CONSISTENT, then Replay->Reset->direct Export: 0 files, lastRun/lastReplay null)",
+    "E_new": "lastReplay tamper exported with PASS (see V031-NEW-04)",
+    "fresh_page_notice": "Fresh page, first scenario change shows 'Scenario changed. Previous result, replay, and export state were invalidated.' although nothing was run (V031-NEW-03)",
+    "uncaught_errors_in_A_to_D": 0
+  },
+  "source_conformance": {
+    "scenario_text_changes_since_v0.3": "only S05 and S06 compatibilityReason (added B+R exclusion sentences)",
+    "commitments": 18,
+    "contradicted": 0,
+    "insufficiently_supported": 0,
+    "label_disagreements": 0,
+    "term_counts_in_source": {
+      "expir*": 0,
+      "revoc*/revok*": 0,
+      "rollback": 0,
+      "compensat*": 0,
+      "precedence": 0,
+      "hierarch*": 0,
+      "jurisdiction": 0,
+      "reauthor*": 0,
+      "in-flight": 0,
+      "escalation": 2,
+      "scope of validity": 1
+    }
+  },
+  "v03_defect_closure": {
+    "V03-NEW-01": "FIXED",
+    "V03-NEW-02": "FIXED (residual Low: manifest code_commit asserted, not verified at runtime -> V031-NEW-05)",
+    "V03-NEW-03": "PARTIALLY FIXED (restrictions/attributions/repository now in core; generated_at in snapshot; exported replay block still outside any check -> V031-NEW-04)",
+    "V03-NEW-04": "FIXED for Run/Replay (visible banners); Export refusals via alert only",
+    "V03-NEW-05": "PARTIALLY FIXED (missing fields refused, no stuck Verifying; enum/emptiness not validated, null object -> TypeError: V031-NEW-01)",
+    "V03-NEW-06": "FIXED",
+    "V03-NEW-07": "NOT A SOFTWARE DEFECT (inherent, disclosed; unchanged)",
+    "V03-NEW-08": "PARTIALLY FIXED (About heading fixed; CHANGELOG order and new stale README sentence remain: V031-NEW-08)",
+    "INT-01": "NOT A SOFTWARE DEFECT (exclusion reasons added; understandable; S06 BLOCK vs B+R asymmetry remains debatable)"
+  },
+  "new_defects": [
+    {
+      "id": "V031-NEW-01",
+      "severity": "Low",
+      "category": "robustness / schema validation",
+      "summary": "validateScenarioContract checks presence/types but not enum values or emptiness; invalid disposition, invented support status, empty commitments, and a disposition listed in its own compatibility set are accepted and export PASS; a null scenario element throws an uncaught TypeError with no visible reason."
+    },
+    {
+      "id": "V031-NEW-02",
+      "severity": "Low",
+      "category": "usability / refusal recovery",
+      "summary": "After any Run refusal the Run button stays disabled with a valid selection; a transient network failure cannot be retried without Reset or reselection."
+    },
+    {
+      "id": "V031-NEW-03",
+      "severity": "Low",
+      "category": "wording regression (v0.3 NEW-07a)",
+      "summary": "On a page with no prior run, changing scenario/prediction shows 'Previous result, replay, and export state were invalidated.' alongside 'No challenge has been run for this selection.'"
+    },
+    {
+      "id": "V031-NEW-04",
+      "severity": "Low",
+      "category": "evidence integrity scope",
+      "summary": "Exported replay block (and export-time fields) are not hashed or checked; a forged lastReplay exports with integrity_status PASS. Not disclosed in integrity_scope/README."
+    },
+    {
+      "id": "V031-NEW-05",
+      "severity": "Low",
+      "category": "provenance binding",
+      "summary": "At Run the manifest's version/build_id are not compared with the app's HARNESS_VERSION/BUILD_ID, and code_commit is trusted as asserted (corroboration checks main's app.js, not code_commit's). A wrong manifest with a correct app.js hash is accepted and recorded."
+    },
+    {
+      "id": "V031-NEW-06",
+      "severity": "Low",
+      "category": "robustness",
+      "summary": "Structural tamper (harness_provenance or source_document set to null) makes Replay/Export throw uncaught TypeErrors outside their try blocks; fails closed but silently."
+    },
+    {
+      "id": "V031-NEW-07",
+      "severity": "Observation",
+      "category": "refusal observability",
+      "summary": "Export refusals appear only as alert() dialogs; divergence banner does not name failing checks; 'Failed to fetch' does not name the resource."
+    },
+    {
+      "id": "V031-NEW-08",
+      "severity": "Observation",
+      "category": "documentation",
+      "summary": "README 'Evidence export' still claims 'the full GitHub main commit observed at run time'; README Replay list omits code/snapshot checks; CHANGELOG lists v0.2 above v0.3; README has no v0.3 test-record section; runtime verifies only app.js though manifest lists more files."
+    }
+  ],
+  "final_counts": {
+    "smoke": "6/6 PASS",
+    "primary_matrix": "36/36 PASS",
+    "clean_replays_consistent": "68/68 (6 smoke + 36 matrix + 18 determinism + 6 reload + 2 delayed)",
+    "clean_exports_pass": "67/67",
+    "source_substitution": "9/9 detected",
+    "build_provenance_cases": 20,
+    "tamper_cases": 70,
+    "malformed_contract_cases": 13,
+    "race_cases": "9/9",
+    "prediction_validation": "11/11",
+    "stale_dom": "4/4",
+    "determinism": "24/24",
+    "state_isolation": "A-D pass",
+    "new_defects": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 6,
+      "Observation": 2
+    },
+    "source_contradicted": 0,
+    "source_insufficiently_supported": 0
+  }
+}
