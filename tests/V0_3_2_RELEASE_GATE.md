@@ -1,6 +1,6 @@
 # SUPERSEDED — historical candidate gate
 
-This historical gate is retained for traceability and must not be used for current releases. See `V0_3_5_RELEASE_GATE.md`.
+This historical gate is retained for traceability and must not be used for current releases. See `V0_3_6_RELEASE_GATE.md`.
 
 # JANUS Governance Challenge Harness v0.3.2 — Release Gate
 
