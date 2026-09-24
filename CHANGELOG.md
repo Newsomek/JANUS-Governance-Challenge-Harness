@@ -1,4 +1,13 @@
 # Changelog
+## v0.3.5 — final residual hardening candidate
+- canonicalizes duplicate-comparison text using Unicode NFC, ignorable/blank removal, and whitespace collapse so visually equivalent commitments and sources are rejected;
+- adds behavioural regression cases for near-duplicate commitments and sources, including whitespace, NBSP, zero-width/default-ignorable, Hangul filler, Braille blank, and Unicode-normalization variants;
+- aligns README and UI integrity disclosures: exported evidence is unsigned client-side evidence and PASS is not cryptographic authenticity;
+- marks historical v0.3.2/v0.3.4 release gates as superseded and names the current v0.3.5 suites/gate;
+- corrects the v0.3.3 historical record: V031-NEW-07 was confirmed closed in that independent regression;
+- extends positive documentation assertions and mutation tests so these corrections fail closed if reverted.
+Independent closure is not claimed until the deployed v0.3.5 smoke gate and final zero-open-finding regression both pass.
+
 
 ## v0.3.4 — bounded hardening candidate
 
@@ -14,7 +23,7 @@ Independent closure is not claimed until the deployed v0.3.4 smoke gate and zero
 
 ## v0.3.3 — bounded zero-open-finding hardening candidate
 
-- was intended to address V032-NEW-01 through V032-NEW-09; independent v0.3.3 testing found one residual and additional findings and the remaining V031-NEW-07 observability gap;
+- was intended to address V032-NEW-01 through V032-NEW-09; independent v0.3.3 testing found six residual actionable findings, while V031-NEW-07 observability was confirmed closed;
 - preserves all six authored scenario contracts unchanged;
 - adds explicit regression cases and a recorded automated test result;
 - remains a pre-Version-1 candidate pending deployed smoke and independent adversarial regression.

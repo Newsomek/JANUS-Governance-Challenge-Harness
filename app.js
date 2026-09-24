@@ -1,7 +1,7 @@
 "use strict";
 
-const HARNESS_VERSION = "0.3.4";
-const BUILD_ID = "janus-governance-challenge-harness-v0.3.4";
+const HARNESS_VERSION = "0.3.5";
+const BUILD_ID = "janus-governance-challenge-harness-v0.3.5";
 const BUILD_INFO_URL = "build-info.json";
 const REPOSITORY = "https://github.com/Newsomek/JANUS-Governance-Challenge-Harness";
 const GITHUB_HEAD_API = "https://api.github.com/repos/Newsomek/JANUS-Governance-Challenge-Harness/commits/main";
@@ -221,21 +221,31 @@ return typeof value === "string" && VALID_PREDICTIONS.has(value) && Object.hasOw
 
 }
 
-function hasVisibleText(value) {
-  return typeof value === "string" && value.replace(/[\s\p{Cf}\p{Default_Ignorable_Code_Point}\u2800]+/gu, "").length > 0;
+function canonicalComparisonText(value) {
+  if (typeof value !== "string") return "";
+  return value
+    .normalize("NFC")
+    .replace(/[\p{Cf}\p{Default_Ignorable_Code_Point}\u2800\u3164\u115F\u1160\uFFA0\u034F\uFE0F\u180B\u200B]/gu, "")
+    .replace(/[\s\u00A0]+/gu, " ")
+    .trim();
 }
 
+function hasVisibleText(value) {
+  return canonicalComparisonText(value).length > 0;
+}
 function uniqueStrings(values) {
-  return Array.isArray(values) && new Set(values).size === values.length;
+  if (!Array.isArray(values)) return false;
+  const keys = values.map(canonicalComparisonText);
+  return new Set(keys).size === keys.length;
 }
 
 function uniqueCommitments(values) {
   if (!Array.isArray(values)) return false;
-  const keys = values.map((item) => item && typeof item === "object" ? String(item.status) + "\u0000" + String(item.text) : "__INVALID__");
+  const keys = values.map((item) => item && typeof item === "object"
+    ? canonicalComparisonText(String(item.status)) + "\u0000" + canonicalComparisonText(String(item.text))
+    : "__INVALID__");
   return new Set(keys).size === keys.length;
-}
-
-function validateScenarioSet() {
+}function validateScenarioSet() {
   if (!Array.isArray(scenarios) || scenarios.length < 1) return "Scenario set is missing.";
   const ids = [];
   for (const scenario of scenarios) {

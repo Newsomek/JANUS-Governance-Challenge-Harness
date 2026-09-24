@@ -1,3 +1,7 @@
+# SUPERSEDED — historical candidate gate
+
+This historical gate is retained for traceability and must not be used for current releases. See `V0_3_5_RELEASE_GATE.md`.
+
 # JANUS Governance Challenge Harness v0.3.2 — Release Gate
 
 Version 0.3.2 is a zero-known-defect hardening candidate. It must not be promoted to Version 1.0 merely because the code builds.

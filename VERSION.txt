@@ -1,15 +1,14 @@
 JANUS Governance Challenge Harness
-Version 0.3.4
-Build ID: janus-governance-challenge-harness-v0.3.4
-Status: bounded hardening candidate; not Version 1.0
+Version 0.3.5
+Build ID: janus-governance-challenge-harness-v0.3.5
+Status: final residual hardening candidate; not Version 1.0
 
-Primary v0.3.4 corrections
-- broader default-ignorable/blank validation plus duplicate commitment rejection
-- unified Run/Replay/Export concurrency locking
-- explicit stored-run structural validation and stable refusal messages
-- behavioural regression coverage plus mutation tests for the hardening fixes
-- accurate unsigned-client integrity disclosure and published expected contract hashes
-- corrected README, CHANGELOG, VERSION, and release-gate documentation
+Primary v0.3.5 corrections
+- canonical duplicate comparison using Unicode NFC, ignorable/blank removal, and whitespace collapse
+- near-duplicate commitment/source regression coverage plus matching mutation guards
+- accurate unsigned-client integrity wording in README and the live About panel
+- corrected historical README, CHANGELOG, and superseded release-gate references
+- positive documentation assertions for current suites, current gate, UI disclosure, and historical status
 
 Authored scenario content: unchanged from the reviewed baseline.
-Independent closure: pending deployed smoke and zero-open-finding regression.
+Independent closure: pending deployed smoke and one final zero-open-finding regression.

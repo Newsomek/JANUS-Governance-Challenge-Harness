@@ -1,0 +1,43 @@
+JANUS Governance Challenge Harness v0.3.5
+Automated Regression Result
+Recorded at: 2026-09-24T09:26:38.8306115-04:00
+Base release HEAD: e16b35bcbac80a827e0d3f9927f36c7e4cf18518
+
+BEHAVIORAL REGRESSION
+---------------------
+JANUS v0.3.5 automated regression: PASS
+Canonical exports: 9; refusal alerts: 2
+Exit code: 0
+
+DOCUMENTATION AUDIT
+-------------------
+JANUS v0.3.5 documentation/release audit: PASS
+Exit code: 0
+
+MUTATION REGRESSION
+-------------------
+JANUS v0.3.5 mutation target preflight: PASS (18/18 operators active)
+KILLED: stored_core_match forced true
+KILLED: bound 404 treated as unavailable
+KILLED: collection uniqueness disabled
+KILLED: canonical invisible-character stripping weakened
+KILLED: duplicate commitment check removed
+KILLED: Run allowed during Replay/Export
+KILLED: Export in-flight lock removed
+KILLED: stored record validator bypassed
+KILLED: divergence failed-check list removed
+KILLED: unsafe scenario innerHTML sink restored
+KILLED: integrity disclosure weakened
+KILLED: README current regression points to retired v0.3.2 suite
+KILLED: canonical duplicate normalization disabled
+KILLED: UI unsigned integrity disclosure removed
+KILLED: v0.3.2 gate no longer superseded
+KILLED: v0.3.4 gate no longer superseded
+KILLED: current release gate points to retired v0.3.2 suite
+KILLED: incorrect V031-NEW-07 changelog history restored
+JANUS v0.3.5 mutation regression: PASS (18/18 mutations killed)
+Exit code: 0
+
+OVERALL RESULT
+--------------
+PASS

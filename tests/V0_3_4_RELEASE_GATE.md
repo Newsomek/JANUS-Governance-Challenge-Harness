@@ -1,3 +1,7 @@
+# SUPERSEDED — historical candidate gate
+
+This historical gate is retained for traceability and must not be used for current releases. See `V0_3_5_RELEASE_GATE.md`.
+
 # JANUS v0.3.4 release gate
 
 Version 0.3.4 is a bounded hardening candidate, not Version 1.0.
