@@ -1,14 +1,15 @@
 JANUS Governance Challenge Harness
-Version 0.3.8
-Build ID: janus-governance-challenge-harness-v0.3.8
-Status: bounded F05 oracle-hardening candidate; not Version 1.0
+Version 0.3.9
+Build ID: janus-governance-challenge-harness-v0.3.9
+Status: fail-closed documentation-claim-control candidate; not Version 1.0
 
-Primary v0.3.8 corrections
-- preserves the independent v0.3.7 targeted residual FAIL evidence
+Primary v0.3.9 correction
+- preserves the independent v0.3.8 targeted F05 FAIL evidence
 - records V035-F04 as independently closed
-- hardens affirmative documentation/release-claim detection for residual V035-F05
-- adds must-pass legitimate-negation fixtures
-- removes stale v0.3.6 current-release UI text
+- retains V035-F05 as partially closed pending retest
+- replaces expanding release-claim regex exceptions with explicit reviewed guarded-claim allowlisting
+- normalizes Unicode, invisible characters, Markdown emphasis, HTML entities, and HTML tags before guarded-claim comparison
+- treats unreviewed guarded documentation claims as release-audit failures
 
 Authored scenario content: unchanged from the reviewed baseline.
 Independent closure: pending targeted V035-F05 closure and one final full zero-open-finding adversarial regression.

@@ -1,35 +1,40 @@
-# JANUS Governance Challenge Harness v0.3.8
+# JANUS Governance Challenge Harness v0.3.9
 
 A dependency-free external architectural challenge harness for examining governance claims described in the **JANUS Orientation Edition 2026**.
 
 
-## v0.3.8 bounded F05 oracle-hardening candidate
+## v0.3.9 fail-closed documentation-claim control candidate
 
-Version 0.3.8 is a narrow follow-on to the independent v0.3.7 targeted residual closure test.
+Version 0.3.9 is a bounded response to the remaining V035-F05 documentation-audit finding from the independent v0.3.8 targeted test.
 
-That test independently closed V035-F04. V035-F05 remained partially closed because the documentation audit still allowed several affirmative paraphrases and rejected several legitimate negative disclaimers.
+V035-F04 remains independently closed. V035-F05 remains partially closed pending independent retest.
 
-v0.3.8 therefore changes only the remaining documentation/release-claim controls:
+The previous documentation audit attempted to infer acceptable and unacceptable release claims from expanding regular-expression patterns. Independent testing showed that this produced both missed affirmative claims and rejected legitimate disclaimers.
 
-- direct and Unicode variants of unsupported integrity-protection terminology are covered without treating unrelated negation as an exemption;
-- Version 1.0 claim forms include approved-as, promoted-to, v1.0, and separator variants;
-- independent-closure checks cover equivalent finding-level and reversed-word-order claims;
-- legitimate direct negations such as "has not been confirmed", "is not yet complete", and "not ready for Version 1.0" are explicit must-pass fixtures;
-- the specific affirmative and negative forms demonstrated by the v0.3.7 residual test are now first-class audit fixtures and mutation cases;
-- the stale v0.3.6 UI release narrative is removed.
+v0.3.9 replaces that approach for guarded release claims with explicit deterministic change control:
 
-Current suites:
+- current documentation surfaces are normalized before inspection, including Unicode compatibility normalization, default-ignorable and soft-hyphen removal, Markdown emphasis removal, HTML entity decoding, and HTML tag removal;
+- claim units containing guarded governance concepts require an explicitly reviewed normalized allowlist entry;
+- reviewed disclaimer units may be approved globally and remain valid across current release surfaces;
+- an unreviewed guarded claim fails closed, regardless of whether it appears affirmative or negative;
+- this mechanism is deterministic change control, not semantic understanding or a claim that arbitrary natural-language paraphrases can be classified correctly.
 
-- `tests/v0.3.8-regression.mjs`
-- `tests/v0.3.8-doc-audit.mjs`
-- `tests/v0.3.8-mutation-regression.mjs`
-- `tests/v0.3.8-manifest-audit.mjs`
+The policy is designed so that adding or changing a guarded governance claim requires deliberate review rather than another regular-expression exception.
+
+Phase-1 validation controls:
+
+- `tests/v0.3.9-regression.mjs`
+- `tests/v0.3.9-doc-audit.mjs`
+- `tests/v0.3.9-doc-claim-fixtures.mjs`
+- `tests/v0.3.9-manifest-audit.mjs`
+
+The v0.3.9 mutation suite will be rebound to this policy before the candidate is committed or deployed.
 
 Current release gate:
 
-- `tests/V0_3_8_RELEASE_GATE.md`
+- `tests/V0_3_9_RELEASE_GATE.md`
 
-V035-F04 is independently closed. Independent closure of V035-F05 is **not** claimed. Version 1.0 remains blocked pending targeted closure of V035-F05 and one final full independent zero-open-finding adversarial regression.
+Independent closure of V035-F05 is **not** claimed. Version 1.0 remains blocked pending targeted V035-F05 closure and one final full independent zero-open-finding adversarial regression.
 ## Governing principle
 
 > **Challenge JANUS against JANUS first.**

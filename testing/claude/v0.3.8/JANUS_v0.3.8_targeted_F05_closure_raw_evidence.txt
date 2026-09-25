@@ -1,0 +1,1517 @@
+JANUS Governance Challenge Harness v0.3.8 — Targeted V035-F05 Closure — RAW EVIDENCE
+Date: 2026-09-25 · Tester: Claude (independent) · Repository not modified
+
+=== PHASE 0: LIVE IDENTITY (fetched in-browser from https://newsomek.github.io/JANUS-Governance-Challenge-Harness/ with cache:no-store + cache-busting query; SHA-256 via crypto.subtle) ===
+build-info meta: {"version":"0.3.8","build_id":"janus-governance-challenge-harness-v0.3.8","code_commit":"eaaf70da3f66d7d6474c583e26325660d4b2ef8e","generated_at":"2026-09-25T10:53:00.4647736Z"}
+manifest entries: 63 · build-info.json self-listed: false
+live re-hash mismatches (path,status,sha): [] (63/63 fetched OK and matched)
+app.js                                     da93962ecf3d7c3cd18623f582fd80955f4a1724e694eb8a983aa4f91c81b526
+docs/JANUS_Orientation_Edition_2026_EN.docx 21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
+index.html                                 6a7ccdf670e20506cbf4d4bb57417b36494e3eb40a8ae7af3e067749c9e8d284
+README.md                                  fb35586c6f3a7cdc72bc9d067f33316d7a245b126e42775a39888e2f42832f55
+CHANGELOG.md                               4b4730c5abc55b34e3129953234d187f891c323ccc635914bd4f3f5d3a7b5754
+VERSION.txt                                6a30f667d36998e6e77c829cb92e83e1f63e6dd8b22b33f3ae744f9de8c6c18f
+site root "/" SHA-256 == index.html SHA-256: true
+live HTML version strings: ["v0.3.8","v0.3.5","Version 0.3.8","v0.3.7"]; document.title "JANUS Governance Challenge Harness v0.3.8"
+(Note: sandbox egress to github.io was denied by proxy (403); live checks were therefore run from the user's browser tab.)
+
+=== REPOSITORY CORROBORATION ===
+c07cd90b9f5ddd2b5f8fa9da789b2111e3ede12e	refs/heads/main
+local HEAD: c07cd90b9f5ddd2b5f8fa9da789b2111e3ede12e
+eaaf70d..c07cd90 diff:
+ build-info.json | 29 ++++++++++++++++++-----------
+ 1 file changed, 18 insertions(+), 11 deletions(-)
+repo files vs manifest mismatches: []
+tracked-not-in-manifest: ['build-info.json'] manifest-not-tracked: []
+scenario-block SHA-256 (independent, method = slice("const scenarios = [" .. "\n];"+4)): 948536a17a454e59f782e023ac1ded8e30e9f33ca660c3dbd674273fe1b56488
+scenario block identical to v0.3.7 (132cd07): true
+app.js diff v0.3.7(132cd07) -> v0.3.8(c07cd90): (F04 non-regression check)
+-const HARNESS_VERSION = "0.3.7";
+-const BUILD_ID = "janus-governance-challenge-harness-v0.3.7";
++const HARNESS_VERSION = "0.3.8";
++const BUILD_ID = "janus-governance-challenge-harness-v0.3.8";
+
+=== F. PROJECT SUITES (node v22.22.2) — corroboration only ===
+-- tests/v0.3.8-regression.mjs
+JANUS v0.3.8 automated regression: PASS
+Canonical exports: 9; refusal alerts: 4
+-- tests/v0.3.8-doc-audit.mjs
+JANUS v0.3.8 documentation/release audit: PASS
+-- tests/v0.3.8-mutation-regression.mjs
+KILLED: UI stale current-release narrative restored
+JANUS v0.3.8 mutation regression: PASS (55/55 mutations killed)
+-- tests/v0.3.8-manifest-audit.mjs
+JANUS v0.3.8 release manifest audit: PASS (63/63 tracked files; build-info.json excluded from self-hash)
+
+Canned F05 mutation operators (tests/v0.3.8-mutation-regression.mjs) — note they are the exact v0.3.7 demonstrated strings:
+221:    apply:s=>s.replace('## v0.3.8 bounded F05 oracle-hardening candidate','## v0.3.8 bounded F05 oracle-hardening candidate\n\nVersion 1.0 ready and approved.'),
+227:    apply:s=>s.replace('Independent closure is **not** claimed','Independent closure is confirmed'),
+239:    apply:s=>s.replace('partially addressed V031-NEW-07 by persisting Export refusal reasons and naming failed fetch resources; independent v0.3.3 testing later confirmed full observability closure;','closes V031-NEW-07 by persisting Export refusal reasons and naming failed fetch resources;'),
+245:    apply:s=>s.replace('Historical status: v0.3.4 was superseded after its deployed smoke test found residual issues; it was not promoted to Version 1.0.','Independent closure is not claimed until the deployed v0.3.4 smoke gate and zero-open-finding regression both pass.'),
+278:    apply:s=>'Tamper-proof evidence export.\n\n'+s,
+284:    apply:s=>'The harness provides tamper-proof evidence.\n\n'+s,
+290:    apply:s=>s.replace('<body>','<body>\n<p>Tamper-proof evidence.</p>'),
+296:    apply:s=>'This release is ready for Version 1.0.\n\n'+s,
+302:    apply:s=>'Version 1.0 approved.\n\n'+s,
+308:    apply:s=>s.replace('<body>','<body>\n<p>Version 1.0 validated.</p>'),
+314:    apply:s=>s+'\nVersion 1.0 approved.\n',
+320:    apply:s=>'Independent closure confirmed.\n\n'+s,
+326:    apply:s=>'V035-F01 through V035-F09 were independently closed.\n\n'+s,
+341:    apply:s=>'Not signed, but tamper-proof evidence export.\n\n'+s,
+347:    apply:s=>'Tamperproof evidence export.\n\n'+s,
+353:    apply:s=>'Tamper\u2011proof evidence export.\n\n'+s,
+359:    apply:s=>'Approved as Version 1.0.\n\n'+s,
+365:    apply:s=>'Promoted to Version 1.0.\n\n'+s,
+371:    apply:s=>'v1.0 approved.\n\n'+s,
+377:    apply:s=>'Version 1.0: approved.\n\n'+s,
+383:    apply:s=>'All nine V035 findings were independently closed.\n\n'+s,
+389:    apply:s=>'Closure was independently confirmed.\n\n'+s,
+
+=== D/E. LIVE UI TEXT CHECKS (DOMParser over live index.html) ===
+"Version 0.3.8 is a bounded F05 oracle-hardening candidate": present
+stale "Version 0.3.6 is a bounded hardening candidate" / 0.3.6-as-current: absent (no 0.3.6 sentences in live UI text)
+"Evidence exports are unsigned client-side artifacts.": present
+"it is not a digital signature": present
+"controls DevTools/console state and can recompute client-side hashes": present
+Version 1.0 affirmative in UI text: none
+UI narrative: "Version 0.3.8 is a bounded F05 oracle-hardening candidate addressing the remaining documentation/audit finding from the v0.3.7 targeted residual test. V035-F04 is independently closed; V035-F05 remains pending targeted closure plus one final independent regression before any Version 1.0 promotion."
+"accidental or uncoordinated" scope: README ("accidental or uncoordinated later mutation"; "accidental or uncoordinated mutation, not malicious coordinated forgery") and app.js export integrity_scope ("detects accidental or uncoordinated mutation only"); not in UI page text (unchanged from v0.3.7).
+
+=== A/B/C/H. INDEPENDENT PROBES against the unmodified tests/v0.3.8-doc-audit.mjs ===
+Method: full repo copy to temp dir; one probe inserted per run; JANUS_TEST_ROOT=<copy>; audit exit status recorded. Surfaces rotate README.md / CHANGELOG.md (inside the current v0.3.8 section) / VERSION.txt / index.html (as <p>, HTML-escaped); each probe runs on 2 surfaces, one mid-document and one end-of-file/end-of-section. H-probes insert raw HTML into index.html only.
+Expected result: MUST FAIL => audit FAIL; MUST PASS => audit PASS. 'UNEXPECTED' = false negative (MUST FAIL passed) or false positive (MUST PASS failed).
+
+BASELINE unmodified copy: PASS
+ok   A-01 [tamper] MUST FAIL | README.md@mid -> FAIL (README contains affirmative tamper-proof language.) | "Tamperproof evidence export."
+ok   A-01 [tamper] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG contains affirmative tamper-proof language.) | "Tamperproof evidence export."
+ok   A-02 [tamper] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG contains affirmative tamper-proof language.) | "Tamper-proof evidence export."
+ok   A-02 [tamper] MUST FAIL | VERSION.txt@mid -> FAIL (VERSION contains affirmative tamper-proof language.) | "Tamper-proof evidence export."
+ok   A-03 [tamper] MUST FAIL | VERSION.txt@mid -> FAIL (VERSION contains affirmative tamper-proof language.) | "Tamper‑proof evidence export."
+ok   A-03 [tamper] MUST FAIL | index.html@end -> FAIL (UI contains affirmative tamper-proof language.) | "Tamper‑proof evidence export."
+ok   A-04 [tamper] MUST FAIL | index.html@end -> FAIL (UI contains affirmative tamper-proof language.) | "Not signed, but tamper-proof evidence export."
+ok   A-04 [tamper] MUST FAIL | README.md@mid -> FAIL (README contains affirmative tamper-proof language.) | "Not signed, but tamper-proof evidence export."
+ok   A-05 [tamper] MUST FAIL | README.md@mid -> FAIL (README contains affirmative tamper-proof language.) | "The evidence export is tamper proof."
+ok   A-05 [tamper] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG contains affirmative tamper-proof language.) | "The evidence export is tamper proof."
+ok   A-06 [tamper] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG contains affirmative tamper-proof language.) | "The export is tamperproof."
+ok   A-06 [tamper] MUST FAIL | VERSION.txt@mid -> FAIL (VERSION contains affirmative tamper-proof language.) | "The export is tamperproof."
+UNEXPECTED A-07 [tamper] MUST FAIL | VERSION.txt@mid -> PASS | "The evidence cannot be altered."
+UNEXPECTED A-07 [tamper] MUST FAIL | index.html@end -> PASS | "The evidence cannot be altered."
+UNEXPECTED A-08 [tamper] MUST FAIL | index.html@end -> PASS | "Evidence integrity is guaranteed."
+UNEXPECTED A-08 [tamper] MUST FAIL | README.md@mid -> PASS | "Evidence integrity is guaranteed."
+ok   A-09 [v1] MUST FAIL | README.md@mid -> FAIL (README contains premature Version 1.0 claim.) | "Approved as Version 1.0."
+ok   A-09 [v1] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG v0.3.8 contains premature Version 1.0 claim.) | "Approved as Version 1.0."
+ok   A-10 [v1] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG v0.3.8 contains premature Version 1.0 claim.) | "Promoted to Version 1.0."
+ok   A-10 [v1] MUST FAIL | VERSION.txt@mid -> FAIL (VERSION contains premature Version 1.0 claim.) | "Promoted to Version 1.0."
+ok   A-11 [v1] MUST FAIL | VERSION.txt@mid -> FAIL (VERSION contains premature Version 1.0 claim.) | "v1.0 approved."
+ok   A-11 [v1] MUST FAIL | index.html@end -> FAIL (UI contains premature Version 1.0 claim.) | "v1.0 approved."
+ok   A-12 [v1] MUST FAIL | index.html@end -> FAIL (UI contains premature Version 1.0 claim.) | "Version 1.0: approved."
+ok   A-12 [v1] MUST FAIL | README.md@mid -> FAIL (README contains premature Version 1.0 claim.) | "Version 1.0: approved."
+ok   A-13 [v1] MUST FAIL | README.md@mid -> FAIL (README contains premature Version 1.0 claim.) | "Version 1.0 is certified."
+ok   A-13 [v1] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG v0.3.8 contains premature Version 1.0 claim.) | "Version 1.0 is certified."
+ok   A-14 [v1] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG v0.3.8 contains premature Version 1.0 claim.) | "Ready as Version 1.0."
+ok   A-14 [v1] MUST FAIL | VERSION.txt@mid -> FAIL (VERSION contains premature Version 1.0 claim.) | "Ready as Version 1.0."
+UNEXPECTED A-15 [v1] MUST FAIL | VERSION.txt@mid -> PASS | "This is the Version 1.0 release."
+UNEXPECTED A-15 [v1] MUST FAIL | index.html@end -> PASS | "This is the Version 1.0 release."
+UNEXPECTED A-16 [v1] MUST FAIL | index.html@end -> PASS | "Version 1.0 release approved."
+UNEXPECTED A-16 [v1] MUST FAIL | README.md@mid -> PASS | "Version 1.0 release approved."
+ok   A-17 [closure] MUST FAIL | README.md@mid -> FAIL (README contains premature independent-closure claim.) | "All nine V035 findings were independently closed."
+ok   A-17 [closure] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG v0.3.8 contains premature independent-closure claim.) | "All nine V035 findings were independently closed."
+ok   A-18 [closure] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG v0.3.8 contains premature independent-closure claim.) | "Closure was independently confirmed."
+ok   A-18 [closure] MUST FAIL | VERSION.txt@mid -> FAIL (VERSION contains premature independent-closure claim.) | "Closure was independently confirmed."
+ok   A-19 [closure] MUST FAIL | VERSION.txt@mid -> FAIL (VERSION contains premature independent-closure claim.) | "Independent closure confirmed."
+ok   A-19 [closure] MUST FAIL | index.html@end -> FAIL (UI contains premature independent-closure claim.) | "Independent closure confirmed."
+ok   A-20 [closure] MUST FAIL | index.html@end -> FAIL (UI contains premature independent-closure claim.) | "Independent closure has been confirmed."
+ok   A-20 [closure] MUST FAIL | README.md@mid -> FAIL (README contains premature independent-closure claim.) | "Independent closure has been confirmed."
+UNEXPECTED A-21 [closure] MUST FAIL | README.md@mid -> PASS | "All residual findings are independently closed."
+UNEXPECTED A-21 [closure] MUST FAIL | CHANGELOG.md@end -> PASS | "All residual findings are independently closed."
+UNEXPECTED A-22 [closure] MUST FAIL | CHANGELOG.md@end -> PASS | "Independent testing closed all remaining findings."
+UNEXPECTED A-22 [closure] MUST FAIL | VERSION.txt@mid -> PASS | "Independent testing closed all remaining findings."
+UNEXPECTED A-23 [closure] MUST FAIL | VERSION.txt@mid -> PASS | "The remaining finding has been independently closed."
+UNEXPECTED A-23 [closure] MUST FAIL | index.html@end -> PASS | "The remaining finding has been independently closed."
+UNEXPECTED A-24 [closure] MUST FAIL | index.html@end -> PASS | "F05 is independently closed."
+UNEXPECTED A-24 [closure] MUST FAIL | README.md@mid -> PASS | "F05 is independently closed."
+ok   B-01 [tamper] MUST PASS | README.md@mid -> PASS | "not claimed to be tamper-proof"
+ok   B-01 [tamper] MUST PASS | CHANGELOG.md@end -> PASS | "not claimed to be tamper-proof"
+ok   B-02 [tamper] MUST PASS | CHANGELOG.md@end -> PASS | "not a tamper-proof control"
+ok   B-02 [tamper] MUST PASS | VERSION.txt@mid -> PASS | "not a tamper-proof control"
+ok   B-03 [tamper] MUST PASS | VERSION.txt@mid -> PASS | "The export is never tamper-proof."
+ok   B-03 [tamper] MUST PASS | index.html@end -> PASS | "The export is never tamper-proof."
+ok   B-04 [tamper] MUST PASS | index.html@end -> PASS | "The export cannot be considered tamper-proof."
+ok   B-04 [tamper] MUST PASS | README.md@mid -> PASS | "The export cannot be considered tamper-proof."
+ok   B-05 [closure] MUST PASS | README.md@mid -> PASS | "Independent closure is not claimed."
+ok   B-05 [closure] MUST PASS | CHANGELOG.md@end -> PASS | "Independent closure is not claimed."
+ok   B-06 [closure] MUST PASS | CHANGELOG.md@end -> PASS | "Independent closure: pending."
+ok   B-06 [closure] MUST PASS | VERSION.txt@mid -> PASS | "Independent closure: pending."
+ok   B-07 [closure] MUST PASS | VERSION.txt@mid -> PASS | "Independent closure has not been confirmed."
+ok   B-07 [closure] MUST PASS | index.html@end -> PASS | "Independent closure has not been confirmed."
+ok   B-08 [closure] MUST PASS | index.html@end -> PASS | "Independent closure is not yet complete."
+ok   B-08 [closure] MUST PASS | README.md@mid -> PASS | "Independent closure is not yet complete."
+ok   B-09 [closure] MUST PASS | README.md@mid -> PASS | "Closure was not independently confirmed."
+ok   B-09 [closure] MUST PASS | CHANGELOG.md@end -> PASS | "Closure was not independently confirmed."
+ok   B-10 [v1] MUST PASS | CHANGELOG.md@end -> PASS | "This release is not ready for Version 1.0."
+ok   B-10 [v1] MUST PASS | VERSION.txt@mid -> PASS | "This release is not ready for Version 1.0."
+ok   B-11 [v1] MUST PASS | VERSION.txt@mid -> PASS | "This release is not yet ready for Version 1.0."
+ok   B-11 [v1] MUST PASS | index.html@end -> PASS | "This release is not yet ready for Version 1.0."
+ok   B-12 [v1] MUST PASS | index.html@end -> PASS | "Version 1.0 is not approved."
+ok   B-12 [v1] MUST PASS | README.md@mid -> PASS | "Version 1.0 is not approved."
+ok   B-13 [v1] MUST PASS | README.md@mid -> PASS | "This is not the Version 1.0 release."
+ok   B-13 [v1] MUST PASS | CHANGELOG.md@end -> PASS | "This is not the Version 1.0 release."
+ok   B-14 [closure] MUST PASS | CHANGELOG.md@end -> PASS | "F05 is not independently closed."
+ok   B-14 [closure] MUST PASS | VERSION.txt@mid -> PASS | "F05 is not independently closed."
+ok   B-15 [closure] MUST PASS | VERSION.txt@mid -> PASS | "The remaining finding has not been independently closed."
+ok   B-15 [closure] MUST PASS | index.html@end -> PASS | "The remaining finding has not been independently closed."
+ok   C-01 [tamper] MUST FAIL | README.md@mid -> FAIL (README contains affirmative tamper-proof language.) | "Evidence exports are tamper–proof."
+ok   C-01 [tamper] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG contains affirmative tamper-proof language.) | "Evidence exports are tamper–proof."
+UNEXPECTED C-02 [tamper] MUST FAIL | CHANGELOG.md@end -> PASS | "Tamper­proof evidence export."
+UNEXPECTED C-02 [tamper] MUST FAIL | VERSION.txt@mid -> PASS | "Tamper­proof evidence export."
+UNEXPECTED C-03 [tamper] MUST FAIL | VERSION.txt@mid -> PASS | "Tamper​proof evidence export."
+UNEXPECTED C-03 [tamper] MUST FAIL | index.html@end -> PASS | "Tamper​proof evidence export."
+UNEXPECTED C-04 [tamper] MUST FAIL | index.html@end -> PASS | "Tamper-*proof* evidence export."
+UNEXPECTED C-04 [tamper] MUST FAIL | README.md@mid -> PASS | "Tamper-*proof* evidence export."
+UNEXPECTED C-05 [tamper] MUST FAIL | README.md@mid -> PASS | "Evidence exports are immutable and cannot be forged."
+UNEXPECTED C-05 [tamper] MUST FAIL | CHANGELOG.md@end -> PASS | "Evidence exports are immutable and cannot be forged."
+UNEXPECTED C-06 [tamper] MUST FAIL | CHANGELOG.md@end -> PASS | "The exported JSON is cryptographically signed."
+UNEXPECTED C-06 [tamper] MUST FAIL | VERSION.txt@mid -> PASS | "The exported JSON is cryptographically signed."
+UNEXPECTED C-07 [tamper] MUST FAIL | VERSION.txt@mid -> PASS | "Who says the export is not tamper-proof? It is."
+UNEXPECTED C-07 [tamper] MUST FAIL | index.html@end -> PASS | "Who says the export is not tamper-proof? It is."
+UNEXPECTED C-08 [v1] MUST FAIL | index.html@end -> PASS | "Version 1.0 has been approved."
+UNEXPECTED C-08 [v1] MUST FAIL | README.md@mid -> PASS | "Version 1.0 has been approved."
+UNEXPECTED C-09 [v1] MUST FAIL | README.md@mid -> PASS | "Version 1.0 is now approved."
+UNEXPECTED C-09 [v1] MUST FAIL | CHANGELOG.md@end -> PASS | "Version 1.0 is now approved."
+UNEXPECTED C-10 [v1] MUST FAIL | CHANGELOG.md@end -> PASS | "This release is Version 1.0."
+UNEXPECTED C-10 [v1] MUST FAIL | VERSION.txt@mid -> PASS | "This release is Version 1.0."
+UNEXPECTED C-11 [v1] MUST FAIL | VERSION.txt@mid -> PASS | "Approved for release as Version 1.0."
+UNEXPECTED C-11 [v1] MUST FAIL | index.html@end -> PASS | "Approved for release as Version 1.0."
+ok   C-12 [v1] MUST FAIL | index.html@end -> FAIL (UI contains premature Version 1.0 claim.) | "Version 1.0 — approved."
+ok   C-12 [v1] MUST FAIL | README.md@mid -> FAIL (README contains premature Version 1.0 claim.) | "Version 1.0 — approved."
+ok   C-13 [v1] MUST FAIL | README.md@mid -> FAIL (README contains premature Version 1.0 claim.) | "V1.0 ready."
+ok   C-13 [v1] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG v0.3.8 contains premature Version 1.0 claim.) | "V1.0 ready."
+UNEXPECTED C-14 [v1] MUST FAIL | CHANGELOG.md@end -> PASS | "Promoted to v1."
+UNEXPECTED C-14 [v1] MUST FAIL | VERSION.txt@mid -> PASS | "Promoted to v1."
+UNEXPECTED C-15 [closure] MUST FAIL | VERSION.txt@mid -> PASS | "F05 was independently closed."
+UNEXPECTED C-15 [closure] MUST FAIL | index.html@end -> PASS | "F05 was independently closed."
+UNEXPECTED C-16 [closure] MUST FAIL | index.html@end -> PASS | "Every V035 finding has been independently closed."
+UNEXPECTED C-16 [closure] MUST FAIL | README.md@mid -> PASS | "Every V035 finding has been independently closed."
+UNEXPECTED C-17 [closure] MUST FAIL | README.md@mid -> PASS | "Independent reviewers confirmed closure of V035-F05."
+UNEXPECTED C-17 [closure] MUST FAIL | CHANGELOG.md@end -> PASS | "Independent reviewers confirmed closure of V035-F05."
+ok   C-18 [closure] MUST FAIL | CHANGELOG.md@end -> FAIL (CHANGELOG v0.3.8 contains premature independent-closure claim.) | "Closure: independently confirmed."
+ok   C-18 [closure] MUST FAIL | VERSION.txt@mid -> FAIL (VERSION contains premature independent-closure claim.) | "Closure: independently confirmed."
+UNEXPECTED C-19 [closure] MUST FAIL | VERSION.txt@mid -> PASS | "V035-F05: CLOSED (independent retest)."
+UNEXPECTED C-19 [closure] MUST FAIL | index.html@end -> PASS | "V035-F05: CLOSED (independent retest)."
+UNEXPECTED C-20 [tamper] MUST PASS | index.html@end -> FAIL (UI contains affirmative tamper-proof language.) | "Exports are not tamper-proof."
+UNEXPECTED C-20 [tamper] MUST PASS | README.md@mid -> FAIL (README contains affirmative tamper-proof language.) | "Exports are not tamper-proof."
+UNEXPECTED C-21 [tamper] MUST PASS | README.md@mid -> FAIL (README contains affirmative tamper-proof language.) | "The export isn't tamper-proof."
+UNEXPECTED C-21 [tamper] MUST PASS | CHANGELOG.md@end -> FAIL (CHANGELOG contains affirmative tamper-proof language.) | "The export isn't tamper-proof."
+UNEXPECTED C-22 [tamper] MUST PASS | CHANGELOG.md@end -> FAIL (CHANGELOG contains affirmative tamper-proof language.) | "PASS does not make the export tamper-proof."
+UNEXPECTED C-22 [tamper] MUST PASS | VERSION.txt@mid -> FAIL (VERSION contains affirmative tamper-proof language.) | "PASS does not make the export tamper-proof."
+UNEXPECTED C-23 [tamper] MUST PASS | VERSION.txt@mid -> FAIL (VERSION contains affirmative tamper-proof language.) | "No tamper-proof guarantee is made."
+UNEXPECTED C-23 [tamper] MUST PASS | index.html@end -> FAIL (UI contains affirmative tamper-proof language.) | "No tamper-proof guarantee is made."
+UNEXPECTED C-24 [tamper] MUST PASS | index.html@end -> FAIL (UI contains affirmative tamper-proof language.) | "Not signed, and not tamper-proof."
+UNEXPECTED C-24 [tamper] MUST PASS | README.md@mid -> FAIL (README contains affirmative tamper-proof language.) | "Not signed, and not tamper-proof."
+UNEXPECTED C-25 [v1] MUST PASS | README.md@mid -> FAIL (README contains premature Version 1.0 claim.) | "This release has not been approved as Version 1.0."
+UNEXPECTED C-25 [v1] MUST PASS | CHANGELOG.md@end -> FAIL (CHANGELOG v0.3.8 contains premature Version 1.0 claim.) | "This release has not been approved as Version 1.0."
+UNEXPECTED C-26 [v1] MUST PASS | CHANGELOG.md@end -> FAIL (CHANGELOG v0.3.8 contains premature Version 1.0 claim.) | "Neither ready for nor approved as Version 1.0."
+UNEXPECTED C-26 [v1] MUST PASS | VERSION.txt@mid -> FAIL (VERSION contains premature Version 1.0 claim.) | "Neither ready for nor approved as Version 1.0."
+UNEXPECTED C-27 [v1] MUST PASS | VERSION.txt@mid -> FAIL (VERSION contains premature Version 1.0 claim.) | "Not yet approved or ready for Version 1.0."
+UNEXPECTED C-27 [v1] MUST PASS | index.html@end -> FAIL (UI contains premature Version 1.0 claim.) | "Not yet approved or ready for Version 1.0."
+ok   C-28 [v1] MUST PASS | index.html@end -> PASS | "Version 1.0 was not approved."
+ok   C-28 [v1] MUST PASS | README.md@mid -> PASS | "Version 1.0 was not approved."
+ok   C-29 [v1] MUST PASS | README.md@mid -> PASS | "v1.0 is not yet approved."
+ok   C-29 [v1] MUST PASS | CHANGELOG.md@end -> PASS | "v1.0 is not yet approved."
+UNEXPECTED C-30 [closure] MUST PASS | CHANGELOG.md@end -> FAIL (CHANGELOG v0.3.8 contains premature independent-closure claim.) | "Independent closure of V035-F05 has not been confirmed."
+UNEXPECTED C-30 [closure] MUST PASS | VERSION.txt@mid -> FAIL (VERSION contains premature independent-closure claim.) | "Independent closure of V035-F05 has not been confirmed."
+UNEXPECTED C-31 [closure] MUST PASS | VERSION.txt@mid -> FAIL (VERSION contains premature independent-closure claim.) | "No independent closure has been confirmed."
+UNEXPECTED C-31 [closure] MUST PASS | index.html@end -> FAIL (UI contains premature independent-closure claim.) | "No independent closure has been confirmed."
+UNEXPECTED C-32 [closure] MUST PASS | index.html@end -> FAIL (UI contains premature independent-closure claim.) | "Independent closure is pending until F05 is closed."
+UNEXPECTED C-32 [closure] MUST PASS | README.md@mid -> FAIL (README contains premature independent-closure claim.) | "Independent closure is pending until F05 is closed."
+UNEXPECTED C-33 [closure] MUST PASS | README.md@mid -> FAIL (README contains premature independent-closure claim.) | "Independent closure will be confirmed only after the final regression."
+UNEXPECTED C-33 [closure] MUST PASS | CHANGELOG.md@end -> FAIL (CHANGELOG v0.3.8 contains premature independent-closure claim.) | "Independent closure will be confirmed only after the final regression."
+ok   C-34 [closure] MUST PASS | CHANGELOG.md@end -> PASS | "Independent closure has not yet been confirmed."
+ok   C-34 [closure] MUST PASS | VERSION.txt@mid -> PASS | "Independent closure has not yet been confirmed."
+UNEXPECTED C-35 [closure] MUST PASS | VERSION.txt@mid -> FAIL (VERSION contains premature independent-closure claim.) | "Closure has not yet been independently confirmed."
+UNEXPECTED C-35 [closure] MUST PASS | index.html@end -> FAIL (UI contains premature independent-closure claim.) | "Closure has not yet been independently confirmed."
+UNEXPECTED H-01 [tamper] MUST FAIL | index.html@mid -> PASS | "<p>Tamper&#8209;proof evidence export.</p>"
+UNEXPECTED H-02 [tamper] MUST FAIL | index.html@mid -> PASS | "<p>Tamper<span></span>proof evidence export.</p>"
+UNEXPECTED H-03 [v1] MUST FAIL | index.html@mid -> PASS | "<p>Version&nbsp;1.0 approved.</p>"
+ok   H-04 [closure] MUST FAIL | index.html@mid -> FAIL (UI contains premature independent-closure claim.) | "<p>Independent closure <b>confirmed</b>.</p>"
+TOTAL UNEXPECTED: 75 {"A":16,"C":56,"H":3}
+
+=== PROBE RUNNER SOURCE ===
+import fs from 'node:fs'; import path from 'node:path'; import {execFileSync} from 'node:child_process';
+const REPO='/home/claude/repo', AUDIT=path.join(REPO,'tests/v0.3.8-doc-audit.mjs');
+const TMP='/home/claude/probe/tmp';
+fs.rmSync(TMP,{recursive:true,force:true}); fs.cpSync(REPO,TMP,{recursive:true,filter:s=>!s.includes('/.git')});
+const orig={}; for(const f of ['README.md','CHANGELOG.md','VERSION.txt','index.html']) orig[f]=fs.readFileSync(path.join(TMP,f),'utf8');
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function insert(surface,pos,text,raw){
+  let s=orig[surface];
+  if(surface==='index.html'){ const p=raw?text:`<p>${esc(text)}</p>`;
+    if(pos==='mid'){const i=s.indexOf('</main>')>0?s.indexOf('</main>'):s.indexOf('</body>'); return s.slice(0,i)+p+'\n'+s.slice(i);}
+    return s.replace('</body>',p+'\n</body>');}
+  if(surface==='CHANGELOG.md'){ // current v0.3.8 section
+    const a=s.indexOf('## v0.3.8'), b=s.indexOf('\n## v0.3.7');
+    if(pos==='mid'){const i=s.indexOf('\n',a)+1; return s.slice(0,i)+'\n'+text+'\n'+s.slice(i);}
+    return s.slice(0,b)+'\n'+text+'\n'+s.slice(b);} // end of current section
+  if(pos==='mid'){const lines=s.split('\n'); let i=Math.floor(lines.length/2); while(i<lines.length&&lines[i]!=='') i++; lines.splice(i,0,'',text,''); return lines.join('\n');}
+  return s.replace(/\n*$/,'\n\n'+text+'\n');
+}
+function audit(surface,pos,text,raw){
+  for(const f in orig) fs.writeFileSync(path.join(TMP,f),orig[f]);
+  fs.writeFileSync(path.join(TMP,surface),insert(surface,pos,text,raw));
+  try{execFileSync('node',[AUDIT],{env:{...process.env,JANUS_TEST_ROOT:TMP},stdio:'pipe'});return {r:'PASS',why:''};}
+  catch(e){const m=(e.stderr.toString().match(/Error: (.*)/)||[])[1]||'?';return {r:'FAIL',why:m};}
+}
+const probes=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+// baseline
+for(const f in orig) fs.writeFileSync(path.join(TMP,f),orig[f]);
+let base; try{execFileSync('node',[AUDIT],{env:{...process.env,JANUS_TEST_ROOT:TMP}});base='PASS'}catch(e){base='FAIL'}
+console.log(`BASELINE unmodified copy: ${base}`);
+let unexpected=0; const byGroup={};
+for(const p of probes){
+  for(const [surf,pos] of p.at){
+    const {r,why}=audit(surf,pos,p.text,p.raw);
+    const want=p.expect==='MUST FAIL'?'FAIL':'PASS'; const ok=r===want; if(!ok){unexpected++; byGroup[p.id.split('-')[0]]=(byGroup[p.id.split('-')[0]]||0)+1;}
+    console.log(`${ok?'ok  ':'UNEXPECTED'} ${p.id} [${p.cls}] ${p.expect} | ${surf}@${pos} -> ${r}${why?' ('+why+')':''} | ${JSON.stringify(p.text)}`);
+  }
+}
+console.log(`TOTAL UNEXPECTED: ${unexpected}`, JSON.stringify(byGroup));
+
+=== PROBE DEFINITIONS (JSON) ===
+[
+{
+"id": "A-01",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "Tamperproof evidence export.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "A-02",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "Tamper-proof evidence export.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "A-03",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "Tamper‑proof evidence export.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "A-04",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "Not signed, but tamper-proof evidence export.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "A-05",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "The evidence export is tamper proof.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "A-06",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "The export is tamperproof.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "A-07",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "The evidence cannot be altered.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "A-08",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "Evidence integrity is guaranteed.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "A-09",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "Approved as Version 1.0.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "A-10",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "Promoted to Version 1.0.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "A-11",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "v1.0 approved.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "A-12",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "Version 1.0: approved.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "A-13",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "Version 1.0 is certified.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "A-14",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "Ready as Version 1.0.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "A-15",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "This is the Version 1.0 release.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "A-16",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "Version 1.0 release approved.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "A-17",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "All nine V035 findings were independently closed.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "A-18",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "Closure was independently confirmed.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "A-19",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "Independent closure confirmed.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "A-20",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "Independent closure has been confirmed.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "A-21",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "All residual findings are independently closed.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "A-22",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "Independent testing closed all remaining findings.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "A-23",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "The remaining finding has been independently closed.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "A-24",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "F05 is independently closed.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "B-01",
+"cls": "tamper",
+"expect": "MUST PASS",
+"text": "not claimed to be tamper-proof",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "B-02",
+"cls": "tamper",
+"expect": "MUST PASS",
+"text": "not a tamper-proof control",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "B-03",
+"cls": "tamper",
+"expect": "MUST PASS",
+"text": "The export is never tamper-proof.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "B-04",
+"cls": "tamper",
+"expect": "MUST PASS",
+"text": "The export cannot be considered tamper-proof.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "B-05",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "Independent closure is not claimed.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "B-06",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "Independent closure: pending.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "B-07",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "Independent closure has not been confirmed.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "B-08",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "Independent closure is not yet complete.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "B-09",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "Closure was not independently confirmed.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "B-10",
+"cls": "v1",
+"expect": "MUST PASS",
+"text": "This release is not ready for Version 1.0.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "B-11",
+"cls": "v1",
+"expect": "MUST PASS",
+"text": "This release is not yet ready for Version 1.0.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "B-12",
+"cls": "v1",
+"expect": "MUST PASS",
+"text": "Version 1.0 is not approved.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "B-13",
+"cls": "v1",
+"expect": "MUST PASS",
+"text": "This is not the Version 1.0 release.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "B-14",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "F05 is not independently closed.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "B-15",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "The remaining finding has not been independently closed.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "C-01",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "Evidence exports are tamper–proof.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "C-02",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "Tamper­proof evidence export.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "C-03",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "Tamper​proof evidence export.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "C-04",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "Tamper-*proof* evidence export.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "C-05",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "Evidence exports are immutable and cannot be forged.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "C-06",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "The exported JSON is cryptographically signed.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "C-07",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "Who says the export is not tamper-proof? It is.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "C-08",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "Version 1.0 has been approved.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "C-09",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "Version 1.0 is now approved.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "C-10",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "This release is Version 1.0.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "C-11",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "Approved for release as Version 1.0.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "C-12",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "Version 1.0 — approved.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "C-13",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "V1.0 ready.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "C-14",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "Promoted to v1.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "C-15",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "F05 was independently closed.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "C-16",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "Every V035 finding has been independently closed.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "C-17",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "Independent reviewers confirmed closure of V035-F05.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "C-18",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "Closure: independently confirmed.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "C-19",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "V035-F05: CLOSED (independent retest).",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "C-20",
+"cls": "tamper",
+"expect": "MUST PASS",
+"text": "Exports are not tamper-proof.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "C-21",
+"cls": "tamper",
+"expect": "MUST PASS",
+"text": "The export isn't tamper-proof.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "C-22",
+"cls": "tamper",
+"expect": "MUST PASS",
+"text": "PASS does not make the export tamper-proof.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "C-23",
+"cls": "tamper",
+"expect": "MUST PASS",
+"text": "No tamper-proof guarantee is made.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "C-24",
+"cls": "tamper",
+"expect": "MUST PASS",
+"text": "Not signed, and not tamper-proof.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "C-25",
+"cls": "v1",
+"expect": "MUST PASS",
+"text": "This release has not been approved as Version 1.0.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "C-26",
+"cls": "v1",
+"expect": "MUST PASS",
+"text": "Neither ready for nor approved as Version 1.0.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "C-27",
+"cls": "v1",
+"expect": "MUST PASS",
+"text": "Not yet approved or ready for Version 1.0.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "C-28",
+"cls": "v1",
+"expect": "MUST PASS",
+"text": "Version 1.0 was not approved.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "C-29",
+"cls": "v1",
+"expect": "MUST PASS",
+"text": "v1.0 is not yet approved.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "C-30",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "Independent closure of V035-F05 has not been confirmed.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "C-31",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "No independent closure has been confirmed.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "C-32",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "Independent closure is pending until F05 is closed.",
+"at": [
+[
+"index.html",
+"end"
+],
+[
+"README.md",
+"mid"
+]
+]
+},
+{
+"id": "C-33",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "Independent closure will be confirmed only after the final regression.",
+"at": [
+[
+"README.md",
+"mid"
+],
+[
+"CHANGELOG.md",
+"end"
+]
+]
+},
+{
+"id": "C-34",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "Independent closure has not yet been confirmed.",
+"at": [
+[
+"CHANGELOG.md",
+"end"
+],
+[
+"VERSION.txt",
+"mid"
+]
+]
+},
+{
+"id": "C-35",
+"cls": "closure",
+"expect": "MUST PASS",
+"text": "Closure has not yet been independently confirmed.",
+"at": [
+[
+"VERSION.txt",
+"mid"
+],
+[
+"index.html",
+"end"
+]
+]
+},
+{
+"id": "H-01",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "<p>Tamper&#8209;proof evidence export.</p>",
+"raw": true,
+"at": [
+[
+"index.html",
+"mid"
+]
+]
+},
+{
+"id": "H-02",
+"cls": "tamper",
+"expect": "MUST FAIL",
+"text": "<p>Tamper<span></span>proof evidence export.</p>",
+"raw": true,
+"at": [
+[
+"index.html",
+"mid"
+]
+]
+},
+{
+"id": "H-03",
+"cls": "v1",
+"expect": "MUST FAIL",
+"text": "<p>Version&nbsp;1.0 approved.</p>",
+"raw": true,
+"at": [
+[
+"index.html",
+"mid"
+]
+]
+},
+{
+"id": "H-04",
+"cls": "closure",
+"expect": "MUST FAIL",
+"text": "<p>Independent closure <b>confirmed</b>.</p>",
+"raw": true,
+"at": [
+[
+"index.html",
+"mid"
+]
+]
+}
+]

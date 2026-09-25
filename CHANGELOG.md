@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.3.9 — fail-closed documentation-claim control candidate
+
+- preserves the independent v0.3.8 targeted V035-F05 FAIL evidence unchanged;
+- records V035-F04 as independently closed;
+- retains V035-F05 as partially closed pending independent retest;
+- replaces phrase-expansion release-claim matching with explicit reviewed guarded-claim allowlisting;
+- normalizes formatting and invisible-character variants before guarded-claim comparison;
+- treats unreviewed guarded claims as failures instead of attempting to infer arbitrary natural-language intent;
+- does not change the six authored scenarios or their canonical dispositions.
+
+Independent closure of V035-F05 is not claimed. Version 1.0 remains blocked.
+
 ## v0.3.8 — bounded F05 oracle hardening candidate
 
 - preserves the independent v0.3.7 targeted residual FAIL evidence unchanged;

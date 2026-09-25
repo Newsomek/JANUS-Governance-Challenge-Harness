@@ -1,3 +1,8 @@
+# SUPERSEDED — historical candidate gate
+
+This historical gate is retained for traceability and must not be used as the current release gate.
+
+See `V0_3_9_RELEASE_GATE.md`.
 # JANUS v0.3.8 release gate
 
 Version 0.3.8 is the bounded response to the single residual V035-F05 documentation/audit finding from the independent v0.3.7 targeted residual closure test.
