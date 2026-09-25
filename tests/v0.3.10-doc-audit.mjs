@@ -23,7 +23,7 @@ const root =
       );
 
 const EXPECTED_BASELINE_SHA256 =
-  "bdf484238c3a0d76e426f57cf0c6cdc621920737cc2121136f49f003835af146";
+  "eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4";
 
 const result =
   auditGovernedSurfaces(

@@ -1,40 +1,49 @@
-# JANUS Governance Challenge Harness v0.3.9
+# JANUS Governance Challenge Harness v0.3.10
 
-A dependency-free external architectural challenge harness for examining governance claims described in the **JANUS Orientation Edition 2026**.
+A dependency-free external architectural challenge harness for examining governance claims described in
+the **JANUS Orientation Edition 2026**.
 
+## v0.3.10 exact governed-release baseline candidate
 
-## v0.3.9 fail-closed documentation-claim control candidate
-
-Version 0.3.9 is a bounded response to the remaining V035-F05 documentation-audit finding from the independent v0.3.8 targeted test.
+Version 0.3.10 is a bounded response to the remaining V035-F05 documentation-governance weakness demonstrated by the independent v0.3.9 targeted closure test.
 
 V035-F04 remains independently closed. V035-F05 remains partially closed pending independent retest.
 
-The previous documentation audit attempted to infer acceptable and unacceptable release claims from expanding regular-expression patterns. Independent testing showed that this produced both missed affirmative claims and rejected legitimate disclaimers.
+The v0.3.9 candidate replaced expanding phrase exceptions with normalized guarded-claim allowlisting. Independent testing showed that this still depended on recognizing particular governance vocabulary and therefore remained vulnerable to semantically equivalent wording outside that vocabulary.
 
-v0.3.9 replaces that approach for guarded release claims with explicit deterministic change control:
+v0.3.10 removes that semantic-classification problem from the release-document control. The current release policy is deterministic exact change control:
 
-- current documentation surfaces are normalized before inspection, including Unicode compatibility normalization, default-ignorable and soft-hyphen removal, Markdown emphasis removal, HTML entity decoding, and HTML tag removal;
-- claim units containing guarded governance concepts require an explicitly reviewed normalized allowlist entry;
-- reviewed disclaimer units may be approved globally and remain valid across current release surfaces;
-- an unreviewed guarded claim fails closed, regardless of whether it appears affirmative or negative;
-- this mechanism is deterministic change control, not semantic understanding or a claim that arbitrary natural-language paraphrases can be classified correctly.
+- the approved public release-file set is declared in `docs/GOVERNED_RELEASE_FILES.json`;
+- the exact approved bytes of each governed release file are bound by SHA-256 in `docs/APPROVED_GOVERNED_SURFACES.json`;
+- any byte change to a governed release file fails the release audit until the changed state is deliberately reviewed and explicitly approved;
+- changing the governed-file set itself also requires explicit review and approval;
+- the review-proposal tool is read-only and does not silently approve candidate content;
+- an explicit approval mechanism can establish a new reviewed baseline for a legitimate future release transition;
+- fixture coverage demonstrates that a future addition such as `LICENSE` fails before approval and can pass after explicit approval;
+- mutation regression independently exercises baseline binding, manifest binding, file-set equality, per-file content binding, and manifest traversal completeness.
 
-The policy is designed so that adding or changing a guarded governance claim requires deliberate review rather than another regular-expression exception.
+This mechanism does not attempt to decide whether arbitrary English wording is acceptable. It instead asks the narrower deterministic question: **is this exact release state the state that was explicitly reviewed and approved?**
 
-Phase-1 validation controls:
+Current v0.3.10 control suites:
 
-- `tests/v0.3.9-regression.mjs`
-- `tests/v0.3.9-doc-audit.mjs`
-- `tests/v0.3.9-doc-claim-fixtures.mjs`
-- `tests/v0.3.9-manifest-audit.mjs`
+- `tests/v0.3.10-regression.mjs`
+- `tests/v0.3.10-doc-audit.mjs`
+- `tests/v0.3.10-surface-fixtures.mjs`
+- `tests/v0.3.10-surface-mutation-regression.mjs`
+- `tests/v0.3.10-surface-review-proposal.mjs`
+- `tests/v0.3.10-approve-release-baseline.mjs`
+- `tests/v0.3.10-manifest-audit.mjs` after the bound `build-info.json` is generated
+- `tests/V0_3_10_RELEASE_GATE.md`
 
-The v0.3.9 mutation suite will be rebound to this policy before the candidate is committed or deployed.
+The historical v0.3.9 behavioral regression remains preserved as `tests/v0.3.9-regression.mjs`.
 
-Current release gate:
+Preserved independent v0.3.9 evidence:
 
-- `tests/V0_3_9_RELEASE_GATE.md`
+- `testing/claude/v0.3.9/JANUS_v0.3.9_Targeted_V035-F05_Closure_Report.md`
+- `testing/claude/v0.3.9/JANUS_v0.3.9_targeted_F05_closure_raw_evidence.txt`
 
-Independent closure of V035-F05 is **not** claimed. Version 1.0 remains blocked pending targeted V035-F05 closure and one final full independent zero-open-finding adversarial regression.
+Independent closure of V035-F05 is **not** claimed. Version 1.0 remains blocked pending targeted v0.3.10 V035-F05 closure and one final full independent zero-open-finding adversarial regression.
+
 ## Governing principle
 
 > **Challenge JANUS against JANUS first.**

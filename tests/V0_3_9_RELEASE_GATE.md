@@ -1,3 +1,9 @@
+# SUPERSEDED — historical JANUS v0.3.9 release gate
+
+This gate is retained for traceability and must not be used for the current release.
+
+The independent v0.3.9 targeted V035-F05 closure test left V035-F05 partially closed. See `V0_3_10_RELEASE_GATE.md`.
+
 # JANUS v0.3.9 release gate
 
 Version 0.3.9 replaces the pattern-expansion documentation oracle with explicit fail-closed guarded-claim change control.

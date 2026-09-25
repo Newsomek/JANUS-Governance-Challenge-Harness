@@ -8,18 +8,17 @@
     "sha256": "479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda"
   },
   "governed_files": {
-    "CHANGELOG.md": {
-      "sha256": "141af2218b62a6ca81fe12ce3bbe177faa7b6f03b3f2f9aa0d7ba28d3247244f"
-    },
-    "index.html": {
-      "sha256": "5ed84eef36d1a410f4660fa997d66fb6003196b6b29958c731c49d6086bc2dc6"
-    },
     "README.md": {
-      "sha256": "a7345f720743e610ae3aad9c631598461672c97c00ce45768c1c5a918fa43a53"
+      "sha256": "d83f0a572319655d8b6d8a6af6d1b89a37f31cf548273856d82c0416d8ea34e3"
+    },
+    "CHANGELOG.md": {
+      "sha256": "41fe54d3f806f0970c61d8aa324f8eb0286144d0b83a9e9400e3506a9a88e783"
     },
     "VERSION.txt": {
-      "sha256": "a5d01100b2ac3549ef66dbe6e29c22abb1b3b3221e9629a038e937c50aad282d"
+      "sha256": "571724093e18dd9addab1b191dc6461d819f30fdbc9cd579f2bde8c6d2417498"
+    },
+    "index.html": {
+      "sha256": "4ae993c1f52826ed3863c30cd39609c0411dcf1a12c12b7fb8cce35b21a3ec60"
     }
   }
 }
-

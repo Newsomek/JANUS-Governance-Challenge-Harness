@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.3.10 — exact governed-release baseline candidate
+
+- preserves the independent v0.3.9 targeted V035-F05 PARTIALLY CLOSED report and raw evidence unchanged;
+- records V035-F04 as independently closed and retains V035-F05 as partially closed pending targeted independent retest;
+- retires guarded-claim keyword/allowlist inference as the current release-document control;
+- binds the exact approved release-document bytes with SHA-256 rather than attempting semantic classification of arbitrary natural-language claims;
+- introduces a versioned governed-release file manifest so the protected file set can itself change through explicit review;
+- rejects unapproved changes to either governed content or the governed-file set;
+- keeps candidate review generation read-only and requires explicit approval before a changed state becomes the new baseline;
+- verifies a future LICENSE/file-set transition is blocked before approval and can be accepted after explicit approval;
+- adds isolated mutation coverage for per-file content binding, baseline binding, manifest binding, file-set equality, and governed-file traversal completeness;
+- derives the current v0.3.10 behavioral regression from the preserved v0.3.9 suite while leaving the historical v0.3.9 regression intact; the six authored scenarios and canonical dispositions remain unchanged.
+
+Independent closure of V035-F05 is not claimed. Version 1.0 remains blocked pending targeted v0.3.10 closure testing and one final full independent zero-open-finding adversarial regression.
+
 ## v0.3.9 — fail-closed documentation-claim control candidate
 
 - preserves the independent v0.3.8 targeted V035-F05 FAIL evidence unchanged;
