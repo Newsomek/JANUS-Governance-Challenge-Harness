@@ -5,7 +5,7 @@ import {spawnSync} from "node:child_process";
 import {fileURLToPath} from "node:url";
 
 import {
-  APPROVAL_SEMANTICS,
+  BINDING_SEMANTICS,
   PROVENANCE_ONLY_FILES,
   RELEASE_SCOPE,
   canonicalReleaseStateText,
@@ -136,21 +136,21 @@ function writeBoundState(root,codeCommit) {
 
   const state = {
     schema: 1,
-    control: "complete-git-tree-release-state",
+    control: "complete-git-tree-bound-release-state",
     version: "0.3.12",
     build_id: "janus-governance-challenge-harness-v0.3.12",
     code_commit: codeCommit,
     code_tree: codeTree,
     provenance_only_files: [...PROVENANCE_ONLY_FILES],
     scope: RELEASE_SCOPE,
-    approval_semantics: APPROVAL_SEMANTICS
+    binding_semantics: BINDING_SEMANTICS
   };
 
   fs.writeFileSync(
     path.join(
       root,
       "docs",
-      "APPROVED_RELEASE_STATE.json"
+      "BOUND_RELEASE_STATE.json"
     ),
     canonicalReleaseStateText(state),
     "utf8"
@@ -171,6 +171,42 @@ function commitAll(root,message) {
 }
 
 function prepareCodeCommit(root) {
+  const oldStatePath =
+    path.join(
+      root,
+      "docs",
+      "APPROVED_RELEASE_STATE.json"
+    );
+
+  const newStatePath =
+    path.join(
+      root,
+      "docs",
+      "BOUND_RELEASE_STATE.json"
+    );
+
+  /*
+   * The fixture clone is created from the committed repository HEAD.
+   * During pre-Commit-A testing that historical HEAD still tracks the
+   * old release-state filename. Normalize the fixture repository to
+   * the current v0.3.12 bound-state path before creating its synthetic
+   * code commit. After the real Commit A exists this branch becomes a
+   * no-op because the new path is already tracked.
+   */
+  if (
+    fs.existsSync(oldStatePath) &&
+    !fs.existsSync(newStatePath)
+  ) {
+    run(
+      root,
+      [
+        "mv",
+        "docs/APPROVED_RELEASE_STATE.json",
+        "docs/BOUND_RELEASE_STATE.json"
+      ]
+    );
+  }
+
   fs.writeFileSync(
     path.join(
       root,
@@ -225,7 +261,7 @@ function createValidProvenanceCommit(
     [
       "add",
       "build-info.json",
-      "docs/APPROVED_RELEASE_STATE.json"
+      "docs/BOUND_RELEASE_STATE.json"
     ]
   );
 
@@ -314,7 +350,159 @@ function createValidProvenanceCommit(
   }
 }
 
-/* 3. Uncommitted provenance change after B => fail. */
+/* 3. Commit B changing only one provenance file => fail. */
+{
+  const root = cloneFixture();
+
+  try {
+    const codeCommit = prepareCodeCommit(root);
+
+    writeBoundState(
+      root,
+      codeCommit
+    );
+
+    run(
+      root,
+      [
+        "add",
+        "docs/BOUND_RELEASE_STATE.json"
+      ]
+    );
+
+    run(
+      root,
+      [
+        "commit",
+        "--quiet",
+        "-m",
+        "fixture incomplete provenance commit"
+      ]
+    );
+
+    expectFail(
+      "Commit B changing only one provenance file",
+      () =>
+        auditCompleteReleaseState(
+          root,
+          {
+            requireFinalRelease:true
+          }
+        )
+    );
+  }
+  finally {
+    fs.rmSync(
+      root,
+      {
+        recursive:true,
+        force:true
+      }
+    );
+  }
+}
+
+/* 4. Merge-style Commit B with extra parent => fail. */
+{
+  const root = cloneFixture();
+
+  try {
+    const codeCommit = prepareCodeCommit(root);
+
+    writeBoundState(
+      root,
+      codeCommit
+    );
+
+    fs.writeFileSync(
+      path.join(
+        root,
+        "build-info.json"
+      ),
+      JSON.stringify(
+        {
+          fixture:
+            "provenance"
+        },
+        null,
+        2
+      ) + "\n",
+      "utf8"
+    );
+
+    run(
+      root,
+      [
+        "add",
+        "build-info.json",
+        "docs/BOUND_RELEASE_STATE.json"
+      ]
+    );
+
+    const provenanceTree =
+      text(
+        root,
+        [
+          "write-tree"
+        ]
+      );
+
+    const secondParent =
+      text(
+        root,
+        [
+          "rev-parse",
+          `${codeCommit}^`
+        ]
+      );
+
+    const mergeCommit =
+      text(
+        root,
+        [
+          "commit-tree",
+          provenanceTree,
+          "-p",
+          codeCommit,
+          "-p",
+          secondParent,
+          "-m",
+          "fixture merge provenance commit"
+        ]
+      );
+
+    run(
+      root,
+      [
+        "reset",
+        "--hard",
+        mergeCommit
+      ]
+    );
+
+    expectFail(
+      "Commit B with more than one parent",
+      () =>
+        auditCompleteReleaseState(
+          root,
+          {
+            requireFinalRelease:true
+          }
+        )
+    );
+  }
+  finally {
+    fs.rmSync(
+      root,
+      {
+        recursive:true,
+        force:true
+      }
+    );
+  }
+}
+
+/* 5. Uncommitted provenance change after B => fail. */
 {
   const root = cloneFixture();
 
@@ -357,7 +545,7 @@ function createValidProvenanceCommit(
   }
 }
 
-/* 4. New tracked file committed in B => fail. */
+/* 6. New tracked file committed in B => fail. */
 {
   const root = cloneFixture();
 
@@ -421,7 +609,7 @@ function createValidProvenanceCommit(
   }
 }
 
-/* 5. Second provenance commit => fail. */
+/* 7. Second provenance commit => fail. */
 {
   const root = cloneFixture();
 

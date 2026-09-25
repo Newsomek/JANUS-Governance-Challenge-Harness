@@ -1,14 +1,14 @@
 {
   "schema": 1,
-  "control": "complete-git-tree-release-state",
+  "control": "complete-git-tree-bound-release-state",
   "version": "0.3.12",
   "build_id": "janus-governance-challenge-harness-v0.3.12",
   "code_commit": null,
   "code_tree": null,
   "provenance_only_files": [
     "build-info.json",
-    "docs/APPROVED_RELEASE_STATE.json"
+    "docs/BOUND_RELEASE_STATE.json"
   ],
   "scope": "Exact committed release state. All tracked paths and bytes outside the two provenance-only files must remain identical to code_commit.",
-  "approval_semantics": "Workflow binding only; not authentication, a digital signature, deployment enforcement, or proof of human review."
+  "binding_semantics": "Workflow binding only; not authentication, a digital signature, deployment enforcement, or proof of human review."
 }

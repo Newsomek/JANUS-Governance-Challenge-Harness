@@ -25,8 +25,8 @@ The release structure remains:
 
 - Commit A is the exact code/content commit and Git tree;
 - every tracked path and byte belongs to that release state automatically;
-- only `build-info.json` and `docs/APPROVED_RELEASE_STATE.json` may change afterward;
-- those two provenance files form exactly one Commit B;
+- only `build-info.json` and `docs/BOUND_RELEASE_STATE.json` may change afterward;
+- Commit B is the single direct child of Commit A and changes exactly both provenance-only files;
 - both provenance files have fixed schemas and canonical byte representations;
 - no third release commit is permitted.
 
@@ -131,7 +131,7 @@ Exports include run and export timestamps, harness version/build ID, the bound a
 
 Before export the harness recomputes and checks: valid prediction membership, prediction/disposition labels, comparison code/label, current contract hash, live source-document bytes and hash, source consistency with the run, bound build identity and served `app.js`, event-log content, stored evidence-core hash, full stored-record snapshot hash, fresh authored-state hash, and a freshly re-derived replay result. A failed check refuses ordinary export. The mutable on-screen replay record is never trusted as export evidence. Client-side JSON remains unsigned and is not claimed to be tamper-proof.
 
-The build manifest records SHA-256 hashes for every non-provenance file in the bound code/content commit (Commit A). Both provenance-only files — `build-info.json` and `docs/APPROVED_RELEASE_STATE.json` — are deliberately excluded from the manifest file map and are validated separately by their fixed schemas, canonical byte representations, release-state binding, and Commit B topology. The manifest therefore describes immutable non-provenance Commit A content without representing either provenance file through stale placeholder bytes. At runtime the harness directly enforces the manifest version/build ID and the served `app.js` hash; it separately verifies the JANUS source-document hash. Other manifest hashes are Commit A provenance metadata for independent exact-artifact verification.
+The build manifest records SHA-256 hashes for every non-provenance file in the bound code/content commit (Commit A). Both provenance-only files — `build-info.json` and `docs/BOUND_RELEASE_STATE.json` — are deliberately excluded from the manifest file map and are validated separately by their fixed schemas, canonical byte representations, release-state binding, and Commit B topology. The manifest therefore describes immutable non-provenance Commit A content without representing either provenance file through stale placeholder bytes. At runtime the harness directly enforces the manifest version/build ID and the served `app.js` hash; it separately verifies the JANUS source-document hash. Other manifest hashes are Commit A provenance metadata for independent exact-artifact verification.
 ## Independent v0.1 test record
 
 The v0.1 harness at commit `f8b2eb6284575d1670c748bee1868835bf7242eb` was independently exercised across all **36 scenario × prediction permutations** on the live public site. The test also covered replay, export, determinism, state isolation, source conformance, and tamper/edge behavior.
@@ -208,7 +208,7 @@ The JANUS source document is fetched and SHA-256 hashed at Run, Replay and Expor
 
 ### Bound code provenance
 
-The governed updater creates each bound release in two commits. Commit A contains the complete exact tracked code/content state, including unbound provenance placeholders. Commit B changes exactly two provenance files: `build-info.json`, which records Commit A as `code_commit` plus SHA-256 hashes of every non-provenance Commit A file, and `docs/APPROVED_RELEASE_STATE.json`, which binds the exact Commit A commit/tree. Neither provenance-only file appears in the manifest file map; both are instead constrained separately by fixed schemas, canonical JSON bytes, release-state binding, and the exact one-commit Commit B topology. At runtime the harness verifies served `app.js` against the manifest. GitHub `main` is queried only as optional corroboration and is reported as `MATCH`, `MISMATCH`, or `UNAVAILABLE`; quota or network failure does not erase the bound code identity.
+The governed updater creates each bound release in two commits. Commit A contains the complete exact tracked code/content state; its two designated provenance-only paths are excluded from the manifest file map and are replaced in Commit B. Commit B changes exactly two provenance files: `build-info.json`, which records Commit A as `code_commit` plus SHA-256 hashes of every non-provenance Commit A file, and `docs/BOUND_RELEASE_STATE.json`, which binds the exact Commit A commit/tree. Neither provenance-only file appears in the manifest file map; both are instead constrained separately by fixed schemas, canonical JSON bytes, release-state binding, and the exact one-commit Commit B topology. At runtime the harness verifies served `app.js` against the manifest. GitHub `main` is queried only as optional corroboration and is reported as `MATCH`, `MISMATCH`, or `UNAVAILABLE`; quota or network failure does not erase the bound code identity.
 
 ### Export integrity scope
 

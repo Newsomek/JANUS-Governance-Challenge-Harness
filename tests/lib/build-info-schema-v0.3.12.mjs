@@ -262,7 +262,7 @@ export function auditBuildInfo(
       expectedCodeCommit
   ) {
     throw new Error(
-      "build-info code_commit differs from approved release-state code_commit."
+      "build-info code_commit differs from bound release-state code_commit."
     );
   }
 

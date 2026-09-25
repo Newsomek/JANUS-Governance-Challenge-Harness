@@ -3,7 +3,7 @@ import path from "node:path";
 import {fileURLToPath} from "node:url";
 
 import {
-  APPROVAL_SEMANTICS,
+  BINDING_SEMANTICS,
   PROVENANCE_ONLY_FILES,
   RELEASE_SCOPE,
   RELEASE_STATE_RELATIVE_PATH,
@@ -110,7 +110,7 @@ const state = {
     1,
 
   control:
-    "complete-git-tree-release-state",
+    "complete-git-tree-bound-release-state",
 
   version:
     "0.3.12",
@@ -130,8 +130,8 @@ const state = {
   scope:
     RELEASE_SCOPE,
 
-  approval_semantics:
-    APPROVAL_SEMANTICS
+  binding_semantics:
+    BINDING_SEMANTICS
 };
 
 const target =

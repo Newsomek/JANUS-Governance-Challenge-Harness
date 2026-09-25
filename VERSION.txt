@@ -12,16 +12,16 @@ Release status:
 Release-state governance:
 - the release boundary is the complete exact Git code/content commit and tree, not a hand-selected claim-surface list
 - all tracked paths and bytes are part of that bound code/content state
-- only build-info.json and docs/APPROVED_RELEASE_STATE.json may differ in the single provenance commit after the bound code commit
+- only build-info.json and docs/BOUND_RELEASE_STATE.json may differ in the single provenance commit after the bound code commit
 - newly added, removed, renamed, mode/type-changed, or byte-changed tracked files therefore change the governed release state automatically
 - all untracked release-workspace files are refused, including paths hidden by .gitignore, .git/info/exclude, or core.excludesFile
-- build-info.json and docs/APPROVED_RELEASE_STATE.json must each use exact canonical JSON bytes; duplicate keys and alternate serializations are refused
+- build-info.json and docs/BOUND_RELEASE_STATE.json must each use exact canonical JSON bytes; duplicate keys and alternate serializations are refused
 - release-state binding is a workflow declaration, not authentication, a digital signature, deployment enforcement, or proof that a human reviewed the release
-- final release audit requires exactly one provenance commit after the bound code commit and a clean tracked working tree
+- final release audit requires Commit B to be the single direct child of Commit A, to change exactly both provenance-only files, and to leave a clean tracked working tree
 
 Build-manifest semantics:
 - build-info.json records SHA-256 hashes for every non-provenance file in the bound Commit A tree
-- build-info.json and docs/APPROVED_RELEASE_STATE.json are both excluded from the manifest file map
+- build-info.json and docs/BOUND_RELEASE_STATE.json are both excluded from the manifest file map
 - Commit B changes exactly those two provenance files; their schemas, canonical byte representations, binding, and commit topology are separately constrained
 
 Authored scenario content: unchanged.

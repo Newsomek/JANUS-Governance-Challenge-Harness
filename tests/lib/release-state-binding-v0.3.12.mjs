@@ -3,15 +3,15 @@ import path from "node:path";
 import {spawnSync} from "node:child_process";
 
 export const RELEASE_STATE_RELATIVE_PATH =
-  "docs/APPROVED_RELEASE_STATE.json";
+  "docs/BOUND_RELEASE_STATE.json";
 
 export const PROVENANCE_ONLY_FILES =
   Object.freeze([
     "build-info.json",
-    "docs/APPROVED_RELEASE_STATE.json"
+    "docs/BOUND_RELEASE_STATE.json"
   ]);
 
-export const APPROVAL_SEMANTICS =
+export const BINDING_SEMANTICS =
   "Workflow binding only; not authentication, a digital signature, deployment enforcement, or proof of human review.";
 
 export const RELEASE_SCOPE =
@@ -19,7 +19,7 @@ export const RELEASE_SCOPE =
 
 const EXPECTED_STATE_KEYS =
   Object.freeze([
-    "approval_semantics",
+    "binding_semantics",
     "build_id",
     "code_commit",
     "code_tree",
@@ -108,34 +108,34 @@ export function validateReleaseState(state) {
     Array.isArray(state)
   ) {
     throw new Error(
-      "Approved release state must be an object."
+      "Bound release state must be an object."
     );
   }
 
   validateExactKeys(
     state,
     EXPECTED_STATE_KEYS,
-    "Approved release state"
+    "Bound release state"
   );
 
   if (state.schema !== 1) {
     throw new Error(
-      "Approved release-state schema mismatch."
+      "Bound release-state schema mismatch."
     );
   }
 
   if (
     state.control !==
-    "complete-git-tree-release-state"
+    "complete-git-tree-bound-release-state"
   ) {
     throw new Error(
-      "Approved release-state control mismatch."
+      "Bound release-state control mismatch."
     );
   }
 
   if (state.version !== "0.3.12") {
     throw new Error(
-      "Approved release-state version mismatch."
+      "Bound release-state version mismatch."
     );
   }
 
@@ -144,7 +144,7 @@ export function validateReleaseState(state) {
     "janus-governance-challenge-harness-v0.3.12"
   ) {
     throw new Error(
-      "Approved release-state build ID mismatch."
+      "Bound release-state build ID mismatch."
     );
   }
 
@@ -155,7 +155,7 @@ export function validateReleaseState(state) {
     )
   ) {
     throw new Error(
-      "Approved release-state code_commit is not a lowercase bound commit."
+      "Bound release-state code_commit is not a lowercase bound commit."
     );
   }
 
@@ -166,7 +166,7 @@ export function validateReleaseState(state) {
     )
   ) {
     throw new Error(
-      "Approved release-state code_tree is not a lowercase bound tree."
+      "Bound release-state code_tree is not a lowercase bound tree."
     );
   }
 
@@ -180,22 +180,22 @@ export function validateReleaseState(state) {
     )
   ) {
     throw new Error(
-      "Approved release-state provenance-only file set mismatch."
+      "Bound release-state provenance-only file set mismatch."
     );
   }
 
   if (state.scope !== RELEASE_SCOPE) {
     throw new Error(
-      "Approved release-state scope text mismatch."
+      "Bound release-state scope text mismatch."
     );
   }
 
   if (
-    state.approval_semantics !==
-    APPROVAL_SEMANTICS
+    state.binding_semantics !==
+    BINDING_SEMANTICS
   ) {
     throw new Error(
-      "Approved release-state approval semantics mismatch."
+      "Bound release-state approval semantics mismatch."
     );
   }
 
@@ -232,8 +232,8 @@ export function canonicalReleaseStateText(
     scope:
       state.scope,
 
-    approval_semantics:
-      state.approval_semantics
+    binding_semantics:
+      state.binding_semantics
   };
 
   return JSON.stringify(
@@ -248,7 +248,7 @@ export function parseCanonicalReleaseState(
 ) {
   if (typeof raw !== "string") {
     throw new Error(
-      "Approved release-state bytes must decode as UTF-8 text."
+      "Bound release-state bytes must decode as UTF-8 text."
     );
   }
 
@@ -260,7 +260,7 @@ export function parseCanonicalReleaseState(
   }
   catch {
     throw new Error(
-      "Approved release-state JSON is invalid."
+      "Bound release-state JSON is invalid."
     );
   }
 
@@ -273,7 +273,7 @@ export function parseCanonicalReleaseState(
 
   if (raw !== canonical) {
     throw new Error(
-      "Approved release-state bytes are not canonical JSON."
+      "Bound release-state bytes are not canonical JSON."
     );
   }
 
@@ -289,7 +289,7 @@ export function readReleaseState(root) {
 
   if (!fs.existsSync(statePath)) {
     throw new Error(
-      "Approved release-state binding is missing."
+      "Bound release-state binding is missing."
     );
   }
 
@@ -483,7 +483,7 @@ export function auditCompleteReleaseState(
 
   if (commitExists.status !== 0) {
     throw new Error(
-      "Approved code_commit does not exist in this repository."
+      "Bound code_commit does not exist in this repository."
     );
   }
 
@@ -499,7 +499,7 @@ export function auditCompleteReleaseState(
 
   if (objectType !== "commit") {
     throw new Error(
-      "Approved code_commit must name a Git commit object directly."
+      "Bound code_commit must name a Git commit object directly."
     );
   }
 
@@ -534,7 +534,7 @@ export function auditCompleteReleaseState(
 
   if (ancestor.status !== 0) {
     throw new Error(
-      "Approved code_commit is not an ancestor of HEAD."
+      "Bound code_commit is not an ancestor of HEAD."
     );
   }
 
@@ -570,7 +570,33 @@ export function auditCompleteReleaseState(
     );
   }
 
-  const approvedTracked =
+  if (requireFinalRelease) {
+    const headWithParents =
+      gitText(
+        root,
+        [
+          "rev-list",
+          "--parents",
+          "-n",
+          "1",
+          "HEAD"
+        ]
+      )
+        .split(/\s+/)
+        .filter(Boolean);
+
+    if (
+      headWithParents.length !== 2 ||
+      headWithParents[1].toLowerCase() !==
+        state.code_commit
+    ) {
+      throw new Error(
+        "Final Commit B must have exactly one parent and that parent must be code_commit."
+      );
+    }
+  }
+
+  const boundTracked =
     getTrackedAtCommit(
       root,
       state.code_commit
@@ -581,22 +607,22 @@ export function auditCompleteReleaseState(
 
   if (
     !sameArray(
-      approvedTracked,
+      boundTracked,
       currentTracked
     )
   ) {
     const missing =
-      approvedTracked.filter(
+      boundTracked.filter(
         p => !currentTracked.includes(p)
       );
 
     const added =
       currentTracked.filter(
-        p => !approvedTracked.includes(p)
+        p => !boundTracked.includes(p)
       );
 
     throw new Error(
-      "Tracked release file set differs from approved code_commit. " +
+      "Tracked release file set differs from bound code_commit. " +
       `Missing: ${missing.join(", ")}; ` +
       `Added: ${added.join(", ")}`
     );
@@ -652,6 +678,18 @@ export function auditCompleteReleaseState(
     "Post-code commit history"
   );
 
+  if (
+    requireFinalRelease &&
+    !sameArray(
+      [...committedChanges].sort(),
+      [...PROVENANCE_ONLY_FILES].sort()
+    )
+  ) {
+    throw new Error(
+      "Final Commit B must change exactly both provenance-only files."
+    );
+  }
+
   return {
     version:
       state.version,
@@ -675,7 +713,7 @@ export function auditCompleteReleaseState(
       commitCount,
 
     tracked_files:
-      approvedTracked.length,
+      boundTracked.length,
 
     provenance_only_files:
       [...PROVENANCE_ONLY_FILES],

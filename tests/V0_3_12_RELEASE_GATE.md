@@ -26,19 +26,19 @@ Commit A contains the complete exact tracked candidate state, including:
 - tests and control implementation;
 - source material;
 - preserved independent evidence;
-- the unbound `docs/APPROVED_RELEASE_STATE.json` placeholder;
+- the unbound `docs/BOUND_RELEASE_STATE.json` placeholder;
 - the deterministic v0.3.12 build-info generator.
 
 Record the exact Commit A SHA and exact Git tree.
 
 ## Commit B — provenance state
 
-Exactly one commit may follow Commit A.
+Exactly one commit may follow Commit A. Commit B must have exactly one parent, and that parent must be Commit A.
 
-Commit B changes exactly:
+Commit B changes exactly both of these files:
 
 - `build-info.json`;
-- `docs/APPROVED_RELEASE_STATE.json`.
+- `docs/BOUND_RELEASE_STATE.json`.
 
 `build-info.json` records:
 
@@ -47,7 +47,7 @@ Commit B changes exactly:
 - exact Commit A SHA;
 - SHA-256 for every non-provenance file in Commit A.
 
-Both provenance-only files — `build-info.json` and `docs/APPROVED_RELEASE_STATE.json` — are excluded from the manifest file map.
+Both provenance-only files — `build-info.json` and `docs/BOUND_RELEASE_STATE.json` — are excluded from the manifest file map.
 
 The served Commit B provenance files are constrained separately by:
 
@@ -69,7 +69,7 @@ The release-state audit refuses all untracked filesystem paths visible to Git's 
 
 Git metadata inside `.git` is not part of the release tree.
 
-## Approval semantics
+## Binding semantics
 
 Binding is an explicit workflow declaration.
 

@@ -5,7 +5,7 @@ import {spawnSync} from "node:child_process";
 import {fileURLToPath} from "node:url";
 
 import {
-  APPROVAL_SEMANTICS,
+  BINDING_SEMANTICS,
   PROVENANCE_ONLY_FILES,
   RELEASE_SCOPE,
   canonicalReleaseStateText,
@@ -235,7 +235,7 @@ const state = {
     1,
 
   control:
-    "complete-git-tree-release-state",
+    "complete-git-tree-bound-release-state",
 
   version:
     "0.3.12",
@@ -255,8 +255,8 @@ const state = {
   scope:
     RELEASE_SCOPE,
 
-  approval_semantics:
-    APPROVAL_SEMANTICS
+  binding_semantics:
+    BINDING_SEMANTICS
 };
 
 const stateCanonical =
@@ -273,12 +273,12 @@ console.log(
 );
 
 expectFail(
-  "release-state duplicate approval_semantics claim",
+  "release-state duplicate binding_semantics claim",
   () => {
     const bad =
       stateCanonical.replace(
-        '  "approval_semantics":',
-        '  "approval_semantics": "Authenticated, digitally signed approval by an independent human reviewer.",\n  "approval_semantics":'
+        '  "binding_semantics":',
+        '  "binding_semantics": "Authenticated, digitally signed approval by an independent human reviewer.",\n  "binding_semantics":'
       );
 
     parseCanonicalReleaseState(
@@ -322,8 +322,8 @@ expectFail(
       );
 
     const reordered = {
-      approval_semantics:
-        parsed.approval_semantics,
+      binding_semantics:
+        parsed.binding_semantics,
 
       scope:
         parsed.scope,
