@@ -690,6 +690,67 @@ export function auditCompleteReleaseState(
     );
   }
 
+  if (requireFinalRelease) {
+    const modeAndType =
+      (commit,relativePath) => {
+        const entry =
+          gitText(
+            root,
+            [
+              "ls-tree",
+              commit,
+              "--",
+              relativePath
+            ]
+          );
+
+        const metadata =
+          entry
+            .split("\t")[0]
+            .trim()
+            .split(/\s+/);
+
+        if (metadata.length < 2) {
+          throw new Error(
+            `Unable to resolve Git mode/type for provenance path: ${relativePath}`
+          );
+        }
+
+        return (
+          metadata[0] +
+          " " +
+          metadata[1]
+        );
+      };
+
+    for (
+      const relativePath
+      of PROVENANCE_ONLY_FILES
+    ) {
+      const codeModeType =
+        modeAndType(
+          state.code_commit,
+          relativePath
+        );
+
+      const finalModeType =
+        modeAndType(
+          "HEAD",
+          relativePath
+        );
+
+      if (
+        finalModeType !==
+        codeModeType
+      ) {
+        throw new Error(
+          `Final Commit B must not change Git mode/type for provenance path: ${relativePath}. ` +
+          `Expected ${codeModeType}; observed ${finalModeType}.`
+        );
+      }
+    }
+  }
+
   return {
     version:
       state.version,

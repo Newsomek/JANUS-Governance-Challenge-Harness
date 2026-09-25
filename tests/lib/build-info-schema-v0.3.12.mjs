@@ -137,6 +137,7 @@ export function validateBuildInfoShape(
         .split("/")
         .some(
           segment =>
+            segment.length === 0 ||
             segment === "." ||
             segment === ".."
         )

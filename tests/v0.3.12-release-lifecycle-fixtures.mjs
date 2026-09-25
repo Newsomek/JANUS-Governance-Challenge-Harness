@@ -670,6 +670,294 @@ function createValidProvenanceCommit(
   }
 }
 
+/* 8. Provenance file mode change in B => fail. */
+{
+  const root = cloneFixture();
+
+  try {
+    const codeCommit =
+      prepareCodeCommit(root);
+
+    writeBoundState(
+      root,
+      codeCommit
+    );
+
+    fs.writeFileSync(
+      path.join(
+        root,
+        "build-info.json"
+      ),
+      JSON.stringify(
+        {
+          fixture:
+            "provenance"
+        },
+        null,
+        2
+      ) + "\n",
+      "utf8"
+    );
+
+    run(
+      root,
+      [
+        "add",
+        "build-info.json",
+        "docs/BOUND_RELEASE_STATE.json"
+      ]
+    );
+
+    run(
+      root,
+      [
+        "update-index",
+        "--chmod=+x",
+        "build-info.json"
+      ]
+    );
+
+    run(
+      root,
+      [
+        "commit",
+        "--quiet",
+        "-m",
+        "fixture provenance mode change"
+      ]
+    );
+
+    run(
+      root,
+      [
+        "reset",
+        "--hard",
+        "HEAD"
+      ]
+    );
+
+    const entry =
+      text(
+        root,
+        [
+          "ls-tree",
+          "HEAD",
+          "--",
+          "build-info.json"
+        ]
+      );
+
+    assert(
+      entry.startsWith(
+        "100755 blob "
+      ),
+      "Mode fixture did not create 100755 build-info.json."
+    );
+
+    expectFail(
+      "Commit B provenance mode change",
+      () =>
+        auditCompleteReleaseState(
+          root,
+          {
+            requireFinalRelease:true
+          }
+        )
+    );
+  }
+  finally {
+    fs.rmSync(
+      root,
+      {
+        recursive:true,
+        force:true
+      }
+    );
+  }
+}
+
+/* 9. Provenance file Git object type change in B => fail. */
+{
+  const root = cloneFixture();
+
+  try {
+    const codeCommit =
+      prepareCodeCommit(root);
+
+    writeBoundState(
+      root,
+      codeCommit
+    );
+
+    fs.writeFileSync(
+      path.join(
+        root,
+        "build-info.json"
+      ),
+      "fixture-provenance-target\n",
+      "utf8"
+    );
+
+    run(
+      root,
+      [
+        "add",
+        "build-info.json",
+        "docs/BOUND_RELEASE_STATE.json"
+      ]
+    );
+
+    const blob =
+      text(
+        root,
+        [
+          "rev-parse",
+          ":build-info.json"
+        ]
+      );
+
+    run(
+      root,
+      [
+        "update-index",
+        "--cacheinfo",
+        `120000,${blob},build-info.json`
+      ]
+    );
+
+    run(
+      root,
+      [
+        "commit",
+        "--quiet",
+        "-m",
+        "fixture provenance type change"
+      ]
+    );
+
+    run(
+      root,
+      [
+        "reset",
+        "--hard",
+        "HEAD"
+      ]
+    );
+
+    const entry =
+      text(
+        root,
+        [
+          "ls-tree",
+          "HEAD",
+          "--",
+          "build-info.json"
+        ]
+      );
+
+    assert(
+      entry.startsWith(
+        "120000 blob "
+      ),
+      "Type fixture did not create symlink-type build-info.json."
+    );
+
+    expectFail(
+      "Commit B provenance Git object type change",
+      () =>
+        auditCompleteReleaseState(
+          root,
+          {
+            requireFinalRelease:true
+          }
+        )
+    );
+  }
+  finally {
+    fs.rmSync(
+      root,
+      {
+        recursive:true,
+        force:true
+      }
+    );
+  }
+}
+
+/* 10. Provenance path rename in B => fail. */
+{
+  const root = cloneFixture();
+
+  try {
+    const codeCommit =
+      prepareCodeCommit(root);
+
+    writeBoundState(
+      root,
+      codeCommit
+    );
+
+    fs.writeFileSync(
+      path.join(
+        root,
+        "build-info.json"
+      ),
+      JSON.stringify(
+        {
+          fixture:
+            "provenance"
+        },
+        null,
+        2
+      ) + "\n",
+      "utf8"
+    );
+
+    run(
+      root,
+      [
+        "add",
+        "build-info.json",
+        "docs/BOUND_RELEASE_STATE.json"
+      ]
+    );
+
+    run(
+      root,
+      [
+        "mv",
+        "build-info.json",
+        "build-info-renamed.json"
+      ]
+    );
+
+    commitAll(
+      root,
+      "fixture provenance rename"
+    );
+
+    expectFail(
+      "Commit B provenance path rename",
+      () =>
+        auditCompleteReleaseState(
+          root,
+          {
+            requireFinalRelease:true
+          }
+        )
+    );
+  }
+  finally {
+    fs.rmSync(
+      root,
+      {
+        recursive:true,
+        force:true
+      }
+    );
+  }
+}
+
 console.log(
   "JANUS v0.3.12 release lifecycle fixtures: PASS"
 );

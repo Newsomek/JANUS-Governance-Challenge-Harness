@@ -230,6 +230,65 @@ expectFail(
   }
 );
 
+function buildInfoWithPath(relativePath) {
+  const candidate = {
+    version:
+      build.version,
+
+    build_id:
+      build.build_id,
+
+    code_commit:
+      build.code_commit,
+
+    files: {
+      [relativePath]:
+        "b".repeat(64),
+
+      "app.js":
+        "c".repeat(64)
+    }
+  };
+
+  return canonicalBuildInfoText(
+    candidate
+  );
+}
+
+parseCanonicalBuildInfo(
+  buildInfoWithPath(
+    "a..b"
+  )
+);
+
+console.log(
+  "PASS: build-info ordinary double-dot filename a..b"
+);
+
+for (
+  const badPath
+  of [
+    "",
+    "/x",
+    "a//b",
+    "a/",
+    "./x",
+    "../x",
+    "a\\b"
+  ]
+) {
+  expectFail(
+    `build-info invalid path ${JSON.stringify(badPath)}`,
+    () => {
+      parseCanonicalBuildInfo(
+        buildInfoWithPath(
+          badPath
+        )
+      );
+    }
+  );
+}
+
 const state = {
   schema:
     1,
