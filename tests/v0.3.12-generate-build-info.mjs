@@ -96,6 +96,23 @@ function git(
   return result.stdout;
 }
 
+const head =
+  String(
+    git(
+      [
+        "rev-parse",
+        "HEAD"
+      ],
+      "utf8"
+    )
+  ).trim();
+
+if (head !== expectedCommit) {
+  throw new Error(
+    "HEAD must equal the explicitly supplied code commit when generating build-info."
+  );
+}
+
 const objectType =
   String(
     git(

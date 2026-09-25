@@ -87,7 +87,7 @@ Independent verification must compare the published/deployed artifact with the d
 ## Required local gates before Commit A
 
 1. `node tests/v0.3.12-regression.mjs`
-2. `node tests/v0.3.12-residual-fixtures.mjs`
+2. `node tests/v0.3.12-residual-fixtures.mjs`, including `tests/v0.3.12-release-lifecycle-fixtures.mjs`
 3. `node tests/v0.3.11-regression.mjs`
 4. `node tests/v0.3.11-release-state-fixtures.mjs`
 5. `node tests/v0.3.11-build-info-fixtures.mjs`

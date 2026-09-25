@@ -36,6 +36,7 @@ Current v0.3.12 control suites:
 
 - `tests/v0.3.12-regression.mjs`
 - `tests/v0.3.12-residual-fixtures.mjs`
+- `tests/v0.3.12-release-lifecycle-fixtures.mjs`
 - `tests/v0.3.12-bind-release-state.mjs`
 - `tests/v0.3.12-generate-build-info.mjs`
 - `tests/v0.3.12-release-state-audit.mjs`
