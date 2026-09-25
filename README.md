@@ -1,49 +1,49 @@
-# JANUS Governance Challenge Harness v0.3.10
+# JANUS Governance Challenge Harness v0.3.11
 
 A dependency-free external architectural challenge harness for examining governance claims described in
 the **JANUS Orientation Edition 2026**.
 
-## v0.3.10 exact governed-release baseline candidate
+## v0.3.11 complete release-state boundary candidate
 
-Version 0.3.10 is a bounded response to the remaining V035-F05 documentation-governance weakness demonstrated by the independent v0.3.9 targeted closure test.
+Version 0.3.11 is a bounded response to the residual V035-F05 findings from the independent v0.3.10 targeted closure test.
 
-V035-F04 remains independently closed. V035-F05 remains partially closed pending independent retest.
+V035-F04 remains independently closed. V035-F05 remains partially closed pending independent v0.3.11 retest.
 
-The v0.3.9 candidate replaced expanding phrase exceptions with normalized guarded-claim allowlisting. Independent testing showed that this still depended on recognizing particular governance vocabulary and therefore remained vulnerable to semantically equivalent wording outside that vocabulary.
+The v0.3.10 exact-byte control successfully eliminated semantic wording escapes inside its declared governed files. Independent testing then showed that materially equivalent release claims could still be introduced through public or rendered surfaces outside that four-file boundary.
 
-v0.3.10 removes that semantic-classification problem from the release-document control. The current release policy is deterministic exact change control:
+v0.3.11 moves the boundary to the complete exact Git code/content state:
 
-- the approved public release-file set is declared in `docs/GOVERNED_RELEASE_FILES.json`;
-- the exact approved bytes of each governed release file are bound by SHA-256 in `docs/APPROVED_GOVERNED_SURFACES.json`;
-- any byte change to a governed release file fails the release audit until the changed state is deliberately reviewed and explicitly approved;
-- changing the governed-file set itself also requires explicit review and approval;
-- the review-proposal tool is read-only and does not silently approve candidate content;
-- an explicit approval mechanism can establish a new reviewed baseline for a legitimate future release transition;
-- fixture coverage demonstrates that a future addition such as `LICENSE` fails before approval and can pass after explicit approval;
-- mutation regression independently exercises baseline binding, manifest binding, file-set equality, per-file content binding, and manifest traversal completeness.
+- Commit A is the exact code/content commit and Git tree for the release;
+- every tracked path and byte belongs to that release state automatically;
+- adding, deleting, renaming, or changing a tracked file changes the release state;
+- untracked files are refused by the release-state audit;
+- only `build-info.json` and `docs/APPROVED_RELEASE_STATE.json` may change after Commit A;
+- those two provenance files form exactly one Commit B;
+- no third release commit is permitted;
+- `build-info.json` has a fixed four-field schema;
+- `docs/APPROVED_RELEASE_STATE.json` has a fixed schema;
+- the final release-state audit requires exactly one provenance commit and a clean tracked working tree.
 
-This mechanism does not attempt to decide whether arbitrary English wording is acceptable. It instead asks the narrower deterministic question: **is this exact release state the state that was explicitly reviewed and approved?**
+The control remains deliberately structural rather than semantic. It does not attempt to decide whether arbitrary English wording is acceptable.
 
-Current v0.3.10 control suites:
+Release-state binding is an explicit workflow declaration. It is **not** authentication of an approver, a digital signature, proof that a human reviewed the content, GitHub branch protection, CI enforcement, or deployment enforcement.
 
-- `tests/v0.3.10-regression.mjs`
-- `tests/v0.3.10-doc-audit.mjs`
-- `tests/v0.3.10-surface-fixtures.mjs`
-- `tests/v0.3.10-surface-mutation-regression.mjs`
-- `tests/v0.3.10-surface-review-proposal.mjs`
-- `tests/v0.3.10-approve-release-baseline.mjs`
-- `tests/v0.3.10-manifest-audit.mjs` after the bound `build-info.json` is generated
-- `tests/V0_3_10_RELEASE_GATE.md`
+Current v0.3.11 control suites:
 
-The historical v0.3.9 behavioral regression remains preserved as `tests/v0.3.9-regression.mjs`.
+- `tests/v0.3.11-regression.mjs`
+- `tests/v0.3.11-release-state-fixtures.mjs`
+- `tests/v0.3.11-build-info-fixtures.mjs`
+- `tests/v0.3.11-bind-release-state.mjs`
+- `tests/v0.3.11-release-state-audit.mjs`
+- `tests/v0.3.11-manifest-audit.mjs`
+- `tests/V0_3_11_RELEASE_GATE.md`
 
-Preserved independent v0.3.9 evidence:
+Preserved independent v0.3.10 evidence:
 
-- `testing/claude/v0.3.9/JANUS_v0.3.9_Targeted_V035-F05_Closure_Report.md`
-- `testing/claude/v0.3.9/JANUS_v0.3.9_targeted_F05_closure_raw_evidence.txt`
+- `testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md`
+- `testing/claude/v0.3.10/JANUS_v0.3.10_targeted_F05_closure_raw_evidence.txt`
 
-Independent closure of V035-F05 is **not** claimed. Version 1.0 remains blocked pending targeted v0.3.10 V035-F05 closure and one final full independent zero-open-finding adversarial regression.
-
+Independent closure of V035-F05 is **not** claimed. Version 1.0 remains blocked pending targeted v0.3.11 V035-F05 closure with zero actionable findings and one final full independent zero-open-finding adversarial regression.
 ## Governing principle
 
 > **Challenge JANUS against JANUS first.**

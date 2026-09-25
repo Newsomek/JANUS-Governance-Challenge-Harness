@@ -1,7 +1,7 @@
 "use strict";
 
-const HARNESS_VERSION = "0.3.10";
-const BUILD_ID = "janus-governance-challenge-harness-v0.3.10";
+const HARNESS_VERSION = "0.3.11";
+const BUILD_ID = "janus-governance-challenge-harness-v0.3.11";
 const BUILD_INFO_URL = "build-info.json";
 const REPOSITORY = "https://github.com/Newsomek/JANUS-Governance-Challenge-Harness";
 const GITHUB_HEAD_API = "https://api.github.com/repos/Newsomek/JANUS-Governance-Challenge-Harness/commits/main";

@@ -1,18 +1,31 @@
 JANUS Governance Challenge Harness
-Version 0.3.10
-Build ID: janus-governance-challenge-harness-v0.3.10
-Status: exact governed-release baseline candidate; not Version 1.0
 
-Primary v0.3.10 correction
-- preserves the independent v0.3.9 targeted V035-F05 PARTIALLY CLOSED evidence unchanged
-- records V035-F04 as independently closed
-- retains V035-F05 as partially closed pending independent retest
-- replaces guarded-claim keyword/allowlist inference with exact governed-release byte-level change control
-- binds the approved release-file set through a versioned governed-file manifest
-- requires explicit review and approval before changed release documents or file-set additions become a new accepted baseline
-- proves that a future governed-file addition such as LICENSE is rejected before approval and accepted after explicit approval
-- keeps review-proposal generation read-only
-- does not change the six authored scenario contracts
+Version: 0.3.11
+Build ID: janus-governance-challenge-harness-v0.3.11
 
-Authored scenario content: unchanged from the reviewed baseline.
-Independent closure: pending targeted V035-F05 retest and one final full zero-open-finding adversarial regression.
+Release status:
+- hardening candidate
+- V035-F04 remains independently closed
+- V035-F05 remains partially closed pending independent v0.3.11 retest
+- Version 1.0 remains blocked
+
+Release-state governance:
+- the release boundary is the complete exact Git code/content commit and tree, not a hand-selected claim-surface list
+- all tracked paths and bytes are part of that approved code/content state
+- only build-info.json and docs/APPROVED_RELEASE_STATE.json may differ in the single provenance commit after the bound code commit
+- newly added or removed tracked files therefore change the governed release state automatically
+- untracked files are refused by the release-state audit
+- build-info.json has a fixed four-field schema and cannot carry arbitrary status or approval claims
+- release-state binding is a workflow declaration, not authentication, a digital signature, deployment enforcement, or proof that a human reviewed the release
+- final release audit requires exactly one provenance commit after the bound code commit and a clean tracked working tree
+
+Authored scenario content: unchanged.
+JANUS source document: unchanged.
+Canonical scenario dispositions: unchanged.
+
+Version 1.0 promotion requires:
+1. successful v0.3.11 local gates;
+2. exact deployed-artifact verification;
+3. independent targeted V035-F05 closure with zero actionable findings;
+4. final independent zero-open-finding adversarial regression;
+5. independent verification of the exact Version 1.0 artifact after promotion.

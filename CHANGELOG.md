@@ -1,4 +1,16 @@
 # Changelog
+## v0.3.11 — complete release-state boundary hardening
+
+- replaces the four-file governed-surface boundary with an exact Commit A / Git-tree release boundary;
+- treats every tracked release path and byte as part of the bound code/content state automatically;
+- permits only `build-info.json` and `docs/APPROVED_RELEASE_STATE.json` to differ in the single provenance Commit B;
+- rejects added tracked files, removed tracked files, untracked files, post-code runtime/style/document/evidence changes, and additional release commits;
+- constrains both provenance files with fixed schemas so they cannot become arbitrary release-status claim surfaces;
+- binds `build-info.json` to the exact Commit A file set and bytes rather than regenerating authority from the current working tree;
+- explicitly states that release-state binding is a workflow declaration, not authentication, signature, human-review proof, CI enforcement, or deployment enforcement;
+- preserves the independent v0.3.10 targeted report and raw evidence unchanged;
+- retains V035-F05 as partially closed pending targeted independent v0.3.11 retest;
+- leaves Version 1.0 blocked pending zero-finding targeted closure and final full independent regression.
 
 ## v0.3.10 — exact governed-release baseline candidate
 
