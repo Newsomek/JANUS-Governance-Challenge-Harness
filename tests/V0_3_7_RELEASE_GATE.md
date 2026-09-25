@@ -1,3 +1,8 @@
+# SUPERSEDED — historical candidate gate
+
+This historical gate is retained for traceability and must not be used as the current release gate.
+
+See `V0_3_8_RELEASE_GATE.md`.
 # JANUS v0.3.7 release gate
 
 Version 0.3.7 is the narrow oracle-hardening response to the two residual partially closed findings from the independent v0.3.6 targeted closure test.

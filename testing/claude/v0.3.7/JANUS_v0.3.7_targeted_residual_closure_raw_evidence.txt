@@ -1,0 +1,265 @@
+JANUS Governance Challenge Harness v0.3.7 — Targeted Residual F04/F05 Closure — RAW EVIDENCE
+Captured: 2026-09-25T10:37:04Z (UTC)  Tester: Claude (independent; no repository modifications)
+Deployed URL: https://newsomek.github.io/JANUS-Governance-Challenge-Harness/
+Note: the cloud sandbox proxy refuses github.io (curl: CONNECT tunnel failed, 403). All deployed-artifact
+fetches, hashing, and runtime tests were therefore executed inside the live page in the tester's Chrome tab
+(fetch with cache:'no-store' + ?nc=<timestamp>, SHA-256 via crypto.subtle). Local corroboration used a fresh clone.
+
+================ PHASE 0 — IDENTITY GATE ================
+--- Live (browser, deployed GitHub Pages) ---
+document.title                      = JANUS Governance Challenge Harness v0.3.7
+index.html                          : "EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3.7"; "<strong>JANUS Governance Challenge Harness v0.3.7</strong>"
+HARNESS_VERSION === '0.3.7'         = true (live page global)
+build-info.json version             = 0.3.7
+build-info.json build_id            = janus-governance-challenge-harness-v0.3.7
+build-info.json code_commit         = 538b957498f5d3f6d0aba86a0b3128f6fb2f0816
+build-info.json generated_at        = 2026-09-25T10:26:37.3707381Z
+build-info.json files               = object, 56 entries, build-info.json self-listed = false
+live build-info.json sha256         = 249e5a65f7230d91cc7020ff8d4c3ae97f4b8d6cb6379171445ad319b4e11189 (== repo HEAD copy)
+live app.js sha256                  = 036ba2cb3b78ed2c50fbef00d6c2ddbfc4191e4ed39742b71dcd9acc385eb87d
+live docs/JANUS_Orientation_Edition_2026_EN.docx sha256 = 21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
+live manifest re-hash               = 56/56 OK, 0 mismatches (every manifest path fetched from Pages, HTTP 200, hashed)
+live index.html sha256              = 4979e71d3636ecf57ef73d9fa4fe9a15d4a1193f82901d818811ef39e4da9199
+live README.md sha256               = 3ffd5cf2b60f283bc7708b5aea726e80930d87bf95a285e5bec7306a65ab0c8b
+live CHANGELOG.md sha256            = 2abb551f5a232a58645277a57b74c9023ae821eae840afdc98a680689187c232
+live VERSION.txt sha256             = a14625a8902a15e88b7268dab8b4b5e7995b82564dd4021c7c3beb20e07dc1b9
+Live page Run (runtime provenance observation, S01 / BLOCK_REAUTHORIZE):
+  harness_code_commit               = 538b957498f5d3f6d0aba86a0b3128f6fb2f0816
+  bound_commit_verification         = MATCH
+  deployment_head_observed (GitHub API commits/main) = 132cd076fefd7ceca130457d4c64953f09e1318a
+  app_js_observed_sha256            = 036ba2cb3b78ed2c50fbef00d6c2ddbfc4191e4ed39742b71dcd9acc385eb87d
+  source observed_sha256            = 21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
+  Replay                            = REPLAY CONSISTENT
+--- Local clone ---
+git rev-parse HEAD origin/main:
+132cd076fefd7ceca130457d4c64953f09e1318a
+132cd076fefd7ceca130457d4c64953f09e1318a
+132cd07 Bind v0.3.7 release provenance
+538b957 Harden v0.3.7 F04 F05 test oracles
+b7f51e6 Bind v0.3.6 release provenance
+538b957 exists: 538b957498f5d3f6d0aba86a0b3128f6fb2f0816
+diff 538b957..132cd07 (--stat):
+ build-info.json | 29 ++++++++++++++++++-----------
+ 1 file changed, 18 insertions(+), 11 deletions(-)
+036ba2cb3b78ed2c50fbef00d6c2ddbfc4191e4ed39742b71dcd9acc385eb87d  app.js
+249e5a65f7230d91cc7020ff8d4c3ae97f4b8d6cb6379171445ad319b4e11189  build-info.json
+4979e71d3636ecf57ef73d9fa4fe9a15d4a1193f82901d818811ef39e4da9199  index.html
+3ffd5cf2b60f283bc7708b5aea726e80930d87bf95a285e5bec7306a65ab0c8b  README.md
+2abb551f5a232a58645277a57b74c9023ae821eae840afdc98a680689187c232  CHANGELOG.md
+a14625a8902a15e88b7268dab8b4b5e7995b82564dd4021c7c3beb20e07dc1b9  VERSION.txt
+21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4  docs/JANUS_Orientation_Edition_2026_EN.docx
+authored scenario-block sha256 (from "const scenarios = [" through "\n];" + one trailing LF) = 948536a17a454e59f782e023ac1ded8e30e9f33ca660c3dbd674273fe1b56488 (17033 bytes)
+manifest entries=56 local hash match=56 git-tracked(excl build-info)=56 missing=[] extra=[]
+IDENTITY GATE: PASS (all 9 checks)
+
+================ LOCAL CORROBORATION (repo suites, unmodified) ================
+$ node tests/v0.3.7-regression.mjs
+JANUS v0.3.7 automated regression: PASS
+Canonical exports: 9; refusal alerts: 4
+exit=0
+$ node tests/v0.3.7-doc-audit.mjs
+JANUS v0.3.7 documentation/release audit: PASS
+exit=0
+$ node tests/v0.3.7-manifest-audit.mjs
+JANUS v0.3.7 release manifest audit: PASS (56/56 tracked files; build-info.json excluded from self-hash)
+exit=0
+$ JANUS_MUTATION_PREFLIGHT_ONLY=1 node tests/v0.3.7-mutation-regression.mjs
+JANUS v0.3.7 mutation target preflight: PASS (45/45 operators active)
+exit=0
+
+================ F04 — MUTATION SUITE WITH KILL REASONS (independent instrumented copy; scratch only) ================
+Each line: operator :: first assertion that failed in the mutated temp copy
+JANUS v0.3.7 mutation target preflight: PASS (45/45 operators active)
+KILLED: stored_core_match forced true :: Stored-core tamper falsely replayed CONSISTENT.
+KILLED: bound 404 treated as unavailable :: Nonexistent bound commit produced a run record.
+KILLED: collection uniqueness disabled :: Duplicate compatibility values were accepted.
+KILLED: blank-rendering fillers deleted instead of spaced :: Internal filler duplicate bypassed source comparison: "⠀"
+KILLED: U+007F stripping removed :: U+007F blank-looking rationale was accepted.
+KILLED: whitespace collapse removed :: Whitespace collapse regression accepted equivalent sources.
+KILLED: duplicate commitment check removed :: Duplicate commitments were accepted.
+KILLED: Run allowed during Replay/Export :: Run replaced evidence while Replay was in flight.
+KILLED: Export in-flight lock removed :: Rapid Export calls produced duplicate artifacts.
+KILLED: stored record validator bypassed :: Structural Replay refusal was not stable/specific.
+KILLED: divergence failed-check list removes stored_core_match :: Replay divergence notice did not name stored_core_match.
+KILLED: unsafe scenario innerHTML sink restored :: Scenario rendering used an HTML sink.
+KILLED: source hash mismatch accepted at Run :: Source SHA mismatch was accepted at Run.
+KILLED: bound commit mismatch downgraded to unavailable :: Bound-commit app mismatch was accepted.
+KILLED: replay record_integrity_match forced true :: Stored record snapshot tamper was not detected.
+KILLED: export stored_record_snapshot_integrity forced true :: Export refusal did not name stored_record_snapshot_integrity.
+KILLED: scenario selection invalidation removed :: Scenario selection change did not invalidate lastRun.
+KILLED: Replay post-derive token check removed :: Replay race cleared invalidation notice.
+KILLED: Export event_log check forced true :: Export refusal did not behaviorally name event_log.
+KILLED: late Export generation guard removed :: Late invalidated Export still produced an artifact.
+KILLED: S05 disposition changed to ESCALATE :: Authored scenario-block SHA-256 changed.
+KILLED: expected contract hash altered :: Contract hash mismatch for condition-change.
+KILLED: expected source SHA altered in app :: Run failed for condition-change.
+KILLED: README DevTools disclosure removed :: README integrity disclosure missing: controls the page/DevTools and coordinates edits with recomputed client-side hashes
+KILLED: README digital-signature limitation inverted :: README integrity disclosure missing: PASS is not a digital signature or proof of authenticity
+KILLED: UI digital-signature limitation removed :: UI digital-signature limitation missing.
+KILLED: README premature Version 1.0 readiness claim added :: README contains premature Version 1.0 claim: /Version 1\.0\s+(?:is\s+)?(?:ready|approved|validated|eligible|complete|certified)/i
+KILLED: README independent closure claim added :: README contains premature independent-closure claim: /independent closure[^.\n]{0,50}(?:confirmed|complete|closed|approved|achieved|established)/i
+KILLED: v0.3.6 superseded pointer regressed away from v0.3.7 :: v0.3.6 superseded gate does not point to current v0.3.7 gate.
+KILLED: v0.3.2 V031-NEW-07 history falsely restored to closed :: CHANGELOG v0.3.2 history does not preserve partial-closure status.
+KILLED: v0.3.4 superseded status removed :: CHANGELOG lacks v0.3.4 superseded status.
+KILLED: manifest coverage wording weakened :: README manifest coverage rule missing.
+KILLED: current release gate points to retired v0.3.5 suite :: Current gate missing suite: tests/v0.3.7-regression.mjs
+KILLED: v0.3.5 gate no longer superseded :: v0.3.5 gate is not marked superseded.
+KILLED: Export event_log equivalent bypass OR true :: Export refusal did not behaviorally name event_log.
+KILLED: README tamper-proof heading claim added :: README contains affirmative tamper-proof language.
+KILLED: README provides tamper-proof evidence claim added :: README contains affirmative tamper-proof language.
+KILLED: UI tamper-proof claim added :: UI contains affirmative tamper-proof language.
+KILLED: README ready-for-Version-1 claim added :: README contains premature Version 1.0 claim: /(?:ready|approved|validated|eligible|certified)\s+(?:for\s+)?Version 1\.0/i
+KILLED: README Version-1-approved claim added :: README contains premature Version 1.0 claim: /Version 1\.0\s+(?:is\s+)?(?:ready|approved|validated|eligible|complete|certified)/i
+KILLED: UI Version-1-validated claim added :: UI contains premature Version 1.0 claim: /Version 1\.0\s+(?:is\s+)?(?:ready|approved|validated|eligible|complete|certified)/i
+KILLED: VERSION Version-1-approved claim added :: VERSION contains premature Version 1.0 claim: /Version 1\.0\s+(?:is\s+)?(?:ready|approved|validated|eligible|complete|certified)/i
+KILLED: README independent-closure-confirmed claim added :: README contains premature independent-closure claim: /independent closure[^.\n]{0,50}(?:confirmed|complete|closed|approved|achieved|established)/i
+KILLED: README independently-closed findings claim added :: README contains premature independent-closure claim: /V035-F01\s+through\s+V035-F09[^.\n]{0,50}independently closed/i
+KILLED: CHANGELOG independent-closure-confirmed claim added :: CHANGELOG v0.3.7 contains premature independent-closure claim: /independent closure[^.\n]{0,50}(?:confirmed|complete|closed|approved|achieved|established)/i
+JANUS v0.3.7 mutation regression: PASS (45/45 mutations killed)
+
+================ F04 — OPERATOR TARGET VERIFICATION (actual diff each operator produces) ================
+Format: operator | file:line [enclosing function] | -[removed] +[added]   (line 1075 is the scenarioSelect 'change' listener)
+stored_core_match forced true | app.js:836 in deriveReplayRecord | -[const storedCoreMatch = storedCoreHash === snapshot.evidence_core_sha256;] +[const storedCoreMatch = true;]
+bound 404 treated as unavailable | app.js:476 in observeHarnessProvenance | -[    if (error.message === "BOUND_COMMIT_NOT_FOUND") throw new Error("Bound code commit could not be corroborat] +[    if (error.message === "BOUND_COMMIT_NOT_FOUND") boundCommitNote = "Bound commit corroboration unavailable:]
+collection uniqueness disabled | app.js:631 in validateScenarioContract | -[  if (!uniqueStrings(scenario.compatiblePredictions)) return "Scenario compatibility set contains duplicate va] +[   /   if (scenario.compatiblePredictions.includes(scenario.disposition)) return "Scenario compatibility set c]
+blank-rendering fillers deleted instead of spaced | app.js:228 in canonicalComparisonText | -[    .replace(/[\u2800\u3164\u115F\u1160\uFFA0]/gu, " ")] +[    .replace(/[\u2800\u3164\u115F\u1160\uFFA0]/gu, "")]
+U+007F stripping removed | app.js:229 in canonicalComparisonText | -[    .replace(/[\p{Cf}\p{Default_Ignorable_Code_Point}\u034F\uFE0F\u180B\u200B\u007F]/gu, "")] +[    .replace(/[\p{Cf}\p{Default_Ignorable_Code_Point}\u034F\uFE0F\u180B\u200B]/gu, "")]
+whitespace collapse removed | app.js:230 in canonicalComparisonText | -[    .replace(/[\s\u00A0]+/gu, " ")] +[    ]
+duplicate commitment check removed | app.js:635 in validateScenarioContract | -[  if (!uniqueCommitments(scenario.commitments)) return "Scenario commitments contain duplicate entries.";] +[  ]
+Run allowed during Replay/Export | app.js:1005 in runChallenge | -[  if (runInFlight || replayInFlight || exportInFlight) return;] +[  if (runInFlight) return;]
+Export in-flight lock removed | app.js:1029 in exportEvidence | -[  if (!lastRun || runInFlight || replayInFlight || exportInFlight) return;] +[  if (!lastRun) return;]
+stored record validator bypassed | app.js:269 in validateStoredRunRecord | -[function validateStoredRunRecord(record) { /   if (!isPlainObject(record)) return "Stored run record is struct] +[function validateStoredRunRecord(record) { return null; }]
+divergence failed-check list removes stored_core_match | app.js:901 in replayLastRunCore | -[const failedReplayChecks = ["disposition_match","contract_match","source_match","code_match","record_integrity] +[const failedReplayChecks = ["disposition_match","contract_match","source_match","code_match","record_integrity]
+unsafe scenario innerHTML sink restored | app.js:308 in renderScenario | -[  scenarioSummary.replaceChildren(); / const scenarioTitle = document.createElement("strong"); / scenarioTitle] +[  scenarioSummary.innerHTML = `<strong>${scenario.name}</strong>${scenario.summary}`;]
+source hash mismatch accepted at Run | app.js:767 in runChallengeCore | -[    if (!sourceObservation.hash_match) throw new Error("Observed JANUS source-document SHA-256 does not match ] +[    if (!sourceObservation.hash_match) { /* accepted */ }]
+bound commit mismatch downgraded to unavailable | app.js:477 in observeHarnessProvenance | -[if (/differs from the build manifest hash/.test(error.message)) throw error;] +[if (/differs from the build manifest hash/.test(error.message)) boundCommitNote = "Bound commit corroboration ]
+replay record_integrity_match forced true | app.js:835 in deriveReplayRecord | -[  const recordIntegrityMatch = storedSnapshotHash === snapshot.record_snapshot_sha256;] +[  const recordIntegrityMatch = true;]
+export stored_record_snapshot_integrity forced true | app.js:943 in exportEvidenceCore | -[      stored_record_snapshot_integrity: storedSnapshotHash === snapshot.record_snapshot_sha256,] +[      stored_record_snapshot_integrity: true,]
+scenario selection invalidation removed | app.js:1075 in resetHarness | -[  invalidateRun(hadEvidence ? "Scenario changed. Previous result, replay, and export state were invalidated." ] +[  ]
+Replay post-derive token check removed | app.js:897 in replayLastRunCore | -[  if (token !== stateGeneration || lastRun !== snapshot || !lastRun) return;] +[]
+Export event_log check forced true | app.js:941 in exportEvidenceCore | -[      event_log: JSON.stringify(expectedLog) === JSON.stringify(snapshot.event_log),] +[      event_log: true,]
+late Export generation guard removed | app.js:950 in exportEvidenceCore | -[    // Re-check generation immediately before the synchronous download path. /     // Scenario/prediction chan] +[]
+S05 disposition changed to ESCALATE | app.js:136 in scenarios[] | -[    disposition: "INSUFFICIENT_SPECIFICATION",] +[    disposition: "ESCALATE",]
+expected contract hash altered | docs/EXPECTED_CONTRACT_HASHES.json:9  | -[      "contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3"] +[      "contract_sha256": "02a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3"]
+expected source SHA altered in app | app.js:12  | -[  expected_sha256: "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4"] +[  expected_sha256: "01766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4"]
+README DevTools disclosure removed | README.md:194  | -[`integrity_status: PASS` means the stable authored evidence core and the complete stored Run snapshot both ver] +[`integrity_status: PASS` means the stable authored evidence core and the complete stored Run snapshot both ver]
+README digital-signature limitation inverted | README.md:194  | -[`integrity_status: PASS` means the stable authored evidence core and the complete stored Run snapshot both ver] +[`integrity_status: PASS` means the stable authored evidence core and the complete stored Run snapshot both ver]
+UI digital-signature limitation removed | index.html:150  | -[      <p><strong>Integrity limit.</strong> Evidence exports are unsigned client-side artifacts. PASS means the] +[      <p><strong>Integrity limit.</strong> Evidence exports are unsigned client-side artifacts. PASS means the]
+README premature Version 1.0 readiness claim added | README.md:8  | -[] +[Version 1.0 ready and approved. / ]
+README independent closure claim added | README.md:29  | -[Independent closure is **not** claimed. Version 1.0 remains blocked pending targeted closure of the residual F] +[Independent closure is confirmed. Version 1.0 remains blocked pending targeted closure of the residual F04/F05]
+v0.3.6 superseded pointer regressed away from v0.3.7 | tests/V0_3_6_RELEASE_GATE.md:5  | -[See `V0_3_7_RELEASE_GATE.md`.] +[See `V0_3_6_RELEASE_GATE.md`.]
+v0.3.2 V031-NEW-07 history falsely restored to closed | CHANGELOG.md:65  | -[- partially addressed V031-NEW-07 by persisting Export refusal reasons and naming failed fetch resources; inde] +[- closes V031-NEW-07 by persisting Export refusal reasons and naming failed fetch resources;]
+v0.3.4 superseded status removed | CHANGELOG.md:46  | -[Historical status: v0.3.4 was superseded after its deployed smoke test found residual issues; it was not promo] +[Independent closure is not claimed until the deployed v0.3.4 smoke gate and zero-open-finding regression both ]
+manifest coverage wording weakened | README.md:113  | -[The build manifest records SHA-256 hashes for every tracked release file except `build-info.json` itself, whic] +[The build manifest records SHA-256 hashes for selected release artifacts, which cannot self-hash. This include]
+current release gate points to retired v0.3.5 suite | tests/V0_3_7_RELEASE_GATE.md:7  | -[1. `node tests/v0.3.7-regression.mjs`] +[1. `node tests/v0.3.5-regression.mjs`]
+v0.3.5 gate no longer superseded | tests/V0_3_5_RELEASE_GATE.md:1  | -[# SUPERSEDED — historical candidate gate /  / This historical gate is retained for traceability and must not b] +[]
+Export event_log equivalent bypass OR true | app.js:941 in exportEvidenceCore | -[      event_log: JSON.stringify(expectedLog) === JSON.stringify(snapshot.event_log),] +[      event_log: JSON.stringify(expectedLog) === JSON.stringify(snapshot.event_log) || true,]
+README tamper-proof heading claim added | README.md:1  | -[] +[Tamper-proof evidence export. / ]
+README provides tamper-proof evidence claim added | README.md:1  | -[] +[The harness provides tamper-proof evidence. / ]
+UI tamper-proof claim added | index.html:11  | -[] +[<p>Tamper-proof evidence.</p>]
+README ready-for-Version-1 claim added | README.md:1  | -[] +[This release is ready for Version 1.0. / ]
+README Version-1-approved claim added | README.md:1  | -[] +[Version 1.0 approved. / ]
+UI Version-1-validated claim added | index.html:11  | -[] +[<p>Version 1.0 validated.</p>]
+VERSION Version-1-approved claim added | VERSION.txt:15  | -[] +[Version 1.0 approved. / ]
+README independent-closure-confirmed claim added | README.md:1  | -[] +[Independent closure confirmed. / ]
+README independently-closed findings claim added | README.md:1  | -[] +[V035-F01 through V035-F09 were independently closed. / ]
+CHANGELOG independent-closure-confirmed claim added | CHANGELOG.md:3  | -[## v0.3.7 — targeted oracle hardening candidate] +[## v0.3.7 / Independent closure confirmed. — targeted oracle hardening candidate]
+
+================ F04 — INDEPENDENT EVENT_LOG PROBE (node, deployed-identical app.js bytes) ================
+T1 = mutate ONLY lastRun.event_log[0], recompute evidence_core_sha256 and record_snapshot_sha256, Export
+T2 = append one injected event line, recompute both hashes, Export;  T3 = untampered control
+MUT=none app.js sha256=036ba2cb3b78ed2c50fbef00d6c2ddbfc4191e4ed39742b71dcd9acc385eb87d
+{"label":"T1 event_log[0] forged + both hashes recomputed","setup_consistent_replay":true,"downloaded":0,"notice":"Export refused: Evidence integrity check failed (event_log, authored_state_integrity, replay_rederived_consistent)."}
+{"label":"T2 extra event appended + both hashes recomputed","setup_consistent_replay":true,"downloaded":0,"notice":"Export refused: Evidence integrity check failed (event_log, authored_state_integrity, replay_rederived_consistent)."}
+{"label":"T3 control (no tamper)","setup_consistent_replay":true,"downloaded":1,"notice":""}
+MUT=ortrue app.js sha256=dfe080ea96656ed9490b8c9ed998929020588b429698e4a4c6c6fc7a92834789
+{"label":"T1 event_log[0] forged + both hashes recomputed","setup_consistent_replay":true,"downloaded":0,"notice":"Export refused: Evidence integrity check failed (authored_state_integrity, replay_rederived_consistent)."}
+{"label":"T2 extra event appended + both hashes recomputed","setup_consistent_replay":true,"downloaded":0,"notice":"Export refused: Evidence integrity check failed (authored_state_integrity, replay_rederived_consistent)."}
+{"label":"T3 control (no tamper)","setup_consistent_replay":true,"downloaded":1,"notice":""}
+MUT=forcetrue app.js sha256=a96cbe31f34eb85e9dfc5ac2b97ff292c0a57f0bd90d19df0f84e8b82df4b5d9
+{"label":"T1 event_log[0] forged + both hashes recomputed","setup_consistent_replay":true,"downloaded":0,"notice":"Export refused: Evidence integrity check failed (authored_state_integrity, replay_rederived_consistent)."}
+{"label":"T2 extra event appended + both hashes recomputed","setup_consistent_replay":true,"downloaded":0,"notice":"Export refused: Evidence integrity check failed (authored_state_integrity, replay_rederived_consistent)."}
+{"label":"T3 control (no tamper)","setup_consistent_replay":true,"downloaded":1,"notice":""}
+
+================ F04 — LIVE DEPLOYED RUNTIME PROBE (Chrome, deployed page) ================
+Harness: window.alert captured to array; URL.createObjectURL wrapped to count blobs; HTMLAnchorElement.click suppressed
+for download anchors (no file written to disk). Page reloaded afterwards to restore original state.
+L0 unmutated control: Run+Replay CONSISTENT -> Export downloaded=1, notice=""
+L1 unmutated deployed exportEvidenceCore, event_log[0] forged + both hashes recomputed:
+   downloaded=0, notice="Export refused: Evidence integrity check failed (event_log, authored_state_integrity, replay_rederived_consistent)."
+Live mutant install: window.exportEvidenceCore replaced by (0,eval) of its own source with
+   'event_log: JSON.stringify(expectedLog) === JSON.stringify(snapshot.event_log)' -> '... || true'
+   needle_found=true mutated_differs=true live_fn_has_or_true=true swapped=true
+M0 mutant control (no tamper): downloaded=1, notice=""
+M1 mutant, identical tamper: downloaded=0,
+   notice="Export refused: Evidence integrity check failed (authored_state_integrity, replay_rederived_consistent)."
+   refusal names event_log = false  -> v0.3.7 oracle assertion #8 fails -> mutant KILLED at runtime
+R1 original function restored (identity check true), same tamper:
+   downloaded=0, notice="Export refused: Evidence integrity check failed (event_log, authored_state_integrity, replay_rederived_consistent)."
+Observation: the no-download assertion (#7) does not discriminate this mutant because authored_state_integrity and
+replay_rederived_consistent independently block Export; the kill is carried by the refusal-reason assertion (#8), which is
+a runtime-output oracle, not source-text matching.
+
+================ F05 — INDEPENDENT DOC-AUDIT MUTATIONS (own insertion positions; scratch temp copies) ================
+OK  | expect PASS got PASS | baseline unmodified | JANUS v0.3.7 documentation/release audit: PASS
+GROUP baseline: ALL AS EXPECTED
+OK  | expect FAIL got FAIL | R1 README: Tamper-proof evidence export. (mid) | README contains affirmative tamper-proof language.
+OK  | expect FAIL got FAIL | R1b README: Tamper-proof evidence export. (end) | README contains affirmative tamper-proof language.
+OK  | expect FAIL got FAIL | R2 README: The harness provides tamper-proof evidence. (mid) | README contains affirmative tamper-proof language.
+OK  | expect FAIL got FAIL | R3 index.html: Tamper-proof evidence. | UI contains affirmative tamper-proof language.
+OK  | expect FAIL got FAIL | R4 README: This release is ready for Version 1.0. (mid) | README contains premature Version 1.0 claim: /(?:ready|approved|validated|eligible|certified)\s+(?:for\s+)?Version 1\.0/i
+OK  | expect FAIL got FAIL | R5 README: Version 1.0 approved. (end) | README contains premature Version 1.0 claim: /Version 1\.0\s+(?:is\s+)?(?:ready|approved|validated|eligible|complete|certified)/i
+OK  | expect FAIL got FAIL | R6 index.html: Version 1.0 validated. | UI contains premature Version 1.0 claim: /Version 1\.0\s+(?:is\s+)?(?:ready|approved|validated|eligible|complete|certified)/i
+OK  | expect FAIL got FAIL | R7 VERSION.txt: Version 1.0 approved. | VERSION contains premature Version 1.0 claim: /Version 1\.0\s+(?:is\s+)?(?:ready|approved|validated|eligible|complete|certified)/i
+OK  | expect FAIL got FAIL | R8 README: Independent closure confirmed. (mid) | README contains premature independent-closure claim: /independent closure[^.\n]{0,50}(?:confirmed|complete|closed|approved|achieved|established)/i
+OK  | expect FAIL got FAIL | R9 README: Independent closure has been confirmed. (end) | README contains premature independent-closure claim: /independent closure[^.\n]{0,50}(?:confirmed|complete|closed|approved|achieved|established)/i
+OK  | expect FAIL got FAIL | R10 README: V035-F01 through V035-F09 were independently closed. (mid) | README contains premature independent-closure claim: /V035-F01\s+through\s+V035-F09[^.\n]{0,50}independently closed/i
+OK  | expect FAIL got FAIL | R11 CHANGELOG v0.3.7 section: Independent closure confirmed. (end of section) | CHANGELOG v0.3.7 contains premature independent-closure claim: /independent closure[^.\n]{0,50}(?:confirmed|complete|closed|approved|achieved|established)/i
+GROUP required: ALL AS EXPECTED
+OK  | expect PASS got PASS | D1 README: not claimed to be tamper-proof | JANUS v0.3.7 documentation/release audit: PASS
+OK  | expect PASS got PASS | D2 README: not a tamper-proof control | JANUS v0.3.7 documentation/release audit: PASS
+OK  | expect PASS got PASS | D3 README: Independent closure is not claimed | JANUS v0.3.7 documentation/release audit: PASS
+OK  | expect PASS got PASS | D4 VERSION: Independent closure: pending | JANUS v0.3.7 documentation/release audit: PASS
+OK  | expect PASS got PASS | D5 README: not Version 1.0 | JANUS v0.3.7 documentation/release audit: PASS
+OK  | expect PASS got PASS | D6 index.html: not claimed to be tamper-proof | JANUS v0.3.7 documentation/release audit: PASS
+OK  | expect PASS got PASS | D7 index.html: not Version 1.0 | JANUS v0.3.7 documentation/release audit: PASS
+OK  | expect PASS got PASS | D8 CHANGELOG v0.3.7: Independent closure is not claimed | JANUS v0.3.7 documentation/release audit: PASS
+OK  | expect PASS got PASS | D9 VERSION: not a tamper-proof control | JANUS v0.3.7 documentation/release audit: PASS
+GROUP disclaimers: ALL AS EXPECTED
+BAD | expect PASS got FAIL | X-N1 README: Independent closure has not been confirmed. | README contains premature independent-closure claim: /independent closure[^.\n]{0,50}(?:confirmed|complete|closed|approved|achieved|established)/i
+BAD | expect PASS got FAIL | X-N2 README: Independent closure is not yet complete. | README contains premature independent-closure claim: /independent closure[^.\n]{0,50}(?:confirmed|complete|closed|approved|achieved|established)/i
+BAD | expect PASS got FAIL | X-N3 README: This release is not ready for Version 1.0. | README contains premature Version 1.0 claim: /(?:ready|approved|validated|eligible|certified)\s+(?:for\s+)?Version 1\.0/i
+OK  | expect PASS got PASS | X-N4 README: Version 1.0 is not approved. | JANUS v0.3.7 documentation/release audit: PASS
+OK  | expect PASS got PASS | X-N5 README: The export is never tamper-proof. | JANUS v0.3.7 documentation/release audit: PASS
+OK  | expect PASS got PASS | X-N6 README: The export cannot be considered tamper-proof. | JANUS v0.3.7 documentation/release audit: PASS
+GROUP extra-neg: 3 UNEXPECTED
+BAD | expect FAIL got PASS | X-P1 README: Tamperproof evidence export. | JANUS v0.3.7 documentation/release audit: PASS
+BAD | expect FAIL got PASS | X-P2 README: Not signed, but tamper-proof evidence export. | JANUS v0.3.7 documentation/release audit: PASS
+BAD | expect FAIL got PASS | X-P3 README: Approved as Version 1.0. | JANUS v0.3.7 documentation/release audit: PASS
+BAD | expect FAIL got PASS | X-P4 README: Promoted to Version 1.0. | JANUS v0.3.7 documentation/release audit: PASS
+BAD | expect FAIL got PASS | X-P5 README: v1.0 approved. | JANUS v0.3.7 documentation/release audit: PASS
+BAD | expect FAIL got PASS | X-P6 README: All nine V035 findings were independently closed. | JANUS v0.3.7 documentation/release audit: PASS
+BAD | expect FAIL got PASS | X-P7 README: Closure was independently confirmed. | JANUS v0.3.7 documentation/release audit: PASS
+OK  | expect FAIL got FAIL | X-P8 index.html: Evidence exports are cryptographically authentic. | UI integrity overclaim matched: /(?:is|are)\s+cryptographically authentic/i
+BAD | expect FAIL got PASS | X-P9 README: Tamper‑proof (U+2011 hyphen) evidence export. | JANUS v0.3.7 documentation/release audit: PASS
+BAD | expect FAIL got PASS | X-P10 README: Version 1.0: approved. | JANUS v0.3.7 documentation/release audit: PASS
+GROUP extra-pos: 9 UNEXPECTED
+
+================ F05 — POSITIVE DISCLOSURES ON DEPLOYED SURFACES (live fetch) ================
+README 'unsigned client-side artifact'                                                   = present
+README 'PASS is not a digital signature or proof of authenticity'                        = present
+README 'controls the page/DevTools and coordinates edits with recomputed client-side hashes' = present
+README 'accidental or uncoordinated later mutation'                                      = present
+UI     'Evidence exports are unsigned client-side artifacts.'                            = present
+UI     'it is not a digital signature'                                                   = present
+UI     'controls DevTools/console state and can recompute client-side hashes'            = present
+app.js export integrity_scope: '...not proof against a user with console/devtools access. The snapshot hash detects accidental or uncoordinated mutation only' = present
+
+================ F05 — README current-release claim under test ================
+- semantically equivalent integrity/authenticity, Version 1.0, and independent-closure overclaims are rejected across current release surfaces;
+
+================ OUT-OF-SCOPE OBSERVATION (not scored) ================
+153:      <p>The v0.1 through v0.3.5 releases preserve independent test evidence under <code>testing/claude/</code>. Version 0.3.6 is a bounded hardening candidate addressing the nine actionable findings from the v0.3.5 final independent regression. It keeps the six authored scenario contracts unchanged and remains pending targeted closure plus one final independent regression before any Version 1.0 promotion.</p>
+
+================ REPOSITORY UNMODIFIED ================
+git status --short line count: 0

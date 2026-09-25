@@ -1,33 +1,35 @@
-# JANUS Governance Challenge Harness v0.3.7
+# JANUS Governance Challenge Harness v0.3.8
 
 A dependency-free external architectural challenge harness for examining governance claims described in the **JANUS Orientation Edition 2026**.
 
 
-## v0.3.7 targeted oracle hardening candidate
+## v0.3.8 bounded F05 oracle-hardening candidate
 
-Version 0.3.7 is a narrow follow-on to the independent v0.3.6 targeted closure test.
+Version 0.3.8 is a narrow follow-on to the independent v0.3.7 targeted residual closure test.
 
-The deployed v0.3.6 runtime corrections for V035-F01, F02, and F03 were independently confirmed. Seven of nine findings were closed. V035-F04 and V035-F05 remained partially closed because of test-oracle weaknesses, not because the deployed runtime exposed a new behavioral defect.
+That test independently closed V035-F04. V035-F05 remained partially closed because the documentation audit still allowed several affirmative paraphrases and rejected several legitimate negative disclaimers.
 
-v0.3.7 therefore hardens only those residual controls:
+v0.3.8 therefore changes only the remaining documentation/release-claim controls:
 
-- Export event-log integrity is tested behaviorally rather than by source-text presence;
-- semantically equivalent integrity/authenticity, Version 1.0, and independent-closure overclaims are rejected across current release surfaces;
-- the exact supplemental mutations that survived the v0.3.6 targeted test are now first-class mutation operators.
+- direct and Unicode variants of unsupported integrity-protection terminology are covered without treating unrelated negation as an exemption;
+- Version 1.0 claim forms include approved-as, promoted-to, v1.0, and separator variants;
+- independent-closure checks cover equivalent finding-level and reversed-word-order claims;
+- legitimate direct negations such as "has not been confirmed", "is not yet complete", and "not ready for Version 1.0" are explicit must-pass fixtures;
+- the specific affirmative and negative forms demonstrated by the v0.3.7 residual test are now first-class audit fixtures and mutation cases;
+- the stale v0.3.6 UI release narrative is removed.
 
 Current suites:
 
-- `tests/v0.3.7-regression.mjs`
-- `tests/v0.3.7-doc-audit.mjs`
-- `tests/v0.3.7-mutation-regression.mjs`
-- `tests/v0.3.7-manifest-audit.mjs`
+- `tests/v0.3.8-regression.mjs`
+- `tests/v0.3.8-doc-audit.mjs`
+- `tests/v0.3.8-mutation-regression.mjs`
+- `tests/v0.3.8-manifest-audit.mjs`
 
 Current release gate:
 
-- `tests/V0_3_7_RELEASE_GATE.md`
+- `tests/V0_3_8_RELEASE_GATE.md`
 
-Independent closure is **not** claimed. Version 1.0 remains blocked pending targeted closure of the residual F04/F05 oracle findings and one final full independent zero-open-finding adversarial regression.
-
+V035-F04 is independently closed. Independent closure of V035-F05 is **not** claimed. Version 1.0 remains blocked pending targeted closure of V035-F05 and one final full independent zero-open-finding adversarial regression.
 ## Governing principle
 
 > **Challenge JANUS against JANUS first.**

@@ -1,6 +1,6 @@
 {
   "harness": "JANUS Governance Challenge Harness",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "purpose": "Offline verification oracle for exported contract_sha256 values. Verify this file against build-info.json and the bound code commit.",
   "scenarios": [
     {

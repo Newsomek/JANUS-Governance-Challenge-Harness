@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.3.8 — bounded F05 oracle hardening candidate
+
+- preserves the independent v0.3.7 targeted residual FAIL evidence unchanged;
+- records V035-F04 as independently closed;
+- retains V035-F05 as the single remaining actionable residual finding;
+- broadens release-claim detection for the exact false-negative paraphrases demonstrated by independent v0.3.7 testing;
+- adds explicit must-pass negative/disclaimer fixtures for the false-positive forms demonstrated by that test;
+- removes the stale v0.3.6 release narrative from the current UI;
+- adds those demonstrated F05 bypasses as mutation operators;
+- does not change the six authored scenarios or their canonical dispositions.
+
+Independent closure of V035-F05 is not claimed. Version 1.0 remains blocked.
+
 ## v0.3.7 — targeted oracle hardening candidate
 
 - preserves the exact v0.3.6 targeted independent closure FAIL evidence;
