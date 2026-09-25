@@ -1,21 +1,25 @@
 {
-  "schema": 1,
-  "control": "exact-governed-surface-baseline",
-  "policy": "Any byte-level change to a governed documentation surface requires an explicitly reviewed baseline update.",
+  "schema": 2,
+  "control": "exact-governed-release-baseline",
+  "policy": "Any change to the approved governed-file manifest or to any governed file requires explicit release approval.",
   "bootstrap_source_release_head": "aaace7f5354f40ddba1cf6c2084492c76e147ca4",
-  "bootstrap_basis": "Exact governed-surface bytes from independently tested JANUS v0.3.9 release HEAD aaace7f5354f40ddba1cf6c2084492c76e147ca4. Future baseline changes are not generated or approved automatically.",
-  "governed_surfaces": {
-    "README.md": {
-      "sha256": "a7345f720743e610ae3aad9c631598461672c97c00ce45768c1c5a918fa43a53"
-    },
+  "governed_file_manifest": {
+    "path": "docs/GOVERNED_RELEASE_FILES.json",
+    "sha256": "479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda"
+  },
+  "governed_files": {
     "CHANGELOG.md": {
       "sha256": "141af2218b62a6ca81fe12ce3bbe177faa7b6f03b3f2f9aa0d7ba28d3247244f"
     },
-    "VERSION.txt": {
-      "sha256": "a5d01100b2ac3549ef66dbe6e29c22abb1b3b3221e9629a038e937c50aad282d"
-    },
     "index.html": {
       "sha256": "5ed84eef36d1a410f4660fa997d66fb6003196b6b29958c731c49d6086bc2dc6"
+    },
+    "README.md": {
+      "sha256": "a7345f720743e610ae3aad9c631598461672c97c00ce45768c1c5a918fa43a53"
+    },
+    "VERSION.txt": {
+      "sha256": "a5d01100b2ac3549ef66dbe6e29c22abb1b3b3221e9629a038e937c50aad282d"
     }
   }
 }
+

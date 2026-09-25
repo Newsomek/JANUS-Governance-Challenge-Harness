@@ -277,7 +277,7 @@ for(const testCase of cases) {
         )
       );
 
-    baseline.governed_surfaces[
+    baseline.governed_files[
       "README.md"
     ].sha256=
       sha256(
@@ -399,6 +399,202 @@ for(const testCase of cases) {
   }
 }
 
+
+/*
+ * Future release transition test.
+ *
+ * Demonstrates that adding a new governed release file such as
+ * LICENSE is rejected before explicit approval and can be
+ * deliberately approved in a scratch release transition.
+ */
+{
+  const tmp=
+    fs.mkdtempSync(
+      path.join(
+        os.tmpdir(),
+        "janus-v0310-future-transition-"
+      )
+    );
+
+  try {
+    copyRepo(tmp);
+
+    const baselinePath=
+      path.join(
+        tmp,
+        "docs",
+        "APPROVED_GOVERNED_SURFACES.json"
+      );
+
+    const manifestPath=
+      path.join(
+        tmp,
+        "docs",
+        "GOVERNED_RELEASE_FILES.json"
+      );
+
+    const baselineBefore=
+      fs.readFileSync(
+        baselinePath
+      );
+
+    const baselineShaBefore=
+      crypto
+        .createHash("sha256")
+        .update(baselineBefore)
+        .digest("hex");
+
+    const manifest=
+      JSON.parse(
+        fs.readFileSync(
+          manifestPath,
+          "utf8"
+        )
+      );
+
+    manifest.files.push(
+      "LICENSE"
+    );
+
+    fs.writeFileSync(
+      manifestPath,
+      JSON.stringify(
+        manifest,
+        null,
+        2
+      ) + "\n",
+      "utf8"
+    );
+
+    fs.writeFileSync(
+      path.join(
+        tmp,
+        "LICENSE"
+      ),
+      "Future reviewed license placeholder.\n",
+      "utf8"
+    );
+
+    const beforeApproval=
+      runAudit(tmp);
+
+    if (
+      beforeApproval.status === 0
+    ) {
+      failures += 1;
+
+      console.error(
+        "UNEXPECTED PASS: future LICENSE/file-set change passed before approval"
+      );
+    } else {
+      console.log(
+        "KILLED: future LICENSE/file-set change before approval"
+      );
+    }
+
+    const approval=
+      spawnSync(
+        process.execPath,
+        [
+          path.join(
+            tmp,
+            "tests",
+            "v0.3.10-approve-release-baseline.mjs"
+          )
+        ],
+        {
+          cwd:tmp,
+          env:{
+            ...process.env,
+            JANUS_TEST_ROOT:tmp,
+            JANUS_APPROVAL_EXPECTED_BASELINE_SHA256:
+              baselineShaBefore,
+            JANUS_EXPLICIT_RELEASE_APPROVAL:
+              "APPROVE-EXACT-RELEASE-BASELINE"
+          },
+          encoding:"utf8"
+        }
+      );
+
+    if (
+      approval.status !== 0
+    ) {
+      failures += 1;
+
+      console.error(
+        "UNEXPECTED: explicit future release approval failed."
+      );
+
+      console.error(
+        approval.stderr
+      );
+    } else {
+      const newBaselineSha=
+        crypto
+          .createHash("sha256")
+          .update(
+            fs.readFileSync(
+              baselinePath
+            )
+          )
+          .digest("hex");
+
+      const auditFile=
+        path.join(
+          tmp,
+          "tests",
+          "v0.3.10-doc-audit.mjs"
+        );
+
+      let auditSource=
+        fs.readFileSync(
+          auditFile,
+          "utf8"
+        );
+
+      auditSource=
+        auditSource.replace(
+          /const EXPECTED_BASELINE_SHA256 =\s*"[^"]+";/,
+          `const EXPECTED_BASELINE_SHA256 =\n  "${newBaselineSha}";`
+        );
+
+      fs.writeFileSync(
+        auditFile,
+        auditSource,
+        "utf8"
+      );
+
+      const afterApproval=
+        runAudit(tmp);
+
+      if (
+        afterApproval.status !== 0
+      ) {
+        failures += 1;
+
+        console.error(
+          "UNEXPECTED: explicitly approved future LICENSE transition did not pass."
+        );
+
+        console.error(
+          afterApproval.stderr
+        );
+      } else {
+        console.log(
+          "PASS: explicit future LICENSE/file-set transition can be approved"
+        );
+      }
+    }
+  } finally {
+    fs.rmSync(
+      tmp,
+      {
+        recursive:true,
+        force:true
+      }
+    );
+  }
+}
 if(failures) {
   console.error(
     `JANUS v0.3.10 exact-surface fixtures: FAIL (${failures})`
@@ -411,3 +607,5 @@ console.log(
   `(${cases.length} unreviewed-change classes + ` +
   `baseline self-approval + proposal read-only)`
 );
+
+

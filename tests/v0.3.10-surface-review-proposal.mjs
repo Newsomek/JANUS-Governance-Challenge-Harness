@@ -3,47 +3,131 @@ import path from "node:path";
 import {fileURLToPath} from "node:url";
 
 import {
-  GOVERNED_SURFACES,
   BASELINE_RELATIVE_PATH,
   loadBaseline,
-  sha256File
+  readJsonFile,
+  sha256File,
+  validateManifest
 } from "./lib/governed-surface-baseline.mjs";
 
 const here =
-  path.dirname(fileURLToPath(import.meta.url));
+  path.dirname(
+    fileURLToPath(
+      import.meta.url
+    )
+  );
 
 const root =
   process.env.JANUS_TEST_ROOT
-    ? path.resolve(process.env.JANUS_TEST_ROOT)
-    : path.resolve(here,"..");
+    ? path.resolve(
+        process.env.JANUS_TEST_ROOT
+      )
+    : path.resolve(
+        here,
+        ".."
+      );
 
 const baseline =
   loadBaseline(root);
 
-const proposal={
-  schema:1,
-  purpose:
-    "REVIEW CANDIDATE ONLY - this output does not approve or modify the governed-surface baseline.",
-  approved_baseline:
-    BASELINE_RELATIVE_PATH,
-  surfaces:{}
-};
+const manifestPath =
+  path.join(
+    root,
+    baseline.governed_file_manifest.path
+  );
 
-for(const surface of GOVERNED_SURFACES) {
-  const observed =
-    sha256File(path.join(root,surface));
+const manifest =
+  readJsonFile(
+    manifestPath
+  );
 
-  const approved =
-    baseline.governed_surfaces[surface].sha256
-      .toLowerCase();
+const candidateFiles =
+  validateManifest(
+    manifest
+  );
 
-  proposal.surfaces[surface]={
-    approved_sha256:approved,
-    candidate_sha256:observed,
-    changed:observed !== approved
+const approvedFiles =
+  Object.keys(
+    baseline.governed_files
+  );
+
+const approvedSet =
+  new Set(
+    approvedFiles
+  );
+
+const candidateSet =
+  new Set(
+    candidateFiles
+  );
+
+const added =
+  candidateFiles.filter(
+    file =>
+      !approvedSet.has(file)
+  );
+
+const removed =
+  approvedFiles.filter(
+    file =>
+      !candidateSet.has(file)
+  );
+
+const files={};
+
+for (
+  const file
+  of candidateFiles
+) {
+  const fullPath =
+    path.join(
+      root,
+      file
+    );
+
+  const candidateSha =
+    fs.existsSync(fullPath)
+      ? sha256File(fullPath)
+      : null;
+
+  const approvedSha =
+    baseline
+      .governed_files[
+        file
+      ]?.sha256 || null;
+
+  files[file]={
+    approved_sha256:
+      approvedSha,
+    candidate_sha256:
+      candidateSha,
+    changed:
+      approvedSha !==
+      candidateSha
   };
 }
 
+const proposal={
+  schema:1,
+  purpose:
+    "REVIEW CANDIDATE ONLY - does not modify or approve the governed-file manifest or baseline.",
+  approved_baseline:
+    BASELINE_RELATIVE_PATH,
+  governed_manifest:
+    baseline
+      .governed_file_manifest
+      .path,
+  added_files:
+    added,
+  removed_files:
+    removed,
+  files
+};
+
 process.stdout.write(
-  JSON.stringify(proposal,null,2)+"\n"
+  JSON.stringify(
+    proposal,
+    null,
+    2
+  ) + "\n"
 );

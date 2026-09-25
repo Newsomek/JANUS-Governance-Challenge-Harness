@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "control": "versioned-governed-release-file-set",
+  "purpose": "Defines the exact release-facing files whose content hashes require explicit approval.",
+  "current_policy": "Changes to either the governed file set or any governed file content require explicit release approval.",
+  "files": [
+    "README.md",
+    "CHANGELOG.md",
+    "VERSION.txt",
+    "index.html"
+  ],
+  "future_transition_note": "A later reviewed release may deliberately add files such as LICENSE. That transition requires explicit approval of the new file set and new content hashes."
+}
+
