@@ -1,4 +1,16 @@
 # Changelog
+## v0.3.12 — residual release-state closure candidate
+
+- preserves the complete Commit A / one-provenance-Commit-B architecture introduced in v0.3.11;
+- preserves the independent v0.3.11 targeted closure report and raw evidence unchanged;
+- requires exact canonical JSON bytes for `build-info.json` and `docs/APPROVED_RELEASE_STATE.json`, eliminating duplicate-key and alternate-serialization claim surfaces;
+- requires lowercase commit/tree/hash representations in the canonical provenance records;
+- detects untracked release-workspace files even when hidden by `.gitignore`, `.git/info/exclude`, or `core.excludesFile`;
+- adds a deterministic, committed v0.3.12 build-info generator that reads exact bytes from Commit A rather than the mutable working tree;
+- corrects documentation to state that build-info hashes Commit A bytes, including the Commit A release-state placeholder, while Commit B supplies the served canonical bound state;
+- corrects the stale visible page version label and adds regression coverage for title, eyebrow and footer identity;
+- leaves V035-F04 closed and V035-F05 partially closed pending independent v0.3.12 targeted retest;
+- leaves Version 1.0 blocked pending zero-actionable-finding targeted closure and one final full independent zero-open-finding regression.
 ## v0.3.11 — complete release-state boundary hardening
 
 - replaces the four-file governed-surface boundary with an exact Commit A / Git-tree release boundary;

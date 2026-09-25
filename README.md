@@ -1,49 +1,53 @@
-# JANUS Governance Challenge Harness v0.3.11
+# JANUS Governance Challenge Harness v0.3.12
 
 A dependency-free external architectural challenge harness for examining governance claims described in
 the **JANUS Orientation Edition 2026**.
 
-## v0.3.11 complete release-state boundary candidate
+## v0.3.12 residual closure candidate
 
-Version 0.3.11 is a bounded response to the residual V035-F05 findings from the independent v0.3.10 targeted closure test.
+Version 0.3.12 is a bounded response to the independent v0.3.11 targeted V035-F05 closure test.
 
-V035-F04 remains independently closed. V035-F05 remains partially closed pending independent v0.3.11 retest.
+V035-F04 remains independently closed. V035-F05 remains partially closed pending independent v0.3.12 retest.
 
-The v0.3.10 exact-byte control successfully eliminated semantic wording escapes inside its declared governed files. Independent testing then showed that materially equivalent release claims could still be introduced through public or rendered surfaces outside that four-file boundary.
+The v0.3.11 complete-tree architecture successfully closed the earlier ordinary tracked/public-surface and governed-set-narrowing findings. Independent testing identified four bounded residual issues: non-canonical provenance JSON could carry hidden duplicate-key claims; ignored/excluded untracked files were not observed by the workspace audit; two build-manifest descriptions were inaccurate; and the visible page eyebrow still showed v0.3.10.
 
-v0.3.11 moves the boundary to the complete exact Git code/content state:
+v0.3.12 retains the complete-tree two-commit architecture and adds:
 
-- Commit A is the exact code/content commit and Git tree for the release;
+- canonical byte validation for both provenance JSON files;
+- refusal of duplicate keys and alternate JSON serializations through exact canonical re-serialization equality;
+- lowercase commit/tree/hash requirements;
+- detection of all untracked release-workspace files, including files hidden by `.gitignore`, `.git/info/exclude`, or `core.excludesFile`;
+- corrected build-manifest documentation distinguishing Commit A bytes from served Commit B provenance bytes;
+- a deterministic build-info generator committed as part of the governed code/content state;
+- corrected visible v0.3.12 page identity plus regression coverage for the page eyebrow.
+
+The release structure remains:
+
+- Commit A is the exact code/content commit and Git tree;
 - every tracked path and byte belongs to that release state automatically;
-- adding, deleting, renaming, or changing a tracked file changes the release state;
-- untracked files are refused by the release-state audit;
-- only `build-info.json` and `docs/APPROVED_RELEASE_STATE.json` may change after Commit A;
+- only `build-info.json` and `docs/APPROVED_RELEASE_STATE.json` may change afterward;
 - those two provenance files form exactly one Commit B;
-- no third release commit is permitted;
-- `build-info.json` has a fixed four-field schema;
-- `docs/APPROVED_RELEASE_STATE.json` has a fixed schema;
-- the final release-state audit requires exactly one provenance commit and a clean tracked working tree.
-
-The control remains deliberately structural rather than semantic. It does not attempt to decide whether arbitrary English wording is acceptable.
+- both provenance files have fixed schemas and canonical byte representations;
+- no third release commit is permitted.
 
 Release-state binding is an explicit workflow declaration. It is **not** authentication of an approver, a digital signature, proof that a human reviewed the content, GitHub branch protection, CI enforcement, or deployment enforcement.
 
-Current v0.3.11 control suites:
+Current v0.3.12 control suites:
 
-- `tests/v0.3.11-regression.mjs`
-- `tests/v0.3.11-release-state-fixtures.mjs`
-- `tests/v0.3.11-build-info-fixtures.mjs`
-- `tests/v0.3.11-bind-release-state.mjs`
-- `tests/v0.3.11-release-state-audit.mjs`
-- `tests/v0.3.11-manifest-audit.mjs`
-- `tests/V0_3_11_RELEASE_GATE.md`
+- `tests/v0.3.12-regression.mjs`
+- `tests/v0.3.12-residual-fixtures.mjs`
+- `tests/v0.3.12-bind-release-state.mjs`
+- `tests/v0.3.12-generate-build-info.mjs`
+- `tests/v0.3.12-release-state-audit.mjs`
+- `tests/v0.3.12-manifest-audit.mjs`
+- `tests/V0_3_12_RELEASE_GATE.md`
 
-Preserved independent v0.3.10 evidence:
+Preserved independent v0.3.11 evidence:
 
-- `testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md`
-- `testing/claude/v0.3.10/JANUS_v0.3.10_targeted_F05_closure_raw_evidence.txt`
+- `testing/claude/v0.3.11/JANUS_v0.3.11_Targeted_V035-F05_Closure_Report.md`
+- `testing/claude/v0.3.11/JANUS_v0.3.11_targeted_F05_closure_raw_evidence.txt`
 
-Independent closure of V035-F05 is **not** claimed. Version 1.0 remains blocked pending targeted v0.3.11 V035-F05 closure with zero actionable findings and one final full independent zero-open-finding adversarial regression.
+Independent closure of V035-F05 is **not** claimed. Version 1.0 remains blocked pending targeted v0.3.12 V035-F05 closure with zero actionable findings and one final full independent zero-open-finding adversarial regression.
 ## Governing principle
 
 > **Challenge JANUS against JANUS first.**
@@ -126,7 +130,7 @@ Exports include run and export timestamps, harness version/build ID, the bound a
 
 Before export the harness recomputes and checks: valid prediction membership, prediction/disposition labels, comparison code/label, current contract hash, live source-document bytes and hash, source consistency with the run, bound build identity and served `app.js`, event-log content, stored evidence-core hash, full stored-record snapshot hash, fresh authored-state hash, and a freshly re-derived replay result. A failed check refuses ordinary export. The mutable on-screen replay record is never trusted as export evidence. Client-side JSON remains unsigned and is not claimed to be tamper-proof.
 
-The build manifest records SHA-256 hashes for every tracked release file except `build-info.json` itself, which cannot self-hash. This includes served UI assets, source material, tests, and preserved independent evidence. At runtime the harness directly enforces the manifest version/build ID and the served `app.js` hash; it separately verifies the JANUS source-document hash. Other manifest hashes are release provenance metadata and are intended for independent exact-artifact verification.
+The build manifest records SHA-256 hashes for every file in the bound code/content commit (Commit A) except `build-info.json` itself, which cannot self-hash. This includes the Commit A placeholder bytes of `docs/APPROVED_RELEASE_STATE.json`, plus UI assets, source material, tests, and preserved independent evidence. Commit B later replaces that placeholder with the bound canonical release-state record, so its served Commit B bytes are constrained by the release-state schema/canonical-byte audit rather than represented as its own Commit A manifest hash. At runtime the harness directly enforces the manifest version/build ID and the served `app.js` hash; it separately verifies the JANUS source-document hash. Other manifest hashes are Commit A provenance metadata for independent exact-artifact verification.
 ## Independent v0.1 test record
 
 The v0.1 harness at commit `f8b2eb6284575d1670c748bee1868835bf7242eb` was independently exercised across all **36 scenario × prediction permutations** on the live public site. The test also covered replay, export, determinism, state isolation, source conformance, and tamper/edge behavior.
@@ -203,7 +207,7 @@ The JANUS source document is fetched and SHA-256 hashed at Run, Replay and Expor
 
 ### Bound code provenance
 
-The governed updater creates each bound release in two commits. The first commit contains the exact application code and preserved test evidence. The second adds `build-info.json`, which records the first commit as `code_commit` plus SHA-256 hashes of the served files. At runtime the harness verifies served `app.js` against that manifest. GitHub `main` is queried only as optional corroboration and is reported as `MATCH`, `MISMATCH`, or `UNAVAILABLE`; quota or network failure does not erase the bound code identity.
+The governed updater creates each bound release in two commits. Commit A contains the complete exact tracked code/content state, including the unbound release-state placeholder. Commit B changes exactly two provenance files: `build-info.json`, which records Commit A as `code_commit` plus SHA-256 hashes of the Commit A files other than itself, and `docs/APPROVED_RELEASE_STATE.json`, which binds the exact Commit A commit/tree. Both Commit B files must satisfy fixed schemas and exact canonical JSON byte representations. At runtime the harness verifies served `app.js` against the manifest. GitHub `main` is queried only as optional corroboration and is reported as `MATCH`, `MISMATCH`, or `UNAVAILABLE`; quota or network failure does not erase the bound code identity.
 
 ### Export integrity scope
 
