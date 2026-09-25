@@ -1,0 +1,1109 @@
+JANUS Governance Challenge Harness v0.3.10 — Targeted V035-F05 closure test — RAW EVIDENCE
+Generated (UTC): 2026-09-25T15:02:04Z
+Tester: Claude (Cowork, configured model id claude-opus-5-5; serving model may differ). Environment: Anthropic cloud Linux sandbox, v22.22.2, git 2.43.0; deployed-artifact checks via the user's Chrome tab (Claude in Chrome) against https://newsomek.github.io/JANUS-Governance-Challenge-Harness/
+Unedited except for section headers added by the tester.
+
+=================== 0. NETWORK NOTE ===================
+Cloud sandbox: curl https://newsomek.github.io/... -> 'CONNECT tunnel failed, response 403' (egress proxy policy denial, host newsomek.github.io:443) x4.
+Therefore ALL deployed-artifact checks (identity, hashes, behavioral smoke, F04) were executed in the user's Chrome tab on the live GitHub Pages origin via fetch()+crypto.subtle and DOM-driven Run/Replay/Export.
+github.com clone succeeded from the sandbox and was used ONLY for the isolated supplied-test and mutation probes (read-only clone; scratch copies for every mutation).
+
+=================== 1. CLONE IDENTITY ===================
+$ git clone https://github.com/newsomek/JANUS-Governance-Challenge-Harness.git repo
+$ git -C repo rev-parse HEAD
+999c53f973c85cea6992f677909ec8af0047aee7
+$ git -C repo log --oneline | head -4
+999c53f JANUS v0.3.10 bind release provenance
+ac9ce22 JANUS v0.3.10 exact governed release candidate
+25b2b23 JANUS v0.3.10 version governed release manifest
+fdefd96 JANUS v0.3.10 exact document lock control
+$ sha256sum build-info.json app.js index.html docs/APPROVED_GOVERNED_SURFACES.json docs/GOVERNED_RELEASE_FILES.json docs/JANUS_Orientation_Edition_2026_EN.docx
+52d4c8a815af1c8d99c7a63a4a167353b117f2ff5ad53a97c11b420f30e36a3d  build-info.json
+98169cbbe3cbca9023edb90a5172a28a36524adbb17bda885daaf81b2f41b361  app.js
+4ae993c1f52826ed3863c30cd39609c0411dcf1a12c12b7fb8cce35b21a3ec60  index.html
+eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4  docs/APPROVED_GOVERNED_SURFACES.json
+479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda  docs/GOVERNED_RELEASE_FILES.json
+21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4  docs/JANUS_Orientation_Edition_2026_EN.docx
+$ cat docs/GOVERNED_RELEASE_FILES.json
+{
+  "schema": 1,
+  "control": "versioned-governed-release-file-set",
+  "purpose": "Defines the exact release-facing files whose content hashes require explicit approval.",
+  "current_policy": "Changes to either the governed file set or any governed file content require explicit release approval.",
+  "files": [
+    "README.md",
+    "CHANGELOG.md",
+    "VERSION.txt",
+    "index.html"
+  ],
+  "future_transition_note": "A later reviewed release may deliberately add files such as LICENSE. That transition requires explicit approval of the new file set and new content hashes."
+}
+
+$ cat docs/APPROVED_GOVERNED_SURFACES.json
+{
+  "schema": 2,
+  "control": "exact-governed-release-baseline",
+  "policy": "Any change to the approved governed-file manifest or to any governed file requires explicit release approval.",
+  "bootstrap_source_release_head": "aaace7f5354f40ddba1cf6c2084492c76e147ca4",
+  "governed_file_manifest": {
+    "path": "docs/GOVERNED_RELEASE_FILES.json",
+    "sha256": "479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda"
+  },
+  "governed_files": {
+    "README.md": {
+      "sha256": "d83f0a572319655d8b6d8a6af6d1b89a37f31cf548273856d82c0416d8ea34e3"
+    },
+    "CHANGELOG.md": {
+      "sha256": "41fe54d3f806f0970c61d8aa324f8eb0286144d0b83a9e9400e3506a9a88e783"
+    },
+    "VERSION.txt": {
+      "sha256": "571724093e18dd9addab1b191dc6461d819f30fdbc9cd579f2bde8c6d2417498"
+    },
+    "index.html": {
+      "sha256": "4ae993c1f52826ed3863c30cd39609c0411dcf1a12c12b7fb8cce35b21a3ec60"
+    }
+  }
+}
+$ grep EXPECTED_BASELINE_SHA256 tests/v0.3.10-doc-audit.mjs
+const EXPECTED_BASELINE_SHA256 =
+  "eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4";
+$ grep approval token tests/v0.3.10-approve-release-baseline.mjs
+52:  "APPROVE-EXACT-RELEASE-BASELINE"
+$ ls -la repo/.github
+ls: cannot access 'repo/.github': No such file or directory
+
+=================== 2. DEPLOYED IDENTITY GATE (Chrome tab, live origin, fetch cache:'no-store') ===================
+Test time (UTC) approx 2026-09-25T14:5x–15:1xZ
+Script: fetch build-info.json; SHA-256 via crypto.subtle; for every path in build-info.files fetch + hash + compare;
+        fetch app.js, slice from 'const scenarios = [' to first '\n];' (+4) per tests/v0.3.10-regression.mjs method, hash;
+        fetch docx, index.html, './'.
+Result (verbatim, truncated by tool at end):
+{"loc":"https://newsomek.github.io/JANUS-Governance-Challenge-Harness/","biStatus":200,
+ "biSha":"52d4c8a815af1c8d99c7a63a4a167353b117f2ff5ad53a97c11b420f30e36a3d","version":"0.3.10",
+ "build":"janus-governance-challenge-harness-v0.3.10","commit":"ac9ce2245edc770a54d2d007d92dc83c4d20b68f",
+ "nFiles":87,"mismatch":[],"ok":87,
+ "appSha":"98169cbbe3cbca9023edb90a5172a28a36524adbb17bda885daaf81b2f41b361",
+ "scenarioBlock":"948536a17a454e59f782e023ac1ded8e30e9f33ca660c3dbd674273fe1b56488",
+ "docx":"21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+ "indexSha":"4ae993c1f52826ed3863c30cd39609c0411dcf1a12c12b7fb8cce35b21a3ec60",
+ "rootSha":"4ae993c1f52826ed3863c30cd39609c0411dcf1a12c12b7fb8cce35b21a3ec60",
+ "pageTitle":"JANUS Governance Challenge Harness v0.3.10",
+ "headerText":"EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3.10\nJANUS Governance Challenge Harness\n\nA small adversarial la",
+ "scenarioOptions":["condition-change|01 · Authorization condition changes after approval","evide[TRUNCATED]
+Expected vs observed:
+  version 0.3.10 == 0.3.10                                          MATCH
+  build_id janus-governance-challenge-harness-v0.3.10              MATCH
+  code_commit ac9ce2245edc770a54d2d007d92dc83c4d20b68f             MATCH
+  build-info.json sha 52d4c8a8…e36a3d                               MATCH
+  served app.js sha == build-info.files["app.js"] 98169cbb…41b361   MATCH
+  JANUS source sha 21766f5d…551fe4                                  MATCH
+  scenario-block sha 948536a1…56488                                 MATCH
+  87/87 build-info listed files served with matching SHA-256        MATCH
+  deployed build-info.json sha == clone build-info.json sha          MATCH (clone HEAD 999c53f9…)
+Six scenario ids present (from smoke run below): condition-change, evidence-change, authorization-expiry, learning-authority, conflicting-authorities, mid-execution-revocation.
+IDENTITY GATE: PASS
+
+=================== 3. BEHAVIORAL NON-REGRESSION (Chrome tab, live origin) ===================
+Method: reload page; wrap URL.createObjectURL to capture the export Blob and stub anchor.click() for download anchors
+(no file downloaded; export code path, integrity checks and JSON construction unmodified); window.alert captured.
+For each scenario: select scenario, select canonical prediction, click Run, read disposition; click Replay; click Export; parse captured JSON.
+Result (verbatim; last row truncated by tool, completed by second query):
+condition-change|BLOCK + REAUTHORIZE|EXACT MATCH|replay=true|exp=true|PASS|ac9ce2245e|MATCH|MATCH|52a18511594c|failed=0|rm=true
+evidence-change|BLOCK|EXACT MATCH|replay=true|exp=true|PASS|ac9ce2245e|MATCH|MATCH|36bc70425fbd|failed=0|rm=true
+authorization-expiry|BLOCK + REAUTHORIZE|EXACT MATCH|replay=true|exp=true|PASS|ac9ce2245e|MATCH|MATCH|e7e29686985b|failed=0|rm=true
+learning-authority|BLOCK + REAUTHORIZE|EXACT MATCH|replay=true|exp=true|PASS|ac9ce2245e|MATCH|MATCH|d783abf986fc|failed=0|rm=true
+conflicting-authorities|INSUFFICIENT SPECIFICATION|EXACT MATCH|replay=true|exp=true|PASS|ac9ce2245e|MATCH|MATCH|437615c49f3f|failed=0|rm=true
+mid-execution-revocation|INSUFFICIENT SPECIFICATION|EXACT MATCH|replay=true|exp=true|PASS|ac9ce2245e|[TRUNCATED]
+Columns: scenario|UI disposition|match badge|replay CONSISTENT|export produced|integrity_status|harness_code_commit==export_provenance.bound_code_commit|bound_commit_verification|commit_verification|contract_sha256 prefix|failed integrity checks|export.replay.replay_match
+Exported version/build per export (verbatim): ["condition-change:0.3.10:v0.3.10","evidence-change:0.3.10:v0.3.10","authorization-expiry:0.3.10:v0.3.10","learning-authority:0.3.10:v0.3.10","conflicting-authorities:0.3.10:v0.3.10","mid-execution-revocation:0.3.10:v0.3.10"]
+Export JSON keys (verbatim): harness,version,build_id,generated_at,repository,harness_code_commit,harness_provenance,source_document,contract_sha256,evaluation_mode,restrictions,harness_attribution,janus_attribution,scenario_id,scenario_name,scenario_summary,perturbation,reviewer_prediction,reviewer_prediction_label,orientation_level_disposition,orientation_level_disposition_label,prediction_comparison,prediction_comparison_label,compatible_predictions,compatibility_reason,changed,remains_valid,invalid_or_uncertain,execution,source_commitments,rationale,open_question,evidence_required,sources,event_log,evidence_core_sha256,record_snapshot_sha256,exported_at,integrity_status,integrity_scope,integrity_checks,export_provenance,replay
+Alerts during smoke: [] ; exports captured: 6
+Row 6 completed by follow-up query on captured export #6 (verbatim):
+mid-execution-revocation | INSUFFICIENT_SPECIFICATION | PASS | 916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164 | ac9ce2245edc770a54d2d007d92dc83c4d20b68f | ac9ce2245edc770a54d2d007d92dc83c4d20b68f | MATCH | MATCH | true | true | 0.3.10 | janus-governance-challenge-harness-v0.3.10
+Contract prefixes of all 6 exports match docs/EXPECTED_CONTRACT_HASHES.json (52a18511, 36bc7042, e7e29686, d783abf9, 437615c4, 916a960c).
+BEHAVIORAL GATE: PASS (6/6)
+
+=================== 4. V035-F04 EXPORT / EVENT-LOG INTEGRITY PROBES (Chrome tab, live origin) ===================
+Method: Run evidence-change/BLOCK, mutate in-memory lastRun (global lexical binding), click Export, then Replay.
+Verbatim results:
+F04-a event_log entry text edited   -> exported:false  "Export refused: Evidence integrity check failed (event_log, stored_evidence_core_integrity, stored_record_snapshot_integrity, replay_rederived_consistent)."  replay: REPLAY DIVERGENCE
+F04-b event_log entry appended      -> exported:false  same 4 checks failed; replay: REPLAY DIVERGENCE
+F04-c event_log reordered           -> exported:false  same 4 checks failed; replay: REPLAY DIVERGENCE
+F04-d disposition flipped CONTINUE  -> exported:false  "Export refused: Evidence integrity check failed (stored_evidence_core_integrity, stored_record_snapshot_integrity, replay_rederived_consistent)."
+F04-e rationale edited (+claim)     -> exported:false  "Export refused: Evidence integrity check failed (stored_evidence_core_integrity, stored_record_snapshot_integrity, replay_rederived_consistent)."
+F04-f control (no mutation)         -> exported:true (capture count 6 -> 7), replay: "result": "REPLAY CONSISTENT"
+F04: remains CLOSED (uncoordinated mutation refused; coordinated in-console forgery is a disclosed, out-of-scope limit).
+
+=================== 5. DEPLOYED PUBLIC-SURFACE REACHABILITY (Chrome tab) ===================
+Verbatim: tests/V0_3_10_RELEASE_GATE.md 200 3290 ; styles.css 200 5913 ; docs/APPROVED_GOVERNANCE_CLAIMS.json 200 19929 ; testing/claude/v0.3.9/JANUS_v0.3.9_Targeted_V035-F05_Closure_Report.md 200 25391 ; tests/v0.3.10-doc-audit.mjs 200 952 ; docs/GOVERNED_RELEASE_FILES.json 200 592 ; zz-nonexistent-path 404 9379
+(An earlier variant of this query that included cache-buster query strings / .git and 404.html paths was blocked by the browser tool with "[BLOCKED: Cookie/query string data]"; re-run without query strings as above.)
+index.html hrefs (clone == deployed bytes): docs/JANUS_Orientation_Edition_2026_EN.docx, https://github.com/Newsomek/JANUS-Governance-Challenge-Harness, https://github.com/Newsomek/JANUS-Governance-Challenge-Harness/tree/main/testing/claude, styles.css, two LinkedIn profiles.
+README.md line 36 lists `tests/V0_3_10_RELEASE_GATE.md` among "Current v0.3.10 control suites".
+index.html loads styles.css (line 8) and app.js (line 172); both are outside docs/GOVERNED_RELEASE_FILES.json.
+
+=================== 6. SUPPLIED TESTS (isolated copy /home/claude/t/work, full output) ===================
+$ node tests/v0.3.10-regression.mjs
+JANUS v0.3.10 automated regression: PASS
+Canonical exports: 9; refusal alerts: 4
+exit=0
+$ node tests/v0.3.10-doc-audit.mjs
+JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+exit=0
+$ node tests/v0.3.10-surface-fixtures.mjs
+PASS: unchanged approved four-document baseline
+KILLED: semantic synonym README
+KILLED: semantic synonym CHANGELOG
+KILLED: version synonym VERSION
+KILLED: closure synonym HTML
+KILLED: Markdown heading bypass
+KILLED: HTML heading bypass
+KILLED: wrapped line bypass
+KILLED: hidden-negation flip
+KILLED: strikethrough-negation flip
+KILLED: Markdown inline HTML
+KILLED: named entity split
+KILLED: homoglyph
+KILLED: attribute claim
+KILLED: context retraction
+KILLED: legitimate unreviewed text still fails closed
+KILLED: baseline self-approval attack
+PASS: review-proposal tool is read-only
+KILLED: future LICENSE/file-set change before approval
+PASS: explicit future LICENSE/file-set transition can be approved
+JANUS v0.3.10 exact-surface fixtures: PASS (15 unreviewed-change classes + baseline self-approval + proposal read-only)
+exit=0
+$ node tests/v0.3.10-surface-mutation-regression.mjs
+KILLED: governed-file content mismatch enforcement disabled
+KILLED: approved baseline binding enforcement disabled
+KILLED: governed-file manifest binding enforcement disabled
+KILLED: manifest versus approved file-set enforcement disabled
+KILLED: manifest silently omits first governed file
+JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+exit=0
+$ node tests/v0.3.10-surface-review-proposal.mjs
+{
+  "schema": 1,
+  "purpose": "REVIEW CANDIDATE ONLY - does not modify or approve the governed-file manifest or baseline.",
+  "approved_baseline": "docs/APPROVED_GOVERNED_SURFACES.json",
+  "governed_manifest": "docs/GOVERNED_RELEASE_FILES.json",
+  "added_files": [],
+  "removed_files": [],
+  "files": {
+    "README.md": {
+      "approved_sha256": "d83f0a572319655d8b6d8a6af6d1b89a37f31cf548273856d82c0416d8ea34e3",
+      "candidate_sha256": "d83f0a572319655d8b6d8a6af6d1b89a37f31cf548273856d82c0416d8ea34e3",
+      "changed": false
+    },
+    "CHANGELOG.md": {
+      "approved_sha256": "41fe54d3f806f0970c61d8aa324f8eb0286144d0b83a9e9400e3506a9a88e783",
+      "candidate_sha256": "41fe54d3f806f0970c61d8aa324f8eb0286144d0b83a9e9400e3506a9a88e783",
+      "changed": false
+    },
+    "VERSION.txt": {
+      "approved_sha256": "571724093e18dd9addab1b191dc6461d819f30fdbc9cd579f2bde8c6d2417498",
+      "candidate_sha256": "571724093e18dd9addab1b191dc6461d819f30fdbc9cd579f2bde8c6d2417498",
+      "changed": false
+    },
+    "index.html": {
+      "approved_sha256": "4ae993c1f52826ed3863c30cd39609c0411dcf1a12c12b7fb8cce35b21a3ec60",
+      "candidate_sha256": "4ae993c1f52826ed3863c30cd39609c0411dcf1a12c12b7fb8cce35b21a3ec60",
+      "changed": false
+    }
+  }
+}
+exit=0
+$ node tests/v0.3.10-manifest-audit.mjs
+JANUS v0.3.10 release manifest audit: PASS (87/87 tracked files; build-info.json excluded from self-hash)
+exit=0
+$ git status --porcelain (after supplied tests)
+(empty = no mutation)
+
+=================== 7. INDEPENDENT PROBE HARNESS SOURCE (probe.mjs) ===================
+// Independent V035-F05 probe harness. Operates ONLY on scratch copies of the cloned repo.
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
+import {spawnSync, execSync} from "node:child_process";
+
+const SRC = "/home/claude/t/repo";
+const SCR = "/home/claude/t/scratch";
+fs.rmSync(SCR, {recursive:true, force:true}); fs.mkdirSync(SCR);
+const sha = b => crypto.createHash("sha256").update(b).digest("hex");
+let n = 0; const results = [];
+const log = s => { process.stdout.write(s + "\n"); };
+
+function fresh(){ const d = path.join(SCR, "p" + (++n)); execSync(`cp -a ${SRC} ${d}`); return d; }
+function run(root, script, env={}){
+  const r = spawnSync("node", [path.join(root,"tests",script)], {cwd:root, env:{...process.env, ...env}, encoding:"utf8"});
+  const msg = (r.stdout + r.stderr).split("\n").find(l => /PASS|Error:|EXPLICIT|required|missing/.test(l)) || (r.stdout+r.stderr).slice(0,200);
+  return {code:r.status, msg:msg.trim().slice(0,220)};
+}
+function treeHash(root){
+  const out = {}; const walk = d => { for (const e of fs.readdirSync(d,{withFileTypes:true})) { if (e.name === ".git") continue; const p = path.join(d,e.name); if (e.isDirectory()) walk(p); else out[path.relative(root,p)] = sha(fs.readFileSync(p)); } };
+  walk(root); return {count:Object.keys(out).length, digest: sha(JSON.stringify(Object.entries(out).sort())), map:out};
+}
+const rd = (r,f) => fs.readFileSync(path.join(r,f));
+const wr = (r,f,b) => { fs.mkdirSync(path.dirname(path.join(r,f)),{recursive:true}); fs.writeFileSync(path.join(r,f), b); };
+const edit = (r,f,fn) => wr(r,f, Buffer.from(fn(rd(r,f).toString("utf8")),"utf8"));
+function regenBuildInfo(r){ // simulate release construction step: rehash every tracked file (no approval involved)
+  execSync("git add -A", {cwd:r});
+  const files = execSync("git ls-files -z",{cwd:r}).toString().split("\0").filter(Boolean).filter(p=>p!=="build-info.json").sort();
+  const bi = JSON.parse(rd(r,"build-info.json")); bi.files = {}; for (const f of files) bi.files[f] = sha(rd(r,f));
+  wr(r,"build-info.json", JSON.stringify(bi,null,2)+"\n");
+}
+function probe(cls, id, desc, mutate, {expect="FAIL", scripts=["v0.3.10-doc-audit.mjs"], regen=false}={}){
+  const r = fresh(); let note = "";
+  try { note = mutate(r) || ""; } catch(e){ note = "MUTATE-ERROR " + e.message; }
+  if (regen) regenBuildInfo(r);
+  const outs = scripts.map(s => ({s, ...run(r,s)}));
+  const passAll = outs.every(o => o.code === 0);
+  const observed = passAll ? "PASS" : "FAIL";
+  const ok = observed === expect;
+  results.push({cls,id,desc,expect,observed,ok,note,outs});
+  log(`[${cls}] ${id} expect=${expect} observed=${observed} ${ok?"AS-EXPECTED":"*** UNEXPECTED ***"} :: ${desc}${note?" ("+note+")":""}`);
+  for (const o of outs) log(`      ${o.s} exit=${o.code} :: ${o.msg}`);
+  return r;
+}
+
+// ---------- A. exact governed-file content changes ----------
+const G = ["README.md","CHANGELOG.md","VERSION.txt","index.html"];
+const Aops = {
+  "wording":        t => t.replace("remains", "stays"),
+  "punctuation":    t => t.replace(".", ","),
+  "trailing-space": t => t.replace("\n", " \n"),
+  "CRLF":           t => t.replace(/\n/g, "\r\n"),
+  "final-newline-removed": t => t.replace(/\n$/, ""),
+  "final-newline-added":   t => t + "\n",
+  "tab-for-space":  t => t.replace(" ", "\t"),
+  "case-change":    t => t.replace(/JANUS/, "Janus"),
+  "heading-change": t => t.includes("# ") ? t.replace("# ", "## ") : t.replace("<h1", "<h2"),
+  "wrapped-line":   t => t.replace(/(\S) (\S)/, "$1\n$2"),
+  "inserted-claim": t => t + "\nVersion 1.0 is approved and V035-F05 is independently closed.\n",
+  "deleted-disclaimer": t => t.replace(/not Version 1\.0|is \*\*not\*\* claimed|is not claimed|not a digital signature/, ""),
+  "status-flip":    t => t.replace(/partially closed/i, "CLOSED"),
+  "BOM-prefix":     t => "﻿" + t,
+};
+for (const f of G) for (const [k,fn] of Object.entries(Aops)) probe("A", `A-${f}-${k}`, `${f}: ${k}`, r => { const before=rd(r,f); edit(r,f,fn); if (sha(before)===sha(rd(r,f))) return "NO-BYTE-CHANGE"; });
+
+// ---------- B. prior semantic escape classes ----------
+const Bclaims = ["The evidence cannot be changed.","Evidence integrity is guaranteed.","Exports are verified and validated.","The evidence is secure.","This is Version One.","This is the 1.0 release.","Ready for general availability.","All residual findings are resolved.","External reviewers found nothing.","All remaining findings are closed.","F05 resolved.","Outside testing confirmed the fix.","Nothing is left to fix.","This build has been signed off."];
+for (const f of G) Bclaims.forEach((c,i) => probe("B", `B-${f}-${i+1}`, `${f}: append "${c}"`, r => edit(r,f,t => t.replace(/\n$/, "\n"+ (f==="index.html"?`<p>${c}</p>`:c) +"\n"))));
+
+// ---------- C. structural / markup / encoding ----------
+const Cvars = {
+  "md-emphasis": "Version **1.0** is *approved*.",
+  "split-word": "Ver sion 1.0 is appr oved.",
+  "html-tags": "<b>Version</b> 1.0 <i>approved</i>",
+  "named-entity": "Version 1.0 is &aacute;pproved &amp; tamper&#8209;proof",
+  "numeric-entity": "Version 1.0 is &#97;pproved &#x61;nd &#116amper-proof",
+  "nbsp": "Version 1.0 approved",
+  "soft-hyphen": "Ver­sion 1.0 ap­proved",
+  "zero-width": "Ver​sion 1.0 ap‍proved⁠",
+  "homoglyph": "Vеrsion 1.0 is аpproved",
+  "hidden-text": "<span hidden>not</span> <span style=\"display:none\">not</span>",
+  "struck-negation": "Exports are ~~not~~ tamper-proof. F05 is <s>not</s> closed.",
+  "heading": "\n## Version 1.0 approved\n",
+  "attribute": "<img alt=\"Version 1.0 approved\" title=\"F05 closed\">",
+  "html-comment": "<!-- Version 1.0 approved -->",
+  "variation-selector": "Version 1.0️ approved",
+  "rtl-override": "‮devorppa 0.1 noisreV‬",
+};
+for (const f of G) for (const [k,v] of Object.entries(Cvars)) probe("C", `C-${f}-${k}`, `${f}: insert ${k}`, r => edit(r,f,t => t.replace(/\n/, "\n"+v+"\n")));
+// in-place single codepoint substitution that is visually identical
+for (const f of G) probe("C", `C-${f}-inplace-homoglyph`, `${f}: replace first Latin 'e' with Cyrillic U+0435 in place`, r => edit(r,f,t => t.replace("e","е")));
+for (const f of G) probe("C", `C-${f}-space-to-nbsp`, `${f}: replace first ASCII space with U+00A0`, r => edit(r,f,t => t.replace(" "," ")));
+// ---------- D. governed file-set changes ----------
+const M = "docs/GOVERNED_RELEASE_FILES.json";
+const editManifest = (r,fn) => { const m = JSON.parse(rd(r,M)); fn(m); wr(r,M,JSON.stringify(m,null,2)+"\n"); };
+probe("D","D-add-LICENSE-to-manifest","manifest adds LICENSE (file present)", r => { wr(r,"LICENSE","MIT\n"); editManifest(r,m=>m.files.push("LICENSE")); });
+probe("D","D-remove-README-from-manifest","manifest removes README.md", r => editManifest(r,m=>m.files=m.files.filter(x=>x!=="README.md")));
+probe("D","D-delete-governed-file","delete CHANGELOG.md", r => fs.rmSync(path.join(r,"CHANGELOG.md")));
+probe("D","D-rename-governed-file","rename VERSION.txt -> VERSION.md", r => fs.renameSync(path.join(r,"VERSION.txt"),path.join(r,"VERSION.md")));
+probe("D","D-rename-in-manifest","manifest renames VERSION.txt -> VERSION.md and file renamed", r => { fs.renameSync(path.join(r,"VERSION.txt"),path.join(r,"VERSION.md")); editManifest(r,m=>m.files=m.files.map(x=>x==="VERSION.txt"?"VERSION.md":x)); });
+probe("D","D-replace-with-identical-copy","replace README.md with byte-identical new inode", r => { const b=rd(r,"README.md"); fs.rmSync(path.join(r,"README.md")); wr(r,"README.md",b); }, {expect:"PASS"});
+probe("D","D-symlink-same-bytes","replace README.md with symlink to identical copy elsewhere", r => { const b=rd(r,"README.md"); wr(r,"alt/README.md",b); fs.rmSync(path.join(r,"README.md")); fs.symlinkSync("alt/README.md", path.join(r,"README.md")); }, {expect:"PASS"});
+probe("D","D-symlink-other-bytes","replace README.md with symlink to modified copy", r => { wr(r,"alt/README.md",Buffer.concat([rd(r,"README.md"),Buffer.from("Version 1.0 approved\n")])); fs.rmSync(path.join(r,"README.md")); fs.symlinkSync("alt/README.md", path.join(r,"README.md")); });
+probe("D","D-dup-dot-slash","manifest adds ./README.md duplicate alias", r => editManifest(r,m=>m.files.push("./README.md")));
+probe("D","D-dup-exact","manifest duplicates README.md", r => editManifest(r,m=>m.files.push("README.md")));
+probe("D","D-path-traversal","manifest adds ../x", r => editManifest(r,m=>m.files.push("../x")));
+probe("D","D-manifest-reformat-only","manifest re-serialized (whitespace only, same JSON)", r => wr(r,M,JSON.stringify(JSON.parse(rd(r,M)))+"\n"));
+probe("D","D-manifest-key-reorder","manifest keys reordered (same semantics)", r => { const m=JSON.parse(rd(r,M)); const o={files:m.files,...m}; wr(r,M,JSON.stringify(o,null,2)+"\n"); });
+probe("D","D-manifest-deleted","manifest deleted", r => fs.rmSync(path.join(r,M)));
+probe("D","D-manifest-empty-files","manifest files=[] (narrowing to nothing)", r => editManifest(r,m=>m.files=[]));
+probe("D","D-new-ungoverned-file-RELEASE.md","add new public RELEASE.md claiming Version 1.0 approved (manifest untouched)", r => wr(r,"RELEASE.md","# Version 1.0 approved\nV035-F05 independently CLOSED.\n"), {expect:"FAIL?"});
+probe("D","D-new-ungoverned-404.html","add 404.html (GitHub Pages serves it for any unknown path) claiming 1.0", r => wr(r,"404.html","<h1>JANUS Harness Version 1.0 — approved; all findings independently closed</h1>\n"), {expect:"FAIL?"});
+probe("D","D-alt-case-readme","add readme.md (case variant) with claim", r => wr(r,"readme.md","Version 1.0 approved\n"), {expect:"FAIL?"});
+probe("D","D-index.htm","add index.htm alternate page", r => wr(r,"index.htm","<h1>Version 1.0 approved</h1>\n"), {expect:"FAIL?"});
+
+// ---------- E. baseline-binding attacks ----------
+const BL = "docs/APPROVED_GOVERNED_SURFACES.json"; const DA = "tests/v0.3.10-doc-audit.mjs";
+const setBaseline = (r,fn) => { const b=JSON.parse(rd(r,BL)); fn(b); wr(r,BL,JSON.stringify(b,null,2)+"\n"); };
+const rebindConst = r => edit(r,DA,t=>t.replace(/"[0-9a-f]{64}"/, `"${sha(rd(r,BL))}"`));
+const addClaim = r => edit(r,"README.md",t=>t+"\nVersion 1.0 is approved. V035-F05 independently CLOSED.\n");
+probe("E","E-1 content+baseline-hash only","README changed; baseline README hash replaced with candidate hash; audit constant untouched", r => { addClaim(r); setBaseline(r,b=>b.governed_files["README.md"].sha256=sha(rd(r,"README.md"))); });
+probe("E","E-2 constant only","audit constant changed to random hash", r => edit(r,DA,t=>t.replace(/"[0-9a-f]{64}"/, `"${"0".repeat(64)}"`)));
+probe("E","E-3 manifest+baseline manifest hash","manifest narrowed; baseline manifest sha updated; constant untouched", r => { editManifest(r,m=>m.files=m.files.filter(x=>x!=="README.md")); setBaseline(r,b=>{b.governed_file_manifest.sha256=sha(rd(r,M)); delete b.governed_files["README.md"];}); });
+probe("E","E-4 file-set inequality","baseline gains extra entry not in manifest (with constant rebound)", r => { setBaseline(r,b=>b.governed_files["LICENSE"]={sha256:"0".repeat(64)}); rebindConst(r); });
+probe("E","E-5 manifest path redirect","baseline manifest path redirected to decoy manifest omitting README, constant rebound, README changed", r => { addClaim(r); const m=JSON.parse(rd(r,M)); m.files=m.files.filter(x=>x!=="README.md"); wr(r,"docs/DECOY.json",JSON.stringify(m)); setBaseline(r,b=>{b.governed_file_manifest={path:"docs/DECOY.json",sha256:sha(rd(r,"docs/DECOY.json"))}; delete b.governed_files["README.md"];}); rebindConst(r); }, {expect:"PASS-if-rebound"});
+probe("E","E-6 uppercase hash","baseline README hash uppercased (same value), constant rebound", r => { setBaseline(r,b=>b.governed_files["README.md"].sha256=b.governed_files["README.md"].sha256.toUpperCase()); rebindConst(r); }, {expect:"PASS"});
+probe("E","E-7 hand-rebaseline WITHOUT approval token","README claim added; baseline hand-edited to candidate hash; audit constant hand-edited; approval script never run", r => { addClaim(r); setBaseline(r,b=>b.governed_files["README.md"].sha256=sha(rd(r,"README.md"))); rebindConst(r); }, {expect:"PASS-if-rebound"});
+probe("E","E-8 hand-rebaseline + regen build-info","E-7 plus regenerated build-info (full release construction, no token)", r => { addClaim(r); setBaseline(r,b=>b.governed_files["README.md"].sha256=sha(rd(r,"README.md"))); rebindConst(r); }, {expect:"PASS-if-rebound", regen:true, scripts:["v0.3.10-doc-audit.mjs","v0.3.10-manifest-audit.mjs"]});
+probe("E","E-9 JANUS_TEST_ROOT redirect","modified repo but audit run with JANUS_TEST_ROOT pointing at pristine copy", r => { addClaim(r); }, {expect:"FAIL"}); // run normally first
+{ const r = path.join(SCR,"p"+n); const o = run(r,"v0.3.10-doc-audit.mjs",{JANUS_TEST_ROOT:SRC}); log(`      E-9b same modified repo, env JANUS_TEST_ROOT=${SRC} :: exit=${o.code} :: ${o.msg}`); results.push({cls:"E",id:"E-9b",desc:"audit of modified tree with JANUS_TEST_ROOT redirected to pristine root",expect:"(process)",observed:o.code===0?"PASS":"FAIL",outs:[o]}); }
+probe("E","E-10 baseline JSON reserialize","baseline re-serialized, semantics identical, constant untouched", r => wr(r,BL,JSON.stringify(JSON.parse(rd(r,BL)))+"\n"));
+probe("E","E-11 baseline duplicate-key shadow","baseline raw text gains duplicate README key (last wins), constant rebound", r => { addClaim(r); edit(r,BL,t=>t.replace(/"governed_files": \{/, `"governed_files": {\n    "README.md": {"sha256": "${"0".repeat(64)}"},`)); edit(r,BL,t=>t); const t2=rd(r,BL).toString(); /* last README key is original -> content mismatch expected */ rebindConst(r); });
+
+// ---------- F. self-approval / silent rebaselining ----------
+for (const [id,desc,fn] of [
+  ["F-1","ordinary audit run on changed README", r=>{ addClaim(r); run(r,"v0.3.10-doc-audit.mjs"); }],
+  ["F-2","review-proposal run on changed README", r=>{ addClaim(r); run(r,"v0.3.10-surface-review-proposal.mjs"); }],
+  ["F-3","audit+proposal+fixtures+mutation+regression run on changed README", r=>{ addClaim(r); for (const s of ["v0.3.10-doc-audit.mjs","v0.3.10-surface-review-proposal.mjs","v0.3.10-surface-fixtures.mjs","v0.3.10-surface-mutation-regression.mjs","v0.3.10-regression.mjs"]) run(r,s); }],
+  ["F-4","candidate README contains a baseline-looking JSON with its own hash", r=>{ addClaim(r); edit(r,"README.md",t=>t+`\n{"governed_files":{"README.md":{"sha256":"${sha(rd(r,"README.md"))}"}}}\n`); }],
+  ["F-5","approval run WITHOUT token on changed README", r=>{ addClaim(r); const o=run(r,"v0.3.10-approve-release-baseline.mjs",{JANUS_APPROVAL_EXPECTED_BASELINE_SHA256:sha(rd(r,BL))}); return "approve exit="+o.code+" "+o.msg; }],
+]) {
+  const r = probe("F",id,desc,r=>{ const b0=sha(rd(r,BL)), m0=sha(rd(r,M)), d0=sha(rd(r,DA)); const note=fn(r)||""; return note+` baselineChanged=${b0!==sha(rd(r,BL))} manifestChanged=${m0!==sha(rd(r,M))} auditConstChanged=${d0!==sha(rd(r,DA))}`; });
+}
+
+// ---------- G. review-proposal mutation ----------
+for (const [id,desc,fn] of [
+  ["G-1","clean tree",r=>{}],
+  ["G-2","changed README",addClaim],
+  ["G-3","manifest adds LICENSE (present)",r=>{wr(r,"LICENSE","x\n"); editManifest(r,m=>m.files.push("LICENSE"));}],
+  ["G-4","manifest adds MISSING file",r=>editManifest(r,m=>m.files.push("NOPE.md"))],
+  ["G-5","governed file deleted",r=>fs.rmSync(path.join(r,"index.html"))],
+  ["G-6","malformed manifest JSON",r=>wr(r,M,"{not json")],
+  ["G-7","manifest removes README",r=>editManifest(r,m=>m.files=m.files.filter(x=>x!=="README.md"))],
+]) {
+  const r = fresh(); fn(r); const before = treeHash(r); const gitBefore = execSync("git status --porcelain",{cwd:r}).toString();
+  const o = spawnSync("node",["tests/v0.3.10-surface-review-proposal.mjs"],{cwd:r,encoding:"utf8"});
+  const after = treeHash(r); const gitAfter = execSync("git status --porcelain",{cwd:r}).toString();
+  let summary=""; try{ const p=JSON.parse(o.stdout); summary=`added=${JSON.stringify(p.added_files)} removed=${JSON.stringify(p.removed_files)} changed=${JSON.stringify(Object.entries(p.files).filter(([,v])=>v.changed).map(([k])=>k))}`;}catch{ summary="stderr: "+(o.stderr.split("\n").find(l=>/Error/.test(l))||"").trim(); }
+  const mutated = before.digest!==after.digest || gitBefore!==gitAfter;
+  results.push({cls:"G",id,desc,expect:"NO MUTATION",observed:mutated?"MUTATED":"NO MUTATION",ok:!mutated,note:`exit=${o.status} files=${before.count} tree ${before.digest.slice(0,16)} -> ${after.digest.slice(0,16)}; ${summary}`});
+  log(`[G] ${id} ${mutated?"*** MUTATED ***":"NO MUTATION"} :: ${desc} :: exit=${o.status} tree ${before.digest.slice(0,16)}->${after.digest.slice(0,16)} :: ${summary}`);
+}
+
+// ---------- H/I/J. explicit approval workflow ----------
+function approvalFlow(id, desc, change){
+  const r = fresh(); change(r);
+  const s = []; const step = (k,o) => { s.push([k,o.code,o.msg]); log(`      ${id} ${k}: exit=${o.code} :: ${o.msg}`); };
+  log(`[H] ${id} :: ${desc}`);
+  step("audit-before-approval", run(r,"v0.3.10-doc-audit.mjs"));
+  const bl0 = sha(rd(r,BL));
+  step("approve-no-token", run(r,"v0.3.10-approve-release-baseline.mjs",{JANUS_APPROVAL_EXPECTED_BASELINE_SHA256:bl0}));
+  step("approve-wrong-token", run(r,"v0.3.10-approve-release-baseline.mjs",{JANUS_APPROVAL_EXPECTED_BASELINE_SHA256:bl0,JANUS_EXPLICIT_RELEASE_APPROVAL:"approve"}));
+  step("approve-token-no-expected-sha", run(r,"v0.3.10-approve-release-baseline.mjs",{JANUS_EXPLICIT_RELEASE_APPROVAL:"APPROVE-EXACT-RELEASE-BASELINE"}));
+  step("approve-token-wrong-expected-sha", run(r,"v0.3.10-approve-release-baseline.mjs",{JANUS_APPROVAL_EXPECTED_BASELINE_SHA256:"1".repeat(64),JANUS_EXPLICIT_RELEASE_APPROVAL:"APPROVE-EXACT-RELEASE-BASELINE"}));
+  const unchanged = sha(rd(r,BL))===bl0; log(`      ${id} baseline unchanged after rejected approvals: ${unchanged}`);
+  step("approve-valid", run(r,"v0.3.10-approve-release-baseline.mjs",{JANUS_APPROVAL_EXPECTED_BASELINE_SHA256:bl0,JANUS_EXPLICIT_RELEASE_APPROVAL:"APPROVE-EXACT-RELEASE-BASELINE"}));
+  const bl1 = sha(rd(r,BL)); log(`      ${id} baseline ${bl0.slice(0,16)} -> ${bl1.slice(0,16)}`);
+  step("audit-after-approval-before-rebind", run(r,"v0.3.10-doc-audit.mjs"));
+  rebindConst(r);
+  step("audit-after-rebind", run(r,"v0.3.10-doc-audit.mjs"));
+  edit(r,"README.md",t=>t+" "); step("audit-after-further-1-byte-change", run(r,"v0.3.10-doc-audit.mjs"));
+  results.push({cls:"H",id,desc,steps:s,baselineUnchangedAfterRejected:unchanged});
+}
+approvalFlow("H-1","README claim change → approval → rebind", addClaim);
+approvalFlow("I-1","future LICENSE governed-file addition", r => { wr(r,"LICENSE","MIT License\n"); editManifest(r,m=>m.files.push("LICENSE")); });
+approvalFlow("J-1","harmless legitimate typo fix in CHANGELOG", r => edit(r,"CHANGELOG.md",t=>t.replace("unchanged.","unchanged")));
+approvalFlow("H-2","approval of manifest that NARROWS governed set (drops README) — explicit but silent-risk", r => editManifest(r,m=>m.files=m.files.filter(x=>x!=="README.md")));
+approvalFlow("H-3","approval with manifest listing a missing file", r => editManifest(r,m=>m.files.push("NOPE.md")));
+
+// ---------- K. non-governed public surfaces: modify, run full release construction (regen build-info), all audits ----------
+const ALL = ["v0.3.10-doc-audit.mjs","v0.3.10-manifest-audit.mjs","v0.3.10-regression.mjs","v0.3.10-surface-fixtures.mjs","v0.3.10-surface-mutation-regression.mjs"];
+const Kp = [
+  ["K-1 release gate","tests/V0_3_10_RELEASE_GATE.md: flip to 'V035-F05 independently CLOSED; Version 1.0 approved'", r=>edit(r,"tests/V0_3_10_RELEASE_GATE.md",t=>t.replace("V035-F05 remains partially closed pending targeted independent v0.3.10 retest.","V035-F05 is independently CLOSED. All residual findings are closed. Version 1.0 is approved for promotion."))],
+  ["K-2 app.js UI string","app.js provenance/notice UI text rendered on index.html: add '… Independently verified; V035-F05 CLOSED; Version 1.0 approved.'", r=>edit(r,"app.js",t=>t.replace("Served app.js hash verified.","Served app.js hash verified. Independent testing passed: V035-F05 CLOSED; Version 1.0 approved; evidence integrity guaranteed."))],
+  ["K-3 app.js empty-state","app.js resultEmpty text → 'Version 1.0 — independently approved. No challenge has been run.'", r=>edit(r,"app.js",t=>t.replace('resultEmpty.textContent = "No challenge has been run.";','resultEmpty.textContent = "Version 1.0 — independently approved; exports are tamper-proof. No challenge has been run.";'))],
+  ["K-4 app.js integrity_scope","app.js export integrity_scope → 'tamper-proof, digitally verified' (exported JSON claim)", r=>edit(r,"app.js",t=>t.replace("Unsigned client-side evidence. PASS means","Tamper-proof, independently verified evidence. PASS means"))],
+  ["K-5 styles.css content","styles.css ::before content injects visible banner on governed index.html", r=>edit(r,"styles.css",t=>t+'\nbody::before{content:"JANUS Harness Version 1.0 — approved. V035-F05 independently closed.";display:block;font-weight:700;padding:8px;background:#0a0;color:#fff}\n')],
+  ["K-6 styles.css hide disclaimer","styles.css hides governed disclaimer paragraph (index.html bytes unchanged)", r=>edit(r,"styles.css",t=>t+'\n.footer-restriction{display:none!important}\n')],
+  ["K-7 new served page","new status.html page claiming Version 1.0 approved", r=>wr(r,"status.html","<h1>JANUS Harness v1.0 — approved</h1><p>All findings independently closed.</p>\n")],
+  ["K-8 404.html","new 404.html served by Pages for any unknown path", r=>wr(r,"404.html","<h1>JANUS Harness v1.0 — approved</h1>\n")],
+  ["K-9 docs json","docs/EXPECTED_CONTRACT_HASHES.json purpose text claims certified tamper-proof", r=>edit(r,"docs/EXPECTED_CONTRACT_HASHES.json",t=>t.replace("Offline verification oracle","Certified tamper-proof verification oracle (Version 1.0 approved)"))],
+  ["K-10 historical report","testing/claude/v0.3.9 report headline flipped to CLOSED", r=>edit(r,"testing/claude/v0.3.9/JANUS_v0.3.9_Targeted_V035-F05_Closure_Report.md",t=>t.replace("**Result: V035-F05 — PARTIALLY CLOSED**","**Result: V035-F05 — CLOSED**"))],
+  ["K-11 new testing report","new testing/claude/v0.3.10/ report claiming F05 CLOSED + 1.0 approved", r=>wr(r,"testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md","**Result: V035-F05 — CLOSED**\nVersion 1.0 promotion: approved.\n")],
+  ["K-12 VERSION-like alt","add STATUS.txt 'Status: Version 1.0 release'", r=>wr(r,"STATUS.txt","Status: Version 1.0 release; all findings closed\n")],
+  ["K-13 build-info extra field","build-info.json gains status:'Version 1.0 approved' (added after regen)", r=>{}, "bi"],
+  ["K-14 image alt swap via app.js","app.js sets hero img alt/title to release claim at runtime", r=>edit(r,"app.js",t=>t+'\ndocument.querySelectorAll("img").forEach(i=>{i.title="Version 1.0 approved";});\n')],
+];
+for (const [id,desc,fn,special] of Kp) {
+  const r = fresh(); fn(r); regenBuildInfo(r);
+  if (special==="bi") { const bi=JSON.parse(rd(r,"build-info.json")); bi.status="Version 1.0 approved; V035-F05 independently closed"; wr(r,"build-info.json",JSON.stringify(bi,null,2)+"\n"); }
+  const outs = ALL.map(s=>({s,...run(r,s)}));
+  const passAll = outs.every(o=>o.code===0);
+  const gov = run(r,"v0.3.10-doc-audit.mjs");
+  results.push({cls:"K",id,desc,expect:"governance audit should detect a public release-claim change",observed:passAll?"ALL AUDITS PASS":"SOME FAIL",ok:!passAll,outs});
+  log(`[K] ${id} ${passAll?"*** ALL AUDITS PASS (undetected) ***":"detected"} :: ${desc}`); for (const o of outs) log(`      ${o.s} exit=${o.code} :: ${o.msg}`);
+}
+
+// ---------- M. control-policy consistency: does passage depend on words? ----------
+// same semantic content, different bytes => must fail; different semantics, same bytes impossible. Also check that old claim-policy lib is not invoked by v0.3.10 audit.
+const imp = fs.readFileSync(path.join(SRC,"tests/v0.3.10-doc-audit.mjs"),"utf8") + fs.readFileSync(path.join(SRC,"tests/lib/governed-surface-baseline.mjs"),"utf8");
+log(`[M] v0.3.10 doc-audit imports governance-claim-policy: ${/governance-claim-policy/.test(imp)}; references APPROVED_GOVERNANCE_CLAIMS: ${/APPROVED_GOVERNANCE_CLAIMS/.test(imp)}; regex over content words: ${/(approved|tamper|closed|1\\.0)/i.test(imp.replace(/APPROVED_GOVERNED_SURFACES|approved baseline|explicitly approved|approved release|approved governed|approved hash|Approved/g,""))}`);
+probe("M","M-1 claim REMOVAL (more conservative text)","README: replace 'V035-F05 remains partially closed' with 'V035-F05 is OPEN'", r=>edit(r,"README.md",t=>t.replace("V035-F05 remains partially closed pending independent retest.","V035-F05 is OPEN.")));
+probe("M","M-2 identical bytes rewritten","README rewritten with identical bytes", r=>wr(r,"README.md",rd(r,"README.md")), {expect:"PASS"});
+probe("M","M-3 disclaimer strengthened","index.html: add extra disclaimer 'This is not Version 1.0.'", r=>edit(r,"index.html",t=>t.replace("</footer>","<p>This is not Version 1.0.</p></footer>")));
+
+const count = results.filter(x=>x.cls!=="H").length + results.filter(x=>x.cls==="H").reduce((a,x)=>a+x.steps.length,0);
+fs.writeFileSync("/home/claude/t/probe-results.json", JSON.stringify(results,null,2));
+const unexpected = results.filter(x=>x.ok===false);
+log(`\nTOTAL probe records: ${results.length}; total individual probe executions (incl. approval-flow steps): ${count}`);
+log(`Records not as expected: ${unexpected.length}`); for (const u of unexpected) log(`  - [${u.cls}] ${u.id}: expect=${u.expect} observed=${u.observed}`);
+
+=================== 8. INDEPENDENT PROBE OUTPUT (verbatim, node probe.mjs) ===================
+Pre-run: git -C repo status --porcelain => (empty); repo baseline sha eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4
+[A] A-README.md-wording expect=FAIL observed=FAIL AS-EXPECTED :: README.md: wording
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-punctuation expect=FAIL observed=FAIL AS-EXPECTED :: README.md: punctuation
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-trailing-space expect=FAIL observed=FAIL AS-EXPECTED :: README.md: trailing-space
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-CRLF expect=FAIL observed=FAIL AS-EXPECTED :: README.md: CRLF
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-final-newline-removed expect=FAIL observed=FAIL AS-EXPECTED :: README.md: final-newline-removed
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-final-newline-added expect=FAIL observed=FAIL AS-EXPECTED :: README.md: final-newline-added
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-tab-for-space expect=FAIL observed=FAIL AS-EXPECTED :: README.md: tab-for-space
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-case-change expect=FAIL observed=FAIL AS-EXPECTED :: README.md: case-change
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-heading-change expect=FAIL observed=FAIL AS-EXPECTED :: README.md: heading-change
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-wrapped-line expect=FAIL observed=FAIL AS-EXPECTED :: README.md: wrapped-line
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-inserted-claim expect=FAIL observed=FAIL AS-EXPECTED :: README.md: inserted-claim
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-deleted-disclaimer expect=FAIL observed=FAIL AS-EXPECTED :: README.md: deleted-disclaimer
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-status-flip expect=FAIL observed=FAIL AS-EXPECTED :: README.md: status-flip
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-README.md-BOM-prefix expect=FAIL observed=FAIL AS-EXPECTED :: README.md: BOM-prefix
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-wording expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: wording
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-punctuation expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: punctuation
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-trailing-space expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: trailing-space
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-CRLF expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: CRLF
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-final-newline-removed expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: final-newline-removed
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-final-newline-added expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: final-newline-added
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-tab-for-space expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: tab-for-space
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-case-change expect=FAIL observed=PASS *** UNEXPECTED *** :: CHANGELOG.md: case-change (NO-BYTE-CHANGE)
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[A] A-CHANGELOG.md-heading-change expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: heading-change
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-wrapped-line expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: wrapped-line
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-inserted-claim expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: inserted-claim
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-deleted-disclaimer expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: deleted-disclaimer
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-status-flip expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: status-flip
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-CHANGELOG.md-BOM-prefix expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: BOM-prefix
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A] A-VERSION.txt-wording expect=FAIL observed=PASS *** UNEXPECTED *** :: VERSION.txt: wording (NO-BYTE-CHANGE)
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[A] A-VERSION.txt-punctuation expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: punctuation
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A] A-VERSION.txt-trailing-space expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: trailing-space
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A] A-VERSION.txt-CRLF expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: CRLF
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A] A-VERSION.txt-final-newline-removed expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: final-newline-removed
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A] A-VERSION.txt-final-newline-added expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: final-newline-added
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A] A-VERSION.txt-tab-for-space expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: tab-for-space
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A] A-VERSION.txt-case-change expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: case-change
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A] A-VERSION.txt-heading-change expect=FAIL observed=PASS *** UNEXPECTED *** :: VERSION.txt: heading-change (NO-BYTE-CHANGE)
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[A] A-VERSION.txt-wrapped-line expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: wrapped-line
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A] A-VERSION.txt-inserted-claim expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: inserted-claim
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A] A-VERSION.txt-deleted-disclaimer expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: deleted-disclaimer
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A] A-VERSION.txt-status-flip expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: status-flip
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A] A-VERSION.txt-BOM-prefix expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: BOM-prefix
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A] A-index.html-wording expect=FAIL observed=FAIL AS-EXPECTED :: index.html: wording
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-punctuation expect=FAIL observed=FAIL AS-EXPECTED :: index.html: punctuation
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-trailing-space expect=FAIL observed=FAIL AS-EXPECTED :: index.html: trailing-space
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-CRLF expect=FAIL observed=FAIL AS-EXPECTED :: index.html: CRLF
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-final-newline-removed expect=FAIL observed=FAIL AS-EXPECTED :: index.html: final-newline-removed
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-final-newline-added expect=FAIL observed=FAIL AS-EXPECTED :: index.html: final-newline-added
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-tab-for-space expect=FAIL observed=FAIL AS-EXPECTED :: index.html: tab-for-space
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-case-change expect=FAIL observed=FAIL AS-EXPECTED :: index.html: case-change
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-heading-change expect=FAIL observed=FAIL AS-EXPECTED :: index.html: heading-change
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-wrapped-line expect=FAIL observed=FAIL AS-EXPECTED :: index.html: wrapped-line
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-inserted-claim expect=FAIL observed=FAIL AS-EXPECTED :: index.html: inserted-claim
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-deleted-disclaimer expect=FAIL observed=FAIL AS-EXPECTED :: index.html: deleted-disclaimer
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-status-flip expect=FAIL observed=FAIL AS-EXPECTED :: index.html: status-flip
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[A] A-index.html-BOM-prefix expect=FAIL observed=FAIL AS-EXPECTED :: index.html: BOM-prefix
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-README.md-1 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "The evidence cannot be changed."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-2 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "Evidence integrity is guaranteed."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-3 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "Exports are verified and validated."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-4 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "The evidence is secure."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-5 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "This is Version One."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-6 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "This is the 1.0 release."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-7 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "Ready for general availability."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-8 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "All residual findings are resolved."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-9 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "External reviewers found nothing."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-10 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "All remaining findings are closed."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-11 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "F05 resolved."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-12 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "Outside testing confirmed the fix."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-13 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "Nothing is left to fix."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-README.md-14 expect=FAIL observed=FAIL AS-EXPECTED :: README.md: append "This build has been signed off."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-1 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "The evidence cannot be changed."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-2 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "Evidence integrity is guaranteed."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-3 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "Exports are verified and validated."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-4 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "The evidence is secure."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-5 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "This is Version One."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-6 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "This is the 1.0 release."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-7 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "Ready for general availability."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-8 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "All residual findings are resolved."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-9 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "External reviewers found nothing."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-10 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "All remaining findings are closed."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-11 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "F05 resolved."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-12 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "Outside testing confirmed the fix."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-13 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "Nothing is left to fix."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-CHANGELOG.md-14 expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: append "This build has been signed off."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-1 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "The evidence cannot be changed."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-2 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "Evidence integrity is guaranteed."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-3 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "Exports are verified and validated."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-4 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "The evidence is secure."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-5 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "This is Version One."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-6 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "This is the 1.0 release."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-7 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "Ready for general availability."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-8 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "All residual findings are resolved."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-9 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "External reviewers found nothing."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-10 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "All remaining findings are closed."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-11 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "F05 resolved."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-12 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "Outside testing confirmed the fix."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-13 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "Nothing is left to fix."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-VERSION.txt-14 expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: append "This build has been signed off."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[B] B-index.html-1 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "The evidence cannot be changed."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-2 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "Evidence integrity is guaranteed."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-3 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "Exports are verified and validated."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-4 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "The evidence is secure."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-5 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "This is Version One."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-6 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "This is the 1.0 release."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-7 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "Ready for general availability."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-8 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "All residual findings are resolved."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-9 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "External reviewers found nothing."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-10 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "All remaining findings are closed."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-11 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "F05 resolved."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-12 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "Outside testing confirmed the fix."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-13 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "Nothing is left to fix."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[B] B-index.html-14 expect=FAIL observed=FAIL AS-EXPECTED :: index.html: append "This build has been signed off."
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-README.md-md-emphasis expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert md-emphasis
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-split-word expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert split-word
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-html-tags expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert html-tags
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-named-entity expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert named-entity
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-numeric-entity expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert numeric-entity
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-nbsp expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert nbsp
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-soft-hyphen expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert soft-hyphen
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-zero-width expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert zero-width
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-homoglyph expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert homoglyph
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-hidden-text expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert hidden-text
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-struck-negation expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert struck-negation
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-heading expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert heading
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-attribute expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert attribute
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-html-comment expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert html-comment
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-variation-selector expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert variation-selector
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-README.md-rtl-override expect=FAIL observed=FAIL AS-EXPECTED :: README.md: insert rtl-override
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-md-emphasis expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert md-emphasis
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-split-word expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert split-word
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-html-tags expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert html-tags
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-named-entity expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert named-entity
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-numeric-entity expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert numeric-entity
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-nbsp expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert nbsp
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-soft-hyphen expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert soft-hyphen
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-zero-width expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert zero-width
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-homoglyph expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert homoglyph
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-hidden-text expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert hidden-text
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-struck-negation expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert struck-negation
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-heading expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert heading
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-attribute expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert attribute
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-html-comment expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert html-comment
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-variation-selector expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert variation-selector
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-rtl-override expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: insert rtl-override
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-md-emphasis expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert md-emphasis
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-split-word expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert split-word
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-html-tags expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert html-tags
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-named-entity expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert named-entity
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-numeric-entity expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert numeric-entity
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-nbsp expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert nbsp
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-soft-hyphen expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert soft-hyphen
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-zero-width expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert zero-width
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-homoglyph expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert homoglyph
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-hidden-text expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert hidden-text
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-struck-negation expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert struck-negation
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-heading expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert heading
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-attribute expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert attribute
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-html-comment expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert html-comment
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-variation-selector expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert variation-selector
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-rtl-override expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: insert rtl-override
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-index.html-md-emphasis expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert md-emphasis
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-split-word expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert split-word
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-html-tags expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert html-tags
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-named-entity expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert named-entity
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-numeric-entity expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert numeric-entity
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-nbsp expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert nbsp
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-soft-hyphen expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert soft-hyphen
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-zero-width expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert zero-width
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-homoglyph expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert homoglyph
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-hidden-text expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert hidden-text
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-struck-negation expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert struck-negation
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-heading expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert heading
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-attribute expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert attribute
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-html-comment expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert html-comment
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-variation-selector expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert variation-selector
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-index.html-rtl-override expect=FAIL observed=FAIL AS-EXPECTED :: index.html: insert rtl-override
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-README.md-inplace-homoglyph expect=FAIL observed=FAIL AS-EXPECTED :: README.md: replace first Latin 'e' with Cyrillic U+0435 in place
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-inplace-homoglyph expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: replace first Latin 'e' with Cyrillic U+0435 in place
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-inplace-homoglyph expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: replace first Latin 'e' with Cyrillic U+0435 in place
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-index.html-inplace-homoglyph expect=FAIL observed=FAIL AS-EXPECTED :: index.html: replace first Latin 'e' with Cyrillic U+0435 in place
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[C] C-README.md-space-to-nbsp expect=FAIL observed=FAIL AS-EXPECTED :: README.md: replace first ASCII space with U+00A0
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[C] C-CHANGELOG.md-space-to-nbsp expect=FAIL observed=FAIL AS-EXPECTED :: CHANGELOG.md: replace first ASCII space with U+00A0
+      v0.3.10-doc-audit.mjs exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[C] C-VERSION.txt-space-to-nbsp expect=FAIL observed=FAIL AS-EXPECTED :: VERSION.txt: replace first ASCII space with U+00A0
+      v0.3.10-doc-audit.mjs exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[C] C-index.html-space-to-nbsp expect=FAIL observed=FAIL AS-EXPECTED :: index.html: replace first ASCII space with U+00A0
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+[D] D-add-LICENSE-to-manifest expect=FAIL observed=FAIL AS-EXPECTED :: manifest adds LICENSE (file present)
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed-file manifest changed without explicit approval.
+[D] D-remove-README-from-manifest expect=FAIL observed=FAIL AS-EXPECTED :: manifest removes README.md
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed-file manifest changed without explicit approval.
+[D] D-delete-governed-file expect=FAIL observed=FAIL AS-EXPECTED :: delete CHANGELOG.md
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed release file missing: CHANGELOG.md
+[D] D-rename-governed-file expect=FAIL observed=FAIL AS-EXPECTED :: rename VERSION.txt -> VERSION.md
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed release file missing: VERSION.txt
+[D] D-rename-in-manifest expect=FAIL observed=FAIL AS-EXPECTED :: manifest renames VERSION.txt -> VERSION.md and file renamed
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed-file manifest changed without explicit approval.
+[D] D-replace-with-identical-copy expect=PASS observed=PASS AS-EXPECTED :: replace README.md with byte-identical new inode
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[D] D-symlink-same-bytes expect=PASS observed=PASS AS-EXPECTED :: replace README.md with symlink to identical copy elsewhere
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[D] D-symlink-other-bytes expect=FAIL observed=FAIL AS-EXPECTED :: replace README.md with symlink to modified copy
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[D] D-dup-dot-slash expect=FAIL observed=FAIL AS-EXPECTED :: manifest adds ./README.md duplicate alias
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed-file manifest changed without explicit approval.
+[D] D-dup-exact expect=FAIL observed=FAIL AS-EXPECTED :: manifest duplicates README.md
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed-file manifest changed without explicit approval.
+[D] D-path-traversal expect=FAIL observed=FAIL AS-EXPECTED :: manifest adds ../x
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed-file manifest changed without explicit approval.
+[D] D-manifest-reformat-only expect=FAIL observed=FAIL AS-EXPECTED :: manifest re-serialized (whitespace only, same JSON)
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed-file manifest changed without explicit approval.
+[D] D-manifest-key-reorder expect=FAIL observed=FAIL AS-EXPECTED :: manifest keys reordered (same semantics)
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed-file manifest changed without explicit approval.
+[D] D-manifest-deleted expect=FAIL observed=FAIL AS-EXPECTED :: manifest deleted
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed-file manifest is missing.
+[D] D-manifest-empty-files expect=FAIL observed=FAIL AS-EXPECTED :: manifest files=[] (narrowing to nothing)
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed-file manifest changed without explicit approval.
+[D] D-new-ungoverned-file-RELEASE.md expect=FAIL? observed=PASS *** UNEXPECTED *** :: add new public RELEASE.md claiming Version 1.0 approved (manifest untouched)
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[D] D-new-ungoverned-404.html expect=FAIL? observed=PASS *** UNEXPECTED *** :: add 404.html (GitHub Pages serves it for any unknown path) claiming 1.0
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[D] D-alt-case-readme expect=FAIL? observed=PASS *** UNEXPECTED *** :: add readme.md (case variant) with claim
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[D] D-index.htm expect=FAIL? observed=PASS *** UNEXPECTED *** :: add index.htm alternate page
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[E] E-1 content+baseline-hash only expect=FAIL observed=FAIL AS-EXPECTED :: README changed; baseline README hash replaced with candidate hash; audit constant untouched
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Approved governed baseline changed without explicit audit rebinding.
+[E] E-2 constant only expect=FAIL observed=FAIL AS-EXPECTED :: audit constant changed to random hash
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Approved governed baseline changed without explicit audit rebinding.
+[E] E-3 manifest+baseline manifest hash expect=FAIL observed=FAIL AS-EXPECTED :: manifest narrowed; baseline manifest sha updated; constant untouched
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Approved governed baseline changed without explicit audit rebinding.
+[E] E-4 file-set inequality expect=FAIL observed=FAIL AS-EXPECTED :: baseline gains extra entry not in manifest (with constant rebound)
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Governed-file manifest and approved baseline file set differ.
+[E] E-5 manifest path redirect expect=PASS-if-rebound observed=PASS *** UNEXPECTED *** :: baseline manifest path redirected to decoy manifest omitting README, constant rebound, README changed
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (3 files; baseline 2b1a679990a8eb31660b6a3b5fae7927386ab784173032ff53c14cf22670dc22; manifest 4524ac5f3b37761cdc475c01c64689dac75525f12728eab41c872b37aa4186b8)
+[E] E-6 uppercase hash expect=PASS observed=PASS AS-EXPECTED :: baseline README hash uppercased (same value), constant rebound
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline 0a4561413142962927a3d09ec1784843af5af25f83270459907fc8c6c2e3ba9d; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[E] E-7 hand-rebaseline WITHOUT approval token expect=PASS-if-rebound observed=PASS *** UNEXPECTED *** :: README claim added; baseline hand-edited to candidate hash; audit constant hand-edited; approval script never run
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline 8f830481968245eeeb332d9eb6ffe60634566727d13473384410a1cb8c2d9915; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[E] E-8 hand-rebaseline + regen build-info expect=PASS-if-rebound observed=PASS *** UNEXPECTED *** :: E-7 plus regenerated build-info (full release construction, no token)
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline 8f830481968245eeeb332d9eb6ffe60634566727d13473384410a1cb8c2d9915; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (87/87 tracked files; build-info.json excluded from self-hash)
+[E] E-9 JANUS_TEST_ROOT redirect expect=FAIL observed=FAIL AS-EXPECTED :: modified repo but audit run with JANUS_TEST_ROOT pointing at pristine copy
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+      E-9b same modified repo, env JANUS_TEST_ROOT=/home/claude/t/repo :: exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[E] E-10 baseline JSON reserialize expect=FAIL observed=FAIL AS-EXPECTED :: baseline re-serialized, semantics identical, constant untouched
+      v0.3.10-doc-audit.mjs exit=1 :: Error: Approved governed baseline changed without explicit audit rebinding.
+[E] E-11 baseline duplicate-key shadow expect=FAIL observed=FAIL AS-EXPECTED :: baseline raw text gains duplicate README key (last wins), constant rebound
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[F] F-1 expect=FAIL observed=FAIL AS-EXPECTED :: ordinary audit run on changed README ( baselineChanged=false manifestChanged=false auditConstChanged=false)
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[F] F-2 expect=FAIL observed=FAIL AS-EXPECTED :: review-proposal run on changed README ( baselineChanged=false manifestChanged=false auditConstChanged=false)
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[F] F-3 expect=FAIL observed=FAIL AS-EXPECTED :: audit+proposal+fixtures+mutation+regression run on changed README ( baselineChanged=false manifestChanged=false auditConstChanged=false)
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[F] F-4 expect=FAIL observed=FAIL AS-EXPECTED :: candidate README contains a baseline-looking JSON with its own hash ( baselineChanged=false manifestChanged=false auditConstChanged=false)
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[F] F-5 expect=FAIL observed=FAIL AS-EXPECTED :: approval run WITHOUT token on changed README (approve exit=1 Error: Explicit release approval token missing. baselineChanged=false manifestChanged=false auditConstChanged=false)
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[G] G-1 NO MUTATION :: clean tree :: exit=0 tree 4aacf3d7ac6756b3->4aacf3d7ac6756b3 :: added=[] removed=[] changed=[]
+[G] G-2 NO MUTATION :: changed README :: exit=0 tree 6450d35f426276d7->6450d35f426276d7 :: added=[] removed=[] changed=["README.md"]
+[G] G-3 NO MUTATION :: manifest adds LICENSE (present) :: exit=0 tree ae38cdcbf4ddf7b7->ae38cdcbf4ddf7b7 :: added=["LICENSE"] removed=[] changed=["LICENSE"]
+[G] G-4 NO MUTATION :: manifest adds MISSING file :: exit=0 tree 2f90de3cb5337e03->2f90de3cb5337e03 :: added=["NOPE.md"] removed=[] changed=[]
+[G] G-5 NO MUTATION :: governed file deleted :: exit=0 tree a283a90dd991bc87->a283a90dd991bc87 :: added=[] removed=[] changed=["index.html"]
+[G] G-6 NO MUTATION :: malformed manifest JSON :: exit=1 tree 9a311803e75f3566->9a311803e75f3566 :: stderr: SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+[G] G-7 NO MUTATION :: manifest removes README :: exit=0 tree de5f2515bb2f9b47->de5f2515bb2f9b47 :: added=[] removed=["README.md"] changed=[]
+[H] H-1 :: README claim change → approval → rebind
+      H-1 audit-before-approval: exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+      H-1 approve-no-token: exit=1 :: Error: Explicit release approval token missing.
+      H-1 approve-wrong-token: exit=1 :: Error: Explicit release approval token missing.
+      H-1 approve-token-no-expected-sha: exit=1 :: Error: Explicit current baseline SHA-256 is required.
+      H-1 approve-token-wrong-expected-sha: exit=1 :: Error: Current baseline SHA does not match operator-approved expected baseline.
+      H-1 baseline unchanged after rejected approvals: true
+      H-1 approve-valid: exit=0 :: EXPLICIT RELEASE BASELINE APPROVAL COMPLETED.
+      H-1 baseline eaa0447210b315b5 -> 8f830481968245ee
+      H-1 audit-after-approval-before-rebind: exit=1 :: Error: Approved governed baseline changed without explicit audit rebinding.
+      H-1 audit-after-rebind: exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline 8f830481968245eeeb332d9eb6ffe60634566727d13473384410a1cb8c2d9915; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      H-1 audit-after-further-1-byte-change: exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[H] I-1 :: future LICENSE governed-file addition
+      I-1 audit-before-approval: exit=1 :: Error: Governed-file manifest changed without explicit approval.
+      I-1 approve-no-token: exit=1 :: Error: Explicit release approval token missing.
+      I-1 approve-wrong-token: exit=1 :: Error: Explicit release approval token missing.
+      I-1 approve-token-no-expected-sha: exit=1 :: Error: Explicit current baseline SHA-256 is required.
+      I-1 approve-token-wrong-expected-sha: exit=1 :: Error: Current baseline SHA does not match operator-approved expected baseline.
+      I-1 baseline unchanged after rejected approvals: true
+      I-1 approve-valid: exit=0 :: EXPLICIT RELEASE BASELINE APPROVAL COMPLETED.
+      I-1 baseline eaa0447210b315b5 -> 67357e7d5f837ed3
+      I-1 audit-after-approval-before-rebind: exit=1 :: Error: Approved governed baseline changed without explicit audit rebinding.
+      I-1 audit-after-rebind: exit=0 :: JANUS v0.3.10 governed-release audit: PASS (5 files; baseline 67357e7d5f837ed30f768d2fe6910a278e11faadd5ffcc8d23a8e915589e996f; manifest 80db0094c295767b717af89c3dc360b6e4a3b07096648b897cebb883a13d31f5)
+      I-1 audit-after-further-1-byte-change: exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[H] J-1 :: harmless legitimate typo fix in CHANGELOG
+      J-1 audit-before-approval: exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+      J-1 approve-no-token: exit=1 :: Error: Explicit release approval token missing.
+      J-1 approve-wrong-token: exit=1 :: Error: Explicit release approval token missing.
+      J-1 approve-token-no-expected-sha: exit=1 :: Error: Explicit current baseline SHA-256 is required.
+      J-1 approve-token-wrong-expected-sha: exit=1 :: Error: Current baseline SHA does not match operator-approved expected baseline.
+      J-1 baseline unchanged after rejected approvals: true
+      J-1 approve-valid: exit=0 :: EXPLICIT RELEASE BASELINE APPROVAL COMPLETED.
+      J-1 baseline eaa0447210b315b5 -> 9a223e009d44cc61
+      J-1 audit-after-approval-before-rebind: exit=1 :: Error: Approved governed baseline changed without explicit audit rebinding.
+      J-1 audit-after-rebind: exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline 9a223e009d44cc61d71f42ab053e554ffeb14fe59236e370bfd1794b43d71a04; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      J-1 audit-after-further-1-byte-change: exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[H] H-2 :: approval of manifest that NARROWS governed set (drops README) — explicit but silent-risk
+      H-2 audit-before-approval: exit=1 :: Error: Governed-file manifest changed without explicit approval.
+      H-2 approve-no-token: exit=1 :: Error: Explicit release approval token missing.
+      H-2 approve-wrong-token: exit=1 :: Error: Explicit release approval token missing.
+      H-2 approve-token-no-expected-sha: exit=1 :: Error: Explicit current baseline SHA-256 is required.
+      H-2 approve-token-wrong-expected-sha: exit=1 :: Error: Current baseline SHA does not match operator-approved expected baseline.
+      H-2 baseline unchanged after rejected approvals: true
+      H-2 approve-valid: exit=0 :: EXPLICIT RELEASE BASELINE APPROVAL COMPLETED.
+      H-2 baseline eaa0447210b315b5 -> fb1638cbedae2ad8
+      H-2 audit-after-approval-before-rebind: exit=1 :: Error: Approved governed baseline changed without explicit audit rebinding.
+      H-2 audit-after-rebind: exit=0 :: JANUS v0.3.10 governed-release audit: PASS (3 files; baseline fb1638cbedae2ad805d12f9dc4de9a7682d05aaf823e799d87a93a18b77154f7; manifest 499901f67155e80db9feabe577b6c073ac60cbbe3bea2380290d69efb628aff7)
+      H-2 audit-after-further-1-byte-change: exit=0 :: JANUS v0.3.10 governed-release audit: PASS (3 files; baseline fb1638cbedae2ad805d12f9dc4de9a7682d05aaf823e799d87a93a18b77154f7; manifest 499901f67155e80db9feabe577b6c073ac60cbbe3bea2380290d69efb628aff7)
+[H] H-3 :: approval with manifest listing a missing file
+      H-3 audit-before-approval: exit=1 :: Error: Governed-file manifest changed without explicit approval.
+      H-3 approve-no-token: exit=1 :: Error: Explicit release approval token missing.
+      H-3 approve-wrong-token: exit=1 :: Error: Explicit release approval token missing.
+      H-3 approve-token-no-expected-sha: exit=1 :: Error: Explicit current baseline SHA-256 is required.
+      H-3 approve-token-wrong-expected-sha: exit=1 :: Error: Current baseline SHA does not match operator-approved expected baseline.
+      H-3 baseline unchanged after rejected approvals: true
+      H-3 approve-valid: exit=1 :: Error: Cannot approve missing governed file: NOPE.md
+      H-3 baseline eaa0447210b315b5 -> eaa0447210b315b5
+      H-3 audit-after-approval-before-rebind: exit=1 :: Error: Governed-file manifest changed without explicit approval.
+      H-3 audit-after-rebind: exit=1 :: Error: Governed-file manifest changed without explicit approval.
+      H-3 audit-after-further-1-byte-change: exit=1 :: Error: Governed-file manifest changed without explicit approval.
+[K] K-1 release gate *** ALL AUDITS PASS (undetected) *** :: tests/V0_3_10_RELEASE_GATE.md: flip to 'V035-F05 independently CLOSED; Version 1.0 approved'
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (87/87 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-2 app.js UI string *** ALL AUDITS PASS (undetected) *** :: app.js provenance/notice UI text rendered on index.html: add '… Independently verified; V035-F05 CLOSED; Version 1.0 approved.'
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (87/87 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-3 app.js empty-state *** ALL AUDITS PASS (undetected) *** :: app.js resultEmpty text → 'Version 1.0 — independently approved. No challenge has been run.'
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (87/87 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-4 app.js integrity_scope *** ALL AUDITS PASS (undetected) *** :: app.js export integrity_scope → 'tamper-proof, digitally verified' (exported JSON claim)
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (87/87 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-5 styles.css content *** ALL AUDITS PASS (undetected) *** :: styles.css ::before content injects visible banner on governed index.html
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (87/87 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-6 styles.css hide disclaimer *** ALL AUDITS PASS (undetected) *** :: styles.css hides governed disclaimer paragraph (index.html bytes unchanged)
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (87/87 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-7 new served page *** ALL AUDITS PASS (undetected) *** :: new status.html page claiming Version 1.0 approved
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (88/88 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-8 404.html *** ALL AUDITS PASS (undetected) *** :: new 404.html served by Pages for any unknown path
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (88/88 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-9 docs json *** ALL AUDITS PASS (undetected) *** :: docs/EXPECTED_CONTRACT_HASHES.json purpose text claims certified tamper-proof
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (87/87 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-10 historical report *** ALL AUDITS PASS (undetected) *** :: testing/claude/v0.3.9 report headline flipped to CLOSED
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (87/87 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-11 new testing report *** ALL AUDITS PASS (undetected) *** :: new testing/claude/v0.3.10/ report claiming F05 CLOSED + 1.0 approved
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (88/88 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-12 VERSION-like alt *** ALL AUDITS PASS (undetected) *** :: add STATUS.txt 'Status: Version 1.0 release'
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (88/88 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-13 build-info extra field *** ALL AUDITS PASS (undetected) *** :: build-info.json gains status:'Version 1.0 approved' (added after regen)
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (87/87 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=0 :: JANUS v0.3.10 automated regression: PASS
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[K] K-14 image alt swap via app.js detected :: app.js sets hero img alt/title to release claim at runtime
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+      v0.3.10-manifest-audit.mjs exit=0 :: JANUS v0.3.10 release manifest audit: PASS (87/87 tracked files; build-info.json excluded from self-hash)
+      v0.3.10-regression.mjs exit=1 :: TypeError: document.querySelectorAll is not a function
+      v0.3.10-surface-fixtures.mjs exit=0 :: PASS: unchanged approved four-document baseline
+      v0.3.10-surface-mutation-regression.mjs exit=0 :: JANUS v0.3.10 isolated mutation regression: PASS (5/5 mutations killed)
+[M] v0.3.10 doc-audit imports governance-claim-policy: false; references APPROVED_GOVERNANCE_CLAIMS: false; regex over content words: false
+[M] M-1 claim REMOVAL (more conservative text) expect=FAIL observed=FAIL AS-EXPECTED :: README: replace 'V035-F05 remains partially closed' with 'V035-F05 is OPEN'
+      v0.3.10-doc-audit.mjs exit=1 :: Error: README.md differs from the explicitly approved release baseline.
+[M] M-2 identical bytes rewritten expect=PASS observed=PASS AS-EXPECTED :: README rewritten with identical bytes
+      v0.3.10-doc-audit.mjs exit=0 :: JANUS v0.3.10 governed-release audit: PASS (4 files; baseline eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4; manifest 479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda)
+[M] M-3 disclaimer strengthened expect=FAIL observed=FAIL AS-EXPECTED :: index.html: add extra disclaimer 'This is not Version 1.0.'
+      v0.3.10-doc-audit.mjs exit=1 :: Error: index.html differs from the explicitly approved release baseline.
+
+TOTAL probe records: 249; total individual probe executions (incl. approval-flow steps): 289
+Records not as expected: 23
+  - [A] A-CHANGELOG.md-case-change: expect=FAIL observed=PASS
+  - [A] A-VERSION.txt-wording: expect=FAIL observed=PASS
+  - [A] A-VERSION.txt-heading-change: expect=FAIL observed=PASS
+  - [D] D-new-ungoverned-file-RELEASE.md: expect=FAIL? observed=PASS
+  - [D] D-new-ungoverned-404.html: expect=FAIL? observed=PASS
+  - [D] D-alt-case-readme: expect=FAIL? observed=PASS
+  - [D] D-index.htm: expect=FAIL? observed=PASS
+  - [E] E-5 manifest path redirect: expect=PASS-if-rebound observed=PASS
+  - [E] E-7 hand-rebaseline WITHOUT approval token: expect=PASS-if-rebound observed=PASS
+  - [E] E-8 hand-rebaseline + regen build-info: expect=PASS-if-rebound observed=PASS
+  - [K] K-1 release gate: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+  - [K] K-2 app.js UI string: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+  - [K] K-3 app.js empty-state: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+  - [K] K-4 app.js integrity_scope: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+  - [K] K-5 styles.css content: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+  - [K] K-6 styles.css hide disclaimer: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+  - [K] K-7 new served page: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+  - [K] K-8 404.html: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+  - [K] K-9 docs json: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+  - [K] K-10 historical report: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+  - [K] K-11 new testing report: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+  - [K] K-12 VERSION-like alt: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+  - [K] K-13 build-info extra field: expect=governance audit should detect a public release-claim change observed=ALL AUDITS PASS
+
+NOTE (tester): three A probes above report NO-BYTE-CHANGE (the tester's regex did not match those files), so they are invalid probes, not control failures. They were re-run with matching mutations:
+import fs from "node:fs"; import {execSync,spawnSync} from "node:child_process"; import crypto from "node:crypto";
+const sha=b=>crypto.createHash("sha256").update(b).digest("hex");
+const cases=[["CHANGELOG.md","case-change",t=>t.replace("Changelog","CHANGELOG")],["VERSION.txt","wording",t=>t.replace("unchanged from","identical to")],["VERSION.txt","heading-change",t=>t.replace("Primary v0.3.10 correction","PRIMARY v0.3.10 CORRECTION")]];
+for(const [f,k,fn] of cases){const d=`/home/claude/t/scratch/a2-${k}-${f}`; execSync(`rm -rf ${d}; cp -a /home/claude/t/repo ${d}`); const b0=fs.readFileSync(`${d}/${f}`,"utf8"); const b1=fn(b0); fs.writeFileSync(`${d}/${f}`,b1);
+const r=spawnSync("node",["tests/v0.3.10-doc-audit.mjs"],{cwd:d,encoding:"utf8"}); console.log(`[A-rerun] A-${f}-${k} bytesChanged=${sha(b0)!==sha(b1)} exit=${r.status} :: ${(r.stdout+r.stderr).split("\n").find(l=>/PASS|Error:/.test(l)).trim()}`);}
+[A-rerun] A-CHANGELOG.md-case-change bytesChanged=true exit=1 :: Error: CHANGELOG.md differs from the explicitly approved release baseline.
+[A-rerun] A-VERSION.txt-wording bytesChanged=true exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+[A-rerun] A-VERSION.txt-heading-change bytesChanged=true exit=1 :: Error: VERSION.txt differs from the explicitly approved release baseline.
+
+NOTE (tester): 'FAIL?' / 'PASS-if-rebound' expectations are tester placeholders for probes whose correct outcome depends on the governed-set scope or on the rebind step; they are counted by the script as 'not as expected' mechanically. Interpretation is in the report.
+NOTE (tester): K-14 regression failure is a probe artifact (node test sandbox lacks document.querySelectorAll), not a detection control; K-2/K-3/K-4 cover app.js UI text.
+
+=================== 9. POST-RUN CLONE INTEGRITY ===================
+$ git -C repo status --porcelain
+(empty)
+$ git -C repo rev-parse HEAD
+999c53f973c85cea6992f677909ec8af0047aee7
+52d4c8a815af1c8d99c7a63a4a167353b117f2ff5ad53a97c11b420f30e36a3d  build-info.json
+eaa0447210b315b5fcd99d0bfb538327d139a1c488122fec588144ac480eaeb4  docs/APPROVED_GOVERNED_SURFACES.json
+479e7139d4db3535722ceb208566cf226689d8df58837ad3fefa552fada73fda  docs/GOVERNED_RELEASE_FILES.json
+c625cc5f85c942cc8b85fefafd17a1197dd8569369abe3cde677d80fb479acf7  tests/v0.3.10-doc-audit.mjs
+No commits, tags, pushes or edits were made to the authoritative repository or deployment.
+
+=================== 10. COUNTS ===================
+probe records by class: {'A': 56, 'B': 56, 'C': 72, 'D': 19, 'E': 12, 'F': 5, 'G': 7, 'H': 5, 'K': 14, 'M': 3}
+approval-flow steps (H/I/J records): 45
+probe executions = non-H records + H steps = 289 + 3 A re-runs = 292
+browser probes: identity 1 batch (87 file hashes + 4 identity hashes), smoke 6 scenarios x (Run,Replay,Export), F04 6 probes, reachability 7 paths
