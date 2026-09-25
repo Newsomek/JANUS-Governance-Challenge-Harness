@@ -1,4 +1,16 @@
 # Changelog
+
+## v0.3.7 — targeted oracle hardening candidate
+
+- preserves the exact v0.3.6 targeted independent closure FAIL evidence;
+- does not change the six authored scenarios;
+- replaces the F04 Export event-log source-text oracle with a behavioral export-refusal assertion;
+- broadens F05 overclaim detection across README, CHANGELOG current-release text, VERSION.txt, and index.html;
+- adds the exact equivalent mutations that survived the v0.3.6 targeted closure pass;
+- keeps Version 1.0 blocked pending targeted F04/F05 closure and one final full independent zero-open-finding adversarial regression.
+
+Historical status: v0.3.6 closed seven of nine v0.3.5 findings in targeted independent testing. V035-F04 and V035-F05 remained partially closed, so v0.3.6 was superseded and was not promoted to Version 1.0.
+
 ## v0.3.6 — bounded hardening candidate
 - addresses V035-F01 through V035-F09 from the v0.3.5 final independent adversarial regression without changing authored scenario content;
 - maps blank-rendering filler characters to ordinary spaces before canonical whitespace collapse, strips U+007F, and adds internal-separator regression coverage;

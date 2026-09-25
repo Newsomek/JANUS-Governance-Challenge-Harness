@@ -1,3 +1,9 @@
+# SUPERSEDED — historical JANUS v0.3.6 release gate
+
+This gate must not be used for current releases. The independent targeted v0.3.6 closure test closed seven findings but left V035-F04 and V035-F05 partially closed.
+
+See `V0_3_7_RELEASE_GATE.md`.
+
 # JANUS v0.3.6 release gate
 
 Version 0.3.6 is a bounded hardening candidate addressing the nine actionable findings from the v0.3.5 final independent adversarial regression.

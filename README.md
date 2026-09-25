@@ -1,6 +1,32 @@
-# JANUS Governance Challenge Harness v0.3.6
+# JANUS Governance Challenge Harness v0.3.7
 
 A dependency-free external architectural challenge harness for examining governance claims described in the **JANUS Orientation Edition 2026**.
+
+
+## v0.3.7 targeted oracle hardening candidate
+
+Version 0.3.7 is a narrow follow-on to the independent v0.3.6 targeted closure test.
+
+The deployed v0.3.6 runtime corrections for V035-F01, F02, and F03 were independently confirmed. Seven of nine findings were closed. V035-F04 and V035-F05 remained partially closed because of test-oracle weaknesses, not because the deployed runtime exposed a new behavioral defect.
+
+v0.3.7 therefore hardens only those residual controls:
+
+- Export event-log integrity is tested behaviorally rather than by source-text presence;
+- semantically equivalent integrity/authenticity, Version 1.0, and independent-closure overclaims are rejected across current release surfaces;
+- the exact supplemental mutations that survived the v0.3.6 targeted test are now first-class mutation operators.
+
+Current suites:
+
+- `tests/v0.3.7-regression.mjs`
+- `tests/v0.3.7-doc-audit.mjs`
+- `tests/v0.3.7-mutation-regression.mjs`
+- `tests/v0.3.7-manifest-audit.mjs`
+
+Current release gate:
+
+- `tests/V0_3_7_RELEASE_GATE.md`
+
+Independent closure is **not** claimed. Version 1.0 remains blocked pending targeted closure of the residual F04/F05 oracle findings and one final full independent zero-open-finding adversarial regression.
 
 ## Governing principle
 

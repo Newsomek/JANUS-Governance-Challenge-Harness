@@ -1,0 +1,107 @@
+== v0.3.6 suites (unmodified clone at b7f51e6) ==
+--- node tests/v0.3.6-regression.mjs
+JANUS v0.3.6 automated regression: PASS
+Canonical exports: 9; refusal alerts: 3
+--- node tests/v0.3.6-doc-audit.mjs
+JANUS v0.3.6 documentation/release audit: PASS
+--- node tests/v0.3.6-manifest-audit.mjs
+JANUS v0.3.6 release manifest audit: PASS (49/49 tracked files; build-info.json excluded from self-hash)
+--- node tests/v0.3.6-mutation-regression.mjs
+JANUS v0.3.6 mutation target preflight: PASS (34/34 operators active)
+KILLED: stored_core_match forced true
+KILLED: bound 404 treated as unavailable
+KILLED: collection uniqueness disabled
+KILLED: blank-rendering fillers deleted instead of spaced
+KILLED: U+007F stripping removed
+KILLED: whitespace collapse removed
+KILLED: duplicate commitment check removed
+KILLED: Run allowed during Replay/Export
+KILLED: Export in-flight lock removed
+KILLED: stored record validator bypassed
+KILLED: divergence failed-check list removes stored_core_match
+KILLED: unsafe scenario innerHTML sink restored
+KILLED: source hash mismatch accepted at Run
+KILLED: bound commit mismatch downgraded to unavailable
+KILLED: replay record_integrity_match forced true
+KILLED: export stored_record_snapshot_integrity forced true
+KILLED: scenario selection invalidation removed
+KILLED: Replay post-derive token check removed
+KILLED: Export event_log check forced true
+KILLED: late Export generation guard removed
+KILLED: S05 disposition changed to ESCALATE
+KILLED: expected contract hash altered
+KILLED: expected source SHA altered in app
+KILLED: README DevTools disclosure removed
+KILLED: README digital-signature limitation inverted
+KILLED: UI digital-signature limitation removed
+KILLED: README premature Version 1.0 readiness claim added
+KILLED: README independent closure claim added
+KILLED: v0.3.3 superseded pointer regressed to v0.3.4
+KILLED: v0.3.2 V031-NEW-07 history falsely restored to closed
+KILLED: v0.3.4 superseded status removed
+KILLED: manifest coverage wording weakened
+KILLED: current release gate points to retired v0.3.5 suite
+KILLED: v0.3.5 gate no longer superseded
+JANUS v0.3.6 mutation regression: PASS (34/34 mutations killed)
+
+== Mutation kill reasons (34 operators, instrumented copy of suite outside repo) ==
+JANUS v0.3.6 mutation target preflight: PASS (34/34 operators active)
+KILLED: stored_core_match forced true :: Error: Stored-core tamper falsely replayed CONSISTENT.
+KILLED: bound 404 treated as unavailable :: Error: Nonexistent bound commit produced a run record.
+KILLED: collection uniqueness disabled :: Error: Duplicate compatibility values were accepted.
+KILLED: blank-rendering fillers deleted instead of spaced :: Error: Internal filler duplicate bypassed source comparison: "⠀"
+KILLED: U+007F stripping removed :: Error: U+007F blank-looking rationale was accepted.
+KILLED: whitespace collapse removed :: Error: Whitespace collapse regression accepted equivalent sources.
+KILLED: duplicate commitment check removed :: Error: Duplicate commitments were accepted.
+KILLED: Run allowed during Replay/Export :: Error: Run replaced evidence while Replay was in flight.
+KILLED: Export in-flight lock removed :: Error: Rapid Export calls produced duplicate artifacts.
+KILLED: stored record validator bypassed :: Error: Structural Replay refusal was not stable/specific.
+KILLED: divergence failed-check list removes stored_core_match :: Error: Replay divergence notice did not name stored_core_match.
+KILLED: unsafe scenario innerHTML sink restored :: Error: Scenario rendering used an HTML sink.
+KILLED: source hash mismatch accepted at Run :: Error: Source SHA mismatch was accepted at Run.
+KILLED: bound commit mismatch downgraded to unavailable :: Error: Bound-commit app mismatch was accepted.
+KILLED: replay record_integrity_match forced true :: Error: Stored record snapshot tamper was not detected.
+KILLED: export stored_record_snapshot_integrity forced true :: Error: Export refusal did not name stored_record_snapshot_integrity.
+KILLED: scenario selection invalidation removed :: Error: Scenario selection change did not invalidate lastRun.
+KILLED: Replay post-derive token check removed :: Error: Replay race cleared invalidation notice.
+KILLED: Export event_log check forced true :: Error: Export event-log integrity check is missing.
+KILLED: late Export generation guard removed :: Error: Late invalidated Export still produced an artifact.
+KILLED: S05 disposition changed to ESCALATE :: Error: Authored scenario-block SHA-256 changed.
+KILLED: expected contract hash altered :: Error: Contract hash mismatch for condition-change.
+KILLED: expected source SHA altered in app :: Error: Run failed for condition-change.
+KILLED: README DevTools disclosure removed :: Error: README integrity disclosure missing: controls the page/DevTools and coordinates edits with recomputed client-side hashes
+KILLED: README digital-signature limitation inverted :: Error: README integrity disclosure missing: PASS is not a digital signature or proof of authenticity
+KILLED: UI digital-signature limitation removed :: Error: UI digital-signature limitation missing.
+KILLED: README premature Version 1.0 readiness claim added :: Error: README contains premature Version 1.0 readiness claim.
+KILLED: README independent closure claim added :: Error: README contains premature independent-closure claim.
+KILLED: v0.3.3 superseded pointer regressed to v0.3.4 :: Error: Superseded gate does not point to current v0.3.6 gate.
+KILLED: v0.3.2 V031-NEW-07 history falsely restored to closed :: Error: CHANGELOG v0.3.2 history does not preserve partial-closure status.
+KILLED: v0.3.4 superseded status removed :: Error: CHANGELOG lacks v0.3.4 superseded status.
+KILLED: manifest coverage wording weakened :: Error: README manifest coverage rule missing.
+KILLED: current release gate points to retired v0.3.5 suite :: Error: Current gate missing suite: tests/v0.3.6-regression.mjs
+KILLED: v0.3.5 gate no longer superseded :: Error: v0.3.5 gate is not marked superseded.
+JANUS v0.3.6 mutation regression: PASS (34/34 mutations killed)
+
+== Supplemental equivalent-mutant probes (outside repo) ==
+SURVIVED B event_log check "|| true" (string preserved)
+KILLED   B Export lock: drop only exportInFlight :: Error: Rapid Export calls produced duplicate artifacts.
+KILLED   B filler: drop only U+FFA0 from space map :: Error: Internal filler duplicate bypassed source comparison: "ﾠ"
+KILLED   B filler: drop only U+1160 from space map :: Error: Internal filler duplicate bypassed source comparison: "ᅠ"
+KILLED   B late Export guard -> if(false) :: Error: Late invalidated Export still produced an artifact.
+SURVIVED B late Export guard weakened to !lastRun only
+SURVIVED B Replay post-derive guard weakened to !lastRun only
+SURVIVED D README add "Tamper-proof evidence export."
+SURVIVED D README add "provides tamper-proof evidence"
+KILLED   D README add "exports are tamper-proof" :: Error: README integrity overclaim matched: /(?:is|are|remains?)\s+tamper[- ]proof/i
+SURVIVED D UI add "Tamper-proof evidence."
+KILLED   E README v0.3.6 section "Version 1.0 ready." :: Error: README contains premature Version 1.0 readiness claim.
+SURVIVED E README v0.3.6 section "Ready for Version 1.0."
+SURVIVED E README top-of-file "Version 1.0 approved."
+SURVIVED E UI add "Version 1.0 validated"
+SURVIVED E VERSION add "Version 1.0 approved"
+SURVIVED F README v0.3.6 section "Independent closure confirmed." (disclaimer kept)
+SURVIVED F README v0.3.6 section "V035-F01 through V035-F09 independently closed."
+SURVIVED F README top "Independent closure has been confirmed."
+SURVIVED F CHANGELOG add "Independent closure confirmed."
+KILLED   A README DevTools phrase reworded away (other phrases kept) :: Error: README integrity disclosure missing: controls the page/DevTools and coordinates edits with recomputed client-side hashes
+KILLED   C UI DevTools limitation removed :: Error: UI DevTools limitation missing.
