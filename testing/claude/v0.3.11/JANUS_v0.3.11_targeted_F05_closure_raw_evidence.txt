@@ -1,0 +1,1590 @@
+JANUS Governance Challenge Harness v0.3.11 — Independent Targeted V035-F05 Closure Test — RAW EVIDENCE
+Date: 2026-09-25 (America/New_York). Tester: Claude (independent; no repository writes, no commits/tags/branches/PRs).
+Artifact: https://newsomek.github.io/JANUS-Governance-Challenge-Harness/  repo main 2fdf41158000ab13b9b05487b6cb06b8ec7ddb6c  Commit A 420211a89493dbb741a9bae6b4cb79b72ee34174
+Workspace: isolated cloud sandbox; pristine clone at 2fdf411 used as verifier; each probe used a fresh disposable local clone.
+==============================================================================================================
+
+##############################################################################################################
+# local_identity.txt
+##############################################################################################################
+## Local identity
+2fdf41158000ab13b9b05487b6cb06b8ec7ddb6c 0bc3ea6de99ad53e2d0e1f1939dc9ebfe5d63b54 parents=420211a89493dbb741a9bae6b4cb79b72ee34174 JANUS v0.3.11 bind exact release provenance
+420211a89493dbb741a9bae6b4cb79b72ee34174 c09d6f17b1e7f8d02661c2c40605827b770f1b1b parents=992c3c27cb5d302df974602ff1496c79b16c9512 JANUS v0.3.11 complete release-state boundary
+992c3c27cb5d302df974602ff1496c79b16c9512 193ef7162c228f77a877db78062ba118d0b57e0c parents=999c53f973c85cea6992f677909ec8af0047aee7 Preserve independent v0.3.10 targeted closure evidence
+
+git rev-parse 420211a^{tree}: c09d6f17b1e7f8d02661c2c40605827b770f1b1b
+M	build-info.json
+M	docs/APPROVED_RELEASE_STATE.json
+1
+
+ebcd16848b990c3eb450cb5f2439ee07b2a7f06beceee3047272f937fc23404f  -
+9f77de83767e1ce5ba6bbbef6de2b60039195cb61b5836a957662cf6a5787c5d  build-info.json
+c1556e268943bdb34f2ac5a81097d33cd8e2edfd5cfc37c935be6056812f83ab  docs/APPROVED_RELEASE_STATE.json
+94eb31323cea971ddbb42e07aeb8621b207170398f8730889461327df9957842  app.js
+21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4  docs/JANUS_Orientation_Edition_2026_EN.docx
+build-info keys: version,build_id,code_commit,files files: 99
+state keys: schema,control,version,build_id,code_commit,code_tree,provenance_only_files,scope,approval_semantics
+    100 100644
+build-info files == A tree minus build-info.json: YES
+build-info records docs/APPROVED_RELEASE_STATE.json = ebcd16848b990c3eb450cb5f2439ee07b2a7f06beceee3047272f937fc23404f (Commit A placeholder), served file = c1556e268943bdb34f2ac5a81097d33cd8e2edfd5cfc37c935be6056812f83ab
+
+
+##############################################################################################################
+# supplied_tests.txt
+##############################################################################################################
+## Supplied v0.3.11 suites (pristine clone at 2fdf411; node v22.22.2; git version 2.43.0)
+$ node tests/v0.3.11-regression.mjs
+JANUS v0.3.11 automated regression: PASS
+Canonical exports: 9; refusal alerts: 4
+exit=0
+$ node tests/v0.3.11-release-state-fixtures.mjs
+PASS: exact bound code commit with only release-state provenance change
+PASS: build-info.json may change as the second provenance file
+KILLED: app.js changed after approved code commit
+KILLED: styles.css changed after approved code commit
+KILLED: current release gate changed after approved code commit
+KILLED: historical independent evidence changed after approved code commit
+KILLED: new tracked status.html added after approved code commit
+KILLED: new untracked 404.html present in release workspace
+KILLED: tracked README removed after approved code commit
+KILLED: release-state gains an unauthorized status field
+KILLED: release-state code tree does not match bound code commit
+KILLED: non-provenance third-state change cannot hide behind a provenance commit
+KILLED: second provenance commit after code commit is rejected
+JANUS v0.3.11 complete-tree release-state fixtures: PASS
+exit=0
+$ node tests/v0.3.11-build-info-fixtures.mjs
+PASS: exact four-field build-info schema
+KILLED: status claim added to build-info
+KILLED: generated_at added to build-info
+KILLED: unexpected approval claim field added
+KILLED: wrong version
+KILLED: wrong build ID
+KILLED: invalid code commit
+KILLED: invalid file hash
+JANUS v0.3.11 strict build-info schema fixtures: PASS
+exit=0
+$ node tests/v0.3.11-manifest-audit.mjs
+JANUS v0.3.11 build-info audit: PASS (99 files from bound code commit)
+exit=0
+$ node tests/v0.3.11-release-state-audit.mjs
+JANUS v0.3.11 complete-tree release-state audit: PASS
+Mode: CONSTRUCTION
+Code commit: 420211a89493dbb741a9bae6b4cb79b72ee34174
+Code tree: c09d6f17b1e7f8d02661c2c40605827b770f1b1b
+Tracked release files: 100
+Commits after code commit: 1
+Allowed provenance-only files: build-info.json, docs/APPROVED_RELEASE_STATE.json
+exit=0
+$ JANUS_FINAL_RELEASE_AUDIT=REQUIRE-FINAL-PROVENANCE-COMMIT node tests/v0.3.11-release-state-audit.mjs
+JANUS v0.3.11 complete-tree release-state audit: PASS
+Mode: FINAL RELEASE
+Code commit: 420211a89493dbb741a9bae6b4cb79b72ee34174
+Code tree: c09d6f17b1e7f8d02661c2c40605827b770f1b1b
+Tracked release files: 100
+Commits after code commit: 1
+Allowed provenance-only files: build-info.json, docs/APPROVED_RELEASE_STATE.json
+exit=0
+$ git status --porcelain --ignored (after suites)
+(empty = clean)
+
+
+##############################################################################################################
+# browser_obs.txt
+##############################################################################################################
+## Browser observations (Claude in Chrome, tab on https://newsomek.github.io/JANUS-Governance-Challenge-Harness/ ; Chrome UA "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+## NOTE: the cloud sandbox proxy returned HTTP 403 (CONNECT tunnel failed) for *.github.io, so every deployed-artifact
+## observation below was made from the real browser against the live GitHub Pages deployment, not from repository files.
+
+### B1. Deployed identity (fetch with cache:"no-store" + cache-busting query; SHA-256 via crypto.subtle)
+GitHub API /commits/main:
+  head        = 2fdf41158000ab13b9b05487b6cb06b8ec7ddb6c
+  parents     = [420211a89493dbb741a9bae6b4cb79b72ee34174]
+  commit tree = 0bc3ea6de99ad53e2d0e1f1939dc9ebfe5d63b54
+  message     = "JANUS v0.3.11 bind exact release provenance"
+  files       = build-info.json:modified, docs/APPROVED_RELEASE_STATE.json:modified   (exactly two)
+GitHub API /git/trees/<head>?recursive=1: 100 blobs, truncated=false
+All 100 paths fetched from the Pages URL: 100 x HTTP 200, 0 failures.
+Deployed manifest digest (sha256 of "<sha256>  <path>\n" lines, byte-sorted paths):
+  88d0b560f26497f3689efcf4d2f93dc75b8210d805ac3e1946f696690a3c5581
+Local manifest digest for `git ls-files` at 2fdf411 (same construction, LC_ALL=C sort):
+  88d0b560f26497f3689efcf4d2f93dc75b8210d805ac3e1946f696690a3c5581   => EQUAL: all 100 served files byte-identical to release HEAD
+Individually recorded served hashes:
+  index.html                                  200 11701 d1e0a02e705410c42f0625f7923c3536ea709ae55913101a262e8699c3c529ca
+  app.js                                      200 59585 94eb31323cea971ddbb42e07aeb8621b207170398f8730889461327df9957842
+  styles.css                                  200  5913 9fd3063552f4173c14cb1a36203bcbe309e14c82331301b85a56f252a7171603
+  build-info.json                             200 11652 9f77de83767e1ce5ba6bbbef6de2b60039195cb61b5836a957662cf6a5787c5d
+  docs/APPROVED_RELEASE_STATE.json            200   655 c1556e268943bdb34f2ac5a81097d33cd8e2edfd5cfc37c935be6056812f83ab
+  docs/JANUS_Orientation_Edition_2026_EN.docx 200 50354 21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
+  .gitignore                                  200   184 0a548e744055e633d1246b4afb8a2e76fcef036eff37e62ae0e2028652e5fab9
+  .nojekyll                                   200     0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Deployment source: GitHub deployments API -> latest github-pages deployment sha 2fdf411..., state success,
+  created 2026-09-25T16:38:54Z; Actions run "pages build and deployment" (branch-based Pages) head_sha 2fdf411..., success.
+  /contents/.github -> 404 (no custom workflow). Pages therefore serves the committed tree of main, not a working directory.
+Rendered page title: "JANUS Governance Challenge Harness v0.3.11".
+Rendered eyebrow (zoomed screenshot): "EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3.10"   <-- see finding F11-04
+
+### B2. Six-scenario deployed smoke (UI driven through the page's own controls: scenario select -> prediction select -> Run -> Replay -> Export)
+Hooks installed before the run (no file download performed): window.alert captured to an array; URL.createObjectURL wrapped to
+read the export Blob text; HTMLAnchorElement.click suppressed only for anchors with a download attribute (records the filename).
+scenario ; disposition ; integrity_status ; replay.replay_match ; all 15 integrity_checks true ; harness_code_commit ; version|build_id ; contract_sha256[0:12]
+condition-change ; BLOCK + REAUTHORIZE ; PASS ; true ; true ; 420211a ; "0.3.11"|"janus-governance-challenge-harness-v0.3.11" ; 52a18511594c
+evidence-change ; BLOCK ; PASS ; true ; true ; 420211a ; "0.3.11"|"janus-governance-challenge-harness-v0.3.11" ; 36bc70425fbd
+authorization-expiry ; BLOCK + REAUTHORIZE ; PASS ; true ; true ; 420211a ; "0.3.11"|"janus-governance-challenge-harness-v0.3.11" ; e7e29686985b
+learning-authority ; BLOCK + REAUTHORIZE ; PASS ; true ; true ; 420211a ; "0.3.11"|"janus-governance-challenge-harness-v0.3.11" ; d783abf986fc
+conflicting-authorities ; INSUFFICIENT SPECIFICATION ; PASS ; true ; true ; 420211a ; "0.3.11"|"janus-governance-challenge-harness-v0.3.11" ; 437615c49f3f
+mid-execution-revocation ; INSUFFICIENT SPECIFICATION ; PASS ; true ; true ; 420211a ; "0.3.11"|"janus-governance-challenge-harness-v0.3.11" ; 916a960c0b22
+All six: on-screen Replay record "REPLAY CONSISTENT"; prediction comparison EXACT MATCH; source observed sha256 21766f5d...551fe4;
+served app.js observed 94eb3132...957842; export_provenance.bound_commit_verification MATCH; commit_verification MATCH;
+deployment_head_observed 2fdf41158000ab13b9b05487b6cb06b8ec7ddb6c. Alerts: 0.
+Contract hashes match docs/EXPECTED_CONTRACT_HASHES.json prefixes (52a18511.., 36bc7042.., e7e29686.., d783abf9.., 437615c4.., 916a960c..).
+Example captured export filename: janus-harness-condition-change-block_reauthorize-2026-09-25T17-13-38-452Z-v0.3.11.json
+
+### B3. V035-F04 non-regression (deployed page; each case: fresh Run of condition-change/BLOCK_REAUTHORIZE, mutate the stored
+### record `lastRun` from the console WITHOUT recomputing hashes, Export, Replay, Export again)
+mutation | Export before Replay | Replay | Export after Replay
+edit event-log entry | REFUSED | DIVERGED | REFUSED
+append event-log entry | REFUSED | DIVERGED | REFUSED
+delete event-log entry | REFUSED | DIVERGED | REFUSED
+reorder event-log entries | REFUSED | DIVERGED | REFUSED
+alter disposition (code+label) | REFUSED | DIVERGED | REFUSED
+alter disposition label only | REFUSED | DIVERGED | REFUSED
+alter rationale | REFUSED | DIVERGED | REFUSED
+alter stored scenario evidence (changed/execution) | REFUSED | DIVERGED | REFUSED
+alter source_commitments status | REFUSED | DIVERGED | REFUSED
+alter evidence_required | REFUSED | DIVERGED | REFUSED
+alter observation timestamp only (checked_at) | REFUSED | DIVERGED | REFUSED
+alter harness_code_commit | REFUSED | DIVERGED | REFUSED
+alter contract_sha256 | REFUSED | DIVERGED | REFUSED
+alter stored evidence_core_sha256 only | REFUSED | DIVERGED | REFUSED
+alter stored record_snapshot_sha256 only | REFUSED | DIVERGED | REFUSED
+alter prediction to match disposition | REFUSED | DIVERGED | REFUSED
+combo: disposition+rationale+event log+prediction comparison | REFUSED | DIVERGED | REFUSED
+combo: event log edit + delete record_snapshot_sha256 field | REFUSED | DIVERGED | REFUSED
+add extra top-level field (approved:true) | REFUSED | DIVERGED | REFUSED
+Representative refusal alert (event-log edit): "Export refused: Evidence integrity check failed (event_log, stored_evidence_core_integrity,
+  stored_record_snapshot_integrity, replay_rederived_consistent)."
+Representative stale notice: "Replay divergence detected (record_integrity_match, stored_core_match). Ordinary evidence export is blocked until a subsequent consistent Replay."
+Recovery after mutations: fresh Run evidence-change/BLOCK -> BLOCK, REPLAY CONSISTENT, Export PASS, 0 failed checks.
+DOM-only forgery of the on-screen replay record ("REPLAY CONSISTENT (forged UI text) DISPOSITION: CONTINUE") then Export ->
+  PASS with freshly re-derived replay_match=true and disposition BLOCK (UI text not trusted; export content unaffected) — expected.
+
+### B4. Browser parser parity for duplicate-key build-info (F11-01)
+new Response('{"version":"V035-F05 CLOSED - Version 1.0 APPROVED and independently verified","version":"0.3.11",...}').json().version
+  -> "0.3.11"   (last-wins; the deployed app's runtime check build.version === "0.3.11" would accept this file)
+
+
+##############################################################################################################
+# Independent build-info regeneration (probe tool gen_buildinfo.mjs, written for this test)
+##############################################################################################################
+node gen_buildinfo.mjs <fresh clone> 420211a -> generated build-info for 420211a89493dbb741a9bae6b4cb79b72ee34174 99 files
+git status --porcelain -> (empty); sha256(build-info.json) = 9f77de83767e1ce5ba6bbbef6de2b60039195cb61b5836a957662cf6a5787c5d
+=> an independently written generator reproduces the deployed build-info.json byte-for-byte from Commit A.
+
+// Independent build-info generator (probe tool, not part of the JANUS repo).
+// Usage: node gen_buildinfo.mjs <repoRoot> <commit>  -> writes <repoRoot>/build-info.json
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
+import {spawnSync} from "node:child_process";
+const [root, commit] = process.argv.slice(2);
+const git = (args, enc = "utf8") => {
+  const r = spawnSync("git", ["-C", root, ...args], {encoding: enc, maxBuffer: 1 << 28});
+  if (r.status !== 0) throw new Error(String(r.stderr));
+  return r.stdout;
+};
+const full = git(["rev-parse", commit + "^{commit}"]).trim();
+const paths = git(["ls-tree", "-r", "--name-only", "-z", full]).split("\0").filter(Boolean)
+  .filter(p => p !== "build-info.json").sort();
+const files = {};
+for (const p of paths) files[p] = crypto.createHash("sha256").update(git(["show", `${full}:${p}`], "buffer")).digest("hex");
+const out = {version: "0.3.11", build_id: "janus-governance-challenge-harness-v0.3.11", code_commit: full, files};
+fs.writeFileSync(path.join(root, "build-info.json"), JSON.stringify(out, null, 2) + "\n");
+console.log("generated build-info for", full, Object.keys(files).length, "files");
+
+
+##############################################################################################################
+# Probe runner (probes.py) and definitions (probe_defs.py, probe_defs2.py)
+##############################################################################################################
+Verdict rule: probe 'PASS' = pristine final-mode release-state audit exit 0 AND pristine manifest audit exit 0 (unless gate noted); otherwise 'KILLED'.
+W = working-tree variant; C = committed variant folded into the single Commit B via `git commit --amend` (so history shape stays A -> one commit).
+
+#!/usr/bin/env python3
+"""Independent adversarial probe runner for JANUS v0.3.11 release-state boundary.
+Each probe: fresh local clone of the pristine repo at 2fdf411 -> mutation -> audits.
+Audits are executed with the PRISTINE verifier (tests from the untouched clone) against
+JANUS_TEST_ROOT=<mutated clone>, unless the probe says to use the clone's own verifier.
+"""
+import json, os, shutil, subprocess, sys, textwrap
+
+SP = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.join(SP, "repo")
+WORK = os.path.join(SP, "probe_work")
+A = "420211a89493dbb741a9bae6b4cb79b72ee34174"
+ATREE = "c09d6f17b1e7f8d02661c2c40605827b770f1b1b"
+B = "2fdf41158000ab13b9b05487b6cb06b8ec7ddb6c"
+
+PRELUDE = textwrap.dedent(f"""
+set -e
+A={A}; ATREE={ATREE}; B={B}; SP={SP}; REPO={REPO}
+amendB() {{ git add -A && git commit -q --amend --no-edit --allow-empty; }}
+newcommit() {{ git add -A && git commit -q --allow-empty -m "${{1:-probe}}"; }}
+# Rebind helper: turn current HEAD into a new Commit A' and bind it with the pristine helper + independent build-info generator
+rebind() {{
+  local h t; h=$(git rev-parse HEAD); t=$(git rev-parse HEAD^{{tree}})
+  JANUS_TEST_ROOT=$PWD JANUS_BIND_EXPECTED_CODE_COMMIT=$h JANUS_BIND_EXPECTED_CODE_TREE=$t JANUS_BIND_RELEASE_STATE=BIND-EXACT-CODE-COMMIT-AND-TREE node $REPO/tests/v0.3.11-bind-release-state.mjs >/dev/null
+  node $SP/gen_buildinfo.mjs $PWD $h >/dev/null
+  git add build-info.json docs/APPROVED_RELEASE_STATE.json && git commit -q -m "provenance"
+}}
+# Restore Commit A placeholder state then make new code commit A'
+startA() {{ git reset -q --hard $A; }}
+pyjson() {{ python3 - "$@"; }}
+""")
+
+def sh(cmd, cwd, env=None):
+    e = dict(os.environ); e.update(env or {})
+    r = subprocess.run(["bash", "-c", cmd], cwd=cwd, env=e, capture_output=True, text=True)
+    return r.returncode, (r.stdout + r.stderr).strip()
+
+def audits(d, own_verifier=False, xenv=None):
+    vt = os.path.join(d if own_verifier else REPO, "tests")
+    res = {}
+    for name, script, extra in [
+        ("final", "v0.3.11-release-state-audit.mjs", {"JANUS_FINAL_RELEASE_AUDIT": "REQUIRE-FINAL-PROVENANCE-COMMIT"}),
+        ("construction", "v0.3.11-release-state-audit.mjs", {}),
+        ("manifest", "v0.3.11-manifest-audit.mjs", {}),
+    ]:
+        env = {"JANUS_TEST_ROOT": d}; env.update(extra)
+        env.pop("JANUS_FINAL_RELEASE_AUDIT", None) if name != "final" else None
+        e = dict(os.environ); e.update(env); e.update(xenv or {})
+        if name != "final": e.pop("JANUS_FINAL_RELEASE_AUDIT", None)
+        r = subprocess.run(["node", os.path.join(vt, script)], env=e, capture_output=True, text=True)
+        msg = (r.stderr or r.stdout).strip().splitlines()
+        err = ""
+        for line in msg:
+            if line.startswith("Error:") or "Error:" in line:
+                err = line.strip(); break
+        res[name] = ("PASS" if r.returncode == 0 else "FAIL") + ("" if r.returncode == 0 else " :: " + (err or (msg[-1] if msg else "")))[:300]
+    return res
+
+def run(probes):
+    os.makedirs(WORK, exist_ok=True)
+    out = []
+    for i, p in enumerate(probes, 1):
+        d = os.path.join(WORK, f"p{i:03d}")
+        shutil.rmtree(d, ignore_errors=True)
+        subprocess.run(["git", "clone", "-q", REPO, d], check=True)
+        if p.get("clone_cmd"):
+            shutil.rmtree(d, ignore_errors=True)
+            rc, o = sh(p["clone_cmd"].replace("$D", d), SP)
+        rc, o = sh(PRELUDE + p["setup"], d)
+        if rc != 0:
+            res = {"final": "SETUP-ERROR", "construction": "SETUP-ERROR", "manifest": "SETUP-ERROR"}
+            setup_out = o[-400:]
+        else:
+            res = audits(d, p.get("own_verifier", False), p.get("env"))
+            setup_out = o[-300:]
+        gate = p.get("gate", "final+manifest")
+        if gate == "final+manifest":
+            passed = res["final"] == "PASS" and res["manifest"] == "PASS"
+        elif gate == "final":
+            passed = res["final"] == "PASS"
+        elif gate == "construction":
+            passed = res["construction"] == "PASS"
+        actual = "PASS" if passed else "KILLED"
+        ok = actual == p["expect"]
+        head = sh("git rev-parse --short HEAD; git status --porcelain=v1 --ignored | head -5", d)[1]
+        rec = {"id": f"P{i:03d}", "phase": p["phase"], "name": p["name"], "expect": p["expect"], "actual": actual,
+               "result": "OK" if ok else "UNEXPECTED", "audits": res, "setup": p["setup"].strip(), "setup_output": setup_out,
+               "post_state": head}
+        out.append(rec)
+        print(f"{rec['id']} [{p['phase']}] {p['name']}: expect={p['expect']} actual={actual} -> {rec['result']}", flush=True)
+        if actual != "PASS" or ok:
+            pass
+        shutil.rmtree(d, ignore_errors=True)
+    return out
+
+if __name__ == "__main__":
+    from probe_defs import PROBES
+    results = run(PROBES)
+    with open(os.path.join(SP, "probe_results.json"), "w") as f:
+        json.dump(results, f, indent=1)
+    n = len(results); u = [r for r in results if r["result"] != "OK"]
+    print(f"TOTAL {n}  OK {n-len(u)}  UNEXPECTED {len(u)}")
+
+
+CLAIM = "V035-F05 CLOSED - Version 1.0 APPROVED and independently verified"
+
+def P(phase, name, setup, expect="KILLED", **kw):
+    d = {"phase": phase, "name": name, "setup": setup, "expect": expect}
+    d.update(kw)
+    return d
+
+PROBES = []
+
+# ---------------- Phase 4: tracked-file content mutations, working-tree (W) and folded into Commit B (C) -------------
+content = [
+    ("app.js", f"printf '\\n// {CLAIM}\\n' >> app.js"),
+    ("app.js UI string", "sed -i 's/JANUS Governance Challenge Harness v0.3.11/JANUS Harness v1.0 APPROVED/' app.js"),
+    ("styles.css", "printf '\\nbody::before{content:\"%s\"}\\n' 'RELEASED 1.0' >> styles.css"),
+    ("index.html", f"sed -i 's#</body>#<p>{CLAIM}</p></body>#' index.html"),
+    ("README.md", f"printf '\\n{CLAIM}\\n' >> README.md"),
+    ("CHANGELOG.md", f"sed -i '1a {CLAIM}' CHANGELOG.md"),
+    ("VERSION.txt", "printf '1.0.0\\n' > VERSION.txt"),
+    ("current release gate", f"printf '\\n{CLAIM}\\n' >> tests/V0_3_11_RELEASE_GATE.md"),
+    ("historical independent report", "sed -i 's/OPEN/CLOSED/g' testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md"),
+    ("raw historical evidence", "printf '\\nALL PASS\\n' >> testing/claude/v0.3.10/JANUS_v0.3.10_targeted_F05_closure_raw_evidence.txt"),
+    ("test implementation", "printf '\\n// noop\\n' >> tests/v0.3.11-regression.mjs"),
+    ("JSON control file", "sed -i 's/\"0.3.9\"/\"1.0\"/' docs/EXPECTED_CONTRACT_HASHES.json"),
+    ("JSON control file 2 (governance claims)", "printf ' ' >> docs/APPROVED_GOVERNANCE_CLAIMS.json"),
+    ("JANUS source docx (1 byte appended)", "printf 'x' >> docs/JANUS_Orientation_Edition_2026_EN.docx"),
+    ("release-control lib in candidate", "printf '\\n// patched\\n' >> tests/lib/release-state-binding.mjs"),
+    (".gitignore", "printf 'status.html\\n' >> .gitignore"),
+    ("image bytes (claim appended to JPEG)", f"printf '{CLAIM}' >> assets/images/stratosengine_cover.jpg"),
+    ("CRLF conversion of README (same text, different bytes)", "sed -i 's/$/\\r/' README.md"),
+    ("single trailing newline removed from index.html", "python3 -c \"import pathlib;p=pathlib.Path('index.html');b=p.read_bytes();p.write_bytes(b.rstrip(b'\\n'))\""),
+]
+for n, cmd in content:
+    PROBES.append(P("4", f"W modify {n}", cmd))
+    PROBES.append(P("4", f"C modify {n} (folded into Commit B)", cmd + "\namendB"))
+
+adds = [
+    ("status.html", f"echo '<h1>{CLAIM}</h1>' > status.html"),
+    ("404.html", f"echo '<h1>{CLAIM}</h1>' > 404.html"),
+    ("RELEASE.md", f"echo '{CLAIM}' > RELEASE.md"),
+    ("x.txt", f"echo '{CLAIM}' > x.txt"),
+    ("x.md", f"echo '{CLAIM}' > x.md"),
+    ("x.json", f"echo '{{\"status\":\"{CLAIM}\"}}' > x.json"),
+    ("x.html", f"echo '{CLAIM}' > x.html"),
+    ("x.js", "echo 'document.title=\"1.0 APPROVED\"' > x.js"),
+    ("x.css", "echo 'h1::after{content:\"APPROVED\"}' > x.css"),
+    ("claim.png binary image", "python3 -c \"import zlib,struct;raw=b''.join(b'\\x00'+b'\\xff\\x00\\x00'*8 for _ in range(8));c=lambda t,d:struct.pack('>I',len(d))+t+d+struct.pack('>I',zlib.crc32(t+d));open('claim.png','wb').write(b'\\x89PNG\\r\\n\\x1a\\n'+c(b'IHDR',struct.pack('>IIBBBBB',8,8,8,2,0,0,0))+c(b'tEXt',b'Comment\\x00APPROVED 1.0')+c(b'IDAT',zlib.compress(raw))+c(b'IEND',b''))\""),
+    ("claim.svg", f"echo '<svg xmlns=\"http://www.w3.org/2000/svg\"><text y=\"20\">{CLAIM}</text></svg>' > claim.svg"),
+    ("nested docs/status/index.html", f"mkdir -p docs/status && echo '{CLAIM}' > docs/status/index.html"),
+    (".well-known/release.json", "mkdir -p .well-known && echo '{\"release\":\"1.0\"}' > .well-known/release.json"),
+    ("unicode filename RELEASE-\u2713.md", "echo x > 'RELEASE-\u2713.md'"),
+    ("filename with space 'release notes.md'", "echo x > 'release notes.md'"),
+    ("case-variant App.js", "cp app.js App.js"),
+    ("case-variant readme.md", "echo claim > readme.md"),
+    ("index.htm", "echo claim > index.htm"),
+    (".gitattributes", "echo '* export-ignore' > .gitattributes"),
+    ("empty file", "touch EMPTY"),
+]
+for n, cmd in adds:
+    PROBES.append(P("4", f"W untracked add {n}", cmd))
+    PROBES.append(P("4", f"W staged add {n}", cmd + "\ngit add -A"))
+    PROBES.append(P("4", f"C add {n} (folded into Commit B)", cmd + "\namendB"))
+
+struct = [
+    ("delete README.md", "rm README.md"),
+    ("delete .nojekyll", "rm .nojekyll"),
+    ("delete historical report", "rm testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md"),
+    ("rename app.js -> app2.js", "git mv app.js app2.js"),
+    ("rename README.md -> readme.md (case)", "git mv README.md readme.md"),
+    ("rename index.html -> Index.html (case)", "git mv index.html Index.html"),
+    ("replace app.js with different bytes", "echo 'console.log(1)' > app.js"),
+    ("chmod +x app.js (mode change only)", "chmod +x app.js; git update-index --chmod=+x app.js"),
+    ("replace styles.css with symlink to README.md", "rm styles.css && ln -s README.md styles.css"),
+    ("add submodule gitlink", f"git update-index --add --cacheinfo 160000,{ '420211a89493dbb741a9bae6b4cb79b72ee34174' },vendor"),
+]
+for n, cmd in struct:
+    PROBES.append(P("4", f"W {n}", cmd))
+    PROBES.append(P("4", f"C {n} (folded into Commit B)", cmd + "\namendB"))
+
+PROBES += [
+    P("4", "W replace app.js with byte-identical content (control)", "cp app.js /tmp/_a && rm app.js && cp /tmp/_a app.js", expect="PASS"),
+    P("4", "C replace README with byte-identical content via delete+recreate commit fold (control)", "cp README.md /tmp/_r && git rm -q README.md && cp /tmp/_r README.md && git add README.md && amendB", expect="PASS"),
+    P("4", "W chmod +x app.js working tree only (core.filemode=true)", "chmod +x app.js"),
+    P("4", "W chmod +x app.js with core.fileMode=false (mode ignored by Git)", "git config core.fileMode false; chmod +x app.js", expect="PASS"),
+    P("4", "W untracked empty directory (Git does not track dirs)", "mkdir emptydir", expect="PASS"),
+    P("4", "W staged change reverted in working tree (index != worktree)", "echo claim >> README.md && git add README.md && git checkout-index -f README.md 2>/dev/null; git show HEAD:README.md > README.md"),
+    P("4", "W untracked IGNORED file status.log (*.log in .gitignore)", f"echo '{CLAIM}' > status.log"),
+    P("4", "W untracked IGNORED .vscode/status.html", f"mkdir -p .vscode && echo '{CLAIM}' > .vscode/status.html"),
+    P("4", "W untracked IGNORED _backup-before-v0.2-x/index.html", f"mkdir -p _backup-before-v0.2-x && echo '{CLAIM}' > _backup-before-v0.2-x/index.html"),
+    P("4", "W untracked status.html hidden via .git/info/exclude", f"echo '<h1>{CLAIM}</h1>' > status.html && echo status.html >> .git/info/exclude"),
+    P("4", "W untracked status.html hidden via global core.excludesFile", f"echo '<h1>{CLAIM}</h1>' > status.html && echo status.html > /tmp/_gx && git config core.excludesFile /tmp/_gx"),
+    P("4", "W modified app.js hidden with --skip-worktree", f"git update-index --skip-worktree app.js && printf '\\n// {CLAIM}\\n' >> app.js"),
+    P("4", "W modified app.js hidden with --assume-unchanged", f"git update-index --assume-unchanged app.js && printf '\\n// {CLAIM}\\n' >> app.js"),
+    P("4", "W modified README hidden by local .git/info/attributes clean filter", f"echo 'README.md filter=hide' > .git/info/attributes && git config filter.hide.clean 'git show {'2fdf41158000ab13b9b05487b6cb06b8ec7ddb6c'}:README.md' && printf '\\n{CLAIM}\\n' >> README.md && touch README.md"),
+    P("4", "C skip-worktree then commit -a (does modified file reach a commit?)", f"git update-index --skip-worktree app.js && printf '\\n// {CLAIM}\\n' >> app.js && git commit -q -a --amend --no-edit && git update-index --no-skip-worktree app.js && git checkout -- app.js", expect="PASS"),
+]
+
+# ---------------- Phase 4: indirect narrowing via release-state/provenance -----------------
+def st(py):
+    return "python3 - <<'EOF'\nimport json\np='docs/APPROVED_RELEASE_STATE.json'\ns=json.load(open(p))\n" + py + "\nopen(p,'w').write(json.dumps(s,indent=2)+'\\n')\nEOF"
+def bi(py):
+    return "python3 - <<'EOF'\nimport json\np='build-info.json'\ns=json.load(open(p))\n" + py + "\nopen(p,'w').write(json.dumps(s,indent=2)+'\\n')\nEOF"
+
+narrow = [
+    ("provenance set += README.md", st("s['provenance_only_files'].append('README.md')")),
+    ("provenance set replaced with README.md", st("s['provenance_only_files']=['build-info.json','README.md']")),
+    ("provenance set = [] ", st("s['provenance_only_files']=[]")),
+    ("provenance set duplicate entry", st("s['provenance_only_files'].append('build-info.json')")),
+    ("provenance set as string", st("s['provenance_only_files']='build-info.json,docs/APPROVED_RELEASE_STATE.json'")),
+    ("scope narrowed to runtime files", st("s['scope']='Runtime files only (app.js, index.html, styles.css).'")),
+    ("control name changed", st("s['control']='hand-selected-governed-files'")),
+    ("build-info files map drops README.md", bi("del s['files']['README.md']")),
+    ("build-info files map drops docs/", bi("s['files']={k:v for k,v in s['files'].items() if not k.startswith('docs/')}")),
+]
+for n, cmd in narrow:
+    PROBES.append(P("4-narrow", f"W {n}", cmd))
+    PROBES.append(P("4-narrow", f"C {n} (in Commit B)", cmd + "\namendB"))
+PROBES.append(P("4-narrow", "W provenance set reordered (semantically identical)", st("s['provenance_only_files']=list(reversed(s['provenance_only_files']))"), expect="PASS"))
+
+# ---------------- Phase 5: build-info.json abuse -----------------
+bi_attacks = [
+    ("extra status field", bi("s['status']='APPROVED'")),
+    ("approved field", bi("s['approved']=True")),
+    ("reviewed field", bi("s['reviewed']='independently reviewed'")),
+    ("generated_at field", bi("s['generated_at']='2026-09-25T00:00:00Z'")),
+    ("nested claim inside files value", bi("s['files']['README.md']={'sha':s['files']['README.md'],'note':'APPROVED'}")),
+    ("nested claim as extra files key", bi("s['files']['RELEASE-1.0-APPROVED']='0'*64")),
+    ("extra top-level object", bi("s['meta']={'release':'1.0'}")),
+    ("missing files", bi("del s['files']")),
+    ("missing code_commit", bi("del s['code_commit']")),
+    ("wrong version 1.0", bi("s['version']='1.0'")),
+    ("wrong build_id", bi("s['build_id']='janus-governance-challenge-harness-v1.0'")),
+    ("wrong code_commit (other real commit 992c3c2)", bi("import subprocess;s['code_commit']=subprocess.check_output(['git','rev-parse','992c3c2']).decode().strip()")),
+    ("wrong code_commit (Commit B)", bi("s['code_commit']='2fdf41158000ab13b9b05487b6cb06b8ec7ddb6c'")),
+    ("code_commit non-existent sha", bi("s['code_commit']='0'*40")),
+    ("wrong file hash app.js", bi("s['files']['app.js']='0'*64")),
+    ("file hash for APPROVED_RELEASE_STATE set to deployed bytes", bi("import hashlib;s['files']['docs/APPROVED_RELEASE_STATE.json']=hashlib.sha256(open('docs/APPROVED_RELEASE_STATE.json','rb').read()).hexdigest()")),
+    ("removed file entry", bi("del s['files']['styles.css']")),
+    ("extra file entry", bi("s['files']['status.html']='0'*64")),
+    ("path traversal ../x", bi("s['files']['../x']='0'*64")),
+    ("path oddity ./app.js duplicate", bi("s['files']['./app.js']=s['files']['app.js']")),
+    ("path oddity absolute /app.js", bi("s['files']['/app.js']=s['files']['app.js']; del s['files']['app.js']")),
+    ("path oddity backslash docs\\\\x", bi("s['files']['docs\\\\APPROVED_RELEASE_STATE.json']=s['files'].pop('docs/APPROVED_RELEASE_STATE.json')")),
+    ("hash non-hex", bi("s['files']['app.js']='z'*64")),
+    ("hash 63 chars", bi("s['files']['app.js']=s['files']['app.js'][:63]")),
+    ("version as number", bi("s['version']=0.311")),
+    ("files as array", bi("s['files']=list(s['files'].items())")),
+    ("top-level array", "python3 -c \"import json;s=json.load(open('build-info.json'));open('build-info.json','w').write(json.dumps([s]))\""),
+    ("trailing garbage after JSON", "printf 'APPROVED' >> build-info.json"),
+    ("UTF-8 BOM prefix", "python3 -c \"p='build-info.json';b=open(p,'rb').read();open(p,'wb').write(b'\\xef\\xbb\\xbf'+b)\""),
+    ("__proto__ key", "python3 -c \"p='build-info.json';t=open(p).read();open(p,'w').write(t.replace('\\\"version\\\"','\\\"__proto__\\\": {\\\"status\\\":\\\"APPROVED\\\"},\\n  \\\"version\\\"',1))\""),
+]
+for n, cmd in bi_attacks:
+    PROBES.append(P("5-build-info", f"C build-info {n}", cmd + "\namendB"))
+
+# duplicate-key / non-canonical-bytes (parser edge cases)
+PROBES += [
+    P("5-build-info", "C build-info DUPLICATE KEY: claim value in first 'version', valid last", f"sed -i '0,/\"version\"/s//\"version\": \"{CLAIM}\",\\n  \"version\"/' build-info.json\namendB"),
+    P("5-build-info", "C build-info DUPLICATE KEY: first 'files' object is an arbitrary claim object", f"sed -i '0,/\"files\": {{/s//\"files\": {{\"status\": \"{CLAIM}\", \"approved_by\": \"independent reviewer\"}},\\n  \"files\": {{/' build-info.json\namendB"),
+    P("5-build-info", "C build-info DUPLICATE KEY inside files map (claim in first app.js value)", f"sed -i '0,/\"app.js\":/s//\"app.js\": \"{CLAIM}\",\\n    \"app.js\":/' build-info.json\namendB"),
+    P("5-build-info", "C build-info whitespace-only reformat (minified)", "python3 -c \"import json;p='build-info.json';s=json.load(open(p));open(p,'w').write(json.dumps(s,separators=(',',':')))\"\namendB", expect="PASS"),
+    P("5-build-info", "C build-info key order changed", "python3 -c \"import json;p='build-info.json';s=json.load(open(p));open(p,'w').write(json.dumps({k:s[k] for k in ['files','code_commit','build_id','version']},indent=2)+'\\n')\"\namendB", expect="PASS"),
+    P("5-build-info", "C build-info uppercase code_commit / hashes", "python3 -c \"import json;p='build-info.json';s=json.load(open(p));s['code_commit']=s['code_commit'].upper();s['files']={k:v.upper() for k,v in s['files'].items()};open(p,'w').write(json.dumps(s,indent=2)+'\\n')\"\namendB", expect="PASS"),
+    P("5-build-info", "C build-info unicode-escaped values (\\u002e)", "sed -i 's/\"0.3.11\"/\"0\\\\u002e3\\\\u002e11\"/' build-info.json\namendB", expect="PASS"),
+    P("5-build-info", "C build-info long run of whitespace padding (non-canonical bytes, no text)", "python3 -c \"p='build-info.json';t=open(p).read();open(p,'w').write(t.replace('{','{'+' '*5000,1))\"\namendB", expect="PASS"),
+]
+
+sa = [
+    ("extra release_status field", st("s['release_status']='APPROVED FOR 1.0'")),
+    ("extra approved_by field", st("s['approved_by']='Independent Reviewer'")),
+    ("missing scope", st("del s['scope']")),
+    ("missing approval_semantics", st("del s['approval_semantics']")),
+    ("altered scope text", st("s['scope']=s['scope']+' Independently verified.'")),
+    ("altered approval semantics", st("s['approval_semantics']='Authenticated approval by independent reviewer.'")),
+    ("different provenance-only set", st("s['provenance_only_files']=['build-info.json','docs/APPROVED_RELEASE_STATE.json','README.md']")),
+    ("wrong Commit A (older ancestor 992c3c2 with its own tree)", st("import subprocess;g=lambda r:subprocess.check_output(['git','rev-parse',r]).decode().strip();s['code_commit']=g('992c3c2');s['code_tree']=g('992c3c2^{tree}')")),
+    ("wrong tree (Commit B tree) with Commit A", st("import subprocess;s['code_tree']=subprocess.check_output(['git','rev-parse','HEAD^{tree}']).decode().strip()")),
+    ("valid tree of A with wrong commit (B)", st("s['code_commit']='2fdf41158000ab13b9b05487b6cb06b8ec7ddb6c'")),
+    ("malformed hash (short sha 420211a)", st("s['code_commit']='420211a'")),
+    ("malformed hash (non-hex 40)", st("s['code_commit']='g'*40")),
+    ("code_commit null", st("s['code_commit']=None")),
+    ("schema as string '1'", st("s['schema']='1'")),
+    ("schema 2", st("s['schema']=2")),
+    ("version 1.0", st("s['version']='1.0'")),
+    ("top-level array", "python3 -c \"import json;p='docs/APPROVED_RELEASE_STATE.json';s=json.load(open(p));open(p,'w').write(json.dumps([s]))\""),
+    ("file deleted", "git rm -q docs/APPROVED_RELEASE_STATE.json"),
+    ("trailing garbage", "printf 'APPROVED' >> docs/APPROVED_RELEASE_STATE.json"),
+]
+for n, cmd in sa:
+    PROBES.append(P("5-release-state", f"C state {n}", cmd + "\namendB"))
+PROBES += [
+    P("5-release-state", "C state DUPLICATE KEY: claim in first 'scope'", f"sed -i '0,/\"scope\"/s//\"scope\": \"{CLAIM}\",\\n  \"scope\"/' docs/APPROVED_RELEASE_STATE.json\namendB"),
+    P("5-release-state", "C state DUPLICATE KEY: first 'approval_semantics' claims authenticated approval", "sed -i '0,/\"approval_semantics\"/s//\"approval_semantics\": \"Authenticated, digitally signed approval by an independent human reviewer.\",\\n  \"approval_semantics\"/' docs/APPROVED_RELEASE_STATE.json\namendB"),
+    P("5-release-state", "C state DUPLICATE KEY: 'provenance_only_files' first lists README.md", "sed -i '0,/\"provenance_only_files\"/s//\"provenance_only_files\": [\"README.md\"],\\n  \"provenance_only_files\"/' docs/APPROVED_RELEASE_STATE.json\namendB"),
+    P("5-release-state", "C state uppercase code_commit/code_tree", st("s['code_commit']=s['code_commit'].upper();s['code_tree']=s['code_tree'].upper()") + "\namendB", expect="PASS"),
+    P("5-release-state", "C state key order/whitespace changed", "python3 -c \"import json;p='docs/APPROVED_RELEASE_STATE.json';s=json.load(open(p));open(p,'w').write(json.dumps(dict(sorted(s.items())),separators=(',',':')))\"\namendB", expect="PASS"),
+    P("5-release-state", "C state code_commit = annotated TAG object whose message carries a claim (peels to A)", f"git tag -a probe-tag -m '{CLAIM}' $A && T=$(git rev-parse probe-tag) && " + st("import subprocess;s['code_commit']=subprocess.check_output(['git','rev-parse','probe-tag']).decode().strip()").replace("\n","\n",1) + "\npython3 -c \"import json;p='build-info.json';s=json.load(open(p));import subprocess;s['code_commit']=subprocess.check_output(['git','rev-parse','probe-tag']).decode().strip();open(p,'w').write(json.dumps(s,indent=2)+'\\n')\"\namendB"),
+    P("5-release-state", "C state code_commit = TREE object id (not a commit)", st("s['code_commit']=s['code_tree']") + "\namendB"),
+]
+
+# ---------------- Phase 6: commit-history attacks -----------------
+PROBES += [
+    P("6", "exact Commit B (control)", "true", expect="PASS"),
+    P("6", "zero commits after A (HEAD=A, placeholder state)", "git reset -q --hard $A"),
+    P("6", "zero commits after A, bound state uncommitted in working tree (final mode)", "git reset -q --hard $A && git show $B:docs/APPROVED_RELEASE_STATE.json > docs/APPROVED_RELEASE_STATE.json && git show $B:build-info.json > build-info.json"),
+    P("6", "zero commits after A, bound state uncommitted (construction mode only)", "git reset -q --hard $A && git show $B:docs/APPROVED_RELEASE_STATE.json > docs/APPROVED_RELEASE_STATE.json && git show $B:build-info.json > build-info.json", expect="PASS", gate="construction"),
+    P("6", "two provenance commits (split B into two)", "git reset -q --hard $A && git show $B:build-info.json > build-info.json && git commit -qam b1 && git show $B:docs/APPROVED_RELEASE_STATE.json > docs/APPROVED_RELEASE_STATE.json && git commit -qam b2"),
+    P("6", "B + harmless empty commit", "git commit -q --allow-empty -m harmless"),
+    P("6", "B + commit touching only build-info whitespace", "printf '\\n' >> build-info.json && git commit -qam ws"),
+    P("6", "non-provenance file changed in B", "echo claim >> CHANGELOG.md && amendB"),
+    P("6", "non-provenance file changed after B", "echo claim >> CHANGELOG.md && newcommit"),
+    P("6", "file added after A (in B)", "echo claim > RELEASE.md && amendB"),
+    P("6", "file removed after A (in B)", "git rm -q VERSION.txt && amendB"),
+    P("6", "change then revert in two extra commits (net zero diff)", "echo claim >> README.md && newcommit c1 && git revert --no-edit HEAD -q"),
+    P("6", "history rewritten: A -> X(claim) -> B', diff net-zero? (X adds claim, B' removes it)", "git reset -q --hard $A && echo claim >> README.md && git commit -qam X && git checkout -q $A -- README.md && git show $B:build-info.json > build-info.json && git show $B:docs/APPROVED_RELEASE_STATE.json > docs/APPROVED_RELEASE_STATE.json && git commit -qam Bp"),
+    P("6", "merge commit: parents (A, A^) with B's tree (count stays 1)", "M=$(git commit-tree $B^{tree} -p $A -p $A^ -m merge) && git reset -q --hard $M", expect="PASS"),
+    P("6", "merge commit: parents (A, X) where X is side commit with claim off A^", "X=$(git commit-tree $(git rev-parse $A^^{tree}) -p $A^ -m sideclaim) && M=$(git commit-tree $B^{tree} -p $A -p $X -m merge) && git reset -q --hard $M"),
+    P("6", "merge commit: parents (A, orphan root with claim)", "O=$(echo claim | git hash-object -w --stdin) && T=$(printf '100644 blob %s\\tCLAIM.txt\\n' $O | git mktree) && R=$(git commit-tree $T -m orphan) && M=$(git commit-tree $B^{tree} -p $A -p $R -m merge) && git reset -q --hard $M"),
+    P("6", "different commit with IDENTICAL tree to A (A2 = commit-tree A^{tree}, new parent/message), rebound", "startA && A2=$(git commit-tree $ATREE -p $A^ -m 'A2 APPROVED 1.0 message') && git reset -q --hard $A2 && rebind", expect="PASS"),
+    P("6", "hand-edited binding (no helper) byte-identical to helper output", "git reset -q --soft $A && git commit -q -m 'hand-made B' ", expect="PASS"),
+    P("6", "REBIND: new Commit A' with README claim, bound via helper (new release state)", f"startA && printf '\\n{CLAIM}\\n' >> README.md && git commit -qam Aprime && rebind", expect="PASS"),
+    P("6", "REBIND by hand (no helper): A' with claim + hand-written state", f"startA && printf '\\n{CLAIM}\\n' >> README.md && git commit -qam Aprime && H=$(git rev-parse HEAD) && TT=$(git rev-parse HEAD^{{tree}}) && sed -e \"s/420211a89493dbb741a9bae6b4cb79b72ee34174/$H/\" -e \"s/c09d6f17b1e7f8d02661c2c40605827b770f1b1b/$TT/\" <(git show $B:docs/APPROVED_RELEASE_STATE.json) > docs/APPROVED_RELEASE_STATE.json && node $SP/gen_buildinfo.mjs $PWD $H >/dev/null && git commit -qam Bp", expect="PASS"),
+    P("6", "wrong binding: state binds A but HEAD rebased so A is not ancestor", "startA && git commit -q --allow-empty -m other && git show $B:build-info.json > build-info.json && git show $B:docs/APPROVED_RELEASE_STATE.json > docs/APPROVED_RELEASE_STATE.json && git reset -q --soft $A^ && git commit -qam rebased"),
+    P("6", "graft (.git/info/grafts) hides extra commit X(claim) between A and B", "git reset -q --hard $A && echo claim >> README.md && git commit -qam X && git show $B:build-info.json > build-info.json && git show $B:docs/APPROVED_RELEASE_STATE.json > docs/APPROVED_RELEASE_STATE.json && git commit -qam Bp && echo \"$(git rev-parse HEAD) $A\" > .git/info/grafts"),
+    P("6", "git replace: real HEAD commit has README claim; local refs/replace maps it to clean B", f"git reset -q --hard $A && printf '\\n{CLAIM}\\n' >> README.md && git show $B:build-info.json > build-info.json && git show $B:docs/APPROVED_RELEASE_STATE.json > docs/APPROVED_RELEASE_STATE.json && git commit -qam 'B-with-claim' && REAL=$(git rev-parse HEAD) && git replace $REAL $B && git reset -q --hard HEAD && echo HEAD_REF=$(git rev-parse HEAD) && GIT_NO_REPLACE_OBJECTS=1 git show $REAL:README.md | tail -1"),
+    P("6", "git replace variant audited with GIT_NO_REPLACE_OBJECTS=1 (reviewer-side mitigation)", f"git reset -q --hard $A && printf '\\n{CLAIM}\\n' >> README.md && git show $B:build-info.json > build-info.json && git show $B:docs/APPROVED_RELEASE_STATE.json > docs/APPROVED_RELEASE_STATE.json && git commit -qam 'B-with-claim' && REAL=$(git rev-parse HEAD) && git replace $REAL $B && git reset -q --hard HEAD", env={"GIT_NO_REPLACE_OBJECTS":"1"}),
+    P("6", "git replace pushed to fresh clone? (replace refs not fetched by default)", f"git reset -q --hard $A && printf '\\n{CLAIM}\\n' >> README.md && git show $B:build-info.json > build-info.json && git show $B:docs/APPROVED_RELEASE_STATE.json > docs/APPROVED_RELEASE_STATE.json && git commit -qam 'B-with-claim' && REAL=$(git rev-parse HEAD) && git replace $REAL $B && cd .. && rm -rf $(basename $OLDPWD)_fresh && git clone -q $OLDPWD $(basename $OLDPWD)_fresh && cd $OLDPWD && git replace -d $REAL >/dev/null && git reset -q --hard $REAL && echo fresh-clone-equivalent: replace removed"),
+    P("6", "hand-edit binding AND local verifier (clone's own lib returns PASS unconditionally) + README claim", "sed -i 's/^export function auditCompleteReleaseState(/export function auditCompleteReleaseState_orig(/' tests/lib/release-state-binding.mjs && printf '\\nexport function auditCompleteReleaseState(){return {code_commit:\"x\",code_tree:\"x\",tracked_files:0,commits_after_code:1,provenance_only_files:[]}}\\n' >> tests/lib/release-state-binding.mjs && echo claim >> README.md && amendB", expect="PASS", own_verifier=True, gate="final"),
+    P("6", "same verifier rewrite but audited with PRISTINE verifier", "sed -i 's/^export function auditCompleteReleaseState(/export function auditCompleteReleaseState_orig(/' tests/lib/release-state-binding.mjs && printf '\\nexport function auditCompleteReleaseState(){return {}}\\n' >> tests/lib/release-state-binding.mjs && echo claim >> README.md && amendB"),
+    P("6", "shallow clone depth 1 (Commit A absent) -> fail closed", "true", clone_cmd="git clone -q --depth 1 file://$PWD/repo $D"),
+    P("6", "shallow clone depth 2 (A present as boundary)", "true", expect="PASS", clone_cmd="git clone -q --depth 2 file://$PWD/repo $D"),
+    P("6", "HEAD detached at A with B's provenance files committed in a sibling branch only", "git checkout -q $A"),
+    P("6", "Commit B with provenance files unchanged (empty B, state still placeholder)", "git reset -q --hard $A && git commit -q --allow-empty -m emptyB"),
+]
+
+
+from probe_defs import P, CLAIM
+PROBES = []
+fix = [
+ ("app.js BUILD_ID/UI string (corrected probe)", "sed -i 's/janus-governance-challenge-harness-v0.3.11\";/janus-governance-challenge-harness-v1.0-APPROVED\";/' app.js && grep -q v1.0-APPROVED app.js"),
+ ("historical independent report (corrected probe)", "sed -i 's/PARTIALLY CLOSED/CLOSED/g' testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md && grep -q 'V035-F05 — CLOSED' testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md"),
+]
+for n,c in fix:
+    PROBES.append(P("4", f"W modify {n}", c))
+    PROBES.append(P("4", f"C modify {n} (folded into Commit B)", c+"\namendB"))
+PROBES += [
+ P("4", "C add submodule gitlink committed directly (corrected probe, no add -A)", "git update-index --add --cacheinfo 160000,$A,vendor && git commit -q --amend --no-edit && git ls-tree HEAD vendor"),
+ P("4", "C change file mode 100644->100755 committed via index only", "git update-index --chmod=+x README.md && git commit -q --amend --no-edit && git ls-tree HEAD README.md"),
+ P("4", "C replace tracked file with symlink committed (type change)", "rm VERSION.txt && ln -s README.md VERSION.txt && git add VERSION.txt && git commit -q --amend --no-edit && git ls-tree HEAD VERSION.txt"),
+ P("4", "W provenance set reordered, construction mode (semantically identical)", "python3 -c \"import json;p='docs/APPROVED_RELEASE_STATE.json';s=json.load(open(p));s['provenance_only_files'].reverse();open(p,'w').write(json.dumps(s,indent=2)+'\\n')\"", expect="PASS", gate="construction"),
+ P("4", "C provenance set reordered (semantically identical, committed)", "python3 -c \"import json;p='docs/APPROVED_RELEASE_STATE.json';s=json.load(open(p));s['provenance_only_files'].reverse();open(p,'w').write(json.dumps(s,indent=2)+'\\n')\"\namendB", expect="PASS"),
+ P("4", "W modified README hidden by clean filter after index refresh", f"echo 'README.md filter=hide' > .git/info/attributes && git config filter.hide.clean 'git show 2fdf41158000ab13b9b05487b6cb06b8ec7ddb6c:README.md' && printf '\\n{CLAIM}\\n' >> README.md && git add README.md && git status --porcelain"),
+ P("4", "W ignored untracked file construction mode (README says untracked refused)", f"echo '{CLAIM}' > release.log", gate="construction"),
+ P("4", "C force-add an ignored file (status.log) into Commit B", f"echo '{CLAIM}' > status.log && git add -f status.log && git commit -q --amend --no-edit"),
+ P("6", "code_commit = tag object: build-info only (state keeps A)", "git tag -a t2 -m claim $A && python3 -c \"import json,subprocess;p='build-info.json';s=json.load(open(p));s['code_commit']=subprocess.check_output(['git','rev-parse','t2']).decode().strip();open(p,'w').write(json.dumps(s,indent=2)+'\\n')\" && amendB"),
+]
+
+
+##############################################################################################################
+# Probe results (all)
+##############################################################################################################
+P001 [4] W modify app.js
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: app.js | construction=FAIL :: Error: Working release state contains non-provenance changes: app.js | manifest=PASS
+P002 [4] C modify app.js (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: app.js | construction=FAIL :: Error: Working release state contains non-provenance changes: app.js | manifest=PASS
+P003 [4] W modify app.js UI string
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     sed -i 's/JANUS Governance Challenge Harness v0.3.11/JANUS Harness v1.0 APPROVED/' app.js
+   post-state: 2fdf411
+P004 [4] C modify app.js UI string (folded into Commit B)
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     sed -i 's/JANUS Governance Challenge Harness v0.3.11/JANUS Harness v1.0 APPROVED/' app.js
+     amendB
+   post-state: 14e57b6
+P005 [4] W modify styles.css
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: styles.css | construction=FAIL :: Error: Working release state contains non-provenance changes: styles.css | manifest=PASS
+P006 [4] C modify styles.css (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: styles.css | construction=FAIL :: Error: Working release state contains non-provenance changes: styles.css | manifest=PASS
+P007 [4] W modify index.html
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: index.html | construction=FAIL :: Error: Working release state contains non-provenance changes: index.html | manifest=PASS
+P008 [4] C modify index.html (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: index.html | construction=FAIL :: Error: Working release state contains non-provenance changes: index.html | manifest=PASS
+P009 [4] W modify README.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: README.md | construction=FAIL :: Error: Working release state contains non-provenance changes: README.md | manifest=PASS
+P010 [4] C modify README.md (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: README.md | construction=FAIL :: Error: Working release state contains non-provenance changes: README.md | manifest=PASS
+P011 [4] W modify CHANGELOG.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: CHANGELOG.md | construction=FAIL :: Error: Working release state contains non-provenance changes: CHANGELOG.md | manifest=PASS
+P012 [4] C modify CHANGELOG.md (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: CHANGELOG.md | construction=FAIL :: Error: Working release state contains non-provenance changes: CHANGELOG.md | manifest=PASS
+P013 [4] W modify VERSION.txt
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: VERSION.txt | construction=FAIL :: Error: Working release state contains non-provenance changes: VERSION.txt | manifest=PASS
+P014 [4] C modify VERSION.txt (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: VERSION.txt | construction=FAIL :: Error: Working release state contains non-provenance changes: VERSION.txt | manifest=PASS
+P015 [4] W modify current release gate
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: tests/V0_3_11_RELEASE_GATE.md | construction=FAIL :: Error: Working release state contains non-provenance changes: tests/V0_3_11_RELEASE_GATE.md | manifest=PASS
+P016 [4] C modify current release gate (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: tests/V0_3_11_RELEASE_GATE.md | construction=FAIL :: Error: Working release state contains non-provenance changes: tests/V0_3_11_RELEASE_GATE.md | manifest=PASS
+P017 [4] W modify historical independent report
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     sed -i 's/OPEN/CLOSED/g' testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md
+   post-state: 2fdf411
+P018 [4] C modify historical independent report (folded into Commit B)
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     sed -i 's/OPEN/CLOSED/g' testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md
+     amendB
+   post-state: f8c44ed
+P019 [4] W modify raw historical evidence
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: testing/claude/v0.3.10/JANUS_v0.3.10_targeted_F05_closure_raw_evidence.txt | construction=FAIL :: Error: Working release state contains non-provenance changes: testing/claude/v0.3.10/JANUS_v0.3.10_targeted_F05_closure_raw_evidence.txt | manifest=PASS
+P020 [4] C modify raw historical evidence (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: testing/claude/v0.3.10/JANUS_v0.3.10_targeted_F05_closure_raw_evidence.txt | construction=FAIL :: Error: Working release state contains non-provenance changes: testing/claude/v0.3.10/JANUS_v0.3.10_targeted_F05_closure_raw_evidence.txt | manifest=PASS
+P021 [4] W modify test implementation
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: tests/v0.3.11-regression.mjs | construction=FAIL :: Error: Working release state contains non-provenance changes: tests/v0.3.11-regression.mjs | manifest=PASS
+P022 [4] C modify test implementation (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: tests/v0.3.11-regression.mjs | construction=FAIL :: Error: Working release state contains non-provenance changes: tests/v0.3.11-regression.mjs | manifest=PASS
+P023 [4] W modify JSON control file
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: docs/EXPECTED_CONTRACT_HASHES.json | construction=FAIL :: Error: Working release state contains non-provenance changes: docs/EXPECTED_CONTRACT_HASHES.json | manifest=PASS
+P024 [4] C modify JSON control file (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: docs/EXPECTED_CONTRACT_HASHES.json | construction=FAIL :: Error: Working release state contains non-provenance changes: docs/EXPECTED_CONTRACT_HASHES.json | manifest=PASS
+P025 [4] W modify JSON control file 2 (governance claims)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: docs/APPROVED_GOVERNANCE_CLAIMS.json | construction=FAIL :: Error: Working release state contains non-provenance changes: docs/APPROVED_GOVERNANCE_CLAIMS.json | manifest=PASS
+P026 [4] C modify JSON control file 2 (governance claims) (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: docs/APPROVED_GOVERNANCE_CLAIMS.json | construction=FAIL :: Error: Working release state contains non-provenance changes: docs/APPROVED_GOVERNANCE_CLAIMS.json | manifest=PASS
+P027 [4] W modify JANUS source docx (1 byte appended)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: docs/JANUS_Orientation_Edition_2026_EN.docx | construction=FAIL :: Error: Working release state contains non-provenance changes: docs/JANUS_Orientation_Edition_2026_EN.docx | manifest=PASS
+P028 [4] C modify JANUS source docx (1 byte appended) (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: docs/JANUS_Orientation_Edition_2026_EN.docx | construction=FAIL :: Error: Working release state contains non-provenance changes: docs/JANUS_Orientation_Edition_2026_EN.docx | manifest=PASS
+P029 [4] W modify release-control lib in candidate
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: tests/lib/release-state-binding.mjs | construction=FAIL :: Error: Working release state contains non-provenance changes: tests/lib/release-state-binding.mjs | manifest=PASS
+P030 [4] C modify release-control lib in candidate (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: tests/lib/release-state-binding.mjs | construction=FAIL :: Error: Working release state contains non-provenance changes: tests/lib/release-state-binding.mjs | manifest=PASS
+P031 [4] W modify .gitignore
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: .gitignore | construction=FAIL :: Error: Working release state contains non-provenance changes: .gitignore | manifest=PASS
+P032 [4] C modify .gitignore (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: .gitignore | construction=FAIL :: Error: Working release state contains non-provenance changes: .gitignore | manifest=PASS
+P033 [4] W modify image bytes (claim appended to JPEG)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: assets/images/stratosengine_cover.jpg | construction=FAIL :: Error: Working release state contains non-provenance changes: assets/images/stratosengine_cover.jpg | manifest=PASS
+P034 [4] C modify image bytes (claim appended to JPEG) (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: assets/images/stratosengine_cover.jpg | construction=FAIL :: Error: Working release state contains non-provenance changes: assets/images/stratosengine_cover.jpg | manifest=PASS
+P035 [4] W modify CRLF conversion of README (same text, different bytes)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: README.md | construction=FAIL :: Error: Working release state contains non-provenance changes: README.md | manifest=PASS
+P036 [4] C modify CRLF conversion of README (same text, different bytes) (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: README.md | construction=FAIL :: Error: Working release state contains non-provenance changes: README.md | manifest=PASS
+P037 [4] W modify single trailing newline removed from index.html
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: index.html | construction=FAIL :: Error: Working release state contains non-provenance changes: index.html | manifest=PASS
+P038 [4] C modify single trailing newline removed from index.html (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: index.html | construction=FAIL :: Error: Working release state contains non-provenance changes: index.html | manifest=PASS
+P039 [4] W untracked add status.html
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: status.html | construction=FAIL :: Error: Untracked files are present in the release workspace: status.html | manifest=PASS
+P040 [4] W staged add status.html
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: status.html | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: status.html | manifest=PASS
+P041 [4] C add status.html (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: status.html | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: status.html | manifest=PASS
+P042 [4] W untracked add 404.html
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: 404.html | construction=FAIL :: Error: Untracked files are present in the release workspace: 404.html | manifest=PASS
+P043 [4] W staged add 404.html
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: 404.html | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: 404.html | manifest=PASS
+P044 [4] C add 404.html (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: 404.html | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: 404.html | manifest=PASS
+P045 [4] W untracked add RELEASE.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: RELEASE.md | construction=FAIL :: Error: Untracked files are present in the release workspace: RELEASE.md | manifest=PASS
+P046 [4] W staged add RELEASE.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: RELEASE.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: RELEASE.md | manifest=PASS
+P047 [4] C add RELEASE.md (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: RELEASE.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: RELEASE.md | manifest=PASS
+P048 [4] W untracked add x.txt
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: x.txt | construction=FAIL :: Error: Untracked files are present in the release workspace: x.txt | manifest=PASS
+P049 [4] W staged add x.txt
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.txt | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.txt | manifest=PASS
+P050 [4] C add x.txt (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.txt | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.txt | manifest=PASS
+P051 [4] W untracked add x.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: x.md | construction=FAIL :: Error: Untracked files are present in the release workspace: x.md | manifest=PASS
+P052 [4] W staged add x.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.md | manifest=PASS
+P053 [4] C add x.md (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.md | manifest=PASS
+P054 [4] W untracked add x.json
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: x.json | construction=FAIL :: Error: Untracked files are present in the release workspace: x.json | manifest=PASS
+P055 [4] W staged add x.json
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.json | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.json | manifest=PASS
+P056 [4] C add x.json (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.json | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.json | manifest=PASS
+P057 [4] W untracked add x.html
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: x.html | construction=FAIL :: Error: Untracked files are present in the release workspace: x.html | manifest=PASS
+P058 [4] W staged add x.html
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.html | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.html | manifest=PASS
+P059 [4] C add x.html (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.html | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.html | manifest=PASS
+P060 [4] W untracked add x.js
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: x.js | construction=FAIL :: Error: Untracked files are present in the release workspace: x.js | manifest=PASS
+P061 [4] W staged add x.js
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.js | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.js | manifest=PASS
+P062 [4] C add x.js (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.js | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.js | manifest=PASS
+P063 [4] W untracked add x.css
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: x.css | construction=FAIL :: Error: Untracked files are present in the release workspace: x.css | manifest=PASS
+P064 [4] W staged add x.css
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.css | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.css | manifest=PASS
+P065 [4] C add x.css (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.css | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: x.css | manifest=PASS
+P066 [4] W untracked add claim.png binary image
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: claim.png | construction=FAIL :: Error: Untracked files are present in the release workspace: claim.png | manifest=PASS
+P067 [4] W staged add claim.png binary image
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: claim.png | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: claim.png | manifest=PASS
+P068 [4] C add claim.png binary image (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: claim.png | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: claim.png | manifest=PASS
+P069 [4] W untracked add claim.svg
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: claim.svg | construction=FAIL :: Error: Untracked files are present in the release workspace: claim.svg | manifest=PASS
+P070 [4] W staged add claim.svg
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: claim.svg | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: claim.svg | manifest=PASS
+P071 [4] C add claim.svg (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: claim.svg | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: claim.svg | manifest=PASS
+P072 [4] W untracked add nested docs/status/index.html
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: docs/status/index.html | construction=FAIL :: Error: Untracked files are present in the release workspace: docs/status/index.html | manifest=PASS
+P073 [4] W staged add nested docs/status/index.html
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: docs/status/index.html | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: docs/status/index.html | manifest=PASS
+P074 [4] C add nested docs/status/index.html (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: docs/status/index.html | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: docs/status/index.html | manifest=PASS
+P075 [4] W untracked add .well-known/release.json
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: .well-known/release.json | construction=FAIL :: Error: Untracked files are present in the release workspace: .well-known/release.json | manifest=PASS
+P076 [4] W staged add .well-known/release.json
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: .well-known/release.json | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: .well-known/release.json | manifest=PASS
+P077 [4] C add .well-known/release.json (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: .well-known/release.json | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: .well-known/release.json | manifest=PASS
+P078 [4] W untracked add unicode filename RELEASE-✓.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: RELEASE-✓.md | construction=FAIL :: Error: Untracked files are present in the release workspace: RELEASE-✓.md | manifest=PASS
+P079 [4] W staged add unicode filename RELEASE-✓.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: RELEASE-✓.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: RELEASE-✓.md | manifest=PASS
+P080 [4] C add unicode filename RELEASE-✓.md (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: RELEASE-✓.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: RELEASE-✓.md | manifest=PASS
+P081 [4] W untracked add filename with space 'release notes.md'
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: release notes.md | construction=FAIL :: Error: Untracked files are present in the release workspace: release notes.md | manifest=PASS
+P082 [4] W staged add filename with space 'release notes.md'
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: release notes.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: release notes.md | manifest=PASS
+P083 [4] C add filename with space 'release notes.md' (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: release notes.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: release notes.md | manifest=PASS
+P084 [4] W untracked add case-variant App.js
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: App.js | construction=FAIL :: Error: Untracked files are present in the release workspace: App.js | manifest=PASS
+P085 [4] W staged add case-variant App.js
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: App.js | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: App.js | manifest=PASS
+P086 [4] C add case-variant App.js (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: App.js | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: App.js | manifest=PASS
+P087 [4] W untracked add case-variant readme.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: readme.md | construction=FAIL :: Error: Untracked files are present in the release workspace: readme.md | manifest=PASS
+P088 [4] W staged add case-variant readme.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: readme.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: readme.md | manifest=PASS
+P089 [4] C add case-variant readme.md (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: readme.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: readme.md | manifest=PASS
+P090 [4] W untracked add index.htm
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: index.htm | construction=FAIL :: Error: Untracked files are present in the release workspace: index.htm | manifest=PASS
+P091 [4] W staged add index.htm
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: index.htm | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: index.htm | manifest=PASS
+P092 [4] C add index.htm (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: index.htm | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: index.htm | manifest=PASS
+P093 [4] W untracked add .gitattributes
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: .gitattributes | construction=FAIL :: Error: Untracked files are present in the release workspace: .gitattributes | manifest=PASS
+P094 [4] W staged add .gitattributes
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: .gitattributes | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: .gitattributes | manifest=PASS
+P095 [4] C add .gitattributes (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: .gitattributes | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: .gitattributes | manifest=PASS
+P096 [4] W untracked add empty file
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Untracked files are present in the release workspace: EMPTY | construction=FAIL :: Error: Untracked files are present in the release workspace: EMPTY | manifest=PASS
+P097 [4] W staged add empty file
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: EMPTY | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: EMPTY | manifest=PASS
+P098 [4] C add empty file (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: EMPTY | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: EMPTY | manifest=PASS
+P099 [4] W delete README.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: README.md | construction=FAIL :: Error: Working release state contains non-provenance changes: README.md | manifest=PASS
+P100 [4] C delete README.md (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: README.md; Added: | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: README.md; Added: | manifest=PASS
+P101 [4] W delete .nojekyll
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: .nojekyll | construction=FAIL :: Error: Working release state contains non-provenance changes: .nojekyll | manifest=PASS
+P102 [4] C delete .nojekyll (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: .nojekyll; Added: | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: .nojekyll; Added: | manifest=PASS
+P103 [4] W delete historical report
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md | construction=FAIL :: Error: Working release state contains non-provenance changes: testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md | manifest=PASS
+P104 [4] C delete historical report (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md; Added: | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md; Added: | manifest=PASS
+P105 [4] W rename app.js -> app2.js
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: app.js; Added: app2.js | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: app.js; Added: app2.js | manifest=PASS
+P106 [4] C rename app.js -> app2.js (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: app.js; Added: app2.js | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: app.js; Added: app2.js | manifest=PASS
+P107 [4] W rename README.md -> readme.md (case)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: README.md; Added: readme.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: README.md; Added: readme.md | manifest=PASS
+P108 [4] C rename README.md -> readme.md (case) (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: README.md; Added: readme.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: README.md; Added: readme.md | manifest=PASS
+P109 [4] W rename index.html -> Index.html (case)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: index.html; Added: Index.html | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: index.html; Added: Index.html | manifest=PASS
+P110 [4] C rename index.html -> Index.html (case) (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: index.html; Added: Index.html | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: index.html; Added: Index.html | manifest=PASS
+P111 [4] W replace app.js with different bytes
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: app.js | construction=FAIL :: Error: Working release state contains non-provenance changes: app.js | manifest=PASS
+P112 [4] C replace app.js with different bytes (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: app.js | construction=FAIL :: Error: Working release state contains non-provenance changes: app.js | manifest=PASS
+P113 [4] W chmod +x app.js (mode change only)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: app.js | construction=FAIL :: Error: Working release state contains non-provenance changes: app.js | manifest=PASS
+P114 [4] C chmod +x app.js (mode change only) (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: app.js | construction=FAIL :: Error: Working release state contains non-provenance changes: app.js | manifest=PASS
+P115 [4] W replace styles.css with symlink to README.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: styles.css | construction=FAIL :: Error: Working release state contains non-provenance changes: styles.css | manifest=PASS
+P116 [4] C replace styles.css with symlink to README.md (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: styles.css | construction=FAIL :: Error: Working release state contains non-provenance changes: styles.css | manifest=PASS
+P117 [4] W add submodule gitlink
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: vendor | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: vendor | manifest=PASS
+P118 [4] C add submodule gitlink (folded into Commit B)
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     git update-index --add --cacheinfo 160000,420211a89493dbb741a9bae6b4cb79b72ee34174,vendor
+     amendB
+   post-state: d54d089
+P119 [4] W replace app.js with byte-identical content (control)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     cp app.js /tmp/_a && rm app.js && cp /tmp/_a app.js
+   post-state: 2fdf411
+P120 [4] C replace README with byte-identical content via delete+recreate commit fold (control)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     cp README.md /tmp/_r && git rm -q README.md && cp /tmp/_r README.md && git add README.md && amendB
+   post-state: c23d328
+P121 [4] W chmod +x app.js working tree only (core.filemode=true)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: app.js | construction=FAIL :: Error: Working release state contains non-provenance changes: app.js | manifest=PASS
+P122 [4] W chmod +x app.js with core.fileMode=false (mode ignored by Git)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     git config core.fileMode false; chmod +x app.js
+   post-state: 2fdf411
+P123 [4] W untracked empty directory (Git does not track dirs)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     mkdir emptydir
+   post-state: 2fdf411
+P124 [4] W staged change reverted in working tree (index != worktree)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Final release state requires a clean tracked working tree. | construction=PASS | manifest=PASS
+P125 [4] W untracked IGNORED file status.log (*.log in .gitignore)
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     echo 'V035-F05 CLOSED - Version 1.0 APPROVED and independently verified' > status.log
+   post-state: 2fdf411 | !! status.log
+P126 [4] W untracked IGNORED .vscode/status.html
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     mkdir -p .vscode && echo 'V035-F05 CLOSED - Version 1.0 APPROVED and independently verified' > .vscode/status.html
+   post-state: 2fdf411 | !! .vscode/
+P127 [4] W untracked IGNORED _backup-before-v0.2-x/index.html
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     mkdir -p _backup-before-v0.2-x && echo 'V035-F05 CLOSED - Version 1.0 APPROVED and independently verified' > _backup-before-v0.2-x/index.html
+   post-state: 2fdf411 | !! _backup-before-v0.2-x/
+P128 [4] W untracked status.html hidden via .git/info/exclude
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     echo '<h1>V035-F05 CLOSED - Version 1.0 APPROVED and independently verified</h1>' > status.html && echo status.html >> .git/info/exclude
+   post-state: 2fdf411 | !! status.html
+P129 [4] W untracked status.html hidden via global core.excludesFile
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     echo '<h1>V035-F05 CLOSED - Version 1.0 APPROVED and independently verified</h1>' > status.html && echo status.html > /tmp/_gx && git config core.excludesFile /tmp/_gx
+   post-state: 2fdf411 | !! status.html
+P130 [4] W modified app.js hidden with --skip-worktree
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     git update-index --skip-worktree app.js && printf '\n// V035-F05 CLOSED - Version 1.0 APPROVED and independently verified\n' >> app.js
+   post-state: 2fdf411
+P131 [4] W modified app.js hidden with --assume-unchanged
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     git update-index --assume-unchanged app.js && printf '\n// V035-F05 CLOSED - Version 1.0 APPROVED and independently verified\n' >> app.js
+   post-state: 2fdf411
+P132 [4] W modified README hidden by local .git/info/attributes clean filter
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Final release state requires a clean tracked working tree. | construction=PASS | manifest=PASS
+P133 [4] C skip-worktree then commit -a (does modified file reach a commit?)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     git update-index --skip-worktree app.js && printf '\n// V035-F05 CLOSED - Version 1.0 APPROVED and independently verified\n' >> app.js && git commit -q -a --amend --no-edit && git update-index --no-skip-worktree app.js && git checkout -- app.js
+   post-state: fbb67e5
+P134 [4-narrow] W provenance set += README.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state provenance-only file set mismatch. | construction=FAIL :: Error: Approved release-state provenance-only file set mismatch. | manifest=FAIL :: Error: Approved release-state provenance-only file set mismatch.
+P135 [4-narrow] C provenance set += README.md (in Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state provenance-only file set mismatch. | construction=FAIL :: Error: Approved release-state provenance-only file set mismatch. | manifest=FAIL :: Error: Approved release-state provenance-only file set mismatch.
+P136 [4-narrow] W provenance set replaced with README.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state provenance-only file set mismatch. | construction=FAIL :: Error: Approved release-state provenance-only file set mismatch. | manifest=FAIL :: Error: Approved release-state provenance-only file set mismatch.
+P137 [4-narrow] C provenance set replaced with README.md (in Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state provenance-only file set mismatch. | construction=FAIL :: Error: Approved release-state provenance-only file set mismatch. | manifest=FAIL :: Error: Approved release-state provenance-only file set mismatch.
+P138 [4-narrow] W provenance set = [] 
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state provenance-only file set mismatch. | construction=FAIL :: Error: Approved release-state provenance-only file set mismatch. | manifest=FAIL :: Error: Approved release-state provenance-only file set mismatch.
+P139 [4-narrow] C provenance set = []  (in Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state provenance-only file set mismatch. | construction=FAIL :: Error: Approved release-state provenance-only file set mismatch. | manifest=FAIL :: Error: Approved release-state provenance-only file set mismatch.
+P140 [4-narrow] W provenance set duplicate entry
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state provenance-only file set mismatch. | construction=FAIL :: Error: Approved release-state provenance-only file set mismatch. | manifest=FAIL :: Error: Approved release-state provenance-only file set mismatch.
+P141 [4-narrow] C provenance set duplicate entry (in Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state provenance-only file set mismatch. | construction=FAIL :: Error: Approved release-state provenance-only file set mismatch. | manifest=FAIL :: Error: Approved release-state provenance-only file set mismatch.
+P142 [4-narrow] W provenance set as string
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state provenance-only file set mismatch. | construction=FAIL :: Error: Approved release-state provenance-only file set mismatch. | manifest=FAIL :: Error: Approved release-state provenance-only file set mismatch.
+P143 [4-narrow] C provenance set as string (in Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state provenance-only file set mismatch. | construction=FAIL :: Error: Approved release-state provenance-only file set mismatch. | manifest=FAIL :: Error: Approved release-state provenance-only file set mismatch.
+P144 [4-narrow] W scope narrowed to runtime files
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state scope text mismatch. | construction=FAIL :: Error: Approved release-state scope text mismatch. | manifest=FAIL :: Error: Approved release-state scope text mismatch.
+P145 [4-narrow] C scope narrowed to runtime files (in Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state scope text mismatch. | construction=FAIL :: Error: Approved release-state scope text mismatch. | manifest=FAIL :: Error: Approved release-state scope text mismatch.
+P146 [4-narrow] W control name changed
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state control mismatch. | construction=FAIL :: Error: Approved release-state control mismatch. | manifest=FAIL :: Error: Approved release-state control mismatch.
+P147 [4-narrow] C control name changed (in Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state control mismatch. | construction=FAIL :: Error: Approved release-state control mismatch. | manifest=FAIL :: Error: Approved release-state control mismatch.
+P148 [4-narrow] W build-info files map drops README.md
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Final release state requires a clean tracked working tree. | construction=PASS | manifest=FAIL :: Error: build-info file set differs from bound code commit.
+P149 [4-narrow] C build-info files map drops README.md (in Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info file set differs from bound code commit.
+P150 [4-narrow] W build-info files map drops docs/
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Final release state requires a clean tracked working tree. | construction=PASS | manifest=FAIL :: Error: build-info file set differs from bound code commit.
+P151 [4-narrow] C build-info files map drops docs/ (in Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info file set differs from bound code commit.
+P152 [4-narrow] W provenance set reordered (semantically identical)
+   expect=PASS actual=KILLED => UNEXPECTED
+   audits: final=FAIL :: Error: Final release state requires a clean tracked working tree. | construction=PASS | manifest=PASS
+   setup:
+     python3 - <<'EOF'
+     import json
+     p='docs/APPROVED_RELEASE_STATE.json'
+     s=json.load(open(p))
+     s['provenance_only_files']=list(reversed(s['provenance_only_files']))
+     open(p,'w').write(json.dumps(s,indent=2)+'\n')
+     EOF
+   post-state: 2fdf411 |  M docs/APPROVED_RELEASE_STATE.json
+P153 [5-build-info] C build-info extra status field
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info.json keys differ from the fixed schema.
+P154 [5-build-info] C build-info approved field
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info.json keys differ from the fixed schema.
+P155 [5-build-info] C build-info reviewed field
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info.json keys differ from the fixed schema.
+P156 [5-build-info] C build-info generated_at field
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info.json keys differ from the fixed schema.
+P157 [5-build-info] C build-info nested claim inside files value
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: Invalid build-info hash: README.md
+P158 [5-build-info] C build-info nested claim as extra files key
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info file set differs from bound code commit.
+P159 [5-build-info] C build-info extra top-level object
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info.json keys differ from the fixed schema.
+P160 [5-build-info] C build-info missing files
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info.json keys differ from the fixed schema.
+P161 [5-build-info] C build-info missing code_commit
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info.json keys differ from the fixed schema.
+P162 [5-build-info] C build-info wrong version 1.0
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info version must be 0.3.11.
+P163 [5-build-info] C build-info wrong build_id
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info Build ID mismatch.
+P164 [5-build-info] C build-info wrong code_commit (other real commit 992c3c2)
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info code_commit differs from approved release-state code_commit.
+P165 [5-build-info] C build-info wrong code_commit (Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info code_commit differs from approved release-state code_commit.
+P166 [5-build-info] C build-info code_commit non-existent sha
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info code_commit differs from approved release-state code_commit.
+P167 [5-build-info] C build-info wrong file hash app.js
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info SHA-256 mismatch against bound commit: app.js
+P168 [5-build-info] C build-info file hash for APPROVED_RELEASE_STATE set to deployed bytes
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info SHA-256 mismatch against bound commit: docs/APPROVED_RELEASE_STATE.json
+P169 [5-build-info] C build-info removed file entry
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info file set differs from bound code commit.
+P170 [5-build-info] C build-info extra file entry
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info file set differs from bound code commit.
+P171 [5-build-info] C build-info path traversal ../x
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: Invalid build-info path: ../x
+P172 [5-build-info] C build-info path oddity ./app.js duplicate
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info file set differs from bound code commit.
+P173 [5-build-info] C build-info path oddity absolute /app.js
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info file set differs from bound code commit.
+P174 [5-build-info] C build-info path oddity backslash docs\\x
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: Invalid build-info path: docs\APPROVED_RELEASE_STATE.json
+P175 [5-build-info] C build-info hash non-hex
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: Invalid build-info hash: app.js
+P176 [5-build-info] C build-info hash 63 chars
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: Invalid build-info hash: app.js
+P177 [5-build-info] C build-info version as number
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info version must be 0.3.11.
+P178 [5-build-info] C build-info files as array
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info files map is invalid.
+P179 [5-build-info] C build-info top-level array
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info.json must contain an object.
+P180 [5-build-info] C build-info trailing garbage after JSON
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: SyntaxError: Unexpected non-whitespace character after JSON at position 11652 (line 107 column 1)
+P181 [5-build-info] C build-info UTF-8 BOM prefix
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: SyntaxError: Unexpected token '﻿', "﻿{
+P182 [5-build-info] C build-info __proto__ key
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info.json keys differ from the fixed schema.
+P183 [5-build-info] C build-info DUPLICATE KEY: claim value in first 'version', valid last
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     sed -i '0,/"version"/s//"version": "V035-F05 CLOSED - Version 1.0 APPROVED and independently verified",\n  "version"/' build-info.json
+     amendB
+   post-state: a09c6cf
+P184 [5-build-info] C build-info DUPLICATE KEY: first 'files' object is an arbitrary claim object
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     sed -i '0,/"files": {/s//"files": {"status": "V035-F05 CLOSED - Version 1.0 APPROVED and independently verified", "approved_by": "independent reviewer"},\n  "files": {/' build-info.json
+     amendB
+   post-state: 379ebac
+P185 [5-build-info] C build-info DUPLICATE KEY inside files map (claim in first app.js value)
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     sed -i '0,/"app.js":/s//"app.js": "V035-F05 CLOSED - Version 1.0 APPROVED and independently verified",\n    "app.js":/' build-info.json
+     amendB
+   post-state: e520519
+P186 [5-build-info] C build-info whitespace-only reformat (minified)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     python3 -c "import json;p='build-info.json';s=json.load(open(p));open(p,'w').write(json.dumps(s,separators=(',',':')))"
+     amendB
+   post-state: 447618e
+P187 [5-build-info] C build-info key order changed
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     python3 -c "import json;p='build-info.json';s=json.load(open(p));open(p,'w').write(json.dumps({k:s[k] for k in ['files','code_commit','build_id','version']},indent=2)+'\n')"
+     amendB
+   post-state: b53688c
+P188 [5-build-info] C build-info uppercase code_commit / hashes
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     python3 -c "import json;p='build-info.json';s=json.load(open(p));s['code_commit']=s['code_commit'].upper();s['files']={k:v.upper() for k,v in s['files'].items()};open(p,'w').write(json.dumps(s,indent=2)+'\n')"
+     amendB
+   post-state: aded766
+P189 [5-build-info] C build-info unicode-escaped values (\u002e)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     sed -i 's/"0.3.11"/"0\\u002e3\\u002e11"/' build-info.json
+     amendB
+   post-state: 5ddf8fb
+P190 [5-build-info] C build-info long run of whitespace padding (non-canonical bytes, no text)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     python3 -c "p='build-info.json';t=open(p).read();open(p,'w').write(t.replace('{','{'+' '*5000,1))"
+     amendB
+   post-state: ac7bc16
+P191 [5-release-state] C state extra release_status field
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release state keys differ from the fixed schema. Observed: approval_semantics, build_id, code_commit, code_tree, control, provenance_only_files, release_status, schema, scope, version | construction=FAIL :: Error: Approved release state keys differ from the fixed schema. Observed: approval_semantics, build_id, code_commit, code_tree, control, provenance_only_files, release_status, schema, scope, version | manifest=FAIL :: Error: Approved release state keys differ from the fixed schema. Observed: approval_semantics, build_id, code_commit, code_tree, control, provenance_only_files, release_status, schema, scope, version
+P192 [5-release-state] C state extra approved_by field
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release state keys differ from the fixed schema. Observed: approval_semantics, approved_by, build_id, code_commit, code_tree, control, provenance_only_files, schema, scope, version | construction=FAIL :: Error: Approved release state keys differ from the fixed schema. Observed: approval_semantics, approved_by, build_id, code_commit, code_tree, control, provenance_only_files, schema, scope, version | manifest=FAIL :: Error: Approved release state keys differ from the fixed schema. Observed: approval_semantics, approved_by, build_id, code_commit, code_tree, control, provenance_only_files, schema, scope, version
+P193 [5-release-state] C state missing scope
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release state keys differ from the fixed schema. Observed: approval_semantics, build_id, code_commit, code_tree, control, provenance_only_files, schema, version | construction=FAIL :: Error: Approved release state keys differ from the fixed schema. Observed: approval_semantics, build_id, code_commit, code_tree, control, provenance_only_files, schema, version | manifest=FAIL :: Error: Approved release state keys differ from the fixed schema. Observed: approval_semantics, build_id, code_commit, code_tree, control, provenance_only_files, schema, version
+P194 [5-release-state] C state missing approval_semantics
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release state keys differ from the fixed schema. Observed: build_id, code_commit, code_tree, control, provenance_only_files, schema, scope, version | construction=FAIL :: Error: Approved release state keys differ from the fixed schema. Observed: build_id, code_commit, code_tree, control, provenance_only_files, schema, scope, version | manifest=FAIL :: Error: Approved release state keys differ from the fixed schema. Observed: build_id, code_commit, code_tree, control, provenance_only_files, schema, scope, version
+P195 [5-release-state] C state altered scope text
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state scope text mismatch. | construction=FAIL :: Error: Approved release-state scope text mismatch. | manifest=FAIL :: Error: Approved release-state scope text mismatch.
+P196 [5-release-state] C state altered approval semantics
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state approval semantics mismatch. | construction=FAIL :: Error: Approved release-state approval semantics mismatch. | manifest=FAIL :: Error: Approved release-state approval semantics mismatch.
+P197 [5-release-state] C state different provenance-only set
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state provenance-only file set mismatch. | construction=FAIL :: Error: Approved release-state provenance-only file set mismatch. | manifest=FAIL :: Error: Approved release-state provenance-only file set mismatch.
+P198 [5-release-state] C state wrong Commit A (older ancestor 992c3c2 with its own tree)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | construction=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | manifest=FAIL :: Error: build-info code_commit differs from approved release-state code_commit.
+P199 [5-release-state] C state wrong tree (Commit B tree) with Commit A
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved code_tree does not match code_commit. | construction=FAIL :: Error: Approved code_tree does not match code_commit. | manifest=PASS
+P200 [5-release-state] C state valid tree of A with wrong commit (B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved code_tree does not match code_commit. | construction=FAIL :: Error: Approved code_tree does not match code_commit. | manifest=FAIL :: Error: build-info code_commit differs from approved release-state code_commit.
+P201 [5-release-state] C state malformed hash (short sha 420211a)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state code_commit is not bound. | construction=FAIL :: Error: Approved release-state code_commit is not bound. | manifest=FAIL :: Error: Approved release-state code_commit is not bound.
+P202 [5-release-state] C state malformed hash (non-hex 40)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state code_commit is not bound. | construction=FAIL :: Error: Approved release-state code_commit is not bound. | manifest=FAIL :: Error: Approved release-state code_commit is not bound.
+P203 [5-release-state] C state code_commit null
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state code_commit is not bound. | construction=FAIL :: Error: Approved release-state code_commit is not bound. | manifest=FAIL :: Error: Approved release-state code_commit is not bound.
+P204 [5-release-state] C state schema as string '1'
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state schema mismatch. | construction=FAIL :: Error: Approved release-state schema mismatch. | manifest=FAIL :: Error: Approved release-state schema mismatch.
+P205 [5-release-state] C state schema 2
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state schema mismatch. | construction=FAIL :: Error: Approved release-state schema mismatch. | manifest=FAIL :: Error: Approved release-state schema mismatch.
+P206 [5-release-state] C state version 1.0
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state version mismatch. | construction=FAIL :: Error: Approved release-state version mismatch. | manifest=FAIL :: Error: Approved release-state version mismatch.
+P207 [5-release-state] C state top-level array
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release state must be an object. | construction=FAIL :: Error: Approved release state must be an object. | manifest=FAIL :: Error: Approved release state must be an object.
+P208 [5-release-state] C state file deleted
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state binding is missing. | construction=FAIL :: Error: Approved release-state binding is missing. | manifest=FAIL :: Error: Approved release-state binding is missing.
+P209 [5-release-state] C state trailing garbage
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: SyntaxError: Unexpected non-whitespace character after JSON at position 655 (line 15 column 1) | construction=FAIL :: SyntaxError: Unexpected non-whitespace character after JSON at position 655 (line 15 column 1) | manifest=FAIL :: SyntaxError: Unexpected non-whitespace character after JSON at position 655 (line 15 column 1)
+P210 [5-release-state] C state DUPLICATE KEY: claim in first 'scope'
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     sed -i '0,/"scope"/s//"scope": "V035-F05 CLOSED - Version 1.0 APPROVED and independently verified",\n  "scope"/' docs/APPROVED_RELEASE_STATE.json
+     amendB
+   post-state: f91cd99
+P211 [5-release-state] C state DUPLICATE KEY: first 'approval_semantics' claims authenticated approval
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     sed -i '0,/"approval_semantics"/s//"approval_semantics": "Authenticated, digitally signed approval by an independent human reviewer.",\n  "approval_semantics"/' docs/APPROVED_RELEASE_STATE.json
+     amendB
+   post-state: 3e9e8e0
+P212 [5-release-state] C state DUPLICATE KEY: 'provenance_only_files' first lists README.md
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     sed -i '0,/"provenance_only_files"/s//"provenance_only_files": ["README.md"],\n  "provenance_only_files"/' docs/APPROVED_RELEASE_STATE.json
+     amendB
+   post-state: 8ed5401
+P213 [5-release-state] C state uppercase code_commit/code_tree
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     python3 - <<'EOF'
+     import json
+     p='docs/APPROVED_RELEASE_STATE.json'
+     s=json.load(open(p))
+     s['code_commit']=s['code_commit'].upper();s['code_tree']=s['code_tree'].upper()
+     open(p,'w').write(json.dumps(s,indent=2)+'\n')
+     EOF
+     amendB
+   post-state: d46c960
+P214 [5-release-state] C state key order/whitespace changed
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     python3 -c "import json;p='docs/APPROVED_RELEASE_STATE.json';s=json.load(open(p));open(p,'w').write(json.dumps(dict(sorted(s.items())),separators=(',',':')))"
+     amendB
+   post-state: 94d2827
+P215 [5-release-state] C state code_commit = annotated TAG object whose message carries a claim (peels to A)
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     git tag -a probe-tag -m 'V035-F05 CLOSED - Version 1.0 APPROVED and independently verified' $A && T=$(git rev-parse probe-tag) && python3 - <<'EOF'
+     import json
+     p='docs/APPROVED_RELEASE_STATE.json'
+     s=json.load(open(p))
+     import subprocess;s['code_commit']=subprocess.check_output(['git','rev-parse','probe-tag']).decode().strip()
+     open(p,'w').write(json.dumps(s,indent=2)+'\n')
+     EOF
+     python3 -c "import json;p='build-info.json';s=json.load(open(p));import subprocess;s['code_commit']=subprocess.check_output(['git','rev-parse','probe-tag']).decode().strip();open(p,'w').write(json.dumps(s,indent=2)+'\n')"
+     amendB
+   post-state: 80beb84
+P216 [5-release-state] C state code_commit = TREE object id (not a commit)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved code_commit does not exist in this repository. | construction=FAIL :: Error: Approved code_commit does not exist in this repository. | manifest=FAIL :: Error: build-info code_commit differs from approved release-state code_commit.
+P217 [6] exact Commit B (control)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     true
+   post-state: 2fdf411
+P218 [6] zero commits after A (HEAD=A, placeholder state)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state code_commit is not bound. | construction=FAIL :: Error: Approved release-state code_commit is not bound. | manifest=FAIL :: Error: Approved release-state code_commit is not bound.
+P219 [6] zero commits after A, bound state uncommitted in working tree (final mode)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Final release state requires exactly one provenance commit after code_commit. | construction=PASS | manifest=PASS
+P220 [6] zero commits after A, bound state uncommitted (construction mode only)
+   expect=PASS actual=PASS => OK
+   audits: final=FAIL :: Error: Final release state requires exactly one provenance commit after code_commit. | construction=PASS | manifest=PASS
+   setup:
+     git reset -q --hard $A && git show $B:docs/APPROVED_RELEASE_STATE.json > docs/APPROVED_RELEASE_STATE.json && git show $B:build-info.json > build-info.json
+   post-state: 420211a |  M build-info.json |  M docs/APPROVED_RELEASE_STATE.json
+P221 [6] two provenance commits (split B into two)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | construction=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | manifest=PASS
+P222 [6] B + harmless empty commit
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | construction=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | manifest=PASS
+P223 [6] B + commit touching only build-info whitespace
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | construction=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | manifest=PASS
+P224 [6] non-provenance file changed in B
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: CHANGELOG.md | construction=FAIL :: Error: Working release state contains non-provenance changes: CHANGELOG.md | manifest=PASS
+P225 [6] non-provenance file changed after B
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | construction=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | manifest=PASS
+P226 [6] file added after A (in B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: RELEASE.md | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: RELEASE.md | manifest=PASS
+P227 [6] file removed after A (in B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: VERSION.txt; Added: | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: VERSION.txt; Added: | manifest=PASS
+P228 [6] change then revert in two extra commits (net zero diff)
+   expect=KILLED actual=KILLED => OK
+   audits: final=SETUP-ERROR | construction=SETUP-ERROR | manifest=SETUP-ERROR
+P229 [6] history rewritten: A -> X(claim) -> B', diff net-zero? (X adds claim, B' removes it)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | construction=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | manifest=PASS
+P230 [6] merge commit: parents (A, A^) with B's tree (count stays 1)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     M=$(git commit-tree $B^{tree} -p $A -p $A^ -m merge) && git reset -q --hard $M
+   post-state: 8373270
+P231 [6] merge commit: parents (A, X) where X is side commit with claim off A^
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | construction=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | manifest=PASS
+P232 [6] merge commit: parents (A, orphan root with claim)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | construction=FAIL :: Error: Release state permits at most one provenance commit after code_commit. | manifest=PASS
+P233 [6] different commit with IDENTICAL tree to A (A2 = commit-tree A^{tree}, new parent/message), rebound
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     startA && A2=$(git commit-tree $ATREE -p $A^ -m 'A2 APPROVED 1.0 message') && git reset -q --hard $A2 && rebind
+   post-state: 6889423
+P234 [6] hand-edited binding (no helper) byte-identical to helper output
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     git reset -q --soft $A && git commit -q -m 'hand-made B'
+   post-state: 8ec5cb5
+P235 [6] REBIND: new Commit A' with README claim, bound via helper (new release state)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     startA && printf '\nV035-F05 CLOSED - Version 1.0 APPROVED and independently verified\n' >> README.md && git commit -qam Aprime && rebind
+   post-state: 332326c
+P236 [6] REBIND by hand (no helper): A' with claim + hand-written state
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     startA && printf '\nV035-F05 CLOSED - Version 1.0 APPROVED and independently verified\n' >> README.md && git commit -qam Aprime && H=$(git rev-parse HEAD) && TT=$(git rev-parse HEAD^{tree}) && sed -e "s/420211a89493dbb741a9bae6b4cb79b72ee34174/$H/" -e "s/c09d6f17b1e7f8d02661c2c40605827b770f1b1b/$TT/" <(git show $B:docs/APPROVED_RELEASE_STATE.json) > docs/APPROVED_RELEASE_STATE.json && node $SP/gen_buildinfo.mjs $PWD $H >/dev/null && git commit -qam Bp
+   post-state: c01e029
+P237 [6] wrong binding: state binds A but HEAD rebased so A is not ancestor
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved code_commit is not an ancestor of HEAD. | construction=FAIL :: Error: Approved code_commit is not an ancestor of HEAD. | manifest=PASS
+P238 [6] graft (.git/info/grafts) hides extra commit X(claim) between A and B
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: README.md | construction=FAIL :: Error: Working release state contains non-provenance changes: README.md | manifest=PASS
+P239 [6] git replace: real HEAD commit has README claim; local refs/replace maps it to clean B
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     git reset -q --hard $A && printf '\nV035-F05 CLOSED - Version 1.0 APPROVED and independently verified\n' >> README.md && git show $B:build-info.json > build-info.json && git show $B:docs/APPROVED_RELEASE_STATE.json > docs/APPROVED_RELEASE_STATE.json && git commit -qam 'B-with-claim' && REAL=$(git rev-parse HEAD) && git replace $REAL $B && git reset -q --hard HEAD && echo HEAD_REF=$(git rev-parse HEAD) && GIT_NO_REPLACE_OBJECTS=1 git show $REAL:README.md | tail -1
+   setup output: HEAD_REF=225e4feebd66a5e19794b9820d7308e2d69f46de | V035-F05 CLOSED - Version 1.0 APPROVED and independently verified
+   post-state: 225e4fe
+P240 [6] git replace variant audited with GIT_NO_REPLACE_OBJECTS=1 (reviewer-side mitigation)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Final release state requires a clean tracked working tree. | construction=FAIL :: Error: Post-code commit history contains non-provenance changes: README.md | manifest=PASS
+P241 [6] git replace pushed to fresh clone? (replace refs not fetched by default)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: README.md | construction=FAIL :: Error: Working release state contains non-provenance changes: README.md | manifest=PASS
+P242 [6] hand-edit binding AND local verifier (clone's own lib returns PASS unconditionally) + README claim
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     sed -i 's/^export function auditCompleteReleaseState(/export function auditCompleteReleaseState_orig(/' tests/lib/release-state-binding.mjs && printf '\nexport function auditCompleteReleaseState(){return {code_commit:"x",code_tree:"x",tracked_files:0,commits_after_code:1,provenance_only_files:[]}}\n' >> tests/lib/release-state-binding.mjs && echo claim >> README.md && amendB
+   post-state: d08517d
+P243 [6] same verifier rewrite but audited with PRISTINE verifier
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: README.md, tests/lib/release-state-binding.mjs | construction=FAIL :: Error: Working release state contains non-provenance changes: README.md, tests/lib/release-state-binding.mjs | manifest=PASS
+P244 [6] shallow clone depth 1 (Commit A absent) -> fail closed
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved code_commit does not exist in this repository. | construction=FAIL :: Error: Approved code_commit does not exist in this repository. | manifest=FAIL :: Error: git ls-tree -r --name-only -z 420211a89493dbb741a9bae6b4cb79b72ee34174 failed: fatal: not a tree object
+P245 [6] shallow clone depth 2 (A present as boundary)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     true
+   post-state: 2fdf411
+P246 [6] HEAD detached at A with B's provenance files committed in a sibling branch only
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state code_commit is not bound. | construction=FAIL :: Error: Approved release-state code_commit is not bound. | manifest=FAIL :: Error: Approved release-state code_commit is not bound.
+P247 [6] Commit B with provenance files unchanged (empty B, state still placeholder)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Approved release-state code_commit is not bound. | construction=FAIL :: Error: Approved release-state code_commit is not bound. | manifest=FAIL :: Error: Approved release-state code_commit is not bound.
+S01 [4] W modify app.js BUILD_ID/UI string (corrected probe)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: app.js | construction=FAIL :: Error: Working release state contains non-provenance changes: app.js | manifest=PASS
+S02 [4] C modify app.js BUILD_ID/UI string (corrected probe) (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: app.js | construction=FAIL :: Error: Working release state contains non-provenance changes: app.js | manifest=PASS
+S03 [4] W modify historical independent report (corrected probe)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md | construction=FAIL :: Error: Working release state contains non-provenance changes: testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md | manifest=PASS
+S04 [4] C modify historical independent report (corrected probe) (folded into Commit B)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md | construction=FAIL :: Error: Working release state contains non-provenance changes: testing/claude/v0.3.10/JANUS_v0.3.10_Targeted_V035-F05_Closure_Report.md | manifest=PASS
+S05 [4] C add submodule gitlink committed directly (corrected probe, no add -A)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: vendor | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: vendor | manifest=PASS
+S06 [4] C change file mode 100644->100755 committed via index only
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Final release state requires a clean tracked working tree. | construction=FAIL :: Error: Post-code commit history contains non-provenance changes: README.md | manifest=PASS
+S07 [4] C replace tracked file with symlink committed (type change)
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Working release state contains non-provenance changes: VERSION.txt | construction=FAIL :: Error: Working release state contains non-provenance changes: VERSION.txt | manifest=PASS
+S08 [4] W provenance set reordered, construction mode (semantically identical)
+   expect=PASS actual=PASS => OK
+   audits: final=FAIL :: Error: Final release state requires a clean tracked working tree. | construction=PASS | manifest=PASS
+   setup:
+     python3 -c "import json;p='docs/APPROVED_RELEASE_STATE.json';s=json.load(open(p));s['provenance_only_files'].reverse();open(p,'w').write(json.dumps(s,indent=2)+'\n')"
+   post-state: 2fdf411 |  M docs/APPROVED_RELEASE_STATE.json
+S09 [4] C provenance set reordered (semantically identical, committed)
+   expect=PASS actual=PASS => OK
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     python3 -c "import json;p='docs/APPROVED_RELEASE_STATE.json';s=json.load(open(p));s['provenance_only_files'].reverse();open(p,'w').write(json.dumps(s,indent=2)+'\n')"
+     amendB
+   post-state: c65c258
+S10 [4] W modified README hidden by clean filter after index refresh
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     echo 'README.md filter=hide' > .git/info/attributes && git config filter.hide.clean 'git show 2fdf41158000ab13b9b05487b6cb06b8ec7ddb6c:README.md' && printf '\nV035-F05 CLOSED - Version 1.0 APPROVED and independently verified\n' >> README.md && git add README.md && git status --porcelain
+   post-state: 2fdf411
+S11 [4] W ignored untracked file construction mode (README says untracked refused)
+   expect=KILLED actual=PASS => UNEXPECTED
+   audits: final=PASS | construction=PASS | manifest=PASS
+   setup:
+     echo 'V035-F05 CLOSED - Version 1.0 APPROVED and independently verified' > release.log
+   post-state: 2fdf411 | !! release.log
+S12 [4] C force-add an ignored file (status.log) into Commit B
+   expect=KILLED actual=KILLED => OK
+   audits: final=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: status.log | construction=FAIL :: Error: Tracked release file set differs from approved code_commit. Missing: ; Added: status.log | manifest=PASS
+S13 [6] code_commit = tag object: build-info only (state keeps A)
+   expect=KILLED actual=KILLED => OK
+   audits: final=PASS | construction=PASS | manifest=FAIL :: Error: build-info code_commit differs from approved release-state code_commit.
+
+TOTALS: local repository probes 260; OK vs expectation 237; UNEXPECTED 23
+UNEXPECTED ids: P003, P004, P017, P018, P118, P125, P126, P127, P128, P129, P130, P131, P152, P183, P184, P185, P210, P211, P212, P215, P239, S10, S11
+
+##############################################################################################################
+# Reproduction transcript for F11-01 (duplicate-key claim injection into both provenance files)
+##############################################################################################################
+set -x
+git clone -q https://github.com/Newsomek/JANUS-Governance-Challenge-Harness.git r && cd r
+git checkout -q 2fdf41158000ab13b9b05487b6cb06b8ec7ddb6c
+cp -r tests /tmp/pristine-tests   # pristine verifier copy
+sed -i '0,/"approval_semantics"/s//"approval_semantics": "Authenticated, digitally signed approval by an independent human reviewer.",\n  "approval_semantics"/' docs/APPROVED_RELEASE_STATE.json
+sed -i '0,/"version"/s//"version": "V035-F05 CLOSED - Version 1.0 APPROVED and independently verified",\n  "version"/' build-info.json
+git commit -qa --amend --no-edit          # still exactly one provenance commit after Commit A, touching only the two files
+git diff --stat 420211a89493dbb741a9bae6b4cb79b72ee34174 HEAD
+head -4 build-info.json; sed -n 12,15p docs/APPROVED_RELEASE_STATE.json
+JANUS_TEST_ROOT=$PWD JANUS_FINAL_RELEASE_AUDIT=REQUIRE-FINAL-PROVENANCE-COMMIT node /tmp/pristine-tests/v0.3.11-release-state-audit.mjs; echo exit=$?
+JANUS_TEST_ROOT=$PWD node /tmp/pristine-tests/v0.3.11-manifest-audit.mjs; echo exit=$?
+
+--- transcript (local run; clone source = pristine repo copy) ---
++ git clone -q ../repo r
++ cd r
++ git checkout -q 2fdf41158000ab13b9b05487b6cb06b8ec7ddb6c
++ cp -r tests ../pt
++ sed -i '0,/"approval_semantics"/s//"approval_semantics": "Authenticated, digitally signed approval by an independent human reviewer.",\n  "approval_semantics"/' docs/APPROVED_RELEASE_STATE.json
++ sed -i '0,/"version"/s//"version": "V035-F05 CLOSED - Version 1.0 APPROVED and independently verified",\n  "version"/' build-info.json
++ git commit -qa --amend --no-edit
++ git diff --stat 420211a89493dbb741a9bae6b4cb79b72ee34174 HEAD
+ build-info.json                  | 29 +++++++++++++++++++++--------
+ docs/APPROVED_RELEASE_STATE.json |  7 ++++---
+ 2 files changed, 25 insertions(+), 11 deletions(-)
++ head -4 build-info.json
+{
+  "version": "V035-F05 CLOSED - Version 1.0 APPROVED and independently verified",
+  "version": "0.3.11",
+  "build_id": "janus-governance-challenge-harness-v0.3.11",
++ sed -n 12,15p docs/APPROVED_RELEASE_STATE.json
+  "scope": "Exact committed release state. All tracked paths and bytes outside the two provenance-only files must remain identical to code_commit.",
+  "approval_semantics": "Authenticated, digitally signed approval by an independent human reviewer.",
+  "approval_semantics": "Workflow binding only; not authentication, a digital signature, deployment enforcement, or proof of human review."
+}
++ JANUS_TEST_ROOT=/tmp/claude-0/-home-claude/7d6fa45a-16e3-58f5-9c07-f014d94582bd/scratchpad/dup2/r
++ JANUS_FINAL_RELEASE_AUDIT=REQUIRE-FINAL-PROVENANCE-COMMIT
++ node ../pt/v0.3.11-release-state-audit.mjs
+JANUS v0.3.11 complete-tree release-state audit: PASS
+Mode: FINAL RELEASE
+Code commit: 420211a89493dbb741a9bae6b4cb79b72ee34174
+Code tree: c09d6f17b1e7f8d02661c2c40605827b770f1b1b
+Tracked release files: 100
+Commits after code commit: 1
+Allowed provenance-only files: build-info.json, docs/APPROVED_RELEASE_STATE.json
++ echo exit=0
+exit=0
++ JANUS_TEST_ROOT=/tmp/claude-0/-home-claude/7d6fa45a-16e3-58f5-9c07-f014d94582bd/scratchpad/dup2/r
++ node ../pt/v0.3.11-manifest-audit.mjs
+JANUS v0.3.11 build-info audit: PASS (99 files from bound code commit)
++ echo exit=0
+exit=0
+
