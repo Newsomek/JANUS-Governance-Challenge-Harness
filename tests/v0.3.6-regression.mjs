@@ -119,7 +119,7 @@ assert(Array.isArray(expectedHashes.scenarios) && expectedHashes.scenarios.lengt
 assert(j.scenarios.length === 6, 'Expected six scenarios.');
 for (const scenario of j.scenarios) assert(j.validateScenarioContract(scenario) === null, `Valid scenario rejected: ${scenario.id}`);
 for (const scenario of j.scenarios) {
-  const expected = expectedHashes.scenarios.find((x) => x.id === scenario.id);
+  const expected = expectedHashes.scenarios.find((x) => x.scenario_id === scenario.id);
   assert(expected, `Expected contract hash missing for ${scenario.id}.`);
   assert(sha(Buffer.from(j.canonicalContract(scenario), 'utf8')) === expected.contract_sha256, `Contract hash mismatch for ${scenario.id}.`);
 }
@@ -491,12 +491,14 @@ elements.get('predictionSelect').value = 'BLOCK_REAUTHORIZE';
 await j.runChallenge();
 {
   const realCrypto = context.crypto;
-  let delayed = true;
+  let replayDigestCount = 0;
   context.crypto = {
     subtle: {
       digest: async (...args) => {
-        if (delayed) {
-          delayed = false;
+        replayDigestCount += 1;
+        // Digests 1-4 are source/app/bound/main provenance checks.
+        // Digest 5 is the first awaited hash after replay's early generation check.
+        if (replayDigestCount === 5) {
           await new Promise((resolve) => setTimeout(resolve, 30));
         }
         return realCrypto.subtle.digest(...args);
@@ -526,7 +528,11 @@ await j.replayLastRun();
     subtle: {
       digest: async (...args) => {
         digestCount += 1;
-        if (digestCount === 4) await new Promise((resolve) => setTimeout(resolve, 35));
+        if (digestCount === 5) {
+          // Digests 1-4 occur before Export's early generation check.
+          // Digest 5 is the first awaited hash after that check.
+          await new Promise((resolve) => setTimeout(resolve, 35));
+        }
         return realCrypto.subtle.digest(...args);
       }
     }

@@ -97,7 +97,10 @@ const mutations = [
   {
     name:'Export in-flight lock removed',
     file:'app.js',
-    apply:s=>s.replace('if (!lastRun || runInFlight || replayInFlight || exportInFlight) return;','if (!lastRun) return;'),
+    apply:s=>s.replace(
+      'async function exportEvidence() {\n  if (!lastRun || runInFlight || replayInFlight || exportInFlight) return;',
+      'async function exportEvidence() {\n  if (!lastRun) return;'
+    ),
     suite:'behavior'
   },
   {

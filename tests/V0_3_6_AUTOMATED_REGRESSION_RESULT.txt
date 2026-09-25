@@ -1,0 +1,101 @@
+JANUS Governance Challenge Harness v0.3.6
+Automated Regression Result
+
+Recorded at: 2026-09-25T05:47:48-04:00
+Candidate branch: hardening/v0.3.6
+Candidate HEAD before evidence commit: 4025e95fa68b55a5e3265f2d3870380bde3d3197
+
+JANUS SOURCE SHA-256
+--------------------
+Expected:
+21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
+
+Observed:
+21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
+
+Result: PASS
+
+AUTHORED SCENARIO-BLOCK SHA-256
+-------------------------------
+Expected:
+948536a17a454e59f782e023ac1ded8e30e9f33ca660c3dbd674273fe1b56488
+
+Hashing method:
+UTF-8 bytes beginning with the exact text "const scenarios = [" through the authored scenario array closing "];", including exactly one trailing LF after the semicolon. No preceding or following bytes are included.
+
+The behavioral regression independently reproduces this hash and fails if it differs.
+
+BEHAVIORAL REGRESSION
+---------------------
+JANUS v0.3.6 automated regression: PASS
+Canonical exports: 9; refusal alerts: 3
+
+Exit code: 0
+
+DOCUMENTATION AUDIT
+-------------------
+JANUS v0.3.6 documentation/release audit: PASS
+
+Exit code: 0
+
+MUTATION TARGET PREFLIGHT
+-------------------------
+JANUS v0.3.6 mutation target preflight: PASS (34/34 operators active)
+
+Exit code: 0
+
+MUTATION REGRESSION
+-------------------
+JANUS v0.3.6 mutation target preflight: PASS (34/34 operators active)
+KILLED: stored_core_match forced true
+KILLED: bound 404 treated as unavailable
+KILLED: collection uniqueness disabled
+KILLED: blank-rendering fillers deleted instead of spaced
+KILLED: U+007F stripping removed
+KILLED: whitespace collapse removed
+KILLED: duplicate commitment check removed
+KILLED: Run allowed during Replay/Export
+KILLED: Export in-flight lock removed
+KILLED: stored record validator bypassed
+KILLED: divergence failed-check list removes stored_core_match
+KILLED: unsafe scenario innerHTML sink restored
+KILLED: source hash mismatch accepted at Run
+KILLED: bound commit mismatch downgraded to unavailable
+KILLED: replay record_integrity_match forced true
+KILLED: export stored_record_snapshot_integrity forced true
+KILLED: scenario selection invalidation removed
+KILLED: Replay post-derive token check removed
+KILLED: Export event_log check forced true
+KILLED: late Export generation guard removed
+KILLED: S05 disposition changed to ESCALATE
+KILLED: expected contract hash altered
+KILLED: expected source SHA altered in app
+KILLED: README DevTools disclosure removed
+KILLED: README digital-signature limitation inverted
+KILLED: UI digital-signature limitation removed
+KILLED: README premature Version 1.0 readiness claim added
+KILLED: README independent closure claim added
+KILLED: v0.3.3 superseded pointer regressed to v0.3.4
+KILLED: v0.3.2 V031-NEW-07 history falsely restored to closed
+KILLED: v0.3.4 superseded status removed
+KILLED: manifest coverage wording weakened
+KILLED: current release gate points to retired v0.3.5 suite
+KILLED: v0.3.5 gate no longer superseded
+JANUS v0.3.6 mutation regression: PASS (34/34 mutations killed)
+
+Exit code: 0
+
+OVERALL RESULT
+--------------
+PASS
+
+Mutation result:
+34/34 operators active.
+34/34 mutations killed.
+
+Independent closure is NOT claimed by this automated result.
+
+Remaining gates:
+1. deployed exact-artifact verification;
+2. targeted V035-F01 through V035-F09 closure test;
+3. one final full independent zero-open-finding adversarial regression.
