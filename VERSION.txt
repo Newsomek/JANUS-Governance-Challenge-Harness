@@ -20,9 +20,9 @@ Release-state governance:
 - final release audit requires exactly one provenance commit after the bound code commit and a clean tracked working tree
 
 Build-manifest semantics:
-- build-info.json records SHA-256 hashes for every file in the bound Commit A tree except build-info.json itself
-- docs/APPROVED_RELEASE_STATE.json is therefore represented by its Commit A placeholder bytes, not its later served Commit B bytes
-- Commit B changes exactly build-info.json and docs/APPROVED_RELEASE_STATE.json; their schemas and canonical byte representations are separately constrained
+- build-info.json records SHA-256 hashes for every non-provenance file in the bound Commit A tree
+- build-info.json and docs/APPROVED_RELEASE_STATE.json are both excluded from the manifest file map
+- Commit B changes exactly those two provenance files; their schemas, canonical byte representations, binding, and commit topology are separately constrained
 
 Authored scenario content: unchanged.
 JANUS source document: unchanged.

@@ -3,6 +3,10 @@ import path from "node:path";
 import crypto from "node:crypto";
 import {spawnSync} from "node:child_process";
 
+import {
+  PROVENANCE_ONLY_FILES
+} from "./release-state-binding-v0.3.12.mjs";
+
 export const BUILD_INFO_KEYS =
   Object.freeze([
     "build_id",
@@ -298,7 +302,7 @@ export function auditBuildInfo(
       .filter(Boolean)
       .filter(
         p =>
-          p !== "build-info.json"
+          !PROVENANCE_ONLY_FILES.includes(p)
       )
       .sort();
 

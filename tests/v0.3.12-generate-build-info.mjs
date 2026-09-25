@@ -8,6 +8,10 @@ import {
   canonicalBuildInfoText
 } from "./lib/build-info-schema-v0.3.12.mjs";
 
+import {
+  PROVENANCE_ONLY_FILES
+} from "./lib/release-state-binding-v0.3.12.mjs";
+
 const here =
   path.dirname(
     fileURLToPath(
@@ -163,7 +167,7 @@ const paths =
     .filter(Boolean)
     .filter(
       p =>
-        p !== "build-info.json"
+        !PROVENANCE_ONLY_FILES.includes(p)
     )
     .sort(
       (a,b) =>

@@ -45,11 +45,11 @@ Commit B changes exactly:
 - version;
 - Build ID;
 - exact Commit A SHA;
-- SHA-256 for every file in Commit A except `build-info.json` itself.
+- SHA-256 for every non-provenance file in Commit A.
 
-Therefore the manifest records the Commit A placeholder bytes of `docs/APPROVED_RELEASE_STATE.json`, not the later served Commit B state bytes.
+Both provenance-only files — `build-info.json` and `docs/APPROVED_RELEASE_STATE.json` — are excluded from the manifest file map.
 
-The served Commit B release-state file is constrained separately by:
+The served Commit B provenance files are constrained separately by:
 
 - its fixed schema;
 - its fixed semantic values;
