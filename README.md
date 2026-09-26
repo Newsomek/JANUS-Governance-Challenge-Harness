@@ -2,15 +2,15 @@
 
 A dependency-free external architectural challenge harness for examining governance claims described in
 the **JANUS Orientation Edition 2026**.
-## v1.0 — independently gated release candidate
+## v1.0 — independently qualified release
 
-The Version 1.0 candidate is built directly from the deployed v0.3.14 release.
+Version 1.0 completed independent deployed-artifact qualification with zero open actionable findings and was released on 26 September 2026.
 
-The v0.3.14 deployed qualification passed the complete runtime and governance behavior suite but found one Low documentation finding, `V0314-F01`. Because the project uses a zero-actionable-finding rule, `V0313-F01` remained not closed.
+The immutable v1.0 release is identified by tag `v1.0`.
 
-The v1.0 candidate therefore performs one consolidated documentation/process cleanup while preserving the already-qualified runtime behavior, six authored scenarios, canonical dispositions, contract hashes, and JANUS source document.
+The six authored scenarios, canonical dispositions, contract hashes, and JANUS source document were independently exercised against the deployed artifact before release.
 
-The candidate is **not yet the Version 1.0 release**. It must first be constructed, locally gated, deployed, and independently tested directly with zero actionable findings.
+The current `main` branch may contain bounded post-release attribution, licensing, or status-documentation updates. Those updates do not alter the immutable v1.0 tag or imply a new release.
 
 ### Current v1.0 candidate control suites
 
@@ -390,3 +390,16 @@ v0.3.6 local release gates (historical):
 - `tests/V0_3_6_RELEASE_GATE.md`
 
 Independent closure is **not** claimed until a targeted V035-F01 through V035-F09 closure test passes with zero actionable findings and one final full independent zero-open-finding adversarial regression also passes.
+## License and ownership
+
+The original JANUS Governance Challenge Harness code, test design, authored scenarios, documentation, and related Stratos Engine materials are copyright (c) 2026 Kelly Newsome and are provided under the repository's **Source-Available Noncommercial License v1.0**.
+
+See [`LICENSE`](LICENSE).
+
+The license permits public inspection and specified noncommercial use while reserving commercial and public derivative-work rights.
+
+**JANUS is not licensed by this repository.** JANUS, including the system, concept, architecture, underlying ideas, and the **JANUS Orientation Edition 2026**, remains the work of **Eryk Dubiel**.
+
+Nothing in the harness license transfers ownership of, sublicenses, or grants rights in JANUS or JANUS source materials.
+
+The harness is an independent external architectural governance challenge and does not imply endorsement, certification, sponsorship, partnership, or approval by Eryk Dubiel.

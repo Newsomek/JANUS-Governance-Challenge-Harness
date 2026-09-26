@@ -1,0 +1,149 @@
+JANUS GOVERNANCE CHALLENGE HARNESS
+SOURCE-AVAILABLE NONCOMMERCIAL LICENSE
+Version 1.0
+
+Copyright (c) 2026 Kelly Newsome.
+All rights reserved except as expressly granted below.
+
+1. PURPOSE
+
+This license permits public inspection, copying, sharing of unmodified copies,
+and noncommercial use of the JANUS Governance Challenge Harness while
+reserving commercial and derivative-work rights to the copyright holder.
+
+This is a source-available license. It is not an open-source license.
+
+2. PERMITTED USE
+
+Subject to the conditions of this license, you may:
+
+a. view and inspect the software, source code, tests, documentation, and other
+   original harness materials;
+
+b. download and make copies of the unmodified project;
+
+c. use the unmodified project for personal, educational, academic, research,
+   evaluation, demonstration, criticism, testing, and other noncommercial
+   purposes;
+
+d. share or redistribute complete, unmodified copies of the project, provided
+   that this license, copyright notices, attribution, third-party ownership
+   notices, and disclaimers remain intact.
+
+3. PRIVATE MODIFICATION AND DERIVATIVE WORKS
+
+You may modify your own private copy of the project for personal, educational,
+academic, research, evaluation, demonstration, criticism, testing,
+experimentation, and other noncommercial purposes.
+
+Private modification may include changes to source code, tests, documentation,
+configuration, scenarios, rules, and other original harness materials.
+
+You may not publish, distribute, sublicense, sell, offer, host for third-party
+use, or otherwise make available a modified version, adaptation, derivative
+work, or altered copy of the project without prior written permission from the
+copyright holder.
+
+You may not use a modified or derivative version for commercial purposes
+without prior written permission from the copyright holder.
+
+Permission to modify a private copy does not grant permission to alter the
+official JANUS Governance Challenge Harness repository, official releases,
+official version history, branding, or other project materials controlled by
+the copyright holder.
+
+You may not represent a private modification as an official version, approved
+version, endorsed version, or release of the JANUS Governance Challenge
+Harness.
+
+Configuration and scenario inputs expressly exposed by the application may be
+changed as part of ordinary permitted use and experimentation.
+
+No permission is granted to distribute a competing, derivative, or commercial
+implementation based substantially on protected harness materials without
+prior written permission from the copyright holder.
+
+4. COMMERCIAL USE
+
+Commercial use is prohibited without prior written permission from the
+copyright holder.
+
+Commercial use includes use primarily intended for or directed toward
+commercial advantage, monetary compensation, paid products or services,
+commercial consulting deliverables, resale, licensing for a fee, or
+incorporation into a commercial product or service.
+
+5. ATTRIBUTION
+
+Redistributed unmodified copies must retain:
+
+- the name JANUS Governance Challenge Harness;
+- copyright notice for Kelly Newsome;
+- this license;
+- existing attribution and acknowledgment notices;
+- attribution identifying JANUS and the JANUS Orientation Edition 2026 as
+  the work of Eryk Dubiel.
+
+You may not imply endorsement, sponsorship, certification, partnership, or
+approval by Kelly Newsome, Stratos Engine, Eryk Dubiel, or JANUS.
+
+6. NO TRADEMARK LICENSE
+
+This license grants no rights in project names, logos, marks, branding, or
+other source-identifying designations except as reasonably necessary to
+identify an authorized unmodified copy of the project.
+
+7. NO WARRANTY
+
+THE PROJECT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, ACCURACY, RELIABILITY, OR
+FITNESS FOR ANY GOVERNANCE, LEGAL, REGULATORY, OPERATIONAL, OR COMMERCIAL
+PURPOSE.
+
+8. LIMITATION OF LIABILITY
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE COPYRIGHT HOLDER SHALL NOT BE
+LIABLE FOR ANY CLAIM, DAMAGES, LOSS, OR OTHER LIABILITY ARISING FROM, OUT OF,
+OR IN CONNECTION WITH THE PROJECT OR ITS USE.
+
+9. EXPERIMENTAL NATURE
+
+The project is an experimental governance challenge harness.
+
+Results produced by the harness do not establish that JANUS is implemented in
+a particular way, certify JANUS, validate unpublished JANUS behavior, or prove
+that a governance interpretation is legally valid, normatively correct, or
+universally applicable.
+
+Passing software or qualification tests demonstrates the behavior and internal
+consistency of the harness within its stated evidence boundaries. It does not
+constitute certification of JANUS.
+
+10. JANUS AND THIRD-PARTY MATERIALS
+
+This license applies only to original JANUS Governance Challenge Harness
+materials owned by Kelly Newsome.
+
+JANUS, including the JANUS system, concept, architecture, underlying ideas,
+and the JANUS Orientation Edition 2026, remains the work of Eryk Dubiel.
+
+Nothing in this license transfers ownership of, relicenses, sublicenses, or
+grants rights in JANUS or the JANUS Orientation Edition 2026.
+
+The inclusion or reference of JANUS materials in this repository is solely for
+the documented external governance review and challenge context of this
+harness.
+
+Any rights to reproduce, modify, distribute, commercialize, or create
+derivative works from JANUS or JANUS source materials must come from Eryk
+Dubiel or another applicable rights holder, except where otherwise permitted
+by law.
+
+11. OTHER RIGHTS
+
+No rights are granted except those expressly stated in this license.
+
+For permissions beyond this license, including commercial use or distribution
+of modified versions of the harness, obtain prior written permission from the
+copyright holder.
