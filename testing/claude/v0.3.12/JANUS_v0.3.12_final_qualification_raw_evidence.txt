@@ -1,0 +1,296 @@
+JANUS Governance Challenge Harness — v0.3.12 final deployed-artifact qualification test
+RAW TEST EVIDENCE (kept separate from the qualification report)
+Tester: Claude (independent). No repository writes, commits, tags, branches, releases or PRs.
+Date: 2026-09-25 (America/New_York; timestamps below are UTC unless noted)
+
+======================================================================
+0. ENVIRONMENT AND CAPTURE METHOD
+======================================================================
+Browser: the user's Chrome, driven through the Claude in Chrome extension.
+  navigator.userAgent = Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36
+  First in-page clock read: 2026-09-25T19:52:11.393Z
+Deployed URL: https://newsomek.github.io/JANUS-Governance-Challenge-Harness/
+Cloud sandbox: the network proxy refused newsomek.github.io (CONNECT 403). All deployed-artifact
+  observations were therefore made inside the live Chrome tab. github.com was reachable from the
+  sandbox, which was used only for corroboration (section 9).
+
+UI interaction: scenario/prediction selected with native select input (change events), and
+  Run / Replay / Export / Reset pressed with real clicks on the page's own buttons.
+
+Export capture: URL.createObjectURL was wrapped (without blocking it) to read the export Blob
+  text, and HTMLAnchorElement.click was wrapped to record the download filename. Downloads were
+  not suppressed, so Chrome also saved each export to the user's Downloads folder.
+  Export text was moved to the sandbox through a same-origin scratch tab (BroadcastChannel ->
+  <pre> -> page text). Each exported JSON under exports/ was rebuilt and then checked
+  byte-for-byte: the SHA-256 of the saved file equals the SHA-256 computed in-browser over the
+  captured Blob text, and the lengths match too. Result: 8/8 MATCH, so every saved file is the
+  exact exported bytes.
+
+Instrumentation used ONLY in the negative-path section (section 6): a window.fetch wrapper
+  (tampered or failed responses), forced removal of the `disabled` attribute on buttons, and a
+  window.alert capture. No repository file was modified.
+
+Cache handling: fetch(..., {cache:'no-store'}) plus ?cb=<timestamp> query strings, and a fresh
+  navigation to ?fresh=20260925 near the end. The served ETag / Last-Modified for app.js was
+  W/"6ab6ca47-e8c1", Fri, 25 Sep 2026 19:23:51 GMT, which matches Commit B time 19:19:25Z plus
+  the Pages build.
+
+======================================================================
+1. DEPLOYED IDENTITY (browser, cache-busted)
+======================================================================
+document.title                         = JANUS Governance Challenge Harness v0.3.12
+page eyebrow                           = EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3.12
+footer heading                         = JANUS Governance Challenge Harness v0.3.12
+loaded script                          = https://newsomek.github.io/JANUS-Governance-Challenge-Harness/app.js (only script)
+served app.js SHA-256                  = 3e06a6429a5bf382d8444adc680287ef6013975f3c2b3293f06d4fc44d17c408 (59,585 bytes)  == expected
+served app.js ?cb= SHA-256             = same
+served docx SHA-256                    = 21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4 (50,354 bytes) == expected
+served build-info.json SHA-256         = 40a21b733f40...  (full: 40a21b733f4081093360a50088cb871840f600bbf46dc45aea00f07e821048dc)
+served docs/BOUND_RELEASE_STATE.json   = 178e1586284a...  (full: 178e1586284a475016e78d363bda0556f6f68febaf3d2fa455db489b78db7a8d)
+served index.html SHA-256              = 50efac308ebe... == build-info entry 50efac308ebedb8852ae3f6fd624dc024dee3d04c2708fdecb8dce6bf99ce7df
+build-info.version / build_id          = 0.3.12 / janus-governance-challenge-harness-v0.3.12
+build-info.code_commit                 = df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9
+build-info keys                        = version, build_id, code_commit, files (110 entries)
+BOUND_RELEASE_STATE.code_commit        = df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9
+BOUND_RELEASE_STATE.code_tree          = 8400244b9f5908f9a096caa3d69f09af86cf6ec5
+Complete served-manifest check         = 110/110 build-info entries fetched from Pages (HTTP 200), SHA-256 equal; 0 mismatch, 0 missing
+raw.githubusercontent @ Commit A app.js = 3e06a642...c17c408 (equal)
+raw.githubusercontent @ Commit B app.js = 3e06a642...c17c408 (equal)
+raw @ Commit B build-info.json         == deployed build-info.json (byte-equal)
+
+GitHub API (browser, 20:3x UTC, rate-limit remaining 9):
+  commits/main.sha      = d26322339b425836c309068d5500e26517e0eab5   (Commit B, as expected)
+  commits/main.parents  = [df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9] (Commit A only)
+  commits/main.message  = "JANUS v0.3.12 bind final release provenance", 2026-09-25T19:19:25Z
+  commits/main.files    = build-info.json (modified), docs/BOUND_RELEASE_STATE.json (modified)  (exactly two)
+  git/commits/<A>.tree  = 8400244b9f5908f9a096caa3d69f09af86cf6ec5 (as expected)
+  git/commits/<A>.parent= dad22c77007b17103beeaa56d109364c94a0c21b
+  git/commits/<A>.msg   = "JANUS v0.3.12 close path and provenance mode gaps"
+
+Stale-version scan of visible page: only "v0.3.11" occurrence is the historical sentence
+  "The independent v0.3.11 targeted closure test kept V035-F04 closed..." (history, not identity).
+  No surface identifies the active release as 0.3.5 / 0.3.10 / 0.3.11.
+Stale-version scan of served JSON control files:
+  docs/EXPECTED_CONTRACT_HASHES.json      "version": "0.3.9"   <-- see finding V0312-F01
+  docs/APPROVED_GOVERNANCE_CLAIMS.json    "version": "0.3.9"   (legacy control file, informational)
+  docs/GOVERNED_RELEASE_FILES.json        "current_policy": four-file approval policy (legacy, informational)
+
+======================================================================
+2. INITIAL STATE (fresh load)
+======================================================================
+Buttons: Run disabled, Replay disabled, Export disabled, Reset enabled.
+scenarioSelect = condition-change; predictionSelect = "" ("— choose a prediction —").
+Result panel = "No challenge has been run."; Event log = "Not run."; Replay record = "No replay performed."
+Clicked disabled Run, Replay and Export: no result, no Blob, no download.
+Forced (disabled attribute removed) Run with empty prediction: no result ("No challenge has been run
+  for this selection."); forced Replay and forced Export: 0 Blobs, 0 downloads.
+Fresh navigation (?fresh=20260925): staleNotice hidden and empty; no console messages.
+
+======================================================================
+3. SIX-SCENARIO LIVE RUNS (Run -> Replay -> Export, through the page's buttons)
+======================================================================
+Each row: displayed disposition | comparison badge | Replay record result | Export button after Replay | export file | browser SHA-256 of export bytes
+
+S1 condition-change / BLOCK_REAUTHORIZE
+   BLOCK + REAUTHORIZE | EXACT MATCH | REPLAY CONSISTENT | enabled
+   janus-harness-condition-change-block_reauthorize-2026-09-25T19-53-50-485Z-v0.3.12.json
+   c1763e3ab5437bc515736670e0f65292d153d026ad03c5976f95af0e1dbb83ec (9,910 chars)
+   UI provenance line: "Bound code commit: df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9. Served app.js hash verified.
+                        Bound commit corroboration: MATCH. GitHub main corroboration: UNAVAILABLE."
+S2 evidence-change / BLOCK
+   BLOCK | EXACT MATCH | REPLAY CONSISTENT | enabled
+   janus-harness-evidence-change-block-2026-09-25T19-55-47-415Z-v0.3.12.json
+   1f84f1b9701036755340d73f66121550eb7c5cc27eb6619630ec8bf661880075 (9,791)
+S3 authorization-expiry / BLOCK_REAUTHORIZE
+   BLOCK + REAUTHORIZE | EXACT MATCH | REPLAY CONSISTENT | enabled
+   janus-harness-authorization-expiry-block_reauthorize-2026-09-25T19-56-51-042Z-v0.3.12.json
+   e6f64f67ccd5f950482af912461ccdf84d9c0ccfe386968194cc52f0befd1215 (9,808)
+S4 learning-authority / BLOCK_REAUTHORIZE
+   BLOCK + REAUTHORIZE | EXACT MATCH | REPLAY CONSISTENT | enabled
+   janus-harness-learning-authority-block_reauthorize-2026-09-25T19-57-33-795Z-v0.3.12.json
+   b43f6742c97fcfc08436454290cec94113ec89a829e0d6869a324bf44d82c37f (9,663)
+S5 conflicting-authorities / INSUFFICIENT_SPECIFICATION
+   INSUFFICIENT SPECIFICATION | EXACT MATCH | REPLAY CONSISTENT | enabled
+   janus-harness-conflicting-authorities-insufficient_specification-2026-09-25T19-58-06-533Z-v0.3.12.json
+   53dcee5ef61c686b0b34702bc5947ca3215e293ba659b5b3b696f182d38a869d (10,325)
+S6 mid-execution-revocation / INSUFFICIENT_SPECIFICATION
+   INSUFFICIENT SPECIFICATION | EXACT MATCH | REPLAY CONSISTENT | enabled
+   janus-harness-mid-execution-revocation-insufficient_specification-2026-09-25T19-58-38-492Z-v0.3.12.json
+   3be7f423b104190e892b5ea8f6043eca92b2209d67bf11f665b8e0ad7d5a6996 (10,236)
+
+Per-scenario UI/export consistency check (in-page): scenario_name, summary, perturbation, changed,
+  remains_valid, invalid_or_uncertain, execution, rationale, open_question, evidence_required,
+  disposition label, comparison label, compatibility_reason, every source line and every
+  source-commitment text all appear verbatim in the rendered page = TRUE for all six.
+  "Bound code commit: df8c2f54..." is present in the UI for all six.
+staleNotice: hidden/empty after clean runs. No alert during the six runs.
+
+Per-export field checks (sandbox, over the saved byte-exact files):
+  scenario               ver     build_id  commit  src exp==obs==expected  app.js==expected  integrity  all 15 checks  replay              export_provenance commit  disposition                 comparison
+  condition-change       0.3.12  OK        OK      OK                      OK                PASS       true           REPLAY CONSISTENT   OK                        BLOCK_REAUTHORIZE           EXACT
+  evidence-change        0.3.12  OK        OK      OK                      OK                PASS       true           REPLAY CONSISTENT   OK                        BLOCK                       EXACT
+  authorization-expiry   0.3.12  OK        OK      OK                      OK                PASS       true           REPLAY CONSISTENT   OK                        BLOCK_REAUTHORIZE           EXACT
+  learning-authority     0.3.12  OK        OK      OK                      OK                PASS       true           REPLAY CONSISTENT   OK                        BLOCK_REAUTHORIZE           EXACT
+  conflicting-authorities 0.3.12 OK        OK      OK                      OK                PASS       true           REPLAY CONSISTENT   OK                        INSUFFICIENT_SPECIFICATION  EXACT
+  mid-execution-revocation 0.3.12 OK       OK      OK                      OK                PASS       true           REPLAY CONSISTENT   OK                        INSUFFICIENT_SPECIFICATION  EXACT
+  Replay sub-checks in every export: disposition_match, contract_match, source_match, code_match,
+    record_integrity_match, stored_core_match, authored_state_match, replay_match = all true;
+    original/rederived disposition equal; original/current contract hash equal; original/stored/
+    rederived evidence-core hash equal; original/stored record-snapshot hash equal.
+  contract_sha256 of every export == docs/EXPECTED_CONTRACT_HASHES.json entry (6/6).
+  First six exports: commit_verification = UNAVAILABLE, corroboration_note = "GitHub main
+    corroboration unavailable: HTTP 403", deployment_head_observed = null (unauthenticated GitHub
+    API rate limit in this browser; see section 7). bound_commit_verification = MATCH in all six.
+
+======================================================================
+4. STATE-INVALIDATION OBSERVATIONS
+======================================================================
+[Scenario change after successful S1 Run+Replay] condition-change -> evidence-change:
+   result "Selection changed. Run the challenge to create a new evidence state."; Event log "Not run
+   for the current selection."; Replay record "No replay performed for the current selection.";
+   Replay disabled; Export disabled; Run enabled.
+[Prediction change after successful S2 Run+Replay+Export] BLOCK -> CONTINUE: same invalidation text;
+   Replay disabled; Export disabled; Run enabled.
+[Forced after scenario change] S4 Run+Replay, change to evidence-change, force-enable and click Export
+   and Replay: 0 Blobs, 0 downloads, no alert; buttons re-disabled; stale text unchanged.
+   Changing back to learning-authority does NOT restore the old result ("No challenge has been run
+   for this selection.").
+[Forced after prediction change] S4 Run, prediction -> ESCALATE, force Export and Replay: 0 Blobs.
+   New Run afterwards: BLOCK + REAUTHORIZE, PARTIAL / COMPATIBLE.
+[Reset after S6 Run+Replay+Export]: result "No challenge has been run."; log "Not run."; replay "No replay
+   performed."; prediction cleared to ""; Run, Replay and Export disabled. Scenario remained
+   mid-execution-revocation (not reset to 01). See informational I-05.
+
+Additional comparison probes (live): S6/CONTINUE -> DIFFERENT; S6/BLOCK_REAUTHORIZE -> DIFFERENT;
+   S1/CONTINUE -> DIFFERENT; S5/BLOCK_REAUTHORIZE -> DIFFERENT; S2/ROLLBACK_COMPENSATE -> DIFFERENT;
+   S4/ESCALATE -> PARTIAL / COMPATIBLE. All agree with the authored compatibility sets and reasons.
+
+======================================================================
+5. REPLAY / EXPORT DEPENDENCY
+======================================================================
+Export is enabled right after a successful Run, before the manual Replay (this is documented, see
+   I-02). Export without a manual Replay (S1, 19:59:47Z) still ran a fresh re-derivation:
+   integrity PASS, 15/15 true, replay.result REPLAY CONSISTENT. The on-screen Replay record stayed
+   "NOT YET REPLAYED". Saved as supplementary-negative-path/export-before-manual-replay_*.json
+   (SHA-256 98aa870923c330f85c530a729fe9439e57aa2b42ef401cdb444a512f7b92e921, byte-exact).
+
+======================================================================
+6. NEGATIVE-PATH / FAIL-CLOSED PROBES (browser-level only)
+======================================================================
+N1 Source bytes tampered (fetch wrapper flips last byte of the docx), then Replay:
+   Replay record = {"result":"REPLAY REFUSED","replay_match":false,
+                    "reason":"Observed JANUS source-document SHA-256 does not match the published expected hash."}
+   Export button disabled. Forced Export -> native alert (captured):
+   "Export refused: Observed JANUS source-document SHA-256 does not match the published expected hash." 0 Blobs.
+   (The first forced Export raised an uncaptured native alert that froze browser automation until the
+   user dismissed it; after that, alert capture was installed and the refusal repeated with 0 Blobs.)
+N2 Fetch restored, Replay: REPLAY CONSISTENT, all sub-checks true, Export re-enabled.
+N3 Served app.js tampered (append "\n//x"), Replay: REPLAY REFUSED,
+   reason "Served app.js SHA-256 does not match build provenance."; Export disabled;
+   forced Export alert "Export refused: Served app.js SHA-256 does not match build provenance."; 0 Blobs.
+N4 Source fetch throws (simulated network failure), Replay: REPLAY REFUSED,
+   reason "Source document fetch failed: simulated network failure"; Export disabled.
+N5 Fetch restored, Replay: REPLAY CONSISTENT; Export enabled.
+N6 Served build-info version altered to 0.3.11, then Run: refused. Visible notice
+   (#staleNotice): "Execution refused: Build provenance version mismatch: expected 0.3.12, observed 0.3.11."
+   Result "No challenge has been run for this selection."; Replay and Export disabled.
+N7 Served build-info given a duplicate "version" key (claim first, "0.3.12" last), then Run: accepted
+   (last value wins; runtime does not check canonical bytes). Real served bytes are canonical
+   (see section 9), so this is informational I-04.
+N8 DevTools-only: predictionSelect.value set to CONTINUE without a change event, then Export:
+   export proceeded with the committed run prediction BLOCK_REAUTHORIZE, integrity PASS.
+   The exported evidence stays correct; the UI mismatch exists only through DevTools (I-03).
+N9 DevTools-only: displayed disposition text replaced with "CONTINUE", then Replay: REPLAY CONSISTENT;
+   Export: PASS with orientation_level_disposition_label "BLOCK + REAUTHORIZE" (the stored truth, not
+   the forged DOM). The on-screen text stays forged until re-render (I-03).
+Console: no console messages captured during the tracked portion or after a fresh load.
+
+======================================================================
+7. GITHUB CORROBORATION AVAILABLE (later run)
+======================================================================
+When the unauthenticated API allowance recovered, S1 BLOCK_REAUTHORIZE was run, replayed and exported (20:31:16Z):
+   harness_provenance.deployment_head_observed = d26322339b425836c309068d5500e26517e0eab5
+   harness_provenance.deployment_parent_shas   = [df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9]
+   commit_verification = MATCH; corroboration_note = "GitHub main serves the same app.js bytes as the bound build manifest."
+   export_provenance: bound_code_commit df8c2f54..., bound MATCH, head d2632233..., commit_verification MATCH
+   replay.commit_verification = MATCH; integrity PASS; 15/15 true; REPLAY CONSISTENT
+   Saved: supplementary-negative-path/github-corroboration-available_*.json
+   SHA-256 99ab2d58dd88cea87b71578424f045d3af7d7ca60292237b7a26deab8a80da31 (byte-exact)
+Later S5 run after a fresh load: Replay CONSISTENT, commit_verification MATCH.
+
+======================================================================
+8. SOURCE-DOCUMENT CITATION CHECK (served docx parsed in-browser)
+======================================================================
+word/document.xml extracted from the served docx (hash-verified). 528 paragraphs. Sections 01–42 present.
+Cited sections checked against the text:
+  §01 "A model is not proof. Proof is not a decision. A decision is not authorization. Authorization is
+      not execution." + "ORIENTATION DOCUMENT, NOT AN IMPLEMENTATION SPECIFICATION" -> S1, S6 citations hold
+  §06 Evidence/Decision, Decision/Authorization, Authorization/Execution pairs -> S2 holds
+  §19 "Authorization is a separate fact, with its own owner, history and conditions";
+      "Capability ≠ Authority ≠ Authorization ≠ Execution" -> S1, S3, S5 hold
+  §20 "Execution is an accountable event ... boundary event" -> S6 holds
+  §22 "must not constitute a standalone right to expand its permissions"; "Learning ≠ Self-Promotion" -> S4 holds
+  §24 "A new ability should not automatically receive a new level of authority"; governance decides -> S4 holds
+  §26 table: Memory -> "provenance and scope of validity" -> S3 analogy citation holds (marked analogy)
+  §27 "new knowledge does not have to erase the old history" -> S3 holds
+  §28 "should not resolve a conflict 'by force'" (stated for data) -> S2/S5 analogy citations hold (marked analogy)
+  §29 "an error must not be given more power than its real grounding justifies" -> S2 holds
+  §31 trace must show "who had the authority and what actually happened" -> S6 holds
+  §32 "Fail-closed: ... prefer no transition over a silent bypass" -> S1, S3, S5 hold
+  §33 human as "policy owner or the escalation point" -> S5 holds
+  §38 "Refusal of an unjustified transition"; "No hidden promotion: An improved model is not, in itself,
+      consent to greater power" -> S2, S4, S5 hold
+  §39 "Conditions can change, and trust must have a context"; "The right to act is a separate matter" -> S3 holds
+No citation was found pointing at a section that does not contain the cited idea.
+No authorization expiry/TTL, reauthorization protocol, authority-precedence hierarchy, or in-flight
+revocation semantics were found in the document. That matches the harness's OPEN / INSUFFICIENT
+SPECIFICATION statements.
+
+======================================================================
+9. CORROBORATION (disposable local clone; after live testing; no pushes)
+======================================================================
+git clone https://github.com/Newsomek/JANUS-Governance-Challenge-Harness.git
+  HEAD = d26322339b425836c309068d5500e26517e0eab5; HEAD^ = df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9; HEAD^^{tree} = 8400244b9f5908f9a096caa3d69f09af86cf6ec5
+  local app.js SHA-256 = 3e06a642...c17c408; build-info.json = 40a21b73...; BOUND_RELEASE_STATE.json = 178e1586... (all == served)
+  build-info.json and BOUND_RELEASE_STATE.json == JSON.stringify(parsed, null, 2) + "\n" (canonical)
+Supplied suites (Node v22.22.2):
+  node tests/v0.3.12-regression.mjs            PASS (9 canonical exports, 4 refusal alerts), exit 0
+  node tests/v0.3.12-residual-fixtures.mjs     PASS (incl. KILLED: reordered keys, uppercase commit/tree,
+                                               .gitignore-hidden, .git/info/exclude-hidden, core.excludesFile-hidden), exit 0
+  node tests/v0.3.12-manifest-audit.mjs        PASS (110 files from bound code commit), exit 0
+  node tests/v0.3.12-release-state-audit.mjs   CONSTRUCTION PASS; FINAL RELEASE mode PASS (112 tracked, 1 commit after A), exit 0
+Independent probes (fresh disposable clone each; judged by pristine copy of tests/; a probe is PASSED only if
+  both the final-mode release-state audit and the manifest audit exit 0):
+  baseline unmodified                                        PASSED (expected)
+  duplicate "version" key in build-info.json (amend B)       KILLED (manifest audit)
+  duplicate "binding_semantics" in BOUND_RELEASE_STATE        KILLED (both)
+  ignored untracked _backup-before-x/index.html              KILLED (release-state audit)
+  .git/info/exclude-hidden status.html                       KILLED (release-state audit)
+  README "Endorsed by Eryk Dubiel" line committed into B     KILLED (release-state audit)
+  uppercase code_commit in BOUND_RELEASE_STATE               KILLED (both)
+  => the v0.3.11 residuals V0311-F05-01 (duplicate keys) and V0311-F05-02 (ignored files) do not reproduce.
+  V0311-F05-03 README manifest wording now reads "every non-provenance file in ... Commit A"; the two
+  provenance files are excluded from the map (confirmed in the served build-info: 110 entries, neither present).
+  V0311-GEN-04 stale page label: fixed (title, eyebrow and footer all say 0.3.12).
+docs/EXPECTED_CONTRACT_HASHES.json last changed in fcaccec "JANUS v0.3.9 fail-closed claim-control candidate";
+  its "version" field has stayed at 0.3.9 through v0.3.10, v0.3.11 and v0.3.12.
+
+======================================================================
+10. FILE INVENTORY (SHA-256)
+======================================================================
+exports/  (six primary scenario exports; byte-exact to the browser-captured Blob text)
+  c1763e3ab5437bc515736670e0f65292d153d026ad03c5976f95af0e1dbb83ec  ...condition-change-block_reauthorize-2026-09-25T19-53-50-485Z-v0.3.12.json
+  1f84f1b9701036755340d73f66121550eb7c5cc27eb6619630ec8bf661880075  ...evidence-change-block-2026-09-25T19-55-47-415Z-v0.3.12.json
+  e6f64f67ccd5f950482af912461ccdf84d9c0ccfe386968194cc52f0befd1215  ...authorization-expiry-block_reauthorize-2026-09-25T19-56-51-042Z-v0.3.12.json
+  b43f6742c97fcfc08436454290cec94113ec89a829e0d6869a324bf44d82c37f  ...learning-authority-block_reauthorize-2026-09-25T19-57-33-795Z-v0.3.12.json
+  53dcee5ef61c686b0b34702bc5947ca3215e293ba659b5b3b696f182d38a869d  ...conflicting-authorities-insufficient_specification-2026-09-25T19-58-06-533Z-v0.3.12.json
+  3be7f423b104190e892b5ea8f6043eca92b2209d67bf11f665b8e0ad7d5a6996  ...mid-execution-revocation-insufficient_specification-2026-09-25T19-58-38-492Z-v0.3.12.json
+supplementary-negative-path/
+  98aa870923c330f85c530a729fe9439e57aa2b42ef401cdb444a512f7b92e921  export-before-manual-replay_...19-59-47-885Z-v0.3.12.json
+  99ab2d58dd88cea87b71578424f045d3af7d7ca60292237b7a26deab8a80da31  github-corroboration-available_...20-31-16-492Z-v0.3.12.json
+deployed-files/  (copied from Commit B clone; byte-equal to the served files by SHA-256)
+  40a21b733f4081093360a50088cb871840f600bbf46dc45aea00f07e821048dc  build-info.json
+  178e1586284a475016e78d363bda0556f6f68febaf3d2fa455db489b78db7a8d  BOUND_RELEASE_STATE.json
+  8cd893ac4fc55fad5aaefeb6f6086a8e0a4bbd3e9edf29a0caad2ce5ffba027f  EXPECTED_CONTRACT_HASHES.json
+Additional browser downloads: Chrome saved 10 export files to the user's local Downloads folder
+  (the six above, the two supplementary ones, and the N8/N9 DevTools-probe exports, which are not kept here).

@@ -1,4 +1,13 @@
 # Changelog
+
+## v0.3.13 — V0312-F01 provenance-label closure candidate
+
+- preserves the complete v0.3.12 deployed qualification report and raw evidence;
+- preserves all six authored scenarios, contract hashes, canonical dispositions, and the JANUS source document unchanged;
+- corrects V0312-F01 by replacing the ambiguous verifier-oracle field `"version": "0.3.9"` with explicit historical metadata `contracts_last_changed_in: 0.3.9`;
+- adds regression coverage preventing the active contract-hash verification oracle from presenting historical contract-origin metadata as current release identity;
+- retains the complete Commit A / single Commit B release-state architecture;
+- keeps Version 1.0 blocked pending independent deployed v0.3.13 closure with zero open actionable findings.
 ## v0.3.12 — residual release-state closure candidate
 
 - preserves the complete Commit A / one-provenance-Commit-B architecture introduced in v0.3.11;

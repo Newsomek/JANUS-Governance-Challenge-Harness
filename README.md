@@ -1,7 +1,23 @@
-# JANUS Governance Challenge Harness v0.3.12
+# JANUS Governance Challenge Harness v0.3.13
 
 A dependency-free external architectural challenge harness for examining governance claims described in
 the **JANUS Orientation Edition 2026**.
+## v0.3.13 — V0312-F01 provenance-label closure candidate
+
+The final independent deployed-artifact qualification test of v0.3.12 passed all six authored scenarios, replay, export, integrity, invalidation, release identity, claim-scope review, attribution review, and the original governance challenge.
+
+That test found one Low actionable finding: `V0312-F01`. The verifier-facing `docs/EXPECTED_CONTRACT_HASHES.json` correctly contained all six contract hashes but still carried the ambiguous top-level release-looking field `"version": "0.3.9"`.
+
+v0.3.13 is a bounded correction for that finding:
+
+- the six authored scenario contracts remain unchanged;
+- the six canonical dispositions remain unchanged;
+- the JANUS source document remains unchanged;
+- `docs/EXPECTED_CONTRACT_HASHES.json` now records `contracts_last_changed_in: 0.3.9` rather than presenting 0.3.9 as its active release version;
+- current regression coverage requires that the verifier oracle not expose an ambiguous top-level active-release `version` field;
+- the complete v0.3.12 independent qualification report and raw evidence are preserved under `testing/claude/v0.3.12/`.
+
+Version 1.0 remains blocked until the deployed v0.3.13 artifact independently closes V0312-F01 with zero open actionable findings. The resulting Version 1.0 artifact must then receive its own exact deployed verification before external delivery.
 
 ## v0.3.12 residual closure candidate
 

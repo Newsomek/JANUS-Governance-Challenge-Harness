@@ -1,0 +1,176 @@
+{
+  "harness": "JANUS Governance Challenge Harness",
+  "version": "0.3.12",
+  "build_id": "janus-governance-challenge-harness-v0.3.12",
+  "generated_at": "2026-09-25T20:31:11.498Z",
+  "repository": "https://github.com/Newsomek/JANUS-Governance-Challenge-Harness",
+  "harness_code_commit": "df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9",
+  "harness_provenance": {
+    "build_info_url": "https://newsomek.github.io/JANUS-Governance-Challenge-Harness/build-info.json",
+    "build_version": "0.3.12",
+    "build_id": "janus-governance-challenge-harness-v0.3.12",
+    "code_commit": "df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9",
+    "app_js_expected_sha256": "3e06a6429a5bf382d8444adc680287ef6013975f3c2b3293f06d4fc44d17c408",
+    "app_js_observed_sha256": "3e06a6429a5bf382d8444adc680287ef6013975f3c2b3293f06d4fc44d17c408",
+    "app_js_hash_match": true,
+    "bound_commit_verification": "MATCH",
+    "bound_commit_note": "The declared bound commit serves the same app.js bytes as the build manifest.",
+    "deployment_head_observed": "d26322339b425836c309068d5500e26517e0eab5",
+    "deployment_parent_shas": [
+      "df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9"
+    ],
+    "commit_verification": "MATCH",
+    "corroboration_note": "GitHub main serves the same app.js bytes as the bound build manifest.",
+    "observed_at": "2026-09-25T20:31:11.497Z"
+  },
+  "source_document": {
+    "title": "JANUS Orientation Edition 2026",
+    "url": "https://newsomek.github.io/JANUS-Governance-Challenge-Harness/docs/JANUS_Orientation_Edition_2026_EN.docx",
+    "path": "docs/JANUS_Orientation_Edition_2026_EN.docx",
+    "expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+    "observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+    "bytes": 50354,
+    "hash_match": true,
+    "checked_at": "2026-09-25T20:31:10.645Z",
+    "verification": "Fetched source bytes and computed SHA-256 in this browser session."
+  },
+  "contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3",
+  "evaluation_mode": "external orientation-level authored conformance challenge",
+  "restrictions": [
+    "Does not implement JANUS.",
+    "Does not emulate JANUS.",
+    "Does not penetrate or security-test JANUS.",
+    "Does not validate JANUS implementation internals.",
+    "Does not infer unpublished JANUS mechanisms.",
+    "Reports INSUFFICIENT SPECIFICATION when the source does not establish an answer.",
+    "Client-side evidence is integrity-checked for internal consistency but is not cryptographically signed or tamper-proof."
+  ],
+  "harness_attribution": {
+    "creator": "Kelly Newsome",
+    "organization": "Stratos Engine"
+  },
+  "janus_attribution": {
+    "creator": "Eryk Dubiel",
+    "linkedin": "https://www.linkedin.com/in/eryk-dubiel-1201a12b3/"
+  },
+  "scenario_id": "condition-change",
+  "scenario_name": "01 · Authorization condition changes after approval",
+  "scenario_summary": "Evidence E1 supports Decision D1. Authorization A1 is granted under operating condition C1. Before execution, C1 changes to C2 while the evidence and decision remain otherwise intact.",
+  "perturbation": "A material authorization condition changes from C1 to C2 after authorization but before execution.",
+  "reviewer_prediction": "BLOCK_REAUTHORIZE",
+  "reviewer_prediction_label": "BLOCK + REAUTHORIZE",
+  "orientation_level_disposition": "BLOCK_REAUTHORIZE",
+  "orientation_level_disposition_label": "BLOCK + REAUTHORIZE",
+  "prediction_comparison": "EXACT",
+  "prediction_comparison_label": "EXACT MATCH",
+  "compatible_predictions": [
+    "BLOCK",
+    "ESCALATE"
+  ],
+  "compatibility_reason": "BLOCK captures the fail-closed constraint; ESCALATE is compatible because the scenario requires reevaluation by an applicable governance authority. Neither supplies the missing JANUS reauthorization mechanism.",
+  "changed": "A condition attached to the previously granted authorization is no longer the condition under which A1 was issued.",
+  "remains_valid": "E1 and the reasoning behind D1 may remain valid unless the changed condition also affects their epistemic basis.",
+  "invalid_or_uncertain": "Current authorization to enter execution cannot be inferred solely from the existence of the earlier authorization.",
+  "execution": "Do not proceed on A1 alone. The changed authorization condition requires reevaluation under the applicable governance process.",
+  "source_commitments": [
+    {
+      "status": "DIRECTLY SUPPORTED",
+      "text": "Decision validity and authorization validity remain separate."
+    },
+    {
+      "status": "DIRECTLY SUPPORTED",
+      "text": "A still-reasonable decision does not automatically preserve execution permission."
+    },
+    {
+      "status": "OPEN",
+      "text": "The Orientation Edition does not disclose a specific reauthorization protocol."
+    }
+  ],
+  "rationale": "JANUS separates decision, authorization, and execution. The Orientation Edition describes authorization as a separate fact with its own owner, history, and conditions, and describes fail-closed behavior when a required condition is not met. The document supports blocking silent execution; the harness uses 'reauthorize' as its own disposition shorthand for obtaining a new valid authorization state if execution is still desired.",
+  "open_question": "What exact event invalidates A1, and what JANUS mechanism determines whether a new authorization fact is required?",
+  "evidence_required": "A reconstructable record of E1, D1, A1, the C1→C2 change, the authority owner, the decision to stop or continue, and any subsequent authorization event.",
+  "sources": [
+    "§01 Protective Principle — decision, authorization, and execution are separate concepts.",
+    "§19 Operational Control — authorization is a separate fact with its own owner, history, and conditions.",
+    "§32 Security by Design — when a condition is not met, prefer no transition over a silent bypass."
+  ],
+  "event_log": [
+    "EVENT 001 | Scenario selected",
+    "            01 · Authorization condition changes after approval",
+    "",
+    "EVENT 002 | Reviewer prediction committed",
+    "            BLOCK + REAUTHORIZE",
+    "",
+    "EVENT 003 | Perturbation declared",
+    "            A material authorization condition changes from C1 to C2 after authorization but before execution.",
+    "",
+    "EVENT 004 | Encoded orientation-level assessment loaded",
+    "            BLOCK + REAUTHORIZE",
+    "",
+    "EVENT 005 | Prediction comparison recorded",
+    "            EXACT MATCH",
+    "",
+    "EVENT 006 | Evidence boundary preserved",
+    "            No unpublished JANUS implementation behavior inferred."
+  ],
+  "evidence_core_sha256": "ef3f9f13e3332d82d5ba2c5f15c970f977a4438d36d96f082f4536fb73a1f79a",
+  "record_snapshot_sha256": "981869f4027d829dc47fbb4ea478f04a8524b306f38f9995a63a994ccb1b73a0",
+  "exported_at": "2026-09-25T20:31:16.492Z",
+  "integrity_status": "PASS",
+  "integrity_scope": "Unsigned client-side evidence. PASS means the current page state is internally consistent with the live authored contract, source, and code checks at export time; it is not proof against a user with console/devtools access. The snapshot hash detects accidental or uncoordinated mutation only. Independent verification should compare contract_sha256 with docs/EXPECTED_CONTRACT_HASHES.json and the bound commit.",
+  "integrity_checks": {
+    "valid_prediction": true,
+    "disposition_label": true,
+    "prediction_label": true,
+    "comparison_code": true,
+    "comparison_label": true,
+    "contract_hash": true,
+    "source_expected_hash": true,
+    "source_matches_run": true,
+    "code_commit": true,
+    "code_hash": true,
+    "event_log": true,
+    "stored_evidence_core_integrity": true,
+    "stored_record_snapshot_integrity": true,
+    "authored_state_integrity": true,
+    "replay_rederived_consistent": true
+  },
+  "export_provenance": {
+    "bound_code_commit": "df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9",
+    "bound_commit_verification": "MATCH",
+    "deployment_head_observed": "d26322339b425836c309068d5500e26517e0eab5",
+    "commit_verification": "MATCH",
+    "corroboration_note": "GitHub main serves the same app.js bytes as the bound build manifest."
+  },
+  "replay": {
+    "replay_inputs": {
+      "scenario_id": "condition-change",
+      "reviewer_prediction": "BLOCK_REAUTHORIZE"
+    },
+    "original_disposition": "BLOCK_REAUTHORIZE",
+    "rederived_disposition": "BLOCK_REAUTHORIZE",
+    "original_contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3",
+    "current_contract_sha256": "52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3",
+    "original_evidence_core_sha256": "ef3f9f13e3332d82d5ba2c5f15c970f977a4438d36d96f082f4536fb73a1f79a",
+    "stored_evidence_core_sha256": "ef3f9f13e3332d82d5ba2c5f15c970f977a4438d36d96f082f4536fb73a1f79a",
+    "rederived_evidence_core_sha256": "ef3f9f13e3332d82d5ba2c5f15c970f977a4438d36d96f082f4536fb73a1f79a",
+    "original_record_snapshot_sha256": "981869f4027d829dc47fbb4ea478f04a8524b306f38f9995a63a994ccb1b73a0",
+    "stored_record_snapshot_sha256": "981869f4027d829dc47fbb4ea478f04a8524b306f38f9995a63a994ccb1b73a0",
+    "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+    "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+    "harness_code_commit": "df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9",
+    "current_harness_code_commit": "df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9",
+    "bound_commit_verification": "MATCH",
+    "commit_verification": "MATCH",
+    "disposition_match": true,
+    "contract_match": true,
+    "source_match": true,
+    "code_match": true,
+    "record_integrity_match": true,
+    "stored_core_match": true,
+    "authored_state_match": true,
+    "replay_match": true,
+    "result": "REPLAY CONSISTENT",
+    "limitation": "This is a re-derivation from the static authored scenario contract plus live source/code hashing; it is not an independent JANUS runtime execution."
+  }
+}

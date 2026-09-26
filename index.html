@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="External adversarial governance challenge harness for the JANUS Orientation Edition 2026.">
-  <title>JANUS Governance Challenge Harness v0.3.12</title>
+  <title>JANUS Governance Challenge Harness v0.3.13</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
 
   <main class="shell">
     <header class="hero">
-      <div class="eyebrow">EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3.12</div>
+      <div class="eyebrow">EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3.13</div>
       <h1>JANUS Governance Challenge Harness</h1>
       <p class="lede">A small adversarial laboratory for examining whether the governance boundaries described in the JANUS Orientation Edition remain coherent when evidence, operating conditions, capability, or authority change.</p>
 
@@ -150,7 +150,7 @@
       <p><strong>Integrity limit.</strong> Evidence exports are unsigned client-side artifacts. PASS means the page's checks were internally consistent at export time; it is not a digital signature or proof against a user who controls DevTools/console state and can recompute client-side hashes.</p>
 
       <h2>Independent test record</h2>
-      <p>The repository preserves independent test evidence under <code>testing/claude/</code>. The independent v0.3.11 targeted closure test kept V035-F04 closed and found V035-F05 partially closed with four bounded residual issues. Version 0.3.12 retains the complete Commit A / Commit B release-state boundary while adding canonical provenance JSON bytes, detection of ignored/excluded untracked workspace files, corrected Commit A manifest semantics, and corrected public version identity. The binding remains a workflow declaration, not authentication, a digital signature, deployment enforcement, or proof of human review. V035-F05 remains pending targeted v0.3.12 closure testing plus one final independent zero-open-finding regression before any Version 1.0 promotion.</p>
+      <p>The repository preserves independent test evidence under <code>testing/claude/</code>. The final deployed v0.3.12 qualification test passed all six authored scenarios, replay, export, integrity, invalidation, release identity, source-conformance review, and the original governance challenge. It found one Low actionable provenance-label finding, V0312-F01: the verifier-facing contract-hash oracle still identified itself as version 0.3.9. Version 0.3.13 is a bounded closure candidate for that single finding. The six authored scenario contracts and canonical dispositions remain unchanged. Version 1.0 remains blocked pending independent deployed v0.3.13 closure with zero actionable findings.</p>
     </section>
   </main>
 
@@ -158,7 +158,7 @@
     <div class="footer-inner">
       <img class="footer-logo" src="assets/images/stratosengine_cover.jpg" alt="Stratos Engine">
       <div class="footer-copy">
-        <p><strong>JANUS Governance Challenge Harness v0.3.12</strong></p>
+        <p><strong>JANUS Governance Challenge Harness v0.3.13</strong></p>
         <p>Created by <a href="https://www.linkedin.com/in/michaelkellynewsome/" target="_blank" rel="noopener noreferrer">Kelly Newsome</a> · Stratos Engine</p>
         <p>Concept, experimental design, governance challenge structure, and product direction by Kelly Newsome. AI-assisted implementation.</p>
         <p class="footer-attribution">This harness is an independent external test of concepts described in the <em>JANUS Orientation Edition 2026</em>. JANUS — including the system, concept, architecture, and underlying ideas being examined here — is the work of <a href="https://www.linkedin.com/in/eryk-dubiel-1201a12b3/" target="_blank" rel="noopener noreferrer">Eryk Dubiel</a>.</p>

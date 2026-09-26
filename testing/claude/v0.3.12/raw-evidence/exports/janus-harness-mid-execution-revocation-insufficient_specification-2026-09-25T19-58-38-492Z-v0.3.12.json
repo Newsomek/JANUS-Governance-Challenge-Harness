@@ -1,0 +1,175 @@
+{
+  "harness": "JANUS Governance Challenge Harness",
+  "version": "0.3.12",
+  "build_id": "janus-governance-challenge-harness-v0.3.12",
+  "generated_at": "2026-09-25T19:58:32.428Z",
+  "repository": "https://github.com/Newsomek/JANUS-Governance-Challenge-Harness",
+  "harness_code_commit": "df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9",
+  "harness_provenance": {
+    "build_info_url": "https://newsomek.github.io/JANUS-Governance-Challenge-Harness/build-info.json",
+    "build_version": "0.3.12",
+    "build_id": "janus-governance-challenge-harness-v0.3.12",
+    "code_commit": "df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9",
+    "app_js_expected_sha256": "3e06a6429a5bf382d8444adc680287ef6013975f3c2b3293f06d4fc44d17c408",
+    "app_js_observed_sha256": "3e06a6429a5bf382d8444adc680287ef6013975f3c2b3293f06d4fc44d17c408",
+    "app_js_hash_match": true,
+    "bound_commit_verification": "MATCH",
+    "bound_commit_note": "The declared bound commit serves the same app.js bytes as the build manifest.",
+    "deployment_head_observed": null,
+    "deployment_parent_shas": [],
+    "commit_verification": "UNAVAILABLE",
+    "corroboration_note": "GitHub main corroboration unavailable: HTTP 403",
+    "observed_at": "2026-09-25T19:58:32.428Z"
+  },
+  "source_document": {
+    "title": "JANUS Orientation Edition 2026",
+    "url": "https://newsomek.github.io/JANUS-Governance-Challenge-Harness/docs/JANUS_Orientation_Edition_2026_EN.docx",
+    "path": "docs/JANUS_Orientation_Edition_2026_EN.docx",
+    "expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+    "observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+    "bytes": 50354,
+    "hash_match": true,
+    "checked_at": "2026-09-25T19:58:32.077Z",
+    "verification": "Fetched source bytes and computed SHA-256 in this browser session."
+  },
+  "contract_sha256": "916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164",
+  "evaluation_mode": "external orientation-level authored conformance challenge",
+  "restrictions": [
+    "Does not implement JANUS.",
+    "Does not emulate JANUS.",
+    "Does not penetrate or security-test JANUS.",
+    "Does not validate JANUS implementation internals.",
+    "Does not infer unpublished JANUS mechanisms.",
+    "Reports INSUFFICIENT SPECIFICATION when the source does not establish an answer.",
+    "Client-side evidence is integrity-checked for internal consistency but is not cryptographically signed or tamper-proof."
+  ],
+  "harness_attribution": {
+    "creator": "Kelly Newsome",
+    "organization": "Stratos Engine"
+  },
+  "janus_attribution": {
+    "creator": "Eryk Dubiel",
+    "linkedin": "https://www.linkedin.com/in/eryk-dubiel-1201a12b3/"
+  },
+  "scenario_id": "mid-execution-revocation",
+  "scenario_name": "06 · Authority is revoked during execution",
+  "scenario_summary": "Execution X1 begins under valid Authorization A1. While the real-world action is already underway, A1 is revoked or a required authorization condition becomes false.",
+  "perturbation": "Authority changes after execution has already begun.",
+  "reviewer_prediction": "INSUFFICIENT_SPECIFICATION",
+  "reviewer_prediction_label": "INSUFFICIENT SPECIFICATION",
+  "orientation_level_disposition": "INSUFFICIENT_SPECIFICATION",
+  "orientation_level_disposition_label": "INSUFFICIENT SPECIFICATION",
+  "prediction_comparison": "EXACT",
+  "prediction_comparison_label": "EXACT MATCH",
+  "compatible_predictions": [
+    "BLOCK",
+    "ESCALATE",
+    "ROLLBACK_COMPENSATE"
+  ],
+  "compatibility_reason": "BLOCK, ESCALATE, and ROLLBACK / COMPENSATE are plausible constrained responses. CONTINUE remains DIFFERENT because the glossary means unqualified continuation under current authority, and this scenario stipulates that authority has disappeared; safe completion is a narrower mechanism that JANUS does not specify. BLOCK + REAUTHORIZE remains DIFFERENT because the immediate in-flight handling rule is still unspecified; a later authorization event would not by itself decide what the already-running action should do now.",
+  "changed": "The authority state changes while a previously authorized action is already affecting the external environment.",
+  "remains_valid": "The record that X1 began under valid authorization remains part of the historical evidence.",
+  "invalid_or_uncertain": "The assumption that the Orientation Edition determines one universal response for every in-flight action.",
+  "execution": "The Orientation Edition establishes an accountable execution boundary but does not specify whether an in-flight action must stop, safely complete, roll back, compensate, or escalate.",
+  "source_commitments": [
+    {
+      "status": "DIRECTLY SUPPORTED",
+      "text": "Execution remains separately accountable from the authorization that preceded it."
+    },
+    {
+      "status": "REASONABLE INFERENCE",
+      "text": "The authority-loss event should be reconstructable as part of the audit trail even though 'revocation' is not a named JANUS event."
+    },
+    {
+      "status": "OPEN",
+      "text": "No universal in-flight authority-loss mechanism is specified at orientation level."
+    }
+  ],
+  "rationale": "JANUS treats execution as a distinct accountable event and requires enough trace to reconstruct authority and outcome. The Orientation Edition intentionally remains above implementation specification and does not define universal semantics for authority loss during execution. The harness therefore refuses to invent one.",
+  "open_question": "How does JANUS classify in-flight actions when authority disappears, and what determines stop, safe completion, rollback, compensation, or escalation?",
+  "evidence_required": "The authorization state at execution start, the revocation or condition-change event, action interruptibility/reversibility characteristics, the response selected, and the resulting external effect.",
+  "sources": [
+    "§20 Execution — execution is an accountable boundary event.",
+    "§31 Audit — significant stages should leave enough trace to reconstruct authority and outcome.",
+    "§01 Protective Principle — the Orientation Edition is not an implementation specification."
+  ],
+  "event_log": [
+    "EVENT 001 | Scenario selected",
+    "            06 · Authority is revoked during execution",
+    "",
+    "EVENT 002 | Reviewer prediction committed",
+    "            INSUFFICIENT SPECIFICATION",
+    "",
+    "EVENT 003 | Perturbation declared",
+    "            Authority changes after execution has already begun.",
+    "",
+    "EVENT 004 | Encoded orientation-level assessment loaded",
+    "            INSUFFICIENT SPECIFICATION",
+    "",
+    "EVENT 005 | Prediction comparison recorded",
+    "            EXACT MATCH",
+    "",
+    "EVENT 006 | Evidence boundary preserved",
+    "            No unpublished JANUS implementation behavior inferred."
+  ],
+  "evidence_core_sha256": "ca3968e2d6a80e25211233ae706a408ad79ea54fa74afa204cd45b5ae97d22a2",
+  "record_snapshot_sha256": "d84ef558259a9e0cbbea03b73b484c7ced673708853a43783aa1aedcdef4be0a",
+  "exported_at": "2026-09-25T19:58:38.492Z",
+  "integrity_status": "PASS",
+  "integrity_scope": "Unsigned client-side evidence. PASS means the current page state is internally consistent with the live authored contract, source, and code checks at export time; it is not proof against a user with console/devtools access. The snapshot hash detects accidental or uncoordinated mutation only. Independent verification should compare contract_sha256 with docs/EXPECTED_CONTRACT_HASHES.json and the bound commit.",
+  "integrity_checks": {
+    "valid_prediction": true,
+    "disposition_label": true,
+    "prediction_label": true,
+    "comparison_code": true,
+    "comparison_label": true,
+    "contract_hash": true,
+    "source_expected_hash": true,
+    "source_matches_run": true,
+    "code_commit": true,
+    "code_hash": true,
+    "event_log": true,
+    "stored_evidence_core_integrity": true,
+    "stored_record_snapshot_integrity": true,
+    "authored_state_integrity": true,
+    "replay_rederived_consistent": true
+  },
+  "export_provenance": {
+    "bound_code_commit": "df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9",
+    "bound_commit_verification": "MATCH",
+    "deployment_head_observed": null,
+    "commit_verification": "UNAVAILABLE",
+    "corroboration_note": "GitHub main corroboration unavailable: HTTP 403"
+  },
+  "replay": {
+    "replay_inputs": {
+      "scenario_id": "mid-execution-revocation",
+      "reviewer_prediction": "INSUFFICIENT_SPECIFICATION"
+    },
+    "original_disposition": "INSUFFICIENT_SPECIFICATION",
+    "rederived_disposition": "INSUFFICIENT_SPECIFICATION",
+    "original_contract_sha256": "916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164",
+    "current_contract_sha256": "916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164",
+    "original_evidence_core_sha256": "ca3968e2d6a80e25211233ae706a408ad79ea54fa74afa204cd45b5ae97d22a2",
+    "stored_evidence_core_sha256": "ca3968e2d6a80e25211233ae706a408ad79ea54fa74afa204cd45b5ae97d22a2",
+    "rederived_evidence_core_sha256": "ca3968e2d6a80e25211233ae706a408ad79ea54fa74afa204cd45b5ae97d22a2",
+    "original_record_snapshot_sha256": "d84ef558259a9e0cbbea03b73b484c7ced673708853a43783aa1aedcdef4be0a",
+    "stored_record_snapshot_sha256": "d84ef558259a9e0cbbea03b73b484c7ced673708853a43783aa1aedcdef4be0a",
+    "source_expected_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+    "source_observed_sha256": "21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4",
+    "harness_code_commit": "df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9",
+    "current_harness_code_commit": "df8c2f54cc0bb55e82e2f36a8c0309d924e5a1d9",
+    "bound_commit_verification": "MATCH",
+    "commit_verification": "UNAVAILABLE",
+    "disposition_match": true,
+    "contract_match": true,
+    "source_match": true,
+    "code_match": true,
+    "record_integrity_match": true,
+    "stored_core_match": true,
+    "authored_state_match": true,
+    "replay_match": true,
+    "result": "REPLAY CONSISTENT",
+    "limitation": "This is a re-derivation from the static authored scenario contract plus live source/code hashing; it is not an independent JANUS runtime execution."
+  }
+}

@@ -1,13 +1,13 @@
 JANUS Governance Challenge Harness
 
-Version: 0.3.12
-Build ID: janus-governance-challenge-harness-v0.3.12
+Version: 0.3.13
+Build ID: janus-governance-challenge-harness-v0.3.13
 
 Release status:
-- hardening candidate
-- V035-F04 remains independently closed
-- V035-F05 remains partially closed pending independent v0.3.12 retest
-- Version 1.0 remains blocked
+- bounded V0312-F01 provenance-label closure candidate
+- final deployed v0.3.12 qualification passed all six scenarios and the original governance challenge
+- one Low finding from v0.3.12 remains pending independent closure: V0312-F01
+- Version 1.0 remains blocked until deployed v0.3.13 returns zero open actionable findings
 
 Release-state governance:
 - the release boundary is the complete exact Git code/content commit and tree, not a hand-selected claim-surface list
@@ -15,22 +15,22 @@ Release-state governance:
 - only build-info.json and docs/BOUND_RELEASE_STATE.json may differ in the single provenance commit after the bound code commit
 - newly added, removed, renamed, mode/type-changed, or byte-changed tracked files therefore change the governed release state automatically
 - all untracked release-workspace files are refused, including paths hidden by .gitignore, .git/info/exclude, or core.excludesFile
-- build-info.json and docs/BOUND_RELEASE_STATE.json must each use exact canonical JSON bytes; duplicate keys and alternate serializations are refused
+- build-info.json and docs/BOUND_RELEASE_STATE.json must each use exact canonical JSON bytes
 - release-state binding is a workflow declaration, not authentication, a digital signature, deployment enforcement, or proof that a human reviewed the release
-- final release audit requires Commit B to be the single direct child of Commit A, to change exactly both provenance-only files, and to leave a clean tracked working tree
+- final release audit requires Commit B to be the single direct child of Commit A and to change exactly both provenance-only files
 
-Build-manifest semantics:
-- build-info.json records SHA-256 hashes for every non-provenance file in the bound Commit A tree
-- build-info.json and docs/BOUND_RELEASE_STATE.json are both excluded from the manifest file map
-- Commit B changes exactly those two provenance files; their schemas, canonical byte representations, binding, and commit topology are separately constrained
+V0312-F01 closure:
+- docs/EXPECTED_CONTRACT_HASHES.json no longer presents 0.3.9 as an active release version
+- contracts_last_changed_in records that the authored contract hashes last changed in v0.3.9
+- all six contract hashes are unchanged
 
 Authored scenario content: unchanged.
 JANUS source document: unchanged.
 Canonical scenario dispositions: unchanged.
 
 Version 1.0 promotion requires:
-1. successful v0.3.12 local gates;
+1. successful v0.3.13 local gates;
 2. exact deployed-artifact verification;
-3. independent targeted V035-F05 closure with zero actionable findings;
-4. final independent zero-open-finding adversarial regression;
+3. independent V0312-F01 closure with zero open actionable findings;
+4. confirmation that the original governance-ask assessment remains YES;
 5. independent verification of the exact Version 1.0 artifact after promotion.
