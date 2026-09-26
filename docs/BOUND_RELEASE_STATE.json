@@ -3,8 +3,8 @@
   "control": "complete-git-tree-bound-release-state",
   "version": "1.0",
   "build_id": "janus-governance-challenge-harness-v1.0",
-  "code_commit": "609b59454825f6712077cc9e360191128f15c510",
-  "code_tree": "e31ac6b213dd2ad1d82fd54e9e5666b00e58c5fc",
+  "code_commit": "fba0abe6798b2ec9ab3adfdf4fedf76e3ea61781",
+  "code_tree": "59cef55255d48e0d5acf58dd380169a13bb00c27",
   "provenance_only_files": [
     "build-info.json",
     "docs/BOUND_RELEASE_STATE.json"
