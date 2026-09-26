@@ -168,4 +168,48 @@ requireText(
   "Public page must identify the v1.0 candidate."
 );
 
+const indexCurrentStatus = read("index.html");
+const readmeCurrentStatus = read("README.md");
+
+const forbiddenCurrentStatusPhrases = [
+  "Version 1.0 remains blocked pending independent deployed v0.3.14",
+  "Version 1.0 remains blocked until the exact deployed v0.3.14 artifact independently closes V0313-F01",
+  "Version 0.3.14 is a bounded documentation/process closure candidate for that finding."
+];
+
+for (const phrase of forbiddenCurrentStatusPhrases) {
+  if (indexCurrentStatus.includes(phrase)) {
+    throw new Error(`index.html contains stale current-status wording: ${phrase}`);
+  }
+}
+
+if (
+  readmeCurrentStatus.includes(
+    "Version 1.0 remains blocked until the exact deployed v0.3.14 artifact independently closes V0313-F01"
+  )
+) {
+  throw new Error(
+    "README.md contains stale active v0.3.14 -> v1.0 transition wording."
+  );
+}
+
+if (
+  !indexCurrentStatus.includes(
+    "Version 1.0 is not yet tagged or released"
+  )
+) {
+  throw new Error(
+    "index.html must state that Version 1.0 is not yet tagged or released."
+  );
+}
+
+if (
+  !readmeCurrentStatus.includes(
+    "Version 1.0 is not yet tagged or released"
+  )
+) {
+  throw new Error(
+    "README.md must state that Version 1.0 is not yet tagged or released."
+  );
+}
 console.log("JANUS v1.0 documentation audit: PASS");

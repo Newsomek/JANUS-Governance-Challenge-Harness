@@ -44,7 +44,7 @@ v0.3.14 is a bounded correction for that release-documentation/process finding:
 - identifies earlier version-pinned regression suites as historical rather than current release gates;
 - adds a targeted v0.3.14 documentation audit covering the current closure objective, required-suite identity, and README control-suite labeling.
 
-Version 1.0 remains blocked until the exact deployed v0.3.14 artifact independently closes V0313-F01 with zero open actionable findings. Any resulting Version 1.0 artifact must then receive its own exact deployed independent verification before external delivery.
+The v1.0 candidate incorporates the bounded documentation/process corrections arising from the deployed v0.3.14 qualification. Version 1.0 is not yet tagged or released; the exact deployed v1.0 candidate must independently qualify with zero open actionable findings before external release.
 
 ### v0.3.14 control suites (historical):
 
