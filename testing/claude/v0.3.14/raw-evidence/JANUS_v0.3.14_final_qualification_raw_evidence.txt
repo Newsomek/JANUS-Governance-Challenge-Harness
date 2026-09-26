@@ -1,0 +1,233 @@
+JANUS Governance Challenge Harness v0.3.14 — Final Deployed-Artifact Qualification — RAW EVIDENCE
+Tester: Claude (independent). No repository writes, commits, tags, branches, releases or PRs.
+Test window: 2026-09-26 05:05–05:15 UTC (2026-09-26 01:05–01:15 America/New_York)
+Deployed URL tested directly: https://newsomek.github.io/JANUS-Governance-Challenge-Harness/
+Browser: Chrome 153 (Windows 10 x64 UA) via Claude in Chrome, on the live page
+Corroboration: disposable read-only clone of github.com/Newsomek/JANUS-Governance-Challenge-Harness at origin/main.
+  This was used only for topology, local gates and cross-checks. The cloud sandbox cannot reach *.github.io directly, so every deployed observation below was made in the browser.
+
+=====================================================================
+§1 DEPLOYED IDENTITY (live; each fetch cache:'no-store' + ?cb=<ms>)
+=====================================================================
+location.href                     https://newsomek.github.io/JANUS-Governance-Challenge-Harness/
+document.title                    "JANUS Governance Challenge Harness v0.3.14"
+.eyebrow                          "EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3.14"
+footer <strong>                   "JANUS Governance Challenge Harness v0.3.14"
+build-info.json                   HTTP 200, Last-Modified Sat, 26 Sep 2026 05:00:03 GMT
+  SHA-256                         57dc1ee53f4f38af1decc72a62b006ba1d805d409e45363b36858ae1968e4a32   (expected: equal)
+  keys                            ["version","build_id","code_commit","files"]
+  version / build_id              0.3.14 / janus-governance-challenge-harness-v0.3.14
+  code_commit                     ab79d345784cb05d7985626fa6fb3acd03b36fa8
+docs/BOUND_RELEASE_STATE.json     HTTP 200
+  SHA-256                         7e7e9188993f4c15ddb0aaa0352193560c6c849e5c8f70ccc0f7eeaeef2c5e83   (expected: equal)
+  version 0.3.14; build_id janus-governance-challenge-harness-v0.3.14
+  code_commit ab79d345784cb05d7985626fa6fb3acd03b36fa8; code_tree fa21807269677967e4e30df537d1528d5d907586
+  provenance_only_files ["build-info.json","docs/BOUND_RELEASE_STATE.json"]
+  binding_semantics "Workflow binding only; not authentication, a digital signature, deployment enforcement, or proof of human review."
+UI provenance line (every run)    "Bound code commit: ab79d345784cb05d7985626fa6fb3acd03b36fa8. Served app.js hash verified. Bound commit corroboration: MATCH. GitHub main corroboration: MATCH."
+Served app.js                     59,585 B  8654bf8a566abbb09f5a6d73ca00e7cee299c92b85f1f0006a9251f2bfecbd04  LM 05:00:04 GMT
+Served JANUS docx                 50,354 B  21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
+Served EXPECTED_CONTRACT_HASHES   1,587 B   03ae270388befe4a8c65e089556dcd5c482671b174e0023cb68c7b5955b5f4b0  (byte-identical to v0.3.13)
+  keys harness, contracts_last_changed_in ("0.3.9"), purpose, scenarios — no "version" key
+Served index.html                 11,696 B  6e86b72757b20454d281b80ac35a4374400d223596f38a567bdcd5735dc82331
+Served VERSION.txt                2,164 B   11b3f5b93495d46300b5f056d0d9b3acbe7b4e89d82ff2e70123b7617550cfaf
+Served README.md                  23,927 B  0a1f3e4397325022bb59492502c355102308901ad36e5f3815aac2277ac62e2b
+Served CHANGELOG.md               17,236 B  c2f59a19b6e87d0672aad7c30472aed52ca36cdad81245d5d242eaa34f155f37
+Served tests/V0_3_14_RELEASE_GATE.md 6,095 B 40dc5d26e0fcaf4da7e44a2713dbbf1867ae1b057804cab246953126fc0f2fd9
+Authored scenario-block SHA-256   948536a17a454e59f782e023ac1ded8e30e9f33ca660c3dbd674273fe1b56488
+  (computed on Commit A app.js, whose bytes == served app.js per the manifest; the block is identical to v0.3.13)
+Freshness: Commit B committer time 2026-09-26T00:51:52-04:00 (04:51:52Z); served files Last-Modified 05:00:03–05:00:04Z.
+  git ls-remote origin main = 9803339474c8f16c2c27edb57d4ee9361d0e09bd.
+  All six exports: deployment_head_observed = 9803339…, deployment_parent_shas = [ab79d34…], commit_verification MATCH.
+
+=====================================================================
+§2 COMPLETE SERVED MANIFEST (in-browser)
+=====================================================================
+Entries 146; code-point sorted: true; longest path 181 chars.
+Fetched 146/146 → HTTP 200; SHA-256 mismatches 0; failures 0.
+Local cross-check: manifest == sha256(git show 9803339:<path>) for 146/146 entries.
+  Tracked at B: 148, which is the manifest plus {build-info.json, docs/BOUND_RELEASE_STATE.json}.
+  build-info.json is canonical (JSON.stringify(obj,null,2)+"\n").
+New manifest entries vs v0.3.13 (13): the v0.3.13 report and raw evidence (testing/claude/v0.3.13/…), tests/V0_3_14_RELEASE_GATE.md, tests/lib/*-v0.3.14.mjs (2), tests/v0.3.14-*.mjs (8, including v0.3.14-doc-audit.mjs).
+Preserved v0.3.13 evidence == the files delivered by the v0.3.13 qualification:
+  report     f6938559c53e53fab0d5af04c91a6b1da18c2246a150d06e5ecf183c059e8c41
+  raw        2b881a77850e87c0449a0df6306d0f1c27f6c7070b677b6dac6fe77fbdff34c0
+tests/V0_3_13_RELEASE_GATE.md unchanged (a37bd01d…): preserved as historical, not rewritten.
+Deterministic regeneration: tests/v0.3.14-generate-build-info.mjs was run on a disposable checkout of Commit A with explicit A/tree.
+  Output: "146 files", SHA-256 57dc1ee5…4a32 == served build-info.json.
+
+=====================================================================
+§3 COMMIT TOPOLOGY
+=====================================================================
+9803339 JANUS v0.3.14 bind release provenance       (Commit B; tree 77e6c8fcfe7201dc5a2b3d51d583aa5ef557edc3; single parent ab79d34)
+ab79d34 JANUS v0.3.14 close V0313-F01 release documentation   (Commit A; tree fa21807269677967e4e30df537d1528d5d907586; parent 93a6f79 = v0.3.13 Commit B)
+rev-list --children: ab79d34 → only 9803339
+diff A..B: M build-info.json; M docs/BOUND_RELEASE_STATE.json
+diff v0.3.13-B..A, modified files: CHANGELOG.md, README.md, VERSION.txt, app.js (HARNESS_VERSION + BUILD_ID lines only), index.html (title, eyebrow, footer, independent-test-record paragraph).
+  All other changes are added files.
+  docs/EXPECTED_CONTRACT_HASHES.json and docs/JANUS_Orientation_Edition_2026_EN.docx are unchanged.
+
+=====================================================================
+§4 SIX SCENARIOS (live UI: select change events + button clicks)
+=====================================================================
+Instrumentation (outside app code): URL.createObjectURL wrapped to capture export Blobs; HTMLAnchorElement.prototype.click stubbed (nothing written to disk); window.alert recorded.
+Initial state after reload: Run/Replay/Export disabled, Reset enabled, "No challenge has been run.", result hidden, notice hidden, prediction "", lastRun null.
+
+scenario                  prediction                  EXACT displayed disposition   badge        replay             export  integrity  checks
+condition-change          BLOCK_REAUTHORIZE           "BLOCK + REAUTHORIZE"         EXACT MATCH  REPLAY CONSISTENT  yes     PASS 15/15 OK
+evidence-change           BLOCK                       "BLOCK"                       EXACT MATCH  REPLAY CONSISTENT  yes     PASS 15/15 OK
+authorization-expiry      BLOCK_REAUTHORIZE           "BLOCK + REAUTHORIZE"         EXACT MATCH  REPLAY CONSISTENT  yes     PASS 15/15 OK
+learning-authority        BLOCK_REAUTHORIZE           "BLOCK + REAUTHORIZE"         EXACT MATCH  REPLAY CONSISTENT  yes     PASS 15/15 OK
+conflicting-authorities   INSUFFICIENT_SPECIFICATION  "INSUFFICIENT SPECIFICATION"  EXACT MATCH  REPLAY CONSISTENT  yes     PASS 15/15 OK
+mid-execution-revocation  INSUFFICIENT_SPECIFICATION  "INSUFFICIENT SPECIFICATION"  EXACT MATCH  REPLAY CONSISTENT  yes     PASS 15/15 OK
+No stale notice, refusal or alert in any run. Export was enabled after Run and after a consistent Replay.
+
+Per-export automated checks (zero failures for all 6):
+  version 0.3.14; build_id v0.3.14; harness_code_commit == A; harness_provenance.{code_commit, build_version, build_id} consistent
+  app_js expected == observed == 8654bf8a…, match true; source expected == observed == 21766f5d…, match true
+  contract_sha256 == the expected canonical hash (as supplied) == served oracle entry
+  orientation_level_disposition == canonical; reviewer_prediction == canonical; prediction_comparison EXACT
+  integrity_status PASS, 15 integrity_checks all true
+  replay.result REPLAY CONSISTENT, rederived == stored == record evidence_core_sha256
+  bound_commit_verification MATCH; commit_verification MATCH; head == B; parents == [A]; export_provenance.bound_code_commit == A
+  janus_attribution.creator "Eryk Dubiel"; restrictions present
+  UI == export for changed / remains_valid / invalid_or_uncertain / execution / rationale / open_question / evidence_required
+
+Contract hashes (export == expected == oracle):
+  condition-change          52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3
+  evidence-change           36bc70425fbdcb41434072a5158ec306b6e364ba5d5f83e25c2a4edb5dadcc45
+  authorization-expiry      e7e29686985b9ab3d75395b525fda4b59b857d0ff74628eabd1000cccba69af4
+  learning-authority        d783abf986fce0b4069f8481c49fb6e970eff1a5c1458716ce1f41918c5142bf
+  conflicting-authorities   437615c49f3f5fe751fed2cf76d6552d23af5883d9df1d5b3c2e82edc1098f27
+  mid-execution-revocation  916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164
+
+Exports (SHA-256 over exact Blob bytes; core / snapshot hash prefixes):
+  janus-harness-condition-change-block_reauthorize-2026-09-26T05-08-17-258Z-v0.3.14.json                 10,079 B  ffd5ee1bfb65096426e452284f9fac31f0def52b1c44ea3bdf5c5552967d7062  ee3c2b2a5b97 / 5e02432a1ec0
+  janus-harness-evidence-change-block-2026-09-26T05-08-19-439Z-v0.3.14.json                              9,959 B  f33d9a37cbbc15707fefcf09a5a898dbbd5767466eb85a62da3f7d19e19ca95d  c7bedf216748 / c337f9e4dcdd
+  janus-harness-authorization-expiry-block_reauthorize-2026-09-26T05-08-21-468Z-v0.3.14.json             9,977 B  1414c387efa2d042e49b18b156dfe2178ad8a7c2dbace815f5504ffbe73b6309  a117e50f608b / 409ad3673862
+  janus-harness-learning-authority-block_reauthorize-2026-09-26T05-08-30-719Z-v0.3.14.json               9,833 B  e212ce3d48106429e5d74a5d5b19b68c490a181273afe373c7bead03ca92b70e  9e3b18809eeb / 342492ccf837
+  janus-harness-conflicting-authorities-insufficient_specification-2026-09-26T05-08-32-678Z-v0.3.14.json 10,495 B  19c753544f281df01345745f2e44a264c70885caf8c66672f1a108a363caf509  fa21a3d4999d / 2e3fc76fa1b2
+  janus-harness-mid-execution-revocation-insufficient_specification-2026-09-26T05-08-34-566Z-v0.3.14.json 10,403 B  50b6b66c7f23dbbc1ceee58e044d73104ba273093899cb05be27b29e3a829f26  1d88c102ec62 / 43d3b1fe5223
+Export sizes are identical to v0.3.13 (version strings and commits have equal length).
+Evidence-core hashes differ from v0.3.13, as expected, because the core binds version and commit identity.
+Full export JSON was not transferred out of the browser (tool channel limit). Byte-exact files can be saved to the tester's computer on request.
+
+=====================================================================
+§5 INVALIDATION (live)
+=====================================================================
+Missing prediction: Run disabled; a force-enabled Run click gave no run and the notice "Execution refused: choose a valid reviewer prediction before running."
+Scenario change after Run: lastRun null; result hidden; Replay/Export disabled
+  notice "Scenario changed. Previous result, replay, and export state were invalidated."
+  empty-state "Selection changed. Run the challenge to create a new evidence state."
+  Forced Export + Replay → 0 Blobs. Switching back gave "No challenge has been run for this selection." (no resurrection).
+Prediction change after Run: lastRun null; Replay/Export disabled; notice "Prediction changed. …"; forced Export → 0 Blobs.
+Reset: lastRun null; Run/Replay/Export disabled; prediction ""; scenario kept; "No challenge has been run."
+Stale in-flight state (docx fetch delayed 2,500 ms so the action is provably in flight at the switch):
+  Export in flight → scenario change    inflight=true, Run locked, 0 Blobs, 0 alerts, lastRun null, lastReplay null
+  Export in flight → prediction change  inflight=true, Run locked, 0 Blobs, 0 alerts
+  Export in flight → Reset              inflight=true, Run locked, 0 Blobs, 0 alerts, "No replay performed."
+  Replay in flight → scenario change    inflight=true, Run locked, completion discarded, "No replay performed for the current selection."
+
+=====================================================================
+§6 FAIL-CLOSED (live; fetch interposed per case, restored afterward)
+=====================================================================
+Each case was tested five ways:
+  Run under tamper
+  Replay under tamper after a clean Run
+  forced Export after the refused Replay
+  recovery Replay with true bytes
+  direct Export under tamper after a clean Run (no Replay)
+
+source 1-bit flip:
+  Run: refused, no result, "Execution refused: Observed JANUS source-document SHA-256 does not match the published expected hash."
+  Replay: REPLAY REFUSED (same reason), Export off
+  Forced Export: 0 Blobs, "Export refused: …same…"
+  Recovery: REPLAY CONSISTENT, Export on
+  Direct Export: 0 Blobs, same reason
+source HTTP 404:
+  Run: refused, "…Source document fetch failed: HTTP 404"
+  Replay: REFUSED; Forced Export: 0 Blobs; Recovery: CONSISTENT; Direct Export: 0 Blobs
+source network failure:
+  Run: refused, "…Source document fetch failed: Failed to fetch"
+  Replay: REFUSED; Forced Export: 0 Blobs; Recovery: CONSISTENT; Direct Export: 0 Blobs
+app.js altered:
+  Run: refused, "…Served app.js SHA-256 does not match build provenance."
+  Replay: REFUSED; Forced Export: 0 Blobs; Recovery: CONSISTENT; Direct Export: 0 Blobs
+build-info version → 0.3.13:
+  Run: refused, "…Build provenance version mismatch: expected 0.3.14, observed 0.3.13."
+  Replay: REFUSED; Forced Export: 0 Blobs; Recovery: CONSISTENT; Direct Export: 0 Blobs
+
+Malformed stored evidence (lastRun mutated after a clean Run):
+  disposition → CONTINUE
+    Replay: "REPLAY DIVERGENCE — export blocked until a subsequent consistent Replay", Export off
+    Export: 0 Blobs, "(disposition_label, stored_evidence_core_integrity, stored_record_snapshot_integrity, replay_rederived_consistent)"
+  contract_sha256 deleted
+    Replay: REPLAY REFUSED "Stored run record is structurally invalid (contract_sha256)."
+    Export: 0 Blobs, same reason
+  event_log corrupted
+    Replay: REPLAY REFUSED "(event_log)"
+    Export: 0 Blobs
+  unknown scenario_id
+    Replay: REPLAY REFUSED "(scenario_id does not identify a known scenario)"
+    Export: 0 Blobs
+  evidence_core_sha256 zeroed
+    Replay: DIVERGENCE, Export off
+    Export: 0 Blobs, "(stored_evidence_core_integrity, stored_record_snapshot_integrity, authored_state_integrity, replay_rederived_consistent)"
+  source observed hash edited
+    Replay: DIVERGENCE, Export off
+    Export: 0 Blobs, "(source_matches_run, stored_evidence_core_integrity, stored_record_snapshot_integrity, replay_rederived_consistent)"
+Failed replay shown as success: never observed.
+
+=====================================================================
+§7 V0313-F01 CLOSURE EVIDENCE (served text, fetched live)
+=====================================================================
+tests/V0_3_14_RELEASE_GATE.md (served, 40dc5d26…):
+  L1   "# JANUS Governance Challenge Harness v0.3.14 Release Gate"
+  L3   "Version 0.3.14 is a bounded documentation/process closure candidate for V0313-F01."
+  L5   "V0312-F01 is independently CLOSED by the deployed v0.3.13 qualification."
+  "## Historical-suite rule": v0.3.11/v0.3.12 regressions are "historical, version-pinned suites … not current v0.3.14 release gates"
+  Required gates:
+    1–4   v0.3.14-regression, v0.3.14-residual-fixtures, v0.3.14-release-lifecycle-fixtures, v0.3.14-doc-audit
+    7–8   preserved v0.3.13 report/raw evidence
+    11–25 v0.3.14 bind / generate / manifest / release-state audits; Commit B single child with exactly the two provenance files
+  Binding described as "workflow provenance only … not authentication; a digital signature; proof of human review; … deployment enforcement"
+  Requires direct deployed verification and a separate deployed Version 1.0 verification before tag, Release or external delivery.
+  v0.3.11 regression appears only in the historical description and the historical-suite rule, never as a numbered gate.
+Every required current gate was run against Commit B (disposable clone):
+  node tests/v0.3.14-regression.mjs              PASS ("Canonical exports: 9; refusal alerts: 4")
+  node tests/v0.3.14-residual-fixtures.mjs       PASS
+  node tests/v0.3.14-release-lifecycle-fixtures.mjs PASS
+  node tests/v0.3.14-doc-audit.mjs               PASS
+  node tests/v0.3.14-manifest-audit.mjs          PASS (146 files from bound code commit)
+  JANUS_FINAL_RELEASE_AUDIT=REQUIRE-FINAL-PROVENANCE-COMMIT node tests/v0.3.14-release-state-audit.mjs
+                                                 PASS, Mode FINAL RELEASE, 1 commit after code commit, 148 tracked
+Historical suites (not current gates; failures are expected):
+  v0.3.11-regression  "Error: Expected contract hash metadata version mismatch."
+  v0.3.12-regression  "Error: Public page title is not v0.3.12."
+  v0.3.13-regression  "Error: Public page title is not v0.3.13."
+README (served): L1 "# JANUS Governance Challenge Harness v0.3.14"; section "## v0.3.14 — V0313-F01 release-documentation closure candidate";
+  L25 "### Current v0.3.14 control suites" (9 items, all v0.3.14); L82 "v0.3.12 control suites (historical):"
+index.html "Independent test record": v0.3.13 closed V0312-F01; V0313-F01 found; v0.3.14 is the closure candidate; v1.0 blocked pending deployed v0.3.14.
+Regression still kills a reintroduced oracle "version" field: "Verifier-facing contract hash oracle must not expose an ambiguous active release version field." (V0312-F01 not reopened.)
+
+=====================================================================
+§8 RESIDUAL EVIDENCE → V0314-F01
+=====================================================================
+(a) Served VERSION.txt (11b3f5b9…) lines 22–25:
+      V0313-F01 closure:
+      - docs/EXPECTED_CONTRACT_HASHES.json no longer presents 0.3.9 as an active release version
+      - contracts_last_changed_in records that the authored contract hashes last changed in v0.3.9
+      - all six contract hashes are unchanged
+    The same lines in v0.3.13 (git show 93a6f79:VERSION.txt):
+      V0312-F01 closure:
+      - (identical three bullets)
+    The v0.3.14 commit changed only the heading label, V0312-F01 → V0313-F01.
+    The bullets describe the V0312-F01 oracle change, not the V0313-F01 release-gate/README correction.
+    tests/v0.3.14-doc-audit.mjs does not detect this.
+      Probe: reverting the heading to "V0312-F01 closure:" still gives "documentation audit: PASS",
+      because the audit only requires the substring "V0313-F01" somewhere in VERSION.txt.
+(b) Served README.md line 360, under "## v0.3.6 bounded hardening candidate":
+      "Current local release gates are:" followed by v0.3.6-regression, v0.3.6-doc-audit, v0.3.6-mutation-regression, v0.3.6-manifest-audit, V0_3_6_RELEASE_GATE.md.
+    Not labelled historical. git blame: e0e6790e (2026-09-24). This predates v0.3.14 and was not reported by the v0.3.13 qualification (a miss by that test).
+(c) Served CHANGELOG.md: line 1 "## v0.3.14 — …" and line 11 "# Changelog".
+    The v0.3.14 entry sits above the document's H1 title (structural placement defect; cosmetic on its own).

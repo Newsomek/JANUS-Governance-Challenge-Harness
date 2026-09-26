@@ -1,3 +1,17 @@
+# Changelog
+
+## v1.0 — release candidate
+
+- begins Version 1.0 candidate construction directly from the published v0.3.14 release;
+- preserves the complete independent v0.3.14 deployed qualification report and raw evidence unchanged;
+- records that v0.3.14 passed all runtime/scenario/provenance checks but returned Low documentation finding V0314-F01;
+- corrects the VERSION.txt closure attribution so V0312-F01 remains associated with its actual v0.3.13 oracle correction;
+- removes stale historical "current release gates" labeling from README;
+- restores `# Changelog` as the first line of this document;
+- strengthens documentation auditing around closure attribution, historical/current control labeling, and document structure;
+- preserves all six authored scenarios, canonical dispositions, canonical contract hashes, and the JANUS source document unchanged;
+- requires direct independent testing of the exact deployed v1.0 candidate with zero actionable findings before any Version 1.0 tag or GitHub Release.
+
 ## v0.3.14 — V0313-F01 release-documentation closure candidate
 
 - preserves the complete independent v0.3.13 deployed qualification report and raw evidence unchanged;
@@ -8,7 +22,6 @@
 - adds a targeted v0.3.14 documentation audit covering release-gate objective, required-suite identity, and README control-suite labeling;
 - preserves all six authored scenarios, their canonical dispositions, and the JANUS source document unchanged;
 - keeps Version 1.0 blocked pending an exact deployed v0.3.14 independent zero-open-actionable-finding closure check.
-# Changelog
 
 ## v0.3.13 — V0312-F01 provenance-label closure candidate
 

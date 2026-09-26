@@ -1,13 +1,15 @@
 JANUS Governance Challenge Harness
 
-Version: 0.3.14
-Build ID: janus-governance-challenge-harness-v0.3.14
+Version: 1.0
+Build ID: janus-governance-challenge-harness-v1.0
+Status: release candidate
 
 Release status:
-- bounded V0313-F01 release-documentation closure candidate
-- final deployed v0.3.13 qualification passed all six scenarios and the original governance challenge and closed V0312-F01
-- one Low finding from v0.3.13 remains pending independent closure: V0313-F01
-- Version 1.0 remains blocked until deployed v0.3.14 returns zero open actionable findings
+- Version 1.0 candidate constructed from the independently tested deployed v0.3.14 release
+- deployed v0.3.14 passed all runtime, scenario, provenance, replay, export, integrity, invalidation, and fail-closed checks
+- deployed v0.3.14 returned one Low documentation finding, V0314-F01
+- V0313-F01 therefore remained not closed under the zero-actionable-finding rule
+- Version 1.0 is not approved, tagged, or released until this exact deployed candidate independently returns zero actionable findings
 
 Release-state governance:
 - the release boundary is the complete exact Git code/content commit and tree, not a hand-selected claim-surface list
@@ -19,18 +21,27 @@ Release-state governance:
 - release-state binding is a workflow declaration, not authentication, a digital signature, deployment enforcement, or proof that a human reviewed the release
 - final release audit requires Commit B to be the single direct child of Commit A and to change exactly both provenance-only files
 
-V0313-F01 closure:
+V0312-F01 closure (v0.3.13):
 - docs/EXPECTED_CONTRACT_HASHES.json no longer presents 0.3.9 as an active release version
 - contracts_last_changed_in records that the authored contract hashes last changed in v0.3.9
 - all six contract hashes are unchanged
+
+V0313-F01 / V0314-F01 closure work:
+- the current release gate and control-suite identity are explicit rather than copied from a historical release
+- historical control-suite lists are labelled historical instead of current
+- VERSION.txt preserves V0312-F01 under its correct historical attribution
+- CHANGELOG.md begins with its document title
+- the current documentation audit checks these structural conditions rather than merely requiring a finding ID to appear somewhere
+- final closure is not claimed until the exact deployed v1.0 candidate independently returns zero actionable findings
 
 Authored scenario content: unchanged.
 JANUS source document: unchanged.
 Canonical scenario dispositions: unchanged.
 
-Version 1.0 promotion requires:
-1. successful v0.3.14 local gates;
+Version 1.0 release requires:
+1. successful v1.0 local gates;
 2. exact deployed-artifact verification;
-3. independent V0313-F01 closure with zero open actionable findings;
-4. confirmation that the original governance-ask assessment remains YES;
-5. independent verification of the exact Version 1.0 artifact after promotion.
+3. independent confirmation that V0314-F01 and V0313-F01 are closed;
+4. zero open Critical, High, Medium, or Low actionable findings on the exact deployed candidate;
+5. confirmation that the original governance-ask assessment remains YES;
+6. only then may the exact qualified artifact be tagged and released as Version 1.0.

@@ -1,7 +1,31 @@
-# JANUS Governance Challenge Harness v0.3.14
+# JANUS Governance Challenge Harness v1.0
 
 A dependency-free external architectural challenge harness for examining governance claims described in
 the **JANUS Orientation Edition 2026**.
+## v1.0 — independently gated release candidate
+
+The Version 1.0 candidate is built directly from the deployed v0.3.14 release.
+
+The v0.3.14 deployed qualification passed the complete runtime and governance behavior suite but found one Low documentation finding, `V0314-F01`. Because the project uses a zero-actionable-finding rule, `V0313-F01` remained not closed.
+
+The v1.0 candidate therefore performs one consolidated documentation/process cleanup while preserving the already-qualified runtime behavior, six authored scenarios, canonical dispositions, contract hashes, and JANUS source document.
+
+The candidate is **not yet the Version 1.0 release**. It must first be constructed, locally gated, deployed, and independently tested directly with zero actionable findings.
+
+### Current v1.0 candidate control suites
+
+- `tests/v1.0-regression.mjs`
+- `tests/v1.0-residual-fixtures.mjs`
+- `tests/v1.0-release-lifecycle-fixtures.mjs`
+- `tests/v1.0-doc-audit.mjs`
+- `tests/v1.0-manifest-audit.mjs`
+- `tests/v1.0-release-state-audit.mjs`
+- `tests/v1.0-bind-release-state.mjs`
+- `tests/v1.0-generate-build-info.mjs`
+- `tests/V1_0_RELEASE_GATE.md`
+
+The exact deployed candidate must independently close `V0314-F01` and `V0313-F01` with zero actionable findings before any Version 1.0 tag or GitHub Release is created.
+
 ## v0.3.14 — V0313-F01 release-documentation closure candidate
 
 The final independent deployed-artifact qualification of v0.3.13 passed all six authored scenarios, replay, export, integrity, invalidation, fail-closed behavior, release identity, source-conformance review, attribution review, and the original governance challenge.
@@ -22,7 +46,7 @@ v0.3.14 is a bounded correction for that release-documentation/process finding:
 
 Version 1.0 remains blocked until the exact deployed v0.3.14 artifact independently closes V0313-F01 with zero open actionable findings. Any resulting Version 1.0 artifact must then receive its own exact deployed independent verification before external delivery.
 
-### Current v0.3.14 control suites
+### v0.3.14 control suites (historical):
 
 - `tests/v0.3.14-regression.mjs`
 - `tests/v0.3.14-residual-fixtures.mjs`
@@ -357,7 +381,7 @@ Version 0.3.5 was a bounded correction to the three residuals found by the deplo
 
 Version 0.3.6 addresses V035-F01 through V035-F09 without changing the six authored scenario contracts. It tightens canonical duplicate handling, closes the late Export invalidation window, expands behavioral and mutation protection around core integrity controls, corrects historical release documentation, and strengthens exact-artifact provenance requirements.
 
-Current local release gates are:
+v0.3.6 local release gates (historical):
 
 - `node tests/v0.3.6-regression.mjs`
 - `node tests/v0.3.6-doc-audit.mjs`
