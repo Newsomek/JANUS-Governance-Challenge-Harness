@@ -1,0 +1,217 @@
+JANUS Governance Challenge Harness v0.3.13 — Final Deployed-Artifact Qualification — RAW EVIDENCE
+Tester: Claude (independent). No repository writes, commits, tags, branches, releases or PRs.
+Test window: 2026-09-26 03:08–03:40 UTC (2026-09-25 23:08–23:40 America/New_York)
+Deployed URL: https://newsomek.github.io/JANUS-Governance-Challenge-Harness/
+Browser: Chrome 153 (UA "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ... Chrome/153.0.0.0"), via Claude in Chrome, tab on the live page
+Corroboration workspace: disposable read-only clone of github.com/Newsomek/JANUS-Governance-Challenge-Harness (cloud sandbox cannot reach *.github.io: proxy 403 on CONNECT newsomek.github.io:443)
+
+=====================================================================
+§1 RELEASE IDENTITY (live, fetched with cache:'no-store' + ?cb=<ms>)
+=====================================================================
+document.title                  = "JANUS Governance Challenge Harness v0.3.13"
+.eyebrow                        = "EXTERNAL ARCHITECTURAL CONFORMANCE CHALLENGE · VERSION 0.3.13"
+build-info.json HTTP            = 200, Last-Modified: Sat, 26 Sep 2026 03:04:07 GMT
+build-info.json SHA-256 (served)= 5eb9195232fb82ed18cd6d7f554516eefd2f9736dc3f3008ec9283f68c7ae6a8   (== Commit B blob)
+build-info top-level keys       = ["version","build_id","code_commit","files"]
+build-info.version              = 0.3.13
+build-info.build_id             = janus-governance-challenge-harness-v0.3.13
+build-info.code_commit          = e519aee7e8a9b38cc73dbbd3389acdec6ef93a8a
+BOUND_RELEASE_STATE.json SHA-256= 1671d713da8ad511904b333caba421bed5c8cebf1f5bc04eba69bab979445d10   (== Commit B blob)
+  .version=0.3.13 .build_id=janus-governance-challenge-harness-v0.3.13
+  .code_commit=e519aee7e8a9b38cc73dbbd3389acdec6ef93a8a .code_tree=745b9cef0de88f51855547feda976186062d8298
+  .provenance_only_files=["build-info.json","docs/BOUND_RELEASE_STATE.json"]
+UI provenance line (every run)  = "Bound code commit: e519aee7e8a9b38cc73dbbd3389acdec6ef93a8a. Served app.js hash verified. Bound commit corroboration: MATCH. GitHub main corroboration: MATCH."
+Served app.js                   = 59,585 bytes, SHA-256 29dab1f836f554668eeb2c1433d3d7e37054bb6335f9ac0c49c078236d38556c, Last-Modified 03:04:07 GMT
+Served JANUS source docx        = 50,354 bytes, SHA-256 21766f5dbd86b728f4cb7e5794b208dab52d169eb4e0d4fd717ae8c374551fe4
+Served EXPECTED_CONTRACT_HASHES = 1,587 bytes, SHA-256 03ae270388befe4a8c65e089556dcd5c482671b174e0023cb68c7b5955b5f4b0
+Served index.html               = 11,717 bytes, SHA-256 2e4b07af1a83da22b59e6a95836e0ba6e8f0f3c5fdea407b35e3cf585f11a6e9
+Authored scenario-block SHA-256 = 948536a17a454e59f782e023ac1ded8e30e9f33ca660c3dbd674273fe1b56488
+  (method: app.js text from "const scenarios = [" through "\n];" + trailing LF; computed on Commit A app.js whose bytes equal served app.js)
+
+Freshness: Commit B committer time 2026-09-25T22:57:42-04:00 (02:57:42Z); every served file Last-Modified 03:04:07Z (after Commit B).
+git ls-remote origin main = 93a6f794f244826b8595f43101cc18f904c9ae66 (Commit B). All six exports: deployment_head_observed = Commit B, deployment_parent_shas = [Commit A], commit_verification = MATCH.
+
+=====================================================================
+§2 COMMIT TOPOLOGY (disposable clone)
+=====================================================================
+git log --oneline -3:
+  93a6f79 JANUS v0.3.13 bind final release provenance
+  e519aee JANUS v0.3.13 close V0312-F01 verifier identity
+  d263223 JANUS v0.3.12 bind final release provenance
+Commit A e519aee7e8a9b38cc73dbbd3389acdec6ef93a8a: tree 745b9cef0de88f51855547feda976186062d8298, parent d26322339b425836c309068d5500e26517e0eab5 (v0.3.12 Commit B)
+Commit B 93a6f794f244826b8595f43101cc18f904c9ae66: tree 4c2441219dfd9de8c7d6271c6161f971612d2ddd, single parent e519aee…
+git rev-list --children: e519aee… → only child 93a6f79…
+git diff --name-status A B:
+  M build-info.json
+  M docs/BOUND_RELEASE_STATE.json
+BOUND_RELEASE_STATE diff A→B: code_commit null→A, code_tree null→745b9cef…  (only change)
+Tracked files at B: 135, all mode 100644. Tracked − manifest = {build-info.json, docs/BOUND_RELEASE_STATE.json}. Manifest − tracked = {}.
+Code diff v0.3.12-B → v0.3.13-A in app.js: 2 lines (HARNESS_VERSION, BUILD_ID). index.html: title, eyebrow, footer, "Independent test record" paragraph.
+
+=====================================================================
+§3 COMPLETE SERVED MANIFEST (in-browser)
+=====================================================================
+Entries: 133. Keys in code-point order: true. Longest path: 181 chars.
+Fetched each path (path segments URI-encoded, cache:'no-store', ?cb=) → HTTP 200 for 133/133; SHA-256 mismatches: 0; fetch failures: 0.
+Local cross-check: every manifest hash == sha256(git show 93a6f79:<path>) for 133/133.
+Deterministic regeneration: tests/v0.3.13-generate-build-info.mjs run on a disposable checkout of Commit A with explicit A/tree →
+  "build-info generated from exact Commit A: 133 files"; output SHA-256 5eb91952…c7ae6a8 == served build-info.json (byte-identical).
+Canonical form: build-info.json == JSON.stringify(obj, null, 2) + "\n" (true).
+
+=====================================================================
+§4 V0312-F01 CLOSURE
+=====================================================================
+v0.3.12 served oracle keys: ["harness","version","purpose","scenarios"]  ("version": "0.3.9")
+v0.3.13 served oracle keys: ["harness","contracts_last_changed_in","purpose","scenarios"]  ("contracts_last_changed_in": "0.3.9")
+Only diff d263223→e519aee in the oracle: -"version": "0.3.9"  +"contracts_last_changed_in": "0.3.9"
+Six scenario_id/contract_sha256 pairs identical to v0.3.12 served oracle; six scenario_name values identical.
+  condition-change          52a18511594cedbfeceba660b5cb32f293206d93e8b8ee98d6f90c4a3f1eb9a3
+  evidence-change           36bc70425fbdcb41434072a5158ec306b6e364ba5d5f83e25c2a4edb5dadcc45
+  authorization-expiry      e7e29686985b9ab3d75395b525fda4b59b857d0ff74628eabd1000cccba69af4
+  learning-authority        d783abf986fce0b4069f8481c49fb6e970eff1a5c1458716ce1f41918c5142bf
+  conflicting-authorities   437615c49f3f5fe751fed2cf76d6552d23af5883d9df1d5b3c2e82edc1098f27
+  mid-execution-revocation  916a960c0b22e7d43c0806a2f1844496168074d4501b8047ff9ae7d32c50b164
+Every live export contract_sha256 == oracle entry (6/6).
+Regression mutation probes (disposable clone, tests/v0.3.13-regression.mjs):
+  oracle "version": "0.3.9" reintroduced         → KILLED "Verifier-facing contract hash oracle must not expose an ambiguous active release version field."
+  oracle gains "version": "0.3.13" alongside      → KILLED (same message)
+  one contract hash altered                       → KILLED "Contract hash mismatch for condition-change."
+Remaining served JSON with a "version" field: build-info.json (0.3.13), BOUND_RELEASE_STATE.json (0.3.13), docs/APPROVED_GOVERNANCE_CLAIMS.json ("0.3.9"; legacy claim allowlist, see report I-01).
+
+=====================================================================
+§5 SIX-SCENARIO LIVE MATRIX (UI driven: select change events + button clicks)
+=====================================================================
+Harness instrumentation (outside app code): URL.createObjectURL wrapped to capture export Blobs; HTMLAnchorElement.prototype.click stubbed so no file reached disk; window.alert recorded instead of blocking.
+scenario                  prediction                  displayed disposition        badge        replay              export  integrity
+condition-change          BLOCK_REAUTHORIZE           BLOCK + REAUTHORIZE          EXACT MATCH  REPLAY CONSISTENT   yes     PASS 15/15
+evidence-change           BLOCK                       BLOCK                        EXACT MATCH  REPLAY CONSISTENT   yes     PASS 15/15
+authorization-expiry      BLOCK_REAUTHORIZE           BLOCK + REAUTHORIZE          EXACT MATCH  REPLAY CONSISTENT   yes     PASS 15/15
+learning-authority        BLOCK_REAUTHORIZE           BLOCK + REAUTHORIZE          EXACT MATCH  REPLAY CONSISTENT   yes     PASS 15/15
+conflicting-authorities   INSUFFICIENT_SPECIFICATION  INSUFFICIENT SPECIFICATION   EXACT MATCH  REPLAY CONSISTENT   yes     PASS 15/15
+mid-execution-revocation  INSUFFICIENT_SPECIFICATION  INSUFFICIENT SPECIFICATION   EXACT MATCH  REPLAY CONSISTENT   yes     PASS 15/15
+No stale notice, refusal or alert during any of the six runs. Export enabled after Run and after consistent Replay.
+
+Per-export automated checks (all 6 → zero failures):
+  version 0.3.13; build_id; harness_code_commit == Commit A; harness_provenance.code_commit == Commit A;
+  app_js expected == observed == 29dab1f8…, app_js_hash_match true;
+  source expected == observed == 21766f5d…, hash_match true;
+  contract_sha256 == served oracle; orientation_level_disposition == canonical; prediction_comparison EXACT;
+  integrity_status PASS and all 15 integrity_checks true; replay.result REPLAY CONSISTENT with rederived == stored == original evidence-core hash;
+  bound_commit_verification MATCH; deployment_head_observed == Commit B; deployment_parent_shas == [Commit A]; commit_verification MATCH;
+  janus_attribution.creator "Eryk Dubiel"; integrity_scope references docs/EXPECTED_CONTRACT_HASHES.json;
+  UI text == export text for changed / remains_valid / invalid_or_uncertain / execution / rationale / open_question / evidence_required.
+integrity_checks keys (15): valid_prediction, disposition_label, prediction_label, comparison_code, comparison_label, contract_hash, source_expected_hash, source_matches_run, code_commit, code_hash, event_log, stored_evidence_core_integrity, stored_record_snapshot_integrity, authored_state_integrity, replay_rederived_consistent
+
+Scenario exports (captured byte-exact in-browser as Blobs; SHA-256 over Blob bytes):
+  janus-harness-condition-change-block_reauthorize-2026-09-26T03-11-04-113Z-v0.3.13.json
+    10,079 B  sha256 6988fedd8535e14b7d205204b3c309ad2203655ccdeeb121348884a1f19c785d  core 09df54b4be78…  snapshot 551919cc306a…  generated 03:11:02.042Z
+  janus-harness-evidence-change-block-2026-09-26T03-11-26-164Z-v0.3.13.json
+     9,959 B  sha256 2b2b4e1e5c11ce80b64cdc579f35df23225e4efe6bfd9883b21eb51b85bfbd1e  core 55579c4bf537…  snapshot c388125cd9ef…  generated 03:11:24.324Z
+  janus-harness-authorization-expiry-block_reauthorize-2026-09-26T03-11-29-529Z-v0.3.13.json
+     9,977 B  sha256 4910b278d0a1a41aafcd87157c122d463403d55dc2a472f5d53ab580afbc756f  core 41c3d12130e5…  snapshot 27130a030e25…  generated 03:11:27.671Z
+  janus-harness-learning-authority-block_reauthorize-2026-09-26T03-11-33-314Z-v0.3.13.json
+     9,833 B  sha256 d9a6eb728f2908daafe40d80d178bf58c05fec6fb9421c009dc103f22a704651  core 54ace098b058…  snapshot 880fbe0eb03c…  generated 03:11:31.464Z
+  janus-harness-conflicting-authorities-insufficient_specification-2026-09-26T03-11-36-780Z-v0.3.13.json
+    10,495 B  sha256 787d23d7e0775db295ac388fff8b2698c71bac201c606cddf5f669edcad72986  core 192cd9976d6e…  snapshot 02d9a15e43a7…  generated 03:11:34.878Z
+  janus-harness-mid-execution-revocation-insufficient_specification-2026-09-26T03-11-40-444Z-v0.3.13.json
+    10,403 B  sha256 33bbdf827989a0f53f93252b0f0f26ba369690bc82222b4eca0921f885c8ef7e  core bfe0545b1c41…  snapshot f74114ce665a…  generated 03:11:38.387Z
+Transfer limit: the browser-tool channel blocks bulk encoded output, so the export bytes were not copied into this evidence package; hashes, sizes and names above were computed on the exact Blob bytes. Full JSON can be saved to the tester's computer on request.
+
+=====================================================================
+§6 INITIAL STATE AND INVALIDATION (live)
+=====================================================================
+Initial load: Run disabled, Replay disabled, Export disabled, Reset enabled; resultEmpty "No challenge has been run."; resultArea hidden; staleNotice hidden; prediction "".
+Missing prediction: Run disabled. Force-enabled Run click → no result; notice "Execution refused: choose a valid reviewer prediction before running."
+Scenario change after Run: result hidden; Replay/Export disabled; notice "Scenario changed. Previous result, replay, and export state were invalidated."; empty "Selection changed. Run the challenge to create a new evidence state."
+  Force-enabled Export + Replay → 0 Blobs; replay record "No replay performed for the current selection."
+  Switch back to original scenario → "No challenge has been run for this selection." (old result not resurrected)
+Prediction change after Run: same invalidation; notice "Prediction changed. …"; forced Export/Replay → 0 Blobs.
+Reset: Run/Replay/Export disabled; prediction ""; lastRun null; "No challenge has been run."; scenario selection kept.
+Race tests (docx fetch artificially delayed 2,500 ms so the action is provably in flight):
+  Export in flight → scenario change   : inflightAtSwitch=true, Blobs=0, alerts=0, Replay/Export disabled
+  Export in flight → prediction change : inflightAtSwitch=true, Blobs=0, alerts=0
+  Export in flight → Reset             : inflightAtSwitch=true, Blobs=0, alerts=0, "No replay performed."
+  Replay in flight → scenario change   : inflightAtSwitch=true; completion discarded; record "No replay performed for the current selection."; lastRun null; lastReplay null
+  During Replay: Run button disabled (lockout).
+  Note: an un-delayed "click Export, wait 30 ms, switch" attempt produced 1 Blob; the tab throttled the 30 ms timer to ~1 s, so the export finished on a still-valid state before the switch. The controlled delayed tests above are the valid race evidence.
+
+=====================================================================
+§7 FAIL-CLOSED MATRIX (live; fetch interposed per case, then restored)
+=====================================================================
+Case                         | Run                                   | Replay                          | Forced Export after refused Replay | Recovery replay (true bytes)  | Export (no replay)
+source bytes altered (1 bit) | refused, no result, notice (a)        | REPLAY REFUSED (a), Export off  | 0 Blobs, alert (a)                 | CONSISTENT, Export on         | 0 Blobs, alert (a)
+source HTTP 404              | refused (b)                           | REPLAY REFUSED (b), Export off  | 0 Blobs, alert (b)                 | CONSISTENT, Export on         | 0 Blobs, alert (b)
+source network failure       | refused (c)                           | REPLAY REFUSED (c), Export off  | 0 Blobs, alert (c)                 | CONSISTENT, Export on         | 0 Blobs, alert (c)
+app.js bytes altered         | refused (d)                           | REPLAY REFUSED (d), Export off  | 0 Blobs, alert (d)                 | CONSISTENT, Export on         | 0 Blobs, alert (d)
+build-info version → 0.3.12  | refused (e)                           | REPLAY REFUSED (e), Export off  | 0 Blobs, alert (e)                 | CONSISTENT, Export on         | 0 Blobs, alert (e)
+(a) "Observed JANUS source-document SHA-256 does not match the published expected hash."
+(b) "Source document fetch failed: HTTP 404"
+(c) "Source document fetch failed: Failed to fetch"
+(d) "Served app.js SHA-256 does not match build provenance."
+(e) "Build provenance version mismatch: expected 0.3.13, observed 0.3.12."
+Run refusals render as "Execution refused: <reason>"; export refusals as "Export refused: <reason>".
+
+Malformed stored evidence (lastRun mutated after a clean Run):
+  disposition → CONTINUE      : Replay "REPLAY DIVERGENCE — export blocked until a subsequent consistent Replay", Export off (stored core 896aca23… ≠ rederived 09df54b4…);
+                                Export → 0 Blobs, "Export refused: Evidence integrity check failed (disposition_label, stored_evidence_core_integrity, stored_record_snapshot_integrity, replay_rederived_consistent)."
+  contract_sha256 deleted     : REPLAY REFUSED "Stored run record is structurally invalid (contract_sha256)."; Export 0 Blobs, same reason
+  event_log = "corrupt"       : REPLAY REFUSED "Stored run record is structurally invalid (event_log)."; Export 0 Blobs, same reason
+  scenario_id unknown         : REPLAY REFUSED "Stored run record is structurally invalid (scenario_id does not identify a known scenario)."; Export 0 Blobs
+  evidence_core_sha256 zeroed : REPLAY DIVERGENCE, Export off; Export 0 Blobs "(stored_evidence_core_integrity, stored_record_snapshot_integrity, authored_state_integrity, replay_rederived_consistent)"
+  source observed hash edited : REPLAY DIVERGENCE, Export off; Export 0 Blobs "(source_matches_run, stored_evidence_core_integrity, stored_record_snapshot_integrity, replay_rederived_consistent)"
+Failed replay shown as success: never observed.
+
+=====================================================================
+§8 SOURCE CITATIONS vs SERVED DOCX (bytes SHA-256 21766f5d…, parsed in document order)
+=====================================================================
+§01 table "THE MOST IMPORTANT BOUNDARY": "…A decision is not authorization. Authorization is not execution."; "…NOT AN IMPLEMENTATION SPECIFICATION."   → S1, S6 citations OK
+§06 "treated as different classes of object"; table rows Evidence/Decision, Decision/Authorization, Authorization/Execution                    → S2 OK
+§19 "Authorization is a separate fact, with its own owner, history and conditions."                                                          → S1, S3, S5 OK
+§20 "Execution is an accountable event … a boundary event"                                                                                    → S6 OK
+§22 "must not constitute a standalone right to expand its permissions"; table "Learning ≠ Self-Promotion"                                      → S4 OK
+§24 "development of capability and the development of authority remain separate"; "the governance process decides"                          → S4 OK
+§26 table "Memory | History and context | provenance and scope of validity" (cited by analogy only)                                           → S3 OK
+§27 "new knowledge does not have to erase the old history"                                                                                    → S3 OK
+§28 "should not resolve a conflict 'by force'"                                                                                                → S2, S5 (analogy) OK
+§29 "an error must not be given more power than its real grounding justifies"                                                                 → S2 OK
+§31 "sufficient trace … who had the authority and what actually happened"                                                                    → S6 OK
+§32 Fail-closed: "prefer no transition over a silent bypass"                                                                                   → S1, S3, S5 OK
+§33 "the policy owner or the escalation point"                                                                                                → S5 OK
+§38 "A lack of grounds should not be turned into apparent certainty."; "An improved model is not, in itself, consent to greater power."        → S2, S4, S5 OK
+§39 "Conditions can change, and trust must have a context."                                                                                  → S3 OK
+Support statuses: DIRECTLY SUPPORTED used only where text is explicit (S1, S4, S6); analogies labelled EXTENDED / BY ANALOGY (S2, S3, S5); OPEN present in all six.
+
+=====================================================================
+§9 LOCAL GATE CORROBORATION (disposable clone at Commit B)
+=====================================================================
+node tests/v0.3.13-regression.mjs                → "JANUS v0.3.13 automated regression: PASS" (Canonical exports: 9; refusal alerts: 4)
+node tests/v0.3.13-residual-fixtures.mjs         → PASS (KILLED: .gitignore-hidden / .git/info/exclude-hidden / core.excludesFile-hidden untracked file, …)
+node tests/v0.3.13-manifest-audit.mjs            → "build-info audit: PASS (133 files from bound code commit)"
+JANUS_FINAL_RELEASE_AUDIT=REQUIRE-FINAL-PROVENANCE-COMMIT node tests/v0.3.13-release-state-audit.mjs
+                                                 → PASS, Mode: FINAL RELEASE, commits after code commit: 1, tracked files 135
+node tests/v0.3.11-release-state-fixtures.mjs    → PASS
+node tests/v0.3.11-build-info-fixtures.mjs       → PASS
+node tests/v0.3.11-regression.mjs                → FAIL: "Error: Expected contract hash metadata version mismatch."  (asserts expectedHashes.version === '0.3.9', line 116)
+                                                   This is required local gate #3 in tests/V0_3_13_RELEASE_GATE.md → finding V0313-F01.
+Independent probes (third commit / edited provenance in disposable clone):
+  duplicate "version" key in build-info.json    → release-state audit Error, manifest audit Error  (F11-01 does not reproduce)
+  uppercase code_commit in BOUND_RELEASE_STATE  → both audits Error
+  README endorsement line in a 3rd commit       → release-state audit Error
+  .git/info/exclude-hidden untracked file       → release-state audit Error                         (F11-02 does not reproduce)
+  README manifest paragraph (line 150)          → accurately describes non-provenance Commit A manifest (F11-03 does not reproduce)
+  visible title/eyebrow/footer                  → v0.3.13 live                                        (GEN-04 does not reproduce)
+
+=====================================================================
+§10 FINDING EVIDENCE — V0313-F01 (tests/V0_3_13_RELEASE_GATE.md, served, sha256 a37bd01d…)
+=====================================================================
+diff tests/V0_3_12_RELEASE_GATE.md tests/V0_3_13_RELEASE_GATE.md → only version-number substitutions (lines 1,3,7,30,58,89-90,97-98,104-105,117-118,150).
+Served lines:
+   3: Version 0.3.13 is a bounded residual-hardening candidate.
+   7: V035-F05 remains PARTIALLY CLOSED until independent v0.3.13 targeted testing returns zero actionable findings.
+  91: 3. `node tests/v0.3.11-regression.mjs`            ← fails deterministically on this release (§9)
+  96: 8. preserved v0.3.11 independent report/raw evidence unchanged
+ 139-144: Independent closure gate targets v0.3.11 F11-01/F11-02/F11-03/GEN-04
+ 148: V035-F05 may be called CLOSED only with zero open … findings …
+No occurrence of "V0312-F01" or "contracts_last_changed_in" in the gate.
+Contrast (same release): README §"v0.3.13 — V0312-F01 provenance-label closure candidate"; VERSION.txt "bounded V0312-F01 provenance-label closure candidate"; CHANGELOG v0.3.13; index.html "Version 0.3.13 is a bounded closure candidate for that single finding."
+Secondary: README line 51 "Current v0.3.12 control suites:" lists only v0.3.12 suites; no list of current v0.3.13 suites exists in README.

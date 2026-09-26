@@ -1,3 +1,13 @@
+## v0.3.14 — V0313-F01 release-documentation closure candidate
+
+- preserves the complete independent v0.3.13 deployed qualification report and raw evidence unchanged;
+- records V0312-F01 as independently closed by the v0.3.13 deployed qualification;
+- addresses V0313-F01, the Low release-documentation finding identified by that qualification;
+- creates a v0.3.14 release gate explicitly centered on V0313-F01 rather than rewriting the historical v0.3.13 gate;
+- removes historical version-pinned regression suites from the current required-gate list;
+- adds a targeted v0.3.14 documentation audit covering release-gate objective, required-suite identity, and README control-suite labeling;
+- preserves all six authored scenarios, their canonical dispositions, and the JANUS source document unchanged;
+- keeps Version 1.0 blocked pending an exact deployed v0.3.14 independent zero-open-actionable-finding closure check.
 # Changelog
 
 ## v0.3.13 — V0312-F01 provenance-label closure candidate

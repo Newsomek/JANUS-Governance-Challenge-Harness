@@ -1,7 +1,38 @@
-# JANUS Governance Challenge Harness v0.3.13
+# JANUS Governance Challenge Harness v0.3.14
 
 A dependency-free external architectural challenge harness for examining governance claims described in
 the **JANUS Orientation Edition 2026**.
+## v0.3.14 — V0313-F01 release-documentation closure candidate
+
+The final independent deployed-artifact qualification of v0.3.13 passed all six authored scenarios, replay, export, integrity, invalidation, fail-closed behavior, release identity, source-conformance review, attribution review, and the original governance challenge.
+
+That qualification independently closed `V0312-F01`.
+
+It found one new Low actionable finding: `V0313-F01`. The served `tests/V0_3_13_RELEASE_GATE.md` was a stale version-substituted copy of the earlier release gate. It described the wrong closure objective and required the historical version-pinned `tests/v0.3.11-regression.mjs`, which cannot pass after the intentional v0.3.13 contract-oracle metadata change.
+
+v0.3.14 is a bounded correction for that release-documentation/process finding:
+
+- preserves the complete v0.3.13 independent qualification report and raw evidence under `testing/claude/v0.3.13/`;
+- preserves the six authored scenarios and their canonical dispositions unchanged;
+- preserves the JANUS source document unchanged;
+- creates a current v0.3.14 release gate centered explicitly on `V0313-F01`;
+- removes historical version-pinned regression suites from the current required-gate list;
+- identifies earlier version-pinned regression suites as historical rather than current release gates;
+- adds a targeted v0.3.14 documentation audit covering the current closure objective, required-suite identity, and README control-suite labeling.
+
+Version 1.0 remains blocked until the exact deployed v0.3.14 artifact independently closes V0313-F01 with zero open actionable findings. Any resulting Version 1.0 artifact must then receive its own exact deployed independent verification before external delivery.
+
+### Current v0.3.14 control suites
+
+- `tests/v0.3.14-regression.mjs`
+- `tests/v0.3.14-residual-fixtures.mjs`
+- `tests/v0.3.14-release-lifecycle-fixtures.mjs`
+- `tests/v0.3.14-doc-audit.mjs`
+- `tests/v0.3.14-bind-release-state.mjs`
+- `tests/v0.3.14-generate-build-info.mjs`
+- `tests/v0.3.14-release-state-audit.mjs`
+- `tests/v0.3.14-manifest-audit.mjs`
+- `tests/V0_3_14_RELEASE_GATE.md`
 ## v0.3.13 — V0312-F01 provenance-label closure candidate
 
 The final independent deployed-artifact qualification test of v0.3.12 passed all six authored scenarios, replay, export, integrity, invalidation, release identity, claim-scope review, attribution review, and the original governance challenge.
@@ -48,7 +79,7 @@ The release structure remains:
 
 Release-state binding is an explicit workflow declaration. It is **not** authentication of an approver, a digital signature, proof that a human reviewed the content, GitHub branch protection, CI enforcement, or deployment enforcement.
 
-Current v0.3.12 control suites:
+v0.3.12 control suites (historical):
 
 - `tests/v0.3.12-regression.mjs`
 - `tests/v0.3.12-residual-fixtures.mjs`
